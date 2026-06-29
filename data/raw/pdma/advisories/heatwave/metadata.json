@@ -1,0 +1,23 @@
+[
+    {
+        "title": "Heatwave Advisory (06.06.2026)",
+        "date": "Jun 06, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/Heatwave%20Advisory%20%2806.06.2026%29.pdf",
+        "local_file": "data/raw/pdma/heatwave\\pdfs\\Heatwave%20Advisory%20%2806.06.2026%29.pdf"
+    },
+    {
+        "title": "PEOC_24 Heatwave Advisory",
+        "date": "May 21, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/PEOC_24_PDMA_Heatwave_Advisory_%2821.05.2026%29.pdf",
+        "local_file": "data/raw/pdma/heatwave\\pdfs\\PEOC_24_PDMA_Heatwave_Advisory_%2821.05.2026%29.pdf"
+    },
+    {
+        "title": "PEOC_20_PDMA_Heatwave _Advisory_(06.05.2026)",
+        "date": "May 06, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/PEOC_20_PDMA_Heatwave%20_Advisory_%2806.05.2026%29.pdf",
+        "local_file": "data/raw/pdma/heatwave\\pdfs\\PEOC_20_PDMA_Heatwave%20_Advisory_%2806.05.2026%29.pdf"
+    }
+]

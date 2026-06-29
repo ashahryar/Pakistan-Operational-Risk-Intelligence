@@ -1,0 +1,86 @@
+[
+    {
+        "title": "Weather Advisory",
+        "date": "Jun 15, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/PEOC_33_Weather_Advisory.pdf",
+        "local_file": "data/raw/pdma/weather\\pdfs\\PEOC_33_Weather_Advisory.pdf"
+    },
+    {
+        "title": "Weather Advisory",
+        "date": "Jun 10, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/Weather%20Advisory%20%2810.06.2026%29.pdf",
+        "local_file": "data/raw/pdma/weather\\pdfs\\Weather%20Advisory%20%2810.06.2026%29.pdf"
+    },
+    {
+        "title": "PEOC_27 Weather Advisory",
+        "date": "Jun 01, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/PEOC_27_PDMA_Weather_Advisory_%2801.06.2026%29.pdf",
+        "local_file": "data/raw/pdma/weather\\pdfs\\PEOC_27_PDMA_Weather_Advisory_%2801.06.2026%29.pdf"
+    },
+    {
+        "title": "PEOC_22 Weather Advisory",
+        "date": "May 18, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/PEOC_22_PDMA_Weather_Advisory_%2818.05.2026%29_0.pdf",
+        "local_file": "data/raw/pdma/weather\\pdfs\\PEOC_22_PDMA_Weather_Advisory_%2818.05.2026%29_0.pdf"
+    },
+    {
+        "title": "PEOC_22_PDMA_Weather_Advisory_(18.05.2026)",
+        "date": "May 18, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/PEOC_22_PDMA_Weather_Advisory_%2818.05.2026%29.pdf",
+        "local_file": "data/raw/pdma/weather\\pdfs\\PEOC_22_PDMA_Weather_Advisory_%2818.05.2026%29.pdf"
+    },
+    {
+        "title": "PEOC_21 Weather Advisory",
+        "date": "May 09, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/PEOC_21_PDMA_Weather_Advisory_%2809.05.2026%29.pdf",
+        "local_file": "data/raw/pdma/weather\\pdfs\\PEOC_21_PDMA_Weather_Advisory_%2809.05.2026%29.pdf"
+    },
+    {
+        "title": "PEOC_19_PDMA_Seasonal_Weather_Outlook_(05.05.2026)",
+        "date": "May 05, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/PEOC_19_PDMA_Seasonal_Weather_Outlook_%2805.05.2026%29_0.pdf",
+        "local_file": "data/raw/pdma/weather\\pdfs\\PEOC_19_PDMA_Seasonal_Weather_Outlook_%2805.05.2026%29_0.pdf"
+    },
+    {
+        "title": "PEOC_18_PDMA_Weather_Advisory_(01.05.2026)",
+        "date": "May 01, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/PEOC_18_PDMA_Weather_Advisory_%2801.05.2026%29.pdf",
+        "local_file": "data/raw/pdma/weather\\pdfs\\PEOC_18_PDMA_Weather_Advisory_%2801.05.2026%29.pdf"
+    },
+    {
+        "title": "PEOC_17_PDMA_Weather_Advisory_(27.04.2026)",
+        "date": "Apr 27, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/PEOC_17_PDMA_Weather_Advisory_%2827.04.2026%29.pdf",
+        "local_file": "data/raw/pdma/weather\\pdfs\\PEOC_17_PDMA_Weather_Advisory_%2827.04.2026%29.pdf"
+    },
+    {
+        "title": "PEOC_16_PDMA_Weather_Advisory_(13.04.2026)",
+        "date": "Apr 13, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/PEOC_16_PDMA_Weather_Advisory_%2813.04.2026%29.pdf",
+        "local_file": "data/raw/pdma/weather\\pdfs\\PEOC_16_PDMA_Weather_Advisory_%2813.04.2026%29.pdf"
+    },
+    {
+        "title": "PEOC_15_PDMA_Weather_Advisory_(04.04.2026)",
+        "date": "Apr 04, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/PEOC_15_PDMA_Weather_Advisory_%2804.04.2026%29.pdf",
+        "local_file": "data/raw/pdma/weather\\pdfs\\PEOC_15_PDMA_Weather_Advisory_%2804.04.2026%29.pdf"
+    },
+    {
+        "title": "PEOC_13_PDMA_Weather_Advisory_(30.03.2026)",
+        "date": "Mar 30, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/PEOC_13_PDMA_Weather_Advisory_%2830.03.2026%29.pdf",
+        "local_file": "data/raw/pdma/weather\\pdfs\\PEOC_13_PDMA_Weather_Advisory_%2830.03.2026%29.pdf"
+    }
+]

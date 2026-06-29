@@ -1,0 +1,23 @@
+[
+    {
+        "title": "FLASH FLOOD ALERT",
+        "date": "Jun 16, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/PEOC_34%20FLASH%20FLOOD%20ALERT%20%2816.06.2026%29.pdf",
+        "local_file": "data/raw/pdma/flood\\pdfs\\PEOC_34%20FLASH%20FLOOD%20ALERT%20%2816.06.2026%29.pdf"
+    },
+    {
+        "title": "PEOC_23 Flood Alert",
+        "date": "May 20, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/PEOC_23_PDMA_Flood_Alert_%2820.05.2026%29.pdf",
+        "local_file": "data/raw/pdma/flood\\pdfs\\PEOC_23_PDMA_Flood_Alert_%2820.05.2026%29.pdf"
+    },
+    {
+        "title": "PEOC_14_PDMA_FLASH FLOOD ALERT_(31.03.2026)",
+        "date": "Mar 31, 2026",
+        "category": "Heatwave",
+        "pdf_url": "https://pdma.punjab.gov.pk/system/files/PEOC_14_PDMA_FLASH%20FLOOD%20ALERT_%2831.03.2026%29.pdf",
+        "local_file": "data/raw/pdma/flood\\pdfs\\PEOC_14_PDMA_FLASH%20FLOOD%20ALERT_%2831.03.2026%29.pdf"
+    }
+]
