@@ -1,0 +1,178 @@
+[
+    {
+        "province": "GB",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_full": "10",
+        "houses_partial": "5",
+        "houses_total": "15",
+        "livestock": "0",
+        "report_date": "27 June 2026",
+        "report_number": "02"
+    },
+    {
+        "province": "KP",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_full": "0",
+        "houses_partial": "1",
+        "houses_total": "1",
+        "livestock": "0",
+        "report_date": "27 June 2026",
+        "report_number": "02"
+    },
+    {
+        "province": "Balochistan",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_full": "2",
+        "houses_partial": "2",
+        "houses_total": "4",
+        "livestock": "0",
+        "report_date": "27 June 2026",
+        "report_number": "02"
+    },
+    {
+        "province": "Grand Total",
+        "roads_km": "0",
+        "bridges": "0",
+        "houses_full": "12",
+        "houses_partial": "8",
+        "houses_total": "20",
+        "livestock": "0",
+        "report_date": "27 June 2026",
+        "report_number": "02"
+    },
+    {
+        "province": "GB",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_full": "20",
+        "houses_partial": "10",
+        "houses_total": "30",
+        "livestock": "0",
+        "report_date": "28 June 2026",
+        "report_number": "03"
+    },
+    {
+        "province": "KP",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_full": "1",
+        "houses_partial": "1",
+        "houses_total": "2",
+        "livestock": "0",
+        "report_date": "28 June 2026",
+        "report_number": "03"
+    },
+    {
+        "province": "Balochistan",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_full": "2",
+        "houses_partial": "2",
+        "houses_total": "4",
+        "livestock": "0",
+        "report_date": "28 June 2026",
+        "report_number": "03"
+    },
+    {
+        "province": "Grand Total",
+        "roads_km": "0",
+        "bridges": "0",
+        "houses_full": "23",
+        "houses_partial": "13",
+        "houses_total": "36",
+        "livestock": "0",
+        "report_date": "28 June 2026",
+        "report_number": "03"
+    },
+    {
+        "province": "GB",
+        "roads_km": "0.3",
+        "bridges": "1",
+        "houses_full": "20",
+        "houses_partial": "10",
+        "houses_total": "30",
+        "livestock": "0",
+        "report_date": "29 June 2026",
+        "report_number": "04"
+    },
+    {
+        "province": "KP",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_full": "1",
+        "houses_partial": "1",
+        "houses_total": "2",
+        "livestock": "0",
+        "report_date": "29 June 2026",
+        "report_number": "04"
+    },
+    {
+        "province": "Balochistan",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_full": "2",
+        "houses_partial": "2",
+        "houses_total": "4",
+        "livestock": "0",
+        "report_date": "29 June 2026",
+        "report_number": "04"
+    },
+    {
+        "province": "Grand Total",
+        "roads_km": "0.3",
+        "bridges": "1",
+        "houses_full": "23",
+        "houses_partial": "13",
+        "houses_total": "36",
+        "livestock": "0",
+        "report_date": "29 June 2026",
+        "report_number": "04"
+    },
+    {
+        "province": "GB",
+        "roads_km": "0.3",
+        "bridges": "1",
+        "houses_full": "20",
+        "houses_partial": "10",
+        "houses_total": "30",
+        "livestock": "0",
+        "report_date": "30 June 2026",
+        "report_number": "05"
+    },
+    {
+        "province": "KP",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_full": "1",
+        "houses_partial": "1",
+        "houses_total": "2",
+        "livestock": "0",
+        "report_date": "30 June 2026",
+        "report_number": "05"
+    },
+    {
+        "province": "Balochistan",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_full": "2",
+        "houses_partial": "2",
+        "houses_total": "4",
+        "livestock": "0",
+        "report_date": "30 June 2026",
+        "report_number": "05"
+    },
+    {
+        "province": "Grand Total",
+        "roads_km": "0.3",
+        "bridges": "1",
+        "houses_full": "23",
+        "houses_partial": "13",
+        "houses_total": "36",
+        "livestock": "0",
+        "report_date": "30 June 2026",
+        "report_number": "05"
+    }
+]

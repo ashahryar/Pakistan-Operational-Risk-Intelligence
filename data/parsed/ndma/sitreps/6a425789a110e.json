@@ -1,0 +1,884 @@
+{
+    "source": "NDMA",
+    "report_type": "sitrep",
+    "filename": "6a425789a110e.pdf",
+    "pages": 15,
+    "parsed_at": "2026-07-02T14:47:04.173974",
+    "casualties": [
+        {
+            "province": "Punjab",
+            "deaths": "0",
+            "injured": "2"
+        },
+        {
+            "province": "KP",
+            "deaths": "0",
+            "injured": "3"
+        },
+        {
+            "province": "Sindh",
+            "deaths": "0",
+            "injured": "0"
+        },
+        {
+            "province": "Balochistan",
+            "deaths": "1",
+            "injured": "0"
+        },
+        {
+            "province": "GB",
+            "deaths": "0",
+            "injured": "0"
+        },
+        {
+            "province": "AJ&K",
+            "deaths": "0",
+            "injured": "0"
+        },
+        {
+            "province": "ICT",
+            "deaths": "0",
+            "injured": "0"
+        },
+        {
+            "province": "Grand Total",
+            "deaths": "1",
+            "injured": "5"
+        }
+    ],
+    "damage": [
+        {
+            "province": "GB",
+            "roads_km": "0.3",
+            "bridges": "1",
+            "houses_full": "20",
+            "houses_partial": "10",
+            "houses_total": "30",
+            "livestock": "0"
+        },
+        {
+            "province": "KP",
+            "roads_km": "-",
+            "bridges": "-",
+            "houses_full": "1",
+            "houses_partial": "1",
+            "houses_total": "2",
+            "livestock": "0"
+        },
+        {
+            "province": "Balochistan",
+            "roads_km": "-",
+            "bridges": "-",
+            "houses_full": "2",
+            "houses_partial": "2",
+            "houses_total": "4",
+            "livestock": "0"
+        },
+        {
+            "province": "Grand Total",
+            "roads_km": "0.3",
+            "bridges": "1",
+            "houses_full": "23",
+            "houses_partial": "13",
+            "houses_total": "36",
+            "livestock": "0"
+        }
+    ],
+    "relief": [
+        [
+            "Tents",
+            "0",
+            "0",
+            "0",
+            "0",
+            "91",
+            "0",
+            "0"
+        ],
+        [
+            "Ration Bags",
+            "0",
+            "0",
+            "0",
+            "0",
+            "62",
+            "0",
+            "0"
+        ],
+        [
+            "Blankets",
+            "0",
+            "0",
+            "0",
+            "0",
+            "92",
+            "0",
+            "0"
+        ],
+        [
+            "Sand Bags",
+            "0",
+            "0",
+            "0",
+            "0",
+            "1400",
+            "0",
+            "0"
+        ],
+        [
+            "Quilts / Sleeping Bags",
+            "0",
+            "0",
+            "0",
+            "0",
+            "55",
+            "0",
+            "0"
+        ],
+        [
+            "Gas Cylinder",
+            "0",
+            "0",
+            "0",
+            "0",
+            "10",
+            "0",
+            "0"
+        ],
+        [
+            "Mattress",
+            "0",
+            "0",
+            "0",
+            "0",
+            "18",
+            "0",
+            "0"
+        ],
+        [
+            "Kitchen sets",
+            "0",
+            "0",
+            "0",
+            "0",
+            "5",
+            "0",
+            "0"
+        ],
+        [
+            "Mosquito Nets",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Plastic Mats",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Hygiene Kits",
+            "0",
+            "0",
+            "0",
+            "0",
+            "35",
+            "0",
+            "0"
+        ],
+        [
+            "Jerry Can",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Tarpaulin",
+            "0",
+            "0",
+            "0",
+            "0",
+            "5",
+            "0",
+            "0"
+        ],
+        [
+            "Solar Panel",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Food Packs",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "De-Watering Pumps",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Gabions",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Charpai",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Stove",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Life Jacket",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Boat",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Meals",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Drinking Water Bottles",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Plastic Sheet",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Water Tank",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Generators",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Ration Bags (Tons)",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Medicine (KG)",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Water Cooler",
+            "0",
+            "0",
+            "0",
+            "0",
+            "7",
+            "0",
+            "0"
+        ],
+        [
+            "Filter Plant",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Solar Lamp",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Water (Tons)",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Milk (Tons)",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Portable Toilets",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Cereal (Tons)",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "First Aid Kit",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Towel",
+            "0",
+            "0",
+            "0",
+            "0",
+            "10",
+            "0",
+            "0"
+        ],
+        [
+            "Boats with OBM",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+        ],
+        [
+            "Tents",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Ration Bags",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Blankets",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Sand Bags",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Quilts / Sleeping Bags",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Gas Cylinder",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Mattress",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Kitchen sets",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Mosquito Nets",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Plastic Mats",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Hygiene Kits",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Jerry Can",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Tarpaulin",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Solar Panel",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Food Packs",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "De-Watering Pumps",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Gabions",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Charpai",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Stove",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Life Jacket",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Boat",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Meals",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Drinking Water Bottles",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Plastic Sheet",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Water Tank",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Generators",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Ration Bags (Tons)",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Medicine (KG)",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Water Cooler",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Filter Plant",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Solar Lamp",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Water (Tons)",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Milk (Tons)",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Portable Toilets",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Cereal (Tons)",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "First Aid Kit",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Towel",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ],
+        [
+            "Boats with OBM",
+            "-",
+            "30",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-"
+        ]
+    ],
+    "rescue": [
+        {
+            "province": "KP",
+            "operations": "2",
+            "rescued": "3"
+        },
+        {
+            "province": "Grand Total",
+            "operations": "2",
+            "rescued": "3"
+        }
+    ],
+    "report_number": "04",
+    "report_date": "29 June 2026",
+    "subject": "NDMA - Monsoon 2026 Daily Situation Report No. 04",
+    "raw_text": "MOST IMMEDIATE\nF.2 (E)/2026-NDMA (MW/SITREP-04)\nGovernment of Pakistan\nPrime Minister’s Office\nNational Disaster Management Authority (HQ)\nMain Murree Road Near ITP Office, Islamabad\nDated: 29 June 2026\nSubject:\nNDMA - Monsoon 2026 Daily Situation Report No. 04\nNDMA Monsoon 2026 Daily Situation Report No 04, covering period from 1300 hours\n28 June to 1300 hours 29 June 2026 alongwith following data as per Annexures as shown\nagainst each is enclosed:-\nSer\nDetail\nAnnexure\na.\nDaily SITREP\nA\nb.\nDams and Reservoirs Level\nB\nc.\nFlood Alert / River Flows\nC\nd.\nRainfall Recorded During Last 24 hours (0800-0800 hours each day)\nD\ne.\nFFD Discharge Report Recorded at 29 June 2026 12:00 PST\nE\n2.\nForwarded for information / necessary action, please.\n(Shahid Karim)\nActing Director (Response)\nTel No: 051-9030924\nFax No: 051-9030729\nTo: Secretary, Ministry of Interior (MoI), Islamabad\nSecretary, Ministry of Climate Change & Environmental Coordination (MoCC&EC), Islamabad\nSecretary, Ministry of National Health Services, Regulations & Coordination (MoNHSR&C), Isd\nSecretary, Ministry of National Food Security & Research (MoNFS&R), Islamabad\nSecretary, Ministry of Water Resources (MoWR), Islamabad\nSecretary, Ministry of Finance (MoF), Islamabad\nSecretary, Ministry of Economic Affairs Division (EAD), Islamabad\nSecretary, Ministry of Planning, Development & Special Initiatives (MoPD&SI), Islamabad\nSecretary, Ministry of Commerce, Islamabad\nSecretary, Ministry of Energy (Power Division), Islamabad\nSecretary, Ministry of Communications (MoCM), Islamabad\nSecretary, Ministry of Information Technology and Telecommunication (MoITT), Islamabad\nSecretary, Ministry of Railways (MoR), Islamabad\nSecretary, Ministry of Maritime Affairs (MoMA), Islamabad\nSecretary, Ministry of Science & Technology (MoST), Islamabad\nSecretary, Ministry of Foreign Affairs (MoFA), Islamabad\nSecretary, Ministry of Defence (MoD), Islamabad\nSecretary, Ministry of Defence Production (MoDP), Islamabad\nSecretary, Ministry of Housing & Works (MoH&W), Islamabad\nSecretary, Ministry of Poverty Alleviation & Social Safety (MoPA&SS), Islamabad\nSecretary, Ministry of Information & Broadcasting (MoIB), Islamabad\nPrincipal Information Officer, Press Information Department (PID), Islamabad\nDeputy Director (Control Room/NCIMC), Ministry of Interior, Islamabad\nChief Secretaries, All Provinces, GB and AJ&K\nSecretaries, Irrigation Departments, All Provincial Governments & GB\nSecretary, Irrigation & Small Dams Department, Government of AJ&K, Muzaffarabad\nProvincial Food Departments, All Provinces, GB & AJ&K\nIn-Charge Civil Defence, Provincial Governments, GB & AJ&K\nDirector General, Punjab PDMA, Lahore\nDirector General, Sindh PDMA, Karachi\nDirector General, KP PDMA, Peshawar\nDirector General, Balochistan PDMA, Quetta\nDirector General, SDMA, Muzaffarabad\nDirector General, GBDMA, Gilgit\nChief Commissioner, Islamabad Capital Territory\nDeputy Commissioner, Islamabad Capital Territory\nDirector General, Rescue 1122 Punjab, Lahore\nDirector General, Rescue 1122 Sindh, Karachi\nDirector General, Rescue 1122 KP, Peshawar\nDirector General, Rescue 1122 Balochistan, Quetta\nDirector General, Rescue 1122 AJ&K, Muzaffarabad\nDirector General, Rescue 1122 GB, Gilgit\nDirector General, Capital Emergency Services, CDA, Islamabad\nChairman, Federal Flood Commission (FFC), Islamabad\nChairman, WAPDA, Lahore\nGeneral Manager, Mangla Dam\nGeneral Manager, Tarbela Dam\nCommissioner, Pakistan Commission for Indus Waters (PCIW), Islamabad\nSenior Engineer (Operations), Indus River System Authority (IRSA), Islamabad\nDirector General, Pakistan Meteorological Department (PMD), Islamabad\nChief Meteorologist, Flood Forecasting Division (FFD), Lahore\nGeneral Manager (SACRED), SUPARCO, Islamabad\nDirector General, Geological Survey of Pakistan (GSP), Islamabad\nDirector General, Climate Change & Coastal Development, Government of Sindh, Karachi\nDirector General, Sindh Coastal Development Authority (SCDA), Karachi\nDirector General, Balochistan Coastal Development Authority (BCDA), Quetta\nChief Executive Officer, National Highway Authority (NHA), Islamabad\nChairman, Pakistan Telecommunications Authority (PTA), Islamabad\nChairman, National Electric Power Regulatory Authority (NEPRA), Islamabad\nManaging Director, Pakistan Tourism Development Corporation (PTDC), Islamabad\nManaging Director, National Transmission & Dispatch Company (NTDC), Lahore\nDirector General, National Logistics Corporation (NLC), Rawalpindi\nManaging Director, National Telecommunication Corporation (NTC), Islamabad\nDivisional Superintendent, Pakistan Railways, Lahore\nDivisional Superintendent, Pakistan Railways, Karachi\nJoint Crisis Management Cell, Defence Forces Headquarters (DFH), Chaklala Cantt\nStaff Duties Directorate (SD Coord), General Headquarters, Rawalpindi\nMilitary Operations Directorate (MO-4), General Headquarters, Rawalpindi\nEngineers Directorate (Arms Branch), General Headquarters, Rawalpindi\nACNS (Operations), Naval Headquarters, Islamabad\nACAS (Operations), Air Headquarters, Islamabad\nHeadquarters Security Division, SPD (NURESC Directorate), Rawalpindi\nHeadquarters, Frontier Works Organization (FWO), Rawalpindi\nGSO-1, Inter Services Public Relations (ISPR), General Headquarters, Rawalpindi\nDirector General (Policy Matters), Inter-Services Intelligence (ISI), Islamabad\nHeadquarters, Pakistan Maritime Security Agency (PMSA), Karachi\nDirector General, Pakistan Civil Aviation Authority (PCAA), Karachi\nDirector General, Pakistan Airports Authority (PAA), Karachi\nHeadquarters, Pakistan Coast Guards (PCG), Karachi\nInspector General, National Highways & Motorway Police (NH&MP), Islamabad\nSecretary, Pakistan Boy Scouts Association, Islamabad\nSecretary, Pakistan Girl Guides Association, Islamabad\nCountry Head, UNOCHA, Islamabad\nCountry Coordinator, Pakistan Humanitarian Forum (PHF), Islamabad\nChairperson, National Humanitarian Network (NHN), Islamabad\nCc: Additional Secretary-I to Prime Minister, Prime Minister's Office, Islamabad\nSecretary, Cabinet Division, Islamabad\nID:\nCOS\nMember (Ops)\nMember (DRR)\nMember (A&F)\nDG Estb\nED Plans\nED IC\nED RM&M\nED IA&PD\nED NIDM\nED Tech (E&M)\nED Tech 1\nED Tech 2\nED NR\nED RF\nED CoE\nDir C&P\nDir Log\nDir R&R\nDD (Coord), NEOC\nMonsoon Sitrep 2026 # 4 - (29 June 2026)\n1. Casualties and Injuries (Last 24 Hours)\nDeceased\nNTR\nInjured\nNTR\nCumulative Casualties And Injuries - (From 26 June 2026 to 29 June 2026)\nDeceased & Injured\n3\n2.5\n2\n1.5\n1\n0.5\n0\n0\n0\n0\n1\n0\n0\n0\n2\n3\n0\n0\n0\n0\n0\nPunjab\nKP\nSindh\nBalochistan\nGB\nAJ&K\nICT\nDeceased\nInjured\nProvince\nDeceased\nInjured\nMale\nFemale\nChildren\nTotal\nMale\nFemale\nChildren\nTotal\nPunjab\n0\n0\n0\n0\n2\n0\n0\n2\nKP\n0\n0\n0\n0\n0\n2\n1\n3\nSindh\n0\n0\n0\n0\n0\n0\n0\n0\nBalochistan\n0\n1\n0\n1\n0\n0\n0\n0\nGB\n0\n0\n0\n0\n0\n0\n0\n0\nAJ&K\n0\n0\n0\n0\n0\n0\n0\n0\nICT\n0\n0\n0\n0\n0\n0\n0\n0\nGrand Total\n0\n1\n0\n1\n2\n2\n1\n5\n2. Damage to Infrastructure & Private Property (Last 24 Hours)\nHouses Damage and Livestock\nNTR\nRoads Damaged\nCauses of Death\nHouse Collapse\nProvince\nDistrict\nRoads / Tracks\nLength of road damage (Kms)\nNature/ extent of damage (fully/ partially washed away/ water over flow)\nTraffic situation (Alternate route/ diversion available)\nGB\nSkardu\n0.3\nPartially Damaged\nMouza Dasu and Mouza Tormik disconnected\nTotal\n0.3\n-\n-\nGrand Total\n0.3\n-\n-\nGB: On dated 28th June 2026, due to the exceptionally high flow of water in Tormik Nala, in district Skardu approximately 300 feet of the Tormik Jeep Able Road in Mouza Dasu has been eroded. As a\nresult, the road link between Mouza Dasu and Mouza Tormik has been disconnected. Action: C&W field formation and an excavator currently deployed at site for restoration work.\nBridges Damaged\nProvince\nDistrict\nBridges\nNature/ Extent of Damage fully/ partially washed away/ water over flow\nGB\nSkardu\n1 X Wooden Suspension Bridge fully washed away\nTotal\n1\nTotal\n1\nGB: On dated 28th June 2026, Ganji Bala Suspension Truss Bridge in Ganji Bala, Roundu, has been completely washed away due to high water flow in the nullah in district Skardu. Action: C&W\nDepartment has been informed and teams have been mobilized for early restoration of the bridge.\nCumulative Damages of Infrastructure & Private Properties - (From 26 June 2026 to 29 June 2026)\nCumulative House Damaged\n20\n15\n10\n5\n0\n10\n1\n2\n20\n1\n2\nGB\nKP\nBalochistan\nPartial\nFull\nProvince\nRoads (KMs)\nBridges\nHouse Damage\nLivestock Perished\nFull\nPartial\nTotal\nGB\n0.3\n1\n20\n10\n30\n0\nKP\n-\n-\n1\n1\n2\n0\nBalochistan\n-\n-\n2\n2\n4\n0\nGrand Total\n0.3\n1\n23\n13\n36\n0\n3. Flood Relief Activities (Last 24 Hours)\nFlood Items\nGB\nTotal\nTents\n15\n15\nRation Bags\n25\n25\nBlankets\n50\n50\nSand Bags\n-\n0\nQuilts / Sleeping Bags\n50\n50\nGas Cylinder\n-\n0\nMattress\n-\n0\nKitchen sets\n5\n5\nMosquito Nets\n-\n0\nPlastic Mats\n-\n0\nHygiene Kits\n25\n25\nJerry Can\n-\n0\nTarpaulin\n-\n0\nSolar Panel\n-\n0\nFood Packs\n-\n0\nDe-Watering Pumps\n-\n0\nGabions\n-\n0\nCharpai\n-\n0\nStove\n-\n0\nLife Jacket\n-\n0\nBoat\n-\n0\nMeals\n-\n0\nFlood Items\nGB\nTotal\nDrinking Water Bottles\n-\n0\nPlastic Sheet\n-\n0\nWater Tank\n-\n0\nGenerators\n-\n0\nRation Bags (Tons)\n-\n0\nMedicine (KG)\n-\n0\nWater Cooler\n-\n0\nFilter Plant\n-\n0\nSolar Lamp\n-\n0\nWater (Tons)\n-\n0\nMilk (Tons)\n-\n0\nPortable Toilets\n-\n0\nCereal (Tons)\n-\n0\nFirst Aid Kit\n-\n0\nTowel\n10\n10\nBoats with OBM\n-\n0\nGrand Total\n180\n180\nGB, Diamer: DDMA Diamer has provided the above relief items to the flood affectees of Thore valley in District Diamer.\nCumulative Flood Relief Activities - (From 26 June 2026 to 29 June 2026)\nFlood Activity Item\nPunjab\nKP\nSindh\nBalochistan\nGB\nAJ&K\nICT\nTents\n0\n0\n0\n0\n91\n0\n0\nRation Bags\n0\n0\n0\n0\n62\n0\n0\nBlankets\n0\n0\n0\n0\n92\n0\n0\nSand Bags\n0\n0\n0\n0\n1400\n0\n0\nQuilts / Sleeping Bags\n0\n0\n0\n0\n55\n0\n0\nGas Cylinder\n0\n0\n0\n0\n10\n0\n0\nMattress\n0\n0\n0\n0\n18\n0\n0\nKitchen sets\n0\n0\n0\n0\n5\n0\n0\nFlood Activity Item\nPunjab\nKP\nSindh\nBalochistan\nGB\nAJ&K\nICT\nMosquito Nets\n0\n0\n0\n0\n0\n0\n0\nPlastic Mats\n0\n0\n0\n0\n0\n0\n0\nHygiene Kits\n0\n0\n0\n0\n35\n0\n0\nJerry Can\n0\n0\n0\n0\n0\n0\n0\nTarpaulin\n0\n0\n0\n0\n5\n0\n0\nSolar Panel\n0\n0\n0\n0\n0\n0\n0\nFood Packs\n0\n0\n0\n0\n0\n0\n0\nDe-Watering Pumps\n0\n0\n0\n0\n0\n0\n0\nGabions\n0\n0\n0\n0\n0\n0\n0\nCharpai\n0\n0\n0\n0\n0\n0\n0\nStove\n0\n0\n0\n0\n0\n0\n0\nLife Jacket\n0\n0\n0\n0\n0\n0\n0\nBoat\n0\n0\n0\n0\n0\n0\n0\nMeals\n0\n0\n0\n0\n0\n0\n0\nDrinking Water Bottles\n0\n0\n0\n0\n0\n0\n0\nPlastic Sheet\n0\n0\n0\n0\n0\n0\n0\nWater Tank\n0\n0\n0\n0\n0\n0\n0\nGenerators\n0\n0\n0\n0\n0\n0\n0\nRation Bags (Tons)\n0\n0\n0\n0\n0\n0\n0\nMedicine (KG)\n0\n0\n0\n0\n0\n0\n0\nWater Cooler\n0\n0\n0\n0\n7\n0\n0\nFilter Plant\n0\n0\n0\n0\n0\n0\n0\nSolar Lamp\n0\n0\n0\n0\n0\n0\n0\nWater (Tons)\n0\n0\n0\n0\n0\n0\n0\nMilk (Tons)\n0\n0\n0\n0\n0\n0\n0\nPortable Toilets\n0\n0\n0\n0\n0\n0\n0\nCereal (Tons)\n0\n0\n0\n0\n0\n0\n0\nFirst Aid Kit\n0\n0\n0\n0\n0\n0\n0\nTowel\n0\n0\n0\n0\n10\n0\n0\nBoats with OBM\n0\n0\n0\n0\n0\n0\n0\nCumulative Federal Support\nRelief Items\nPunjab\nKP\nSindh\nBalochistan\nGB\nAJ&K\nICT\nTents\n-\n-\n-\n-\n-\n-\n-\nRation Bags\n-\n-\n-\n-\n-\n-\n-\nBlankets\n-\n-\n-\n-\n-\n-\n-\nSand Bags\n-\n-\n-\n-\n-\n-\n-\nQuilts / Sleeping Bags\n-\n-\n-\n-\n-\n-\n-\nGas Cylinder\n-\n-\n-\n-\n-\n-\n-\nMattress\n-\n-\n-\n-\n-\n-\n-\nKitchen sets\n-\n-\n-\n-\n-\n-\n-\nMosquito Nets\n-\n-\n-\n-\n-\n-\n-\nPlastic Mats\n-\n-\n-\n-\n-\n-\n-\nHygiene Kits\n-\n-\n-\n-\n-\n-\n-\nJerry Can\n-\n-\n-\n-\n-\n-\n-\nTarpaulin\n-\n-\n-\n-\n-\n-\n-\nSolar Panel\n-\n-\n-\n-\n-\n-\n-\nFood Packs\n-\n-\n-\n-\n-\n-\n-\nDe-Watering Pumps\n-\n-\n-\n-\n-\n-\n-\nGabions\n-\n-\n-\n-\n-\n-\n-\nCharpai\n-\n-\n-\n-\n-\n-\n-\nStove\n-\n-\n-\n-\n-\n-\n-\nLife Jacket\n-\n-\n-\n-\n-\n-\n-\nBoat\n-\n-\n-\n-\n-\n-\n-\nMeals\n-\n-\n-\n-\n-\n-\n-\nDrinking Water Bottles\n-\n-\n-\n-\n-\n-\n-\nPlastic Sheet\n-\n-\n-\n-\n-\n-\n-\nWater Tank\n-\n-\n-\n-\n-\n-\n-\nGenerators\n-\n-\n-\n-\n-\n-\n-\nRation Bags (Tons)\n-\n-\n-\n-\n-\n-\n-\nMedicine (KG)\n-\n-\n-\n-\n-\n-\n-\nWater Cooler\n-\n-\n-\n-\n-\n-\n-\nRelief Items\nPunjab\nKP\nSindh\nBalochistan\nGB\nAJ&K\nICT\nFilter Plant\n-\n-\n-\n-\n-\n-\n-\nSolar Lamp\n-\n-\n-\n-\n-\n-\n-\nWater (Tons)\n-\n-\n-\n-\n-\n-\n-\nMilk (Tons)\n-\n-\n-\n-\n-\n-\n-\nPortable Toilets\n-\n-\n-\n-\n-\n-\n-\nCereal (Tons)\n-\n-\n-\n-\n-\n-\n-\nFirst Aid Kit\n-\n-\n-\n-\n-\n-\n-\nTowel\n-\n-\n-\n-\n-\n-\n-\nBoats with OBM\n-\n30\n-\n-\n-\n-\n-\n4. Relief Camps & Medical Camp (Last 24 Hours)\nNTR\n5. Rescue Operations (Last 24 Hours)\nNTR\nCumulative State of Rescue Operations - (From 26 June 2026 to 29 June 2026)\nProvince\nNo. of Rescue Operation\nNo. of Person Rescued\nKP\n2\n3\nGrand Total\n2\n3\nAnnex - B\nAnnex - C\nAnnex - D\nAnnex - E",
+    "provinces": [
+        "Balochistan",
+        "GB",
+        "Islamabad",
+        "KP",
+        "Punjab",
+        "Sindh"
+    ],
+    "rivers": [
+        "Indus"
+    ],
+    "dams": [
+        "Mangla",
+        "Tarbela"
+    ],
+    "weather_events": [
+        "Flood",
+        "Rain"
+    ]
+}

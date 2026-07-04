@@ -1,0 +1,41 @@
+{
+    "pdf_name": "29%20May%202026_1000%20HRS.pdf",
+    "report_date": "29th MAY, 2026",
+    "report_time": "1000",
+    "forecast": "WEATHER FORECAST (24 HOURS) Friday \u00d8 Hot and dry weather is expected over most districts of the province. \u00d8 However, partly cloudy weather is likely in upper \u00d8 Jhelum & Sialkot (Airport & City) = Trace districts with rain-windstorm/thunderstorm at isolated places in Murree, Gulyat, Chakwal, Attock, Jhelum, Mangla, Sialkot, Narowal, Gujarat, Gujranwala, Mandi Bahauddin, Faisalabad, Jhang, Sahiwal, Bahawalnagar. DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status \u00d8 DG Khan = 47\u00b0C \u00d8 Bahawalpur = 45\u00b0C Tarbela \u00d8 Faisalabad = 45\u00b0C INDUS Dam 1550.00 1454.05 Normal \u00d8 Sahiwal = 44\u00b0C Mangla JHELUM 1242.00 1167.35 Normal \u00d8 Multan = 44\u00b0C Dam \u00d8 Attock = 44\u00b0C Bhakra SUTLEJ 1680.00 1582.36 Normal \u00d8 Sargodha = 44\u00b0C Dam \u00d8 Lahore = 42\u00b0C BEAS Pong Dam 1390.00 1331.57 Normal \u00d8 Jhelum = 40\u00b0C \u00d8 Chakwal = 40\u00b0C R A V I T h e i n D a m 1 7 3 2 . 0 0 1 690.65 Normal \u00d8 Rawalpindi = 40\u00b0C MCL* = Maximum Conservation Level \u00d8 Murree = 28\u00b0C According to Met Department; \u00d8 A general tendency for above-normal rainfall is anticipated across the country during May",
+    "temperature": {
+        "DG Khan": 47,
+        "Bahawalpur": 45,
+        "Faisalabad": 45,
+        "Sahiwal": 44,
+        "Multan": 44,
+        "Attock": 44,
+        "Sargodha": 44,
+        "Lahore": 42,
+        "Jhelum": 40,
+        "Chakwal": 40,
+        "Rawalpindi": 40,
+        "Murree": 28
+    },
+    "rainfall": {
+        "DG Khan": 47.0,
+        "Bahawalpur": 45.0,
+        "Faisalabad": 45.0,
+        "Sahiwal": 44.0,
+        "Multan": 44.0,
+        "Attock": 44.0,
+        "Sargodha": 44.0,
+        "Lahore": 42.0,
+        "Jhelum": 40.0,
+        "Chakwal": 40.0,
+        "Rawalpindi": 40.0,
+        "Murree": 28.0
+    },
+    "dams": [
+        {
+            "dam": "Pong Dam",
+            "status": "Normal"
+        }
+    ],
+    "created_at": "2026-07-04T15:26:55.164184"
+}

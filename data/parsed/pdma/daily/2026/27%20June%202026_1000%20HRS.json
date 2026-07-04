@@ -1,0 +1,43 @@
+{
+    "pdf_name": "27%20June%202026_1000%20HRS.pdf",
+    "report_date": "27th June, 2026",
+    "report_time": "1000",
+    "forecast": "WEATHER FORECAST (24 HOURS) Saturday \u00d8 Hot and dry weather is likely in most parts of the \u00d8 Bahawalnagar = 22 province. However, rain-windstorm/thunderstorm may \u00d8 Lahore (Airport) = 04 occur at isolated places in Murree, Galiyat, Jhelum, Attock, Rawalpindi, Mianwali, Lahore, Sheikhupura, \u00d8 Kasur = Trace Sialkot, Narowal, Hafizabad, Kasur, Dera Ghazi Khan, Taunsa, Layyah, Muzaffarghar, Faisalabad and surrounding areas. DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status \u00d8 Sahiwal = 42\u00b0C Tarbela \u00d8 Attock = 42\u00b0C INDUS Dam 1550.00 1445.06 Normal \u00d8 Multan = 42\u00b0C Mangla \u00d8 Jhelum = 42\u00b0C JHELUM 1242.00 1172.05 Normal Dam \u00d8 DG Khan = 41\u00b0C Bhakra \u00d8 Faisalabad = 41\u00b0C SUTLEJ 1680.00 1570.33 Normal Dam \u00d8 Bahawalpur = 41\u00b0C \u00d8 Sargodha = 40\u00b0C BEAS Pong Dam 1390.00 1323.44 Normal \u00d8 Chakwal = 39\u00b0C \u00d8 Rawalpindi = 38\u00b0C R A V I T h e i n D a m 1 7 3 2 . 0 0 1 664.84 Normal \u00d8 Lahore = 37\u00b0C \u00d8 Murree = 27\u00b0C MCL* = Maximum Conservation Level \u2022 Above-normal rainfall in northern areas of Punjab is likely to improve water availability, reducing reliance o",
+    "temperature": {
+        "Sahiwal": 42,
+        "Attock": 42,
+        "Multan": 42,
+        "Jhelum": 42,
+        "DG Khan": 41,
+        "Faisalabad": 41,
+        "Bahawalpur": 41,
+        "Sargodha": 40,
+        "Chakwal": 39,
+        "Rawalpindi": 38,
+        "Lahore": 37,
+        "Murree": 27
+    },
+    "rainfall": {
+        "Bahawalnagar": 22.0,
+        "Lahore (Airport)": 4.0,
+        "Sahiwal": 42.0,
+        "Attock": 42.0,
+        "Multan": 42.0,
+        "Jhelum": 42.0,
+        "DG Khan": 41.0,
+        "Faisalabad": 41.0,
+        "Bahawalpur": 41.0,
+        "Sargodha": 40.0,
+        "Chakwal": 39.0,
+        "Rawalpindi": 38.0,
+        "Lahore": 37.0,
+        "Murree": 27.0
+    },
+    "dams": [
+        {
+            "dam": "Pong Dam",
+            "status": "Normal"
+        }
+    ],
+    "created_at": "2026-07-04T15:26:43.854371"
+}

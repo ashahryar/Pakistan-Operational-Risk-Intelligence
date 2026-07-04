@@ -1,0 +1,39 @@
+{
+    "pdf_name": "30%20June%202026_1000%20HRS.pdf",
+    "report_date": "30th June, 2026",
+    "report_time": "1000",
+    "forecast": "WEATHER FORECAST (24 HOURS) Tuesday \u00d8 Very hot and dry weather is likely over most parts of the province, while very humid weather in plain areas. \u00d8 However, rain-wind/thunderstorm may occur at isolated NO RAINFALL HAS BEEN REPORTED IN ANY DISTRICT places in Faisalabad, Khanewal, Toba Tek Singh, Sialkot and Narowal during night. DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status \u00d8 Attock = 45\u00b0C \u00d8 Sargodha = 45\u00b0C INDUS Tarbela 1550.00 1437.07 Normal Dam \u00d8 Bahawalpur = 43\u00b0C \u00d8 Sahiwal = 43\u00b0C Mangla JHELUM 1242.00 1166.05 Normal \u00d8 Chakwal = 43\u00b0C Dam \u00d8 DG Khan = 42\u00b0C Bhakra SUTLEJ 1680.00 1561.26 Normal \u00d8 Faisalabad = 42\u00b0C Dam \u00d8 Jhelum = 44\u00b0C BEAS Pong Dam 1390.00 1320.37 Normal \u00d8 Lahore = 42\u00b0C \u00d8 Multan = 41\u00b0C \u00d8 Rawalpindi 40\u00b0C R A V I T h e i n D a m 1 7 3 2 . 0 0 1 656.04 Normal \u00d8 Murree = 28\u00b0C MCL* = Maximum Conservation Level According to Met Department; Met office has informed that a westerly wave is likely to enter upper parts of the country from \u00d8 Near-normal to slightly below-normal 30th June (evening/night). Meanwhile, moi",
+    "temperature": {
+        "Attock": 45,
+        "Sargodha": 45,
+        "Bahawalpur": 43,
+        "Sahiwal": 43,
+        "Chakwal": 43,
+        "DG Khan": 42,
+        "Faisalabad": 42,
+        "Jhelum": 44,
+        "Lahore": 42,
+        "Multan": 41,
+        "Murree": 28
+    },
+    "rainfall": {
+        "Attock": 45.0,
+        "Sargodha": 45.0,
+        "Bahawalpur": 43.0,
+        "Sahiwal": 43.0,
+        "Chakwal": 43.0,
+        "DG Khan": 42.0,
+        "Faisalabad": 42.0,
+        "Jhelum": 44.0,
+        "Lahore": 42.0,
+        "Multan": 41.0,
+        "Murree": 28.0
+    },
+    "dams": [
+        {
+            "dam": "Pong Dam",
+            "status": "Normal"
+        }
+    ],
+    "created_at": "2026-07-04T15:26:58.549569"
+}

@@ -1,0 +1,54 @@
+{
+    "pdf_name": "28%20May%202026_1000%20HRS.pdf",
+    "report_date": "28th MAY, 2026",
+    "report_time": "1000",
+    "forecast": "WEATHER FORECAST (24 HOURS) Thursday \u00d8 Very hot and dry weather is expected over most districts of the province. \u00d8 Dust raising gusty winds are expected in upper districts \u00d8 Mangla = 01 during afternoon, while windstorm accompanied with isolated rain/thundershower may occur in Lahore, \u00d8 Jhelum & MB Din = Trace Hafizabad, Sheikhupura, Mandi Bahauddin, Gujranwala, Gujrat, Sialkot, Narowal and surrounding areas during night. Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current RIVERS DAMS Current Status (Feet) Filled Status \u00d8 Bahawalpur = 46\u00b0C \u00d8 Sargodha = 46\u00b0C \u00d8 DG Khan = 46\u00b0C INDUS Tarbela Dam 1550.00 1454.05 Normal \u00d8 Multan = 46\u00b0C JHELUM Mangla Dam 1242.00 1167.35 Normal \u00d8 Faisalabad = 45\u00b0C \u00d8 Sahiwal = 45\u00b0C SUTLEJ Bhakra Dam 1680.00 1582.36 Normal \u00d8 Jhelum = 44\u00b0C \u00d8 Lahore = 44\u00b0C BEAS Pong Dam 1390.00 1331.57 Normal \u00d8 Attock = 43\u00b0C \u00d8 Chakwal = 42\u00b0C R A V I T h e i n D a m 1732.00 1690.65 Normal \u00d8 Rawalpindi = 41\u00b0C MCL* = Maximum Conservation Level \u00d8 Murree = 29\u00b0C According to Met Department; \u00d8 A general tendency for above-normal rainfall is anticipated across the country during May Met office has informed tha",
+    "temperature": {
+        "Bahawalpur": 46,
+        "Sargodha": 46,
+        "DG Khan": 46,
+        "Multan": 46,
+        "Faisalabad": 45,
+        "Sahiwal": 45,
+        "Jhelum": 44,
+        "Lahore": 44,
+        "Attock": 43,
+        "Chakwal": 42,
+        "Rawalpindi": 41,
+        "Murree": 29
+    },
+    "rainfall": {
+        "Mangla": 1.0,
+        "Bahawalpur": 46.0,
+        "Sargodha": 46.0,
+        "DG Khan": 46.0,
+        "Multan": 46.0,
+        "Faisalabad": 45.0,
+        "Sahiwal": 45.0,
+        "Jhelum": 44.0,
+        "Lahore": 44.0,
+        "Attock": 43.0,
+        "Chakwal": 42.0,
+        "Rawalpindi": 41.0,
+        "Murree": 29.0
+    },
+    "dams": [
+        {
+            "dam": "Tarbela Dam",
+            "status": "Normal"
+        },
+        {
+            "dam": "Mangla Dam",
+            "status": "Normal"
+        },
+        {
+            "dam": "Bhakra Dam",
+            "status": "Normal"
+        },
+        {
+            "dam": "Pong Dam",
+            "status": "Normal"
+        }
+    ],
+    "created_at": "2026-07-04T15:26:50.817291"
+}

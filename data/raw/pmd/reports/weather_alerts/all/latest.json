@@ -1,0 +1,8 @@
+{
+    "source": "PMD",
+    "category": "weather_alerts",
+    "url": "https://www.pmd.gov.pk/en/latest-weather-alerts.php",
+    "scraped_at": "2026-07-02T00:17:48.992396",
+    "forecast": "",
+    "tables": []
+}

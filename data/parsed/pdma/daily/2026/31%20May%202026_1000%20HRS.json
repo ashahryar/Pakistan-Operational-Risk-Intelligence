@@ -1,0 +1,82 @@
+{
+    "pdf_name": "31%20May%202026_1000%20HRS.pdf",
+    "report_date": "31st MAY, 2026",
+    "report_time": "1000",
+    "forecast": "WEATHER FORECAST (24 HOURS) Sunday \u00d8 Lahore \u00d8 Hot and dry weather is likely over most districts of the \u2022 Nishtar town = 49, Airport = 41, province. \u2022 Johar Town = 38, Lakshmi Chowk = 31, \u00d8 While partly cloudy is likely in Murree & Galliyat. \u2022 Mughalpura = 31, Upper Mall = 29, \u00d8 However, partly cloudy weather with rain- \u2022 Tajpura = 27, Chowk Nakhuda = 25, windstorm/thunderstorm may also occur at isolated \u2022 Samnabad = 23, Pani wala talab = 22, places in Sahiwal, Bahawalnagar, Bahawalpur, Rahim \u2022 City = 21, Jail road = 21, Gulberg = 20, Yar Khan, Dera Ghazi Khan, Layyah, Bhakkar and \u2022 Iqbal Town = 20, Farukhabad = 19, Rajanpur during afternoon. \u2022 Saggian = 19, Gulshan e Ravi = 17, \u2022 Hdyara Defence Road = 15, Shadipura = 01 \u00d8 Chakwal = 37 \u00d8 Jhelum = 18 Weekly Dams Situation \u00d8 Gujrat \u2022 Bolay Chowk Disposal = 16, Jail chowk = 9, CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours \u2022 Head office = 05, City = 02, \u2022 Narowali Disposal = 01 MCL* Current RIVERS DAMS Current Status \u00d8 Gujranwala = 15 (Feet) Filled Status \u00d8 DG Khan = 47\u00b0C \u00d8 Kasur = 11 \u00d8 Bahawalpur = 46\u00b0C \u00d8 Multan = 45\u00b0C \u00d8 Narowal = 09 INDUS Tarbela Dam 1550.00 1450.95 Normal \u00d8 Sahiwal = 43\u00b0",
+    "temperature": {
+        "DG Khan": 47,
+        "Bahawalpur": 46,
+        "Multan": 45,
+        "Sahiwal": 43,
+        "Attock": 43,
+        "Faisalabad": 41,
+        "Jhelum": 41,
+        "Sargodha": 41,
+        "Chakwal": 41,
+        "Lahore": 40,
+        "Rawalpindi": 37,
+        "Murree": 27
+    },
+    "rainfall": {
+        "Nishtar town": 49.0,
+        "Airport": 5.0,
+        "Johar Town": 38.0,
+        "Lakshmi Chowk": 31.0,
+        "Mughalpura": 31.0,
+        "Upper Mall": 29.0,
+        "Tajpura": 27.0,
+        "Chowk Nakhuda": 25.0,
+        "Samnabad": 23.0,
+        "Pani wala talab": 22.0,
+        "City": 2.0,
+        "Jail road": 21.0,
+        "Gulberg": 20.0,
+        "Iqbal Town": 20.0,
+        "Farukhabad": 19.0,
+        "Saggian": 19.0,
+        "Gulshan e Ravi": 17.0,
+        "Hdyara Defence Road": 15.0,
+        "Shadipura": 1.0,
+        "Chakwal": 41.0,
+        "Jhelum": 41.0,
+        "Bolay Chowk Disposal": 16.0,
+        "Jail chowk": 9.0,
+        "Head office": 5.0,
+        "Narowali Disposal": 1.0,
+        "Gujranwala": 15.0,
+        "DG Khan": 47.0,
+        "Kasur": 11.0,
+        "Bahawalpur": 46.0,
+        "Multan": 45.0,
+        "Narowal": 9.0,
+        "Sahiwal": 43.0,
+        "Sialkot (City": 8.0,
+        "Attock": 43.0,
+        "Mangla": 7.0,
+        "Faisalabad": 41.0,
+        "MB Din": 6.0,
+        "Murree": 27.0,
+        "Sargodha": 41.0,
+        "Lahore": 40.0,
+        "Rawalpindi": 37.0
+    },
+    "dams": [
+        {
+            "dam": "Tarbela Dam",
+            "status": "Normal"
+        },
+        {
+            "dam": "Mangla Dam",
+            "status": "Normal"
+        },
+        {
+            "dam": "Bhakra Dam",
+            "status": "Normal"
+        },
+        {
+            "dam": "Pong Dam",
+            "status": "Normal"
+        }
+    ],
+    "created_at": "2026-07-04T15:27:05.385606"
+}

@@ -1,0 +1,47 @@
+{
+    "pdf_name": "20%20June%202026_1000%20HRS.pdf",
+    "report_date": "20th June, 2026",
+    "report_time": "1000",
+    "forecast": "WEATHER FORECAST (24 HOURS) Saturday \u00d8 Rain-windstorm/thunderstorm is expected at \u00d8 RY Khan = 19 \u00d8 Khanpur = 14 isolated places in Rawalpindi, Murree, Galiyat, \u00d8 Rawalpindi (Pirwadhai)= 04 Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, \u00d8 Gujranwala = 03 Gujranwala, Lahore, Sheikhupura, Sialkot, Narowal, \u00d8 DG Khan Sahiwal, Khushab, Bhakkar, Layyah, and Mianwali. \u2022 Fort Munro = 03, Marri = 01 \u00d8 Murree = 02 \u00d8 Layyah (Karor) = Trace \u00d8 Bahawalpur (City) = Trace DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status \u00d8 Bahawalpur = 40\u00b0C Tarbela \u00d8 DG Khan = 39\u00b0C INDUS Dam 1550.00 1445.06 Normal \u00d8 Sahiwal = 38\u00b0C Mangla \u00d8 Sargodha = 38\u00b0C JHELUM 1242.00 1172.05 Normal Dam \u00d8 Jhelum = 38\u00b0C Bhakra \u00d8 Multan = 38\u00b0C SUTLEJ 1680.00 1570.33 Normal Dam \u00d8 Faisalabad = 37\u00b0C \u00d8 Lahore = 37\u00b0C BEAS Pong Dam 1390.00 1323.44 Normal \u00d8 Attock = 36\u00b0C \u00d8 Chakwal = 35\u00b0C R A V I T h e i n D a m 1 7 3 2 . 0 0 1 664.84 Normal \u00d8 Rawalpindi = 34\u00b0C \u00d8 Murree = 24\u00b0C MCL* = Maximum Conservation Level \u2022 Below-normal rainfall is likely to reduce water availability, increa",
+    "temperature": {
+        "Bahawalpur": 40,
+        "DG Khan": 39,
+        "Sahiwal": 38,
+        "Sargodha": 38,
+        "Jhelum": 38,
+        "Multan": 38,
+        "Faisalabad": 37,
+        "Lahore": 37,
+        "Attock": 36,
+        "Chakwal": 35,
+        "Rawalpindi": 34,
+        "Murree": 24
+    },
+    "rainfall": {
+        "RY Khan": 19.0,
+        "Khanpur": 14.0,
+        "Rawalpindi (Pirwadhai)": 4.0,
+        "Gujranwala": 3.0,
+        "Fort Munro": 3.0,
+        "Marri": 1.0,
+        "Murree": 24.0,
+        "Bahawalpur": 40.0,
+        "DG Khan": 39.0,
+        "Sahiwal": 38.0,
+        "Sargodha": 38.0,
+        "Jhelum": 38.0,
+        "Multan": 38.0,
+        "Faisalabad": 37.0,
+        "Lahore": 37.0,
+        "Attock": 36.0,
+        "Chakwal": 35.0,
+        "Rawalpindi": 34.0
+    },
+    "dams": [
+        {
+            "dam": "Pong Dam",
+            "status": "Normal"
+        }
+    ],
+    "created_at": "2026-07-04T15:26:10.697567"
+}

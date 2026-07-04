@@ -1,0 +1,55 @@
+{
+    "pdf_name": "23%20June%202026_1000%20HRS.pdf",
+    "report_date": "23rd June, 2026",
+    "report_time": "1000",
+    "forecast": "WEATHER FORECAST (24 HOURS) 08 AM (22.06.2026) till 08 AM (23.06.2026) Tuesday \u27a2 Layyah = 08 \u27a2 Rain-wind/thunderstorm may occur at isolated places \u27a2 DG Khan \u2022 Fort Munro = 07, City = Trace in Murree, Galiyat, Jhelum, Mandi Bahauddin, Gujrat, \u27a2 Multan Gujranwala, Lahore, Sheikhupura, Sialkot, Narowal, \u2022 Suraj Miani = 07, Airport = 04 Sargodha,Faisalabad,Khanewal. Hot and dry weather is \u2022 Chungi No.09 & Khan Village = 03 likely in other parts of the province. \u27a2 Kot Addu = 03 \u27a2 Rawalpindi \u2022 New Kattarian = 03, Pirwadhai = 02, \u2022 Shamsabad, Katcheri, Chaklala AP & \u2022 Gawalmandi = 01 DAILY DISCHARGE REPORT -0600Hrs \u27a2 Mangla = 02 Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES MaximumTemperaturesrecorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status \u27a2 Sahiwal = 39\u00b0C Tarbela INDUS 1550.00 1445.06 Normal \u27a2 Jhelum = 39\u00b0C Dam \u27a2 DG Khan = 38\u00b0C Mangla \u27a2 Sargodha = 38\u00b0C JHELUM 1242.00 1172.05 Normal Dam \u27a2 Bahawalpur = 37\u00b0C Bhakra \u27a2 Attock = 37\u00b0C SUTLEJ 1680.00 1570.33 Normal Dam \u27a2 Multan = 37\u00b0C \u27a2 Faisalabad = 37\u00b0C BEAS Pong Dam 1390.00 1323.44 Normal \u27a2 Lahore = 37\u00b0C \u27a2 Chakwal = 35\u00b0C RAVI Thein Dam 1732.00 1664.84 Normal \u27a2 Rawalpindi = 33\u00b0C \u27a2 Mur",
+    "temperature": {
+        "Sahiwal": 39,
+        "Jhelum": 39,
+        "DG Khan": 38,
+        "Sargodha": 38,
+        "Bahawalpur": 37,
+        "Attock": 37,
+        "Multan": 37,
+        "Faisalabad": 37,
+        "Lahore": 37,
+        "Chakwal": 35,
+        "Rawalpindi": 33,
+        "Murree": 22
+    },
+    "rainfall": {
+        "Layyah": 8.0,
+        "Fort Munro": 7.0,
+        "Suraj Miani": 7.0,
+        "Airport": 4.0,
+        "Khan Village": 3.0,
+        "Kot Addu": 3.0,
+        "New Kattarian": 3.0,
+        "Pirwadhai": 2.0,
+        "Gawalmandi": 1.0,
+        "Mangla": 2.0,
+        "Sahiwal": 39.0,
+        "Jhelum": 39.0,
+        "DG Khan": 38.0,
+        "Sargodha": 38.0,
+        "Bahawalpur": 37.0,
+        "Attock": 37.0,
+        "Multan": 37.0,
+        "Faisalabad": 37.0,
+        "Lahore": 37.0,
+        "Chakwal": 35.0,
+        "Rawalpindi": 33.0,
+        "Murree": 22.0
+    },
+    "dams": [
+        {
+            "dam": "Pong Dam",
+            "status": "Normal"
+        },
+        {
+            "dam": "Thein Dam",
+            "status": "Normal"
+        }
+    ],
+    "created_at": "2026-07-04T15:26:24.506730"
+}

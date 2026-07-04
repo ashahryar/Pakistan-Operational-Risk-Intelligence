@@ -1,0 +1,41 @@
+{
+    "pdf_name": "24%20June%202026_1000%20HRS.pdf",
+    "report_date": "24th June, 2026",
+    "report_time": "1000",
+    "forecast": "WEATHER FORECAST (24 HOURS) Wednesday \u00d8 Hot and dry weather is likely in most parts of the province. Isolated rain-wind/thunderstorm may occur \u00d8 RY Khan = 09 in Murree, Galiyat, Jhelum, Lahore, Sheikhupura, Sialkot, \u00d8 Khanpur = 01 Narowal and surrounding areas during afternoon. DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status \u00d8 Jhelum = 42\u00b0C \u00d8 Sahiwal = 41\u00b0C INDUS Tarbela 1550.00 1445.06 Normal Dam \u00d8 Sargodha = 41\u00b0C \u00d8 Bahawalpur = 40\u00b0C Mangla JHELUM 1242.00 1172.05 Normal \u00d8 DG Khan = 40\u00b0C Dam \u00d8 Multan = 40\u00b0C Bhakra SUTLEJ 1680.00 1570.33 Normal \u00d8 Attock = 40\u00b0C Dam \u00d8 Faisalabad = 39\u00b0C BEAS Pong Dam 1390.00 1323.44 Normal \u00d8 Lahore = 39\u00b0C \u00d8 Rawalpindi 37\u00b0C \u00d8 Chakwal = 37\u00b0C R A V I T h e i n D a m 1 7 3 2 . 0 0 1 664.84 Normal \u00d8 Murree = 24\u00b0C MCL* = Maximum Conservation Level \u2022 Below-normal rainfall is likely to reduce water availability, increasing reliance on stored water and groundwater for agriculture. \u2022 The reduced rainfall may fail to fulfill irrigation needs for seasonal vegetables and growing Kharif crops in Punjab, requ",
+    "temperature": {
+        "Jhelum": 42,
+        "Sahiwal": 41,
+        "Sargodha": 41,
+        "Bahawalpur": 40,
+        "DG Khan": 40,
+        "Multan": 40,
+        "Attock": 40,
+        "Faisalabad": 39,
+        "Lahore": 39,
+        "Chakwal": 37,
+        "Murree": 24
+    },
+    "rainfall": {
+        "RY Khan": 9.0,
+        "Khanpur": 1.0,
+        "Jhelum": 42.0,
+        "Sahiwal": 41.0,
+        "Sargodha": 41.0,
+        "Bahawalpur": 40.0,
+        "DG Khan": 40.0,
+        "Multan": 40.0,
+        "Attock": 40.0,
+        "Faisalabad": 39.0,
+        "Lahore": 39.0,
+        "Chakwal": 37.0,
+        "Murree": 24.0
+    },
+    "dams": [
+        {
+            "dam": "Pong Dam",
+            "status": "Normal"
+        }
+    ],
+    "created_at": "2026-07-04T15:26:30.003537"
+}

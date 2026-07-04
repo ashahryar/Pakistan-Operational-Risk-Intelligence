@@ -1,0 +1,48 @@
+{
+    "pdf_name": "17%20June%202026_1000%20HRS.pdf",
+    "report_date": "17th June, 2026",
+    "report_time": "1000",
+    "forecast": "WEATHER FORECAST (24 HOURS) Wednesday \u00d8 Scattered dust/windstorm & rain-thunderstorm \u00d8 DG Khan (isolated heavyfalls/hailstorm) is expected in Rawalpindi, \u2022 Fort Munro = 15, Vehova = 07, City = 01 Murree, Galliyat, Attock, Chakwal, Jhelum, Mandi \u00d8 Sialkot Bahauddin, Gujrat, Gujranwala, Hafizabad, Wazirabad, Lahore, Sheikhupura, Sialkot, Narowal, Sahiwal, Jhang, \u2022 City = 04 & Airport = 01 Toba Tek Singh, Pakpattan, Nankana Sahib, Chiniot, \u00d8 Jhelum & Khanewal = 03 Faisalabad, Okara, Kasur, Khushab, Sargodha, \u00d8 Murree, Chakwal, Gujrat = 02 Noorputhal, Bhakkar, Layyah Mianwali, Bahawalpur, \u00d8 Mangla, Kot Addu = 01 Bahawalnagar, D.G. Khan, Multan, Khanewal, Lodhran, \u00d8 R Y Khan, Khanpur = 01 Muzaffargarh, Rajanpur, Rahimyar Khan and Kot Addu. \u00d8 Rajanpur (Marri) = 01 \u00d8 Mandi Bahuddin, Layyah = Trace \u00d8 Kasur, Bahawalnagar = Trace DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status \u00d8 Bahawalpur = 41\u00b0C \u00d8 DG Khan = 41\u00b0C INDUS Tarbela 1550.00 1450.03 Normal Dam \u00d8 Multan = 40\u00b0C \u00d8 Sahiwal = 37\u00b0C Mangla JHELUM 1242.00 1172.10 Normal \u00d8 Faisalaba",
+    "temperature": {
+        "Bahawalpur": 41,
+        "DG Khan": 41,
+        "Multan": 40,
+        "Sahiwal": 37,
+        "Faisalabad": 37,
+        "Sargodha": 36,
+        "Jhelum": 33,
+        "Lahore": 36,
+        "Attock": 35,
+        "Chakwal": 34,
+        "Murree": 22
+    },
+    "rainfall": {
+        "Fort Munro": 15.0,
+        "Vehova": 7.0,
+        "City": 4.0,
+        "Airport": 1.0,
+        "Khanewal": 3.0,
+        "Gujrat": 2.0,
+        "Kot Addu": 1.0,
+        "Khanpur": 1.0,
+        "Rajanpur (Marri)": 1.0,
+        "Bahawalpur": 41.0,
+        "DG Khan": 41.0,
+        "Multan": 40.0,
+        "Sahiwal": 37.0,
+        "Faisalabad": 37.0,
+        "Sargodha": 36.0,
+        "Jhelum": 33.0,
+        "Lahore": 36.0,
+        "Attock": 35.0,
+        "Chakwal": 34.0,
+        "Murree": 22.0
+    },
+    "dams": [
+        {
+            "dam": "Pong Dam",
+            "status": "Normal"
+        }
+    ],
+    "created_at": "2026-07-04T15:26:02.019513"
+}

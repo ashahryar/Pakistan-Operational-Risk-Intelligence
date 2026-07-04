@@ -1,0 +1,42 @@
+{
+    "pdf_name": "Daily%20Situation%20Report%2011%20June%202026.pdf",
+    "report_date": "11th June, 2026",
+    "report_time": "1000",
+    "forecast": "WEATHER FORECAST (24 HOURS) Thursday \u00d8 Very hot and dry weather is expected in most districts of the province during daytime. Windstorm accompanied with isolated rain/thunderstorm is expected in \u00d8 Mianwali = 18 (Report by DEOC) Rawalpindi, Murree, Galliyat, Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, Gujranwala, Hafizabad, \u00d8 Chakwal = 01 Wazirabad, Lahore, Sheikhupura, Sialkot, Narowal, Sahiwal, Jhang, Toba Tek Singh, Nankana Sahib, Chiniot, \u00d8 MB Din = Trace Faisalabad, Okara, Kasur, Khushab, Sargodha, Noor Pur Thal, Layyah, Bhakkar, Mianwali, Bahawalnagar, Dera Ghazi Khan during evening/night. Isolated hailstorm/heavy rain may also occur during the period. DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status \u00d8 Sargodha = 45\u00b0C Tarbela INDUS 1550.00 1451.58 Normal \u00d8 Jhelum = 45\u00b0C Dam \u00d8 DG Khan = 45\u00b0C Mangla \u00d8 Attock = 44\u00b0C JHELUM Dam 1242.00 1169.90 Normal \u00d8 Sahiwal = 44\u00b0C Bhakra \u00d8 Lahore = 43\u00b0C SUTLEJ 1680.00 1580.42 Normal Dam \u00d8 Multan = 43\u00b0C \u00d8 Faisalabad = 43\u00b0C BEAS Pong Dam 1390.00 1330.39 Normal \u00d8 Bahawalpur = 43\u00b0C \u00d8 R",
+    "temperature": {
+        "Sargodha": 45,
+        "Jhelum": 45,
+        "DG Khan": 45,
+        "Attock": 44,
+        "Sahiwal": 44,
+        "Lahore": 43,
+        "Multan": 43,
+        "Faisalabad": 43,
+        "Bahawalpur": 43,
+        "Rawalpindi": 43,
+        "Chakwal": 41,
+        "Murree": 29
+    },
+    "rainfall": {
+        "Mianwali": 18.0,
+        "Chakwal": 41.0,
+        "Sargodha": 45.0,
+        "Jhelum": 45.0,
+        "DG Khan": 45.0,
+        "Attock": 44.0,
+        "Sahiwal": 44.0,
+        "Lahore": 43.0,
+        "Multan": 43.0,
+        "Faisalabad": 43.0,
+        "Bahawalpur": 43.0,
+        "Rawalpindi": 43.0,
+        "Murree": 29.0
+    },
+    "dams": [
+        {
+            "dam": "Pong Dam",
+            "status": "Normal"
+        }
+    ],
+    "created_at": "2026-07-04T15:27:26.926641"
+}

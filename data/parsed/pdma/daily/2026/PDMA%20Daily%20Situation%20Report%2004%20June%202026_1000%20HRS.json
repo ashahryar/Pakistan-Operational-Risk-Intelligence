@@ -1,0 +1,61 @@
+{
+    "pdf_name": "PDMA%20Daily%20Situation%20Report%2004%20June%202026_1000%20HRS.pdf",
+    "report_date": "4th JUNE, 2026",
+    "report_time": "1000",
+    "forecast": "WEATHER FORECAST (24 HOURS) Thursday \u00d8 Rawalpindi \u00d8 Partly cloudy weather expected in most upper/central \u2022 Shamsabad = 39, Gawalmandi = 28 districts of the province with scattered \u2022 New Kattarian = 26, Chaklala = 13 dust/thunderstorm-rain (with few heavyfalls and hailstorm) is expected in Rawalpindi, Murree, Galiyat, \u2022 Pirwadhai = 11 Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, \u00d8 Murree = 32 Gujranwala, Hafizabad, Wazirabad, Lahore, Sheikhupura, \u00d8 Kot Addu = 13 Sialkot, Narowal, Sahiwal, Jhang, Toba Tek Singh, \u00d8 DG Khan = 03 Nankana Sahib, Chiniot, Faisalabad, Okara, Kasur, \u00d8 Multan Khushab, Sargodha, Bhakkar, Mianwali, Dera Ghazi Khan, \u2022 City = 03 Multan, Rajanpur and Layyah. \u2022 Airport = Trace \u00d8 Jhelum = 02 \u00d8 Bahawalpur (Airport) = 02 Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current RIVERS DAMS Current Status (Feet) Filled Status \u00d8 DG Khan = 43\u00b0C \u00d8 Bahawalpur = 41\u00b0C \u00d8 Sahiwal = 41\u00b0C INDUS Tarbela Dam 1550.00 1450.95 Normal \u00d8 Multan = 41\u00b0C JHELUM Mangla Dam 1242.00 1167.80 Normal \u00d8 Sargodha = 41\u00b0C \u00d8 Attock = 41\u00b0C SUTLEJ Bhakra Dam 1680.00 1581.78 Normal \u00d8 Faisalabad = 40\u00b0C \u00d8 Jhelum = 40\u00b0C BEAS Pong",
+    "temperature": {
+        "DG Khan": 43,
+        "Bahawalpur": 41,
+        "Sahiwal": 41,
+        "Multan": 41,
+        "Sargodha": 41,
+        "Attock": 41,
+        "Faisalabad": 40,
+        "Jhelum": 40,
+        "Lahore": 39,
+        "Rawalpindi": 38,
+        "Chakwal": 35,
+        "Murree": 24
+    },
+    "rainfall": {
+        "Shamsabad": 39.0,
+        "Gawalmandi": 28.0,
+        "New Kattarian": 26.0,
+        "Chaklala": 13.0,
+        "Pirwadhai": 11.0,
+        "Murree": 24.0,
+        "Kot Addu": 13.0,
+        "DG Khan": 43.0,
+        "City": 3.0,
+        "Jhelum": 40.0,
+        "Bahawalpur (Airport)": 2.0,
+        "Bahawalpur": 41.0,
+        "Sahiwal": 41.0,
+        "Multan": 41.0,
+        "Sargodha": 41.0,
+        "Attock": 41.0,
+        "Faisalabad": 40.0,
+        "Lahore": 39.0,
+        "Rawalpindi": 38.0,
+        "Chakwal": 35.0
+    },
+    "dams": [
+        {
+            "dam": "Tarbela Dam",
+            "status": "Normal"
+        },
+        {
+            "dam": "Mangla Dam",
+            "status": "Normal"
+        },
+        {
+            "dam": "Bhakra Dam",
+            "status": "Normal"
+        },
+        {
+            "dam": "Pong Dam",
+            "status": "Normal"
+        }
+    ],
+    "created_at": "2026-07-04T15:27:43.890561"
+}

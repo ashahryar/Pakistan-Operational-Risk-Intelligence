@@ -1,0 +1,40 @@
+{
+    "pdf_name": "Daily%20Situation%20Report%2016%20June%202026.pdf",
+    "report_date": "16th June, 2026",
+    "report_time": "1000",
+    "forecast": "WEATHER FORECAST (24 HOURS) Tuesday \u00d8 Sialkot \u00d8 Mainly hot and dry weather is expected in most districts \u2022 Sialkot Cantt, City = 52, Airport = 38, of the province. However, rain-wind/thunderstorm is \u2022 Sambrial = 16, Daska = 12, Pasrur = 10 likely at isolated places in Murree, Galiyat, Jhelum, \u00d8 Attock = 18 Kasur, Multan, Rajanpur, Rahim Yar Khan, D.G. Khan and \u00d8 Faisalabad Bahawalpur during the afternoon. \u2022 WASA Office = 15, Gulistan Colony = 14, \u2022 Allama Iqbal Colony = 13, \u2022 Dogar Basti = 12, GMA Water Works = 11, Madina Town = 10, City = 03 DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation \u00d8 Sargodha (City) = 13 CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours \u00d8 Chakwal = 09 MCL* Current Current \u00d8 DG Khan (Fort Munro) = 08 RIVERS DAMS (Feet) Filled Status Status \u00d8 Gujrat = 07 Tarbela INDUS 1550.00 1450.03 Normal Dam \u00d8 Sahiwal & Murree = 05 Mangla JHELUM 1242.00 1172.10 Normal \u00d8 Hafizabad & Okara = 04 Dam \u00d8 Rajanpur (Marri) = 03 SUTLEJ Bhakra 1680.00 1576.22 Normal Dam \u00d8 Sheikhupura, Narowal = 01 BEAS Pong Dam 1390.00 1326.52 Normal \u00d8 Bhakkar, Gujranwala = 01 \u00d8 Rawalpindi R A V I T h e i n D a m 1 7 3 2 . 0 0 1 672.73 Normal \u2022 New K",
+    "temperature": {
+        "": 13
+    },
+    "rainfall": {
+        "City": 3.0,
+        "Airport": 38.0,
+        "Sambrial": 16.0,
+        "Daska": 12.0,
+        "Pasrur": 10.0,
+        "Attock": 18.0,
+        "WASA Office": 15.0,
+        "Gulistan Colony": 14.0,
+        "Allama Iqbal Colony": 13.0,
+        "Dogar Basti": 12.0,
+        "GMA Water Works": 11.0,
+        "Madina Town": 10.0,
+        "Sargodha (City)": 13.0,
+        "Chakwal": 9.0,
+        "DG Khan (Fort Munro)": 8.0,
+        "Gujrat": 7.0,
+        "Murree": 5.0,
+        "Okara": 4.0,
+        "Rajanpur (Marri)": 3.0,
+        "Narowal": 1.0,
+        "Gujranwala": 1.0,
+        "New Kattarian": 1.0
+    },
+    "dams": [
+        {
+            "dam": "Pong Dam",
+            "status": "Normal"
+        }
+    ],
+    "created_at": "2026-07-04T15:27:40.435785"
+}

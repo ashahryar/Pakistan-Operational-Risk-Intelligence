@@ -1,0 +1,45 @@
+{
+    "pdf_name": "Daily%20Situation%20Report%2014%20June%202026.pdf",
+    "report_date": "14th June, 2026",
+    "report_time": "1100",
+    "forecast": "WEATHER FORECAST (24 HOURS) 08 AM (13.06.2026) till 08 AM (14.06.2026) Sunday \u27a2 Hot and dry weather is expected inmostdistrictsofthe province. However, rain-wind/thunderstorm is expected \u2022 Murree = 3 mm inMurree,Galliyatandsurroundings. DAILY DISCHARGE REPORT -0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES MaximumTemperaturesrecorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status \u27a2 Bahawalpur = 40\u00b0C \u27a2 Sargodha = 36\u00b0C Tarbela INDUS 1550.00 1450.03 Normal \u27a2 Jhelum = 37\u00b0C \u27a2 Lahore = 35\u00b0C Dam Mangla JHELUM 1242.00 1172.10 Normal \u27a2 Sahiwal = 37\u00b0C \u27a2 Chakwal = 35\u00b0C Dam Bhakra \u27a2 Multan = 37\u00b0C \u27a2 Rawalpindi = 34\u00b0C SUTLEJ Dam 1680.00 1576.22 Normal \u27a2 Attock = 37\u00b0C \u27a2 Murree = 24\u00b0C BEAS Pong Dam 1390.00 1326.52 Normal \u27a2 DG Khan = 38\u00b0C RAVI Thein Dam 1732.00 1672.73 Normal \u27a2 Faisalabad = 37\u00b0C MCL* = Maximum Conservation Level MONTHLY RAINFALL OUTLOOK - JUNE POSSIBLE IMPACTS \u2022 Below-normal rainfall is likely to reduce water availability, increasing reliance on storedwaterandgroundwater for agriculture. \u2022 The reduced rainfall may fail to fulfill irrigation needs for seasonal vegetables and growing Kharif cropsinPunjab, requiring supplemen",
+    "temperature": {
+        "Bahawalpur": 40,
+        "Sargodha": 36,
+        "Jhelum": 37,
+        "Lahore": 35,
+        "Sahiwal": 37,
+        "Chakwal": 35,
+        "Multan": 37,
+        "Rawalpindi": 34,
+        "Attock": 37,
+        "Murree": 24,
+        "DG Khan": 38,
+        "Faisalabad": 37
+    },
+    "rainfall": {
+        "Murree": 24.0,
+        "Bahawalpur": 40.0,
+        "Sargodha": 36.0,
+        "Jhelum": 37.0,
+        "Lahore": 35.0,
+        "Sahiwal": 37.0,
+        "Chakwal": 35.0,
+        "Multan": 37.0,
+        "Rawalpindi": 34.0,
+        "Attock": 37.0,
+        "DG Khan": 38.0,
+        "Faisalabad": 37.0
+    },
+    "dams": [
+        {
+            "dam": "Pong Dam",
+            "status": "Normal"
+        },
+        {
+            "dam": "Thein Dam",
+            "status": "Normal"
+        }
+    ],
+    "created_at": "2026-07-04T15:27:36.093967"
+}

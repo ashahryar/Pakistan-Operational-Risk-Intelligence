@@ -1,0 +1,34 @@
+{
+    "pdf_name": "PDMA%20Daily%20Situation%20Report%2002%20July%202025_1400%20HRS.pdf",
+    "report_date": "1 JULY 2025",
+    "report_time": "1400",
+    "forecast": "WEATHER FORECAST (24 HOURS) Maximum Temperatures recorded in last 24 hours TUESDAY \u2022 Rain-wind/thundershower may occur \u00a7 Bahawalnagar = 41.5 oC at isolated places in Murree, Galiyat, \u00a7 Bhakkar = 41.5 oC Rawalpindi, Jhelum, Attock, Chakwal, \u2022 Karor (Layyah) = 41.2 oC Gujrat, Gujranwala, Sialkot, Narowal, \u2022 Noor pur thal = 41.0 oC Mandi Bahauddin, Hafizabad, Lahore, \u2022 RY Khan = 41.4 oC Multan and Bhakkar. \u2022 Bahawalpur City = 40.0 oC \u2022 Few heavyfalls is likely during the \u2022 Kot Addu = 40.0 oC period. \u2022 Jhang = 39.8 oC \u2022 Hot and humid weather is likely in \u2022 Sargodha City = 39.3 oC other districts of the province. WEATHER ADVISORY WEDNESDAY MONSOON RAINS PREDICTED IN THE COUNTRY FROM \u2022 Rain-wind/thundershower may occur 25TH JUNE, 2025 at isolated places in Murree, Galiyat, Stations Rainfall (mm) Met office informed on 23rd June 2025 that moist Rawalpindi, Jhelum, Attock, Chakwal, Moderate Rains with Isolated heavy currents are penetrating upper and central parts of the Gujrat, Gujranwala, Sialkot, Narowal, Shamsabad = 70, Chaklala = 55, country and likely to become intensified in next couple Rawalpindi Pirwidahi = 54, Katcheri = 38 falls are likely to continue over upper of days. A weste",
+    "temperature": {
+        "tributaries House damages": 30
+    },
+    "rainfall": {
+        "Bahawalnagar": 41.0,
+        "Bhakkar": 41.0,
+        "Karor (Layyah)": 41.0,
+        "Noor pur thal": 41.0,
+        "RY Khan": 41.0,
+        "Bahawalpur City": 40.0,
+        "Kot Addu": 40.0,
+        "Jhang": 39.0,
+        "Sargodha City": 39.0,
+        "Shamsabad": 70.0,
+        "Chaklala": 55.0,
+        "Rawalpindi Pirwidahi": 54.0,
+        "Katcheri": 38.0,
+        "Airport": 42.0,
+        "Pasrur": 20.0,
+        "City": 18.0,
+        "Sialkot Cantt": 17.0,
+        "Flows are likely to increase Deaths": 21.0,
+        "major rivers along with their Injuries": 63.0,
+        "tributaries House damages": 30.0,
+        "Cattle perished": 1.0
+    },
+    "dams": [],
+    "created_at": "2026-07-04T15:25:48.920461"
+}

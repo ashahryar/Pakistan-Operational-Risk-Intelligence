@@ -1,0 +1,39 @@
+{
+    "pdf_name": "19%20June%202026_1000%20HRS.pdf",
+    "report_date": "19th June, 2026",
+    "report_time": "1000",
+    "forecast": "WEATHER FORECAST (24 HOURS) Friday \u00d8 Faisalabad \u00d8 Scattered rain-duststorm/ thunderstorm (with few heavyfalls/hailstorm) is expected in Rawalpindi, Murree, \u2022 GMA Water Works = 67, Galiyat, Attock, Chakwal, Jhelum, Mandi Bahauddin, \u2022 Allama Iqbal Colony = 60 Gujrat, Gujranwala, Hafizabad, Wazirabad, Lahore, \u2022 Gulistan Colony OHR = 58, Sheikhupura, Sialkot, Narowal, Sahiwal, Jhang, Toba Tek Singh, Nankana Sahib, Chiniot, Faisalabad, Okara, Kasur, \u2022 WASA Head Office = 56 Khushab, Sargodha, Noor Pur Thal, Bhakkar, Layyah, \u2022 Dogar Basti OHR = 45, Mianwali, Bahawalpur, Bahawalnagar, Dera Ghazi Khan, \u2022 Madina Town Water Works= 43 Multan, Khanewal, Lodhran, Muzaffargarh, Rajanpur, \u00d8 Lahore Rahim Yar Khan, and Kot Addu. \u2022 Nishter Town = 25, Johar Town = 19, \u2022 Iqbal Town = 08, Upper Mall = 03, \u2022 Gulshan-e-Ravi, Saggian = 02, City = 01, DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation \u2022 Head Office WASA, Pani Wala Talab = 01, \u2022 Lakshmi Chowk, Mughalpuran = Trace, CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours \u2022 Tajpura, Jail Road, Chowk Nakhuda = Trace, MCL* Current Current \u2022 Samanabad, Hdyara Defense Road = Trace, RIVERS DAMS (Feet) Filled",
+    "temperature": {},
+    "rainfall": {
+        "GMA Water Works": 67.0,
+        "Allama Iqbal Colony": 60.0,
+        "Gulistan Colony OHR": 58.0,
+        "WASA Head Office": 56.0,
+        "Dogar Basti OHR": 45.0,
+        "Madina Town Water Works": 43.0,
+        "Nishter Town": 25.0,
+        "Johar Town": 19.0,
+        "Iqbal Town": 8.0,
+        "Upper Mall": 3.0,
+        "Saggian": 2.0,
+        "City": 1.0,
+        "Pani Wala Talab": 1.0,
+        "( City": 20.0,
+        "Airport": 7.0,
+        "Noor Pur Thal": 16.0,
+        "Khanpur": 15.0,
+        "Fort Munro": 11.0,
+        "Kot Addu": 10.0,
+        "Bahawalpurr (Airport)": 5.0,
+        "Sheikhupura": 4.0,
+        "Sahiwal": 3.0,
+        "Kasur": 1.0
+    },
+    "dams": [
+        {
+            "dam": "Pong Dam",
+            "status": "Normal"
+        }
+    ],
+    "created_at": "2026-07-04T15:26:09.215258"
+}

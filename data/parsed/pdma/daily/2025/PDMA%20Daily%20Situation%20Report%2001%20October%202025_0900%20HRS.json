@@ -1,0 +1,25 @@
+{
+    "pdf_name": "PDMA%20Daily%20Situation%20Report%2001%20October%202025_0900%20HRS.pdf",
+    "report_date": "01 OCTOBER 2025",
+    "report_time": "0900",
+    "forecast": "WEATHER FORECAST (24 HOURS) Maximum Temperatures recorded in last 24 hours \u00a7 Bhakkar = 40 oC \u00a7 Khanpur = 39 oC \u00a7 Joharabad = 39 oC \u00a7 Noor Pur Thal = 39 oC \u00a7 Narowal = 39 oC Wednesday \u00a7 Bahawalnagar = 39 oC \u00a7 Faisalabad = 39 oC \u00a7 Rahim Yar Khan = 39oC \u2022 Mainly hot and dry weather is \u00a7 Okara = 39 oC \u00a7 Kot Addu = 39 oC expected in most districts of the province. WEATHER ADVISORY \u2022 Isolated rain-wind/thunderstorm is likely in Bahawalnagar, Bahawalpur, RETREAT OF MONSOON 2025 FROM PAKISTAN R a h i m Y a r K h a n d u r i n g evening/night. According to Met office, monsoon 2025 has been retrieved from most parts of the country. No Significant Rainfall is expected up No significant weather is expected in most parts to 4th October. of the country in coming days. Hot and dry weather is expected in flood A freshly westerly weather system is affected areas of Punjab and Sindh during the next week. The night time temperature in likely to affect upper parts of the upper parts of the country are likely to country from 5th of October remain moderately be comfortable during the next week, while hot weather is expected in most plain areas of the country during day time. DATA SOURCE: JAXA SATELLITE,",
+    "temperature": {},
+    "rainfall": {
+        "Bhakkar": 40.0,
+        "Khanpur": 39.0,
+        "Joharabad": 39.0,
+        "Noor Pur Thal": 39.0,
+        "Narowal": 39.0,
+        "Bahawalnagar": 39.0,
+        "Faisalabad": 39.0,
+        "Rahim Yar Khan": 39.0,
+        "Okara": 39.0,
+        "Kot Addu": 39.0,
+        "Deaths": 186.0,
+        "Injured": 652.0,
+        "House damages": 238.0,
+        "Lightening Cattle perished": 121.0
+    },
+    "dams": [],
+    "created_at": "2026-07-04T15:25:44.770247"
+}
