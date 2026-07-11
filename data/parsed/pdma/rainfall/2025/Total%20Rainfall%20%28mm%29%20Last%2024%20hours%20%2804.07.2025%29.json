@@ -1,0 +1,46 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2804.07.2025%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2025",
+    "report_date": "03.07.2025",
+    "station_count": 9,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 9.0
+        },
+        {
+            "station": "Faisalabad",
+            "rainfall_mm": 33.0
+        },
+        {
+            "station": "Chakwal",
+            "rainfall_mm": 26.0
+        },
+        {
+            "station": "Kot Addu",
+            "rainfall_mm": 24.0
+        },
+        {
+            "station": "Toba Tek Singh",
+            "rainfall_mm": 11.0
+        },
+        {
+            "station": "Sialkot (City), Sheikhupura",
+            "rainfall_mm": 9.0
+        },
+        {
+            "station": "Mandi Bahauddin",
+            "rainfall_mm": 7.0
+        },
+        {
+            "station": "Hafizabad",
+            "rainfall_mm": 5.0
+        },
+        {
+            "station": "DG Khan",
+            "rainfall_mm": 3.0
+        }
+    ],
+    "created_at": "2026-07-11T09:11:49.881503"
+}

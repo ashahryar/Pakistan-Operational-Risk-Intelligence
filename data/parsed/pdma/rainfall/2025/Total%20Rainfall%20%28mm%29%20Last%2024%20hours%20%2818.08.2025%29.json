@@ -1,0 +1,82 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2818.08.2025%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2025",
+    "report_date": "17.08.2025",
+    "station_count": 18,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Mianwali",
+            "rainfall_mm": 85.0
+        },
+        {
+            "station": "Chakwal",
+            "rainfall_mm": 76.0
+        },
+        {
+            "station": "D G Khan",
+            "rainfall_mm": 62.0
+        },
+        {
+            "station": "Jhelum",
+            "rainfall_mm": 45.0
+        },
+        {
+            "station": "Narowal",
+            "rainfall_mm": 42.0
+        },
+        {
+            "station": "Bhakkar",
+            "rainfall_mm": 38.0
+        },
+        {
+            "station": "Mangla",
+            "rainfall_mm": 35.0
+        },
+        {
+            "station": "Noor Pur Thal",
+            "rainfall_mm": 27.0
+        },
+        {
+            "station": "Layyah (Karor)",
+            "rainfall_mm": 26.0
+        },
+        {
+            "station": "Mandi Bahauddin",
+            "rainfall_mm": 24.0
+        },
+        {
+            "station": "Attock",
+            "rainfall_mm": 23.0
+        },
+        {
+            "station": "Murree",
+            "rainfall_mm": 17.0
+        },
+        {
+            "station": "Jhang",
+            "rainfall_mm": 9.0
+        },
+        {
+            "station": "Joharabad",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Rawalpindi",
+            "rainfall_mm": 2.0
+        },
+        {
+            "station": "Sargodha (City)",
+            "rainfall_mm": 1.0
+        },
+        {
+            "station": "Rajanpur",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:12:09.202149"
+}

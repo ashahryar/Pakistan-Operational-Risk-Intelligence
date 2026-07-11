@@ -1,8 +1,10 @@
 {
-    "pdf_name": "Daily%20Situation%20Report%2005%20June%202026.pdf",
+    "source_file": "Daily%20Situation%20Report%2005%20June%202026.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
     "report_date": "5th JUNE, 2026",
     "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Friday \u00d8 Chakwal = 48 \u00d8 Partly cloudy weather expected in most upper/central \u00d8 Rawalpindi districts of the province with scattered \u2022 New Kattarian & Katcheri = 19 dust/thunderstorm-rain (with few heavyfalls and \u2022 Gawalmandi = 16 hailstorm) is expected in Rawalpindi, Murree, Galyiat, \u2022 Pirwadhai & Shamsabad = 15 Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, \u00d8 Mangla = 17 Gujranwala, Hafizabad, Wazirabad, Lahore, Sheikhupura, \u00d8 Jhelum = 15 Sialkot, Narowal, Dera Ghazi Khan and surroundings. \u00d8 Lahore \u2022 Gulshan-e-Ravi = 14, \u2022 Samanabad SDO Office = 11, \u2022 Lakshmi Chowk = 08, Pani Wala Talab = 07, \u2022 Jail Road, Head Office WASA = 06, \u2022 Gulberg, Upper Mall = 06, \u2022 City = 05, Airport & Chowk Nakhuda = 04, Weekly Dams Situation \u2022 Tajpura SDO Office, Farrukhabad = 02, \u2022 Iqbal Town SDO Office = 02 CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours \u00d8 Sialkot (Airport = 13, City = 06) \u00d8 Sheikhupura = 12 \u00d8 Gujrat = 09 RIVERS DAMS MCL* Current Current Status \u00d8 Bahawalpur = 44\u00b0C \u00d8 Joharabad & Vehova = 08 (Feet) Filled Status \u00d8 DG Khan = 43\u00b0C \u00d8 Sargodha City = 06 \u00d8 Sahiwal = 42\u00b0C \u00d8 Murree = 05 INDUS Tarbela Dam 1550.00 1450.95",
+    "forecast": "WEATHER FORECAST (24 HOURS) Friday Ø Chakwal = 48 Ø Partly cloudy weather expected in most upper/central Ø Rawalpindi districts of the province with scattered • New Kattarian & Katcheri = 19 dust/thunderstorm-rain (with few heavyfalls and • Gawalmandi = 16 hailstorm) is expected in Rawalpindi, Murree, Galyiat, • Pirwadhai & Shamsabad = 15 Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, Ø Mangla = 17 Gujranwala, Hafizabad, Wazirabad, Lahore, Sheikhupura, Ø Jhelum = 15 Sialkot, Narowal, Dera Ghazi Khan and surroundings. Ø Lahore • Gulshan-e-Ravi = 14, • Samanabad SDO Office = 11, • Lakshmi Chowk = 08, Pani Wala Talab = 07, • Jail Road, Head Office WASA = 06, • Gulberg, Upper Mall = 06, • City = 05, Airport & Chowk Nakhuda = 04, Weekly Dams Situation • Tajpura SDO Office, Farrukhabad = 02, • Iqbal Town SDO Office = 02 CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours Ø Sialkot (Airport = 13, City = 06) Ø Sheikhupura = 12 Ø Gujrat = 09 RIVERS DAMS MCL* Current Current Status Ø Bahawalpur = 44°C Ø Joharabad & Vehova = 08 (Feet) Filled Status Ø DG Khan = 43°C Ø Sargodha City = 06 Ø Sahiwal = 42°C Ø Murree = 05 INDUS Tarbela Dam 1550.00 1450.95",
     "temperature": {
         "Iqbal Town SDO Office": 2,
         "Bahawalpur": 44,
@@ -79,5 +81,5 @@
             "status": "Normal"
         }
     ],
-    "created_at": "2026-07-04T15:27:09.156005"
+    "created_at": "2026-07-11T09:10:47.026691"
 }

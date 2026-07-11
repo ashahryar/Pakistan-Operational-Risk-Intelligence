@@ -1,8 +1,10 @@
 {
-    "pdf_name": "31%20May%202026_1000%20HRS.pdf",
+    "source_file": "31%20May%202026_1000%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
     "report_date": "31st MAY, 2026",
     "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Sunday \u00d8 Lahore \u00d8 Hot and dry weather is likely over most districts of the \u2022 Nishtar town = 49, Airport = 41, province. \u2022 Johar Town = 38, Lakshmi Chowk = 31, \u00d8 While partly cloudy is likely in Murree & Galliyat. \u2022 Mughalpura = 31, Upper Mall = 29, \u00d8 However, partly cloudy weather with rain- \u2022 Tajpura = 27, Chowk Nakhuda = 25, windstorm/thunderstorm may also occur at isolated \u2022 Samnabad = 23, Pani wala talab = 22, places in Sahiwal, Bahawalnagar, Bahawalpur, Rahim \u2022 City = 21, Jail road = 21, Gulberg = 20, Yar Khan, Dera Ghazi Khan, Layyah, Bhakkar and \u2022 Iqbal Town = 20, Farukhabad = 19, Rajanpur during afternoon. \u2022 Saggian = 19, Gulshan e Ravi = 17, \u2022 Hdyara Defence Road = 15, Shadipura = 01 \u00d8 Chakwal = 37 \u00d8 Jhelum = 18 Weekly Dams Situation \u00d8 Gujrat \u2022 Bolay Chowk Disposal = 16, Jail chowk = 9, CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours \u2022 Head office = 05, City = 02, \u2022 Narowali Disposal = 01 MCL* Current RIVERS DAMS Current Status \u00d8 Gujranwala = 15 (Feet) Filled Status \u00d8 DG Khan = 47\u00b0C \u00d8 Kasur = 11 \u00d8 Bahawalpur = 46\u00b0C \u00d8 Multan = 45\u00b0C \u00d8 Narowal = 09 INDUS Tarbela Dam 1550.00 1450.95 Normal \u00d8 Sahiwal = 43\u00b0",
+    "forecast": "WEATHER FORECAST (24 HOURS) Sunday Ø Lahore Ø Hot and dry weather is likely over most districts of the • Nishtar town = 49, Airport = 41, province. • Johar Town = 38, Lakshmi Chowk = 31, Ø While partly cloudy is likely in Murree & Galliyat. • Mughalpura = 31, Upper Mall = 29, Ø However, partly cloudy weather with rain- • Tajpura = 27, Chowk Nakhuda = 25, windstorm/thunderstorm may also occur at isolated • Samnabad = 23, Pani wala talab = 22, places in Sahiwal, Bahawalnagar, Bahawalpur, Rahim • City = 21, Jail road = 21, Gulberg = 20, Yar Khan, Dera Ghazi Khan, Layyah, Bhakkar and • Iqbal Town = 20, Farukhabad = 19, Rajanpur during afternoon. • Saggian = 19, Gulshan e Ravi = 17, • Hdyara Defence Road = 15, Shadipura = 01 Ø Chakwal = 37 Ø Jhelum = 18 Weekly Dams Situation Ø Gujrat • Bolay Chowk Disposal = 16, Jail chowk = 9, CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours • Head office = 05, City = 02, • Narowali Disposal = 01 MCL* Current RIVERS DAMS Current Status Ø Gujranwala = 15 (Feet) Filled Status Ø DG Khan = 47°C Ø Kasur = 11 Ø Bahawalpur = 46°C Ø Multan = 45°C Ø Narowal = 09 INDUS Tarbela Dam 1550.00 1450.95 Normal Ø Sahiwal = 43°",
     "temperature": {
         "DG Khan": 47,
         "Bahawalpur": 46,
@@ -78,5 +80,5 @@
             "status": "Normal"
         }
     ],
-    "created_at": "2026-07-04T15:27:05.385606"
+    "created_at": "2026-07-11T09:10:41.159368"
 }

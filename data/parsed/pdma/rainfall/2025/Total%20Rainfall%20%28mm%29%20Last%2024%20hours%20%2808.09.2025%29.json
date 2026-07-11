@@ -1,0 +1,118 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2808.09.2025%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2025",
+    "report_date": "07.09.2025",
+    "station_count": 27,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Jhelum",
+            "rainfall_mm": 96.0
+        },
+        {
+            "station": "Jhang",
+            "rainfall_mm": 77.0
+        },
+        {
+            "station": "Noorpur Thal",
+            "rainfall_mm": 70.0
+        },
+        {
+            "station": "Khanewal",
+            "rainfall_mm": 55.0
+        },
+        {
+            "station": "Layyah (Karor)",
+            "rainfall_mm": 42.0
+        },
+        {
+            "station": "Rawalpindi",
+            "rainfall_mm": 34.0
+        },
+        {
+            "station": "Sahiwal",
+            "rainfall_mm": 32.0
+        },
+        {
+            "station": "Mangla",
+            "rainfall_mm": 29.0
+        },
+        {
+            "station": "Chakwal",
+            "rainfall_mm": 26.0
+        },
+        {
+            "station": "Dera Ghazi Khan",
+            "rainfall_mm": 21.0
+        },
+        {
+            "station": "Faisalabad",
+            "rainfall_mm": 20.0
+        },
+        {
+            "station": "Okara",
+            "rainfall_mm": 17.0
+        },
+        {
+            "station": "Mandi Bahuddin",
+            "rainfall_mm": 16.0
+        },
+        {
+            "station": "Bahawalpur",
+            "rainfall_mm": 16.0
+        },
+        {
+            "station": "Multan",
+            "rainfall_mm": 15.0
+        },
+        {
+            "station": "Sargodha (City)",
+            "rainfall_mm": 14.0
+        },
+        {
+            "station": "Joharabad",
+            "rainfall_mm": 13.0
+        },
+        {
+            "station": "Toba Tek Singh",
+            "rainfall_mm": 11.0
+        },
+        {
+            "station": "Kot Addu",
+            "rainfall_mm": 10.0
+        },
+        {
+            "station": "Bhakkar & Bahawalnagar",
+            "rainfall_mm": 7.0
+        },
+        {
+            "station": "Sialkot",
+            "rainfall_mm": 6.0
+        },
+        {
+            "station": "Lahore",
+            "rainfall_mm": 6.0
+        },
+        {
+            "station": "Narowal & Hafizabad",
+            "rainfall_mm": 5.0
+        },
+        {
+            "station": "Kasur",
+            "rainfall_mm": 4.0
+        },
+        {
+            "station": "Murree, Khanpur, Sheikhupura",
+            "rainfall_mm": 2.0
+        },
+        {
+            "station": "Gujranwala",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:11:56.074027"
+}

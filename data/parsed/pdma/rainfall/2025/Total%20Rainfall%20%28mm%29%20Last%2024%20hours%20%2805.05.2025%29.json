@@ -1,0 +1,70 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2805.05.2025%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2025",
+    "report_date": "04.05.2025",
+    "station_count": 15,
+    "stations": [
+        {
+            "station": "District",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Faisalabad",
+            "rainfall_mm": 73.0
+        },
+        {
+            "station": "Khushab",
+            "rainfall_mm": 42.0
+        },
+        {
+            "station": "Chakwal",
+            "rainfall_mm": 35.0
+        },
+        {
+            "station": "DG Khan",
+            "rainfall_mm": 31.0
+        },
+        {
+            "station": "Sargodha",
+            "rainfall_mm": 28.0
+        },
+        {
+            "station": "Rajanpur",
+            "rainfall_mm": 27.0
+        },
+        {
+            "station": "Rawalpindi",
+            "rainfall_mm": 20.0
+        },
+        {
+            "station": "Bhakkar",
+            "rainfall_mm": 17.0
+        },
+        {
+            "station": "TT Singh",
+            "rainfall_mm": 5.0
+        },
+        {
+            "station": "Lahore",
+            "rainfall_mm": 4.0
+        },
+        {
+            "station": "RY Khan, Khanpur, Mianwali",
+            "rainfall_mm": 3.0
+        },
+        {
+            "station": "Attock, Narowal, Hafizabad",
+            "rainfall_mm": 2.0
+        },
+        {
+            "station": "Bahawalpur",
+            "rainfall_mm": 2.0
+        },
+        {
+            "station": "Gujranwala",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:11:51.153914"
+}

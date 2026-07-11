@@ -1,8 +1,10 @@
 {
-    "pdf_name": "PDMA%20Daily%20Situation%20Report%2022%20May%202026_1000%20HRS.pdf",
+    "source_file": "PDMA%20Daily%20Situation%20Report%2022%20May%202026_1000%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
     "report_date": "22nd MAY, 2026",
     "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Friday \u00d8 Murree = 20 \u00d8 Mainly hot and dry weather is expected in most districts \u00d8 DG Khan (Vehova) = 09 of the province. \u00d8 Mangla = 07 \u00d8 Partly cloudy weather accompanied with windstorm- \u00d8 Rawalpindi rain/thunderstorm (isolated hailstorm) is expected at \u2022 Chaklala = 06, Gawalmandi = 05 isolated places in Rawalpindi, Jhelum, Chakwal, Attock, \u2022 Shamsabad = 03, Pirwidahi = 02 Murree, Galiyat, Mandi Bahauddin, Gujrat, Sialkot, \u2022 New Kattarian = 01 Gujranwala, Sargodha, Noorpurthal, Jhang, Faisalabad, \u00d8 Narowal = 06 Khushab, Mianwali, Bhakkar and surroundings. \u00d8 Bhakkar = 04 \u00d8 TT Singh = 02 \u00d8 Lahore Airport = 01, City = Trace \u00d8 Chakwal & Kasur = 01 Weekly Dams Situation \u00d8 Joharabad, Okara, Layyah (Karor), Jhelum = Trace Maximum Temperatures recorded in last 24 hours CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Current Year MCL* RIVERS DAMS Current Status \u00d8 DG Khan = 45\u00b0C (Feet) Filled Status Trend \u00d8 Lahore = 44\u00b0C INDUS Tarbela Dam 1550.00 19% Decreasing Normal \u00d8 Sahiwal = 44\u00b0C \u00d8 Multan = 44\u00b0C \u00d8 Sargodha = 44\u00b0C JHELUM Mangla Dam 1242.00 31% Increasing Normal \u00d8 Jhelum = 44\u00b0C \u00d8 Faisalabad = 44\u00b0C SUTLEJ Bhakra Dam 1680.00 30% Decreasing Normal \u00d8 Bahawalpur = 43\u00b0",
+    "forecast": "WEATHER FORECAST (24 HOURS) Friday Ø Murree = 20 Ø Mainly hot and dry weather is expected in most districts Ø DG Khan (Vehova) = 09 of the province. Ø Mangla = 07 Ø Partly cloudy weather accompanied with windstorm- Ø Rawalpindi rain/thunderstorm (isolated hailstorm) is expected at • Chaklala = 06, Gawalmandi = 05 isolated places in Rawalpindi, Jhelum, Chakwal, Attock, • Shamsabad = 03, Pirwidahi = 02 Murree, Galiyat, Mandi Bahauddin, Gujrat, Sialkot, • New Kattarian = 01 Gujranwala, Sargodha, Noorpurthal, Jhang, Faisalabad, Ø Narowal = 06 Khushab, Mianwali, Bhakkar and surroundings. Ø Bhakkar = 04 Ø TT Singh = 02 Ø Lahore Airport = 01, City = Trace Ø Chakwal & Kasur = 01 Weekly Dams Situation Ø Joharabad, Okara, Layyah (Karor), Jhelum = Trace Maximum Temperatures recorded in last 24 hours CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Current Year MCL* RIVERS DAMS Current Status Ø DG Khan = 45°C (Feet) Filled Status Trend Ø Lahore = 44°C INDUS Tarbela Dam 1550.00 19% Decreasing Normal Ø Sahiwal = 44°C Ø Multan = 44°C Ø Sargodha = 44°C JHELUM Mangla Dam 1242.00 31% Increasing Normal Ø Jhelum = 44°C Ø Faisalabad = 44°C SUTLEJ Bhakra Dam 1680.00 30% Decreasing Normal Ø Bahawalpur = 43°",
     "temperature": {
         "DG Khan": 45,
         "Lahore": 44,
@@ -65,5 +67,5 @@
             "status": "Normal"
         }
     ],
-    "created_at": "2026-07-04T15:27:48.562093"
+    "created_at": "2026-07-11T09:11:44.675649"
 }

@@ -1,0 +1,26 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2810.03.2026%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2026",
+    "report_date": "09.03.2026",
+    "station_count": 4,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Murree",
+            "rainfall_mm": 7.0
+        },
+        {
+            "station": "Attock",
+            "rainfall_mm": 4.0
+        },
+        {
+            "station": "Rawalpindi",
+            "rainfall_mm": 3.0
+        }
+    ],
+    "created_at": "2026-07-11T09:12:27.759809"
+}

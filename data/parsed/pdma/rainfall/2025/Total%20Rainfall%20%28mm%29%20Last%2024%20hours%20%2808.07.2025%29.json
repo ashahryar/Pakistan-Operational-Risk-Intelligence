@@ -1,0 +1,46 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2808.07.2025%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2025",
+    "report_date": "07.07.2025",
+    "station_count": 9,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Sheikhupura",
+            "rainfall_mm": 48.0
+        },
+        {
+            "station": "Lahore",
+            "rainfall_mm": 52.0
+        },
+        {
+            "station": "Gujranwala",
+            "rainfall_mm": 6.0
+        },
+        {
+            "station": "Murree",
+            "rainfall_mm": 5.0
+        },
+        {
+            "station": "Mianwali",
+            "rainfall_mm": 5.0
+        },
+        {
+            "station": "Faisalabad",
+            "rainfall_mm": 4.0
+        },
+        {
+            "station": "Sialkot Airport",
+            "rainfall_mm": 2.0
+        },
+        {
+            "station": "Mandi Bahauddin, Hafizabad",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:11:54.856973"
+}

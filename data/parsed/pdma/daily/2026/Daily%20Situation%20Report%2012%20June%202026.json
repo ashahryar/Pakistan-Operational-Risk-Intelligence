@@ -1,8 +1,10 @@
 {
-    "pdf_name": "Daily%20Situation%20Report%2012%20June%202026.pdf",
+    "source_file": "Daily%20Situation%20Report%2012%20June%202026.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
     "report_date": "12th June, 2026",
     "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Friday \u00d8 Rain-windstorm/thunderstorm is expected at isolated \u00d8 Narowal = 55 places in Rawalpindi, Murree, Galliyat, Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, Gujranwala, \u00d8 Lahore Hafizabad, Wazirabad, Lahore, Sheikhupura, Sialkot, Narowal, Sahiwal, Jhang, Toba Tek Singh, Nankana Sahib, \u2022 Airport = 49, Chiniot, Faisalabad, Okara, Kasur, Khushab, Sargodha, \u2022 Head Office WASA Gulberg = 33, Noor Pur Thal, Layyah, Bhakkar, Mianwali, \u2022 Tajpura SDO Office = 28, Bahawalnagar and Dera Ghazi Khan. Isolated \u2022 Upper Mall = 22, hailstorm/heavy rain may also occur during the period. \u2022 Mughalpura SDO Office = 12, Hot weather is expected in most districts of the province. \u2022 Nishter Town = 10, \u2022 Gulshan-e-Ravi = 07, \u2022 Johar Town SDO Office = 06, DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation \u2022 Hdyara Defense Road = 06, \u2022 Jail Road & City = 05, CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours \u2022 Chowk Nakhuda = 04, \u2022 Samanabad SDO Office & Saggian = 04, MCL* Current Current RIVERS DAMS \u2022 Farrukhabad & Pani Wala Talab = 03, (Feet) Filled Status Status \u00d8 DG Khan = 45\u00b0C \u2022 Lakshmi Chowk = 01, Tarbela \u00d8 Sargodha = 45\u00b0C",
+    "forecast": "WEATHER FORECAST (24 HOURS) Friday Ø Rain-windstorm/thunderstorm is expected at isolated Ø Narowal = 55 places in Rawalpindi, Murree, Galliyat, Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, Gujranwala, Ø Lahore Hafizabad, Wazirabad, Lahore, Sheikhupura, Sialkot, Narowal, Sahiwal, Jhang, Toba Tek Singh, Nankana Sahib, • Airport = 49, Chiniot, Faisalabad, Okara, Kasur, Khushab, Sargodha, • Head Office WASA Gulberg = 33, Noor Pur Thal, Layyah, Bhakkar, Mianwali, • Tajpura SDO Office = 28, Bahawalnagar and Dera Ghazi Khan. Isolated • Upper Mall = 22, hailstorm/heavy rain may also occur during the period. • Mughalpura SDO Office = 12, Hot weather is expected in most districts of the province. • Nishter Town = 10, • Gulshan-e-Ravi = 07, • Johar Town SDO Office = 06, DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation • Hdyara Defense Road = 06, • Jail Road & City = 05, CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours • Chowk Nakhuda = 04, • Samanabad SDO Office & Saggian = 04, MCL* Current Current RIVERS DAMS • Farrukhabad & Pani Wala Talab = 03, (Feet) Filled Status Status Ø DG Khan = 45°C • Lakshmi Chowk = 01, Tarbela Ø Sargodha = 45°C",
     "temperature": {
         "DG Khan": 45,
         "Sargodha": 45,
@@ -52,5 +54,5 @@
             "status": "Normal"
         }
     ],
-    "created_at": "2026-07-04T15:27:30.485770"
+    "created_at": "2026-07-11T09:11:17.802416"
 }

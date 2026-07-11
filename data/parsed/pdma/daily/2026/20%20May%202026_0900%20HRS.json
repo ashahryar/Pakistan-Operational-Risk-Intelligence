@@ -1,8 +1,10 @@
 {
-    "pdf_name": "20%20May%202026_0900%20HRS.pdf",
+    "source_file": "20%20May%202026_0900%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
     "report_date": "20th MAY, 2026",
     "report_time": "0900",
-    "forecast": "WEATHER FORECAST (24 HOURS) Wednesday \u00d8 Mainly hot and dry weather is expected in most districts of the province, while very hot in southern and central districts. NO RAINFALL HAS BEEN REPORTED IN ANY \u00d8 Isolated rain-windstorm/thunderstorm is likely in DISTRICTS Rawalpindi, Jhelum, Chakwal, Attock, Murree, Galiyat, Sargodha, Noorpurthal, Khushab, Jhang, Mianwali, Layyah, Bhakkar and surroundings. DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation Maximum Temperatures recorded in last 24 hours CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Current Year MCL* Current RIVERS DAMS \u00d8 DG Khan = 48\u00b0C (Feet) Filled Status Trend \u00d8 Multan = 45\u00b0C Status \u00d8 Sargodha = 44\u00b0C INDUS Tarbela 1550.00 19% Decreasing Normal Dam \u00d8 Sahiwal = 44\u00b0C \u00d8 Jhelum = 44\u00b0C JHELUM Mangla 1242.00 31% Increasing Normal \u00d8 Faisalabad = 44\u00b0C Dam \u00d8 Lahore = 43\u00b0C Bhakra \u00d8 Bahawalpur = 43\u00b0C SUTLEJ Dam 1680.00 32% Decreasing Normal \u00d8 Attock = 43\u00b0C Pong \u00d8 Rawalpindi = 41\u00b0C B E A S D a m 1 3 9 0 . 0 0 37% Steady Normal \u00d8 Chakwal = 41\u00b0C T h e i n \u00d8 Murree = 30\u00b0C RAVI 1732.00 67% Steady Normal Dam MCL* = Maximum Conservation Level According to Met Department; \u00d8 A general tendency for above-normal rainfall is anticipated across",
+    "forecast": "WEATHER FORECAST (24 HOURS) Wednesday Ø Mainly hot and dry weather is expected in most districts of the province, while very hot in southern and central districts. NO RAINFALL HAS BEEN REPORTED IN ANY Ø Isolated rain-windstorm/thunderstorm is likely in DISTRICTS Rawalpindi, Jhelum, Chakwal, Attock, Murree, Galiyat, Sargodha, Noorpurthal, Khushab, Jhang, Mianwali, Layyah, Bhakkar and surroundings. DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation Maximum Temperatures recorded in last 24 hours CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Current Year MCL* Current RIVERS DAMS Ø DG Khan = 48°C (Feet) Filled Status Trend Ø Multan = 45°C Status Ø Sargodha = 44°C INDUS Tarbela 1550.00 19% Decreasing Normal Dam Ø Sahiwal = 44°C Ø Jhelum = 44°C JHELUM Mangla 1242.00 31% Increasing Normal Ø Faisalabad = 44°C Dam Ø Lahore = 43°C Bhakra Ø Bahawalpur = 43°C SUTLEJ Dam 1680.00 32% Decreasing Normal Ø Attock = 43°C Pong Ø Rawalpindi = 41°C B E A S D a m 1 3 9 0 . 0 0 37% Steady Normal Ø Chakwal = 41°C T h e i n Ø Murree = 30°C RAVI 1732.00 67% Steady Normal Dam MCL* = Maximum Conservation Level According to Met Department; Ø A general tendency for above-normal rainfall is anticipated across",
     "temperature": {
         "DG Khan": 48,
         "Multan": 45,
@@ -32,5 +34,5 @@
         "Murree": 30.0
     },
     "dams": [],
-    "created_at": "2026-07-04T15:26:15.055174"
+    "created_at": "2026-07-11T09:09:03.224379"
 }

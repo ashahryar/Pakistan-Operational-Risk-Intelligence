@@ -1,0 +1,102 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2831.08.2025%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2025",
+    "report_date": "30.08.2025",
+    "station_count": 23,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Lahore",
+            "rainfall_mm": 158.0
+        },
+        {
+            "station": "Hafizabad",
+            "rainfall_mm": 121.0
+        },
+        {
+            "station": "Multan",
+            "rainfall_mm": 112.0
+        },
+        {
+            "station": "Okara",
+            "rainfall_mm": 79.0
+        },
+        {
+            "station": "Sheikhupura",
+            "rainfall_mm": 66.0
+        },
+        {
+            "station": "Faisalabad",
+            "rainfall_mm": 55.0
+        },
+        {
+            "station": "Layyah",
+            "rainfall_mm": 35.0
+        },
+        {
+            "station": "Bahawalpur",
+            "rainfall_mm": 26.0
+        },
+        {
+            "station": "Kasur",
+            "rainfall_mm": 25.0
+        },
+        {
+            "station": "Gujrat, Gujranwala",
+            "rainfall_mm": 23.0
+        },
+        {
+            "station": "Kot Addu",
+            "rainfall_mm": 18.0
+        },
+        {
+            "station": "Narowal",
+            "rainfall_mm": 17.0
+        },
+        {
+            "station": "Mandi Bahauddin",
+            "rainfall_mm": 14.0
+        },
+        {
+            "station": "Mangla, Sahiwal",
+            "rainfall_mm": 13.0
+        },
+        {
+            "station": "Bahawalnagar, Jhelum",
+            "rainfall_mm": 11.0
+        },
+        {
+            "station": "Sialkot",
+            "rainfall_mm": 9.0
+        },
+        {
+            "station": "Bhakkar",
+            "rainfall_mm": 7.0
+        },
+        {
+            "station": "Jhang",
+            "rainfall_mm": 5.0
+        },
+        {
+            "station": "Mianwali",
+            "rainfall_mm": 4.0
+        },
+        {
+            "station": "Bahawalpur City, DG Khan",
+            "rainfall_mm": 3.0
+        },
+        {
+            "station": "Rawalpindi",
+            "rainfall_mm": 1.0
+        },
+        {
+            "station": "Noor Pur Thal",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:12:19.267626"
+}

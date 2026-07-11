@@ -1,147 +1,52 @@
+import sys
 import json
 from pathlib import Path
-from datetime import datetime
 
 from sqlalchemy import text
 
-from connection import engine
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
+from config.database import engine
 
-# ==========================================================
-# CONFIGURATION
-# ==========================================================
+BASE = Path("data/parsed/pmd")
+daily_file = BASE / "daily_forecast" / "latest.json"
 
-PMD_FOLDER = Path("data/raw/pmd")
+if daily_file.exists():
 
-from pathlib import Path
+    rows = json.loads(daily_file.read_text(encoding="utf-8"))
 
-BASE = Path("data/raw/pmd/reports")
+    with engine.begin() as conn:
 
-REPORT_FILE = BASE / "daily_forecast" / "all" / "latest.json"
-ALERT_FILE = BASE / "weather_alerts" / "all" / "latest.json"
-OUTLOOK_FILE = BASE / "weekly_outlook" / "all" / "latest.json"
-
-
-# ==========================================================
-# HELPERS
-# ==========================================================
-
-def load_json(path: Path):
-
-    with open(path, "r", encoding="utf8") as f:
-        return json.load(f)
-
-
-def parse_timestamp(value):
-
-    if not value:
-        return None
-
-    try:
-        return datetime.fromisoformat(value)
-    except Exception:
-        return None
-
-
-# ==========================================================
-# LOAD REPORT
-# ==========================================================
-
-def insert_report(conn, report):
-
-    conn.execute(
-
-        text("""
-
-        INSERT INTO pmd_reports(
-
-            category,
-            source,
-            url,
-            forecast,
-            scraped_at
-
-        )
-
-        VALUES(
-
-            :category,
-            :source,
-            :url,
-            :forecast,
-            :scraped_at
-
-        )
-
-        """),
-
-        {
-
-            "category": report["category"],
-            "source": report["source"],
-            "url": report["url"],
-            "forecast": report["forecast"],
-            "scraped_at": parse_timestamp(
-                report["scraped_at"]
-            )
-
-        }
-
-    )
-
-
-# ==========================================================
-# LOAD DAILY WEATHER
-# ==========================================================
-
-def load_daily_weather(conn):
-
-    report = load_json(REPORT_FILE)
-
-    insert_report(conn, report)
-
-    total = 0
-
-    for table in report["tables"]:
-
-        for row in table["rows"]:
-
-            if len(row) < 6:
-                continue
-
-            thursday = row[0]
-            wednesday = row[1]
-            tuesday = row[2]
-            max_temp = row[3]
-            humidity = row[4]
-            city = row[5]
+        for row in rows:
 
             conn.execute(
 
                 text("""
 
-                INSERT INTO pmd_weather(
+                INSERT INTO pmd_daily_forecast(
 
-                    category,
                     city,
+                    province,
+                    temperature,
                     humidity,
-                    max_temperature,
-                    day1_forecast,
-                    day2_forecast,
-                    day3_forecast,
+                    forecast_day_1,
+                    forecast_day_2,
+                    forecast_day_3,
+                    category,
                     scraped_at
 
                 )
 
                 VALUES(
 
-                    :category,
                     :city,
+                    :province,
+                    :temperature,
                     :humidity,
-                    :max_temperature,
                     :day1,
                     :day2,
                     :day3,
+                    :category,
                     :scraped_at
 
                 )
@@ -150,43 +55,30 @@ def load_daily_weather(conn):
 
                 {
 
-                    "category": report["category"],
-                    "city": city,
-                    "humidity": humidity,
-                    "max_temperature": max_temp,
-                    "day1": tuesday,
-                    "day2": wednesday,
-                    "day3": thursday,
-                    "scraped_at": parse_timestamp(
-                        report["scraped_at"]
-                    )
+                    "city": row["city"],
+                    "province": row["province"],
+                    "temperature": row["temperature"],
+                    "humidity": row["humidity"],
+                    "day1": row["forecast_day_1"],
+                    "day2": row["forecast_day_2"],
+                    "day3": row["forecast_day_3"],
+                    "category": row["category"],
+                    "scraped_at": row["scraped_at"]
 
                 }
 
             )
 
-            total += 1
+print("✓ Daily Forecast Loaded")
+weekly_file = BASE / "weekly_outlook" / "latest.json"
 
-    print(f"Loaded {total} weather records")
+if weekly_file.exists():
 
-# ==========================================================
-# LOAD WEEKLY OUTLOOK
-# ==========================================================
+    rows = json.loads(weekly_file.read_text(encoding="utf-8"))
 
-def load_weekly_outlook(conn):
+    with engine.begin() as conn:
 
-    report = load_json(OUTLOOK_FILE)
-
-    insert_report(conn, report)
-
-    total = 0
-
-    for table in report.get("tables", []):
-
-        for row in table.get("rows", []):
-
-            if len(row) < 2:
-                continue
+        for row in rows:
 
             conn.execute(
 
@@ -194,17 +86,21 @@ def load_weekly_outlook(conn):
 
                 INSERT INTO pmd_weekly_outlook(
 
-                    forecast_date,
-                    weather_description,
+                    report_date,
+                    weekday,
+                    weather_summary,
+                    regions,
                     scraped_at
 
                 )
 
                 VALUES(
 
-                    :forecast_date,
-                    :weather_description,
-                    :scraped_at
+                    :date,
+                    :weekday,
+                    :summary,
+                    :regions,
+                    :scraped
 
                 )
 
@@ -212,57 +108,67 @@ def load_weekly_outlook(conn):
 
                 {
 
-                    "forecast_date": row[1],
-                    "weather_description": row[0],
-                    "scraped_at": parse_timestamp(
-                        report["scraped_at"]
-                    )
+                    "date": row["date"],
+                    "weekday": row["weekday"],
+                    "summary": row["weather_summary"],
+                    "regions": json.dumps(row["regions"]),
+                    "scraped": row["scraped_at"]
 
                 }
 
             )
 
-            total += 1
+print("✓ Weekly Outlook Loaded")
+alert_file = BASE / "weather_alerts" / "latest.json"
 
-    print(f"Loaded {total} weekly outlook records")
+if alert_file.exists():
 
-
-# ==========================================================
-# LOAD WEATHER ALERTS
-# ==========================================================
-
-def load_weather_alerts(conn):
-
-    report = load_json(ALERT_FILE)
-
-    insert_report(conn, report)
-
-    print("Loaded weather alerts report")
-
-
-# ==========================================================
-# MAIN
-# ==========================================================
-
-def main():
-
-    print("=" * 60)
-    print("LOADING PMD DATASETS")
-    print("=" * 60)
+    row = json.loads(alert_file.read_text(encoding="utf-8"))
 
     with engine.begin() as conn:
 
-        load_daily_weather(conn)
+        conn.execute(
 
-        load_weekly_outlook(conn)
+            text("""
 
-        load_weather_alerts(conn)
+            INSERT INTO pmd_weather_alerts(
 
-    print()
-    print("=" * 60)
-    print("PMD DATA LOADED SUCCESSFULLY")
-    print("=" * 60)
+                alert_type,
+                severity,
+                duration,
+                regions,
+                forecast,
+                scraped_at
 
+            )
 
-if __name__ == "__main__":
-    main()
+            VALUES(
+
+                :type,
+                :severity,
+                :duration,
+                :regions,
+                :forecast,
+                :scraped
+
+            )
+
+            """),
+
+            {
+
+                "type": row["alert_type"],
+                "severity": row["severity"],
+                "duration": row["duration"],
+                "regions": json.dumps(row["regions"]),
+                "forecast": row["forecast"],
+                "scraped": row["scraped_at"]
+
+            }
+
+        )
+
+print("✓ Weather Alerts Loaded")
+print("="*60)
+print("PMD DATA LOADED SUCCESSFULLY")
+print("="*60)

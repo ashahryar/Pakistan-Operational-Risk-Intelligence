@@ -1,0 +1,46 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2817.04.2025%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2025",
+    "report_date": "16.04.2025",
+    "station_count": 9,
+    "stations": [
+        {
+            "station": "District",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Murree",
+            "rainfall_mm": 14.0
+        },
+        {
+            "station": "Wazirabad",
+            "rainfall_mm": 10.4
+        },
+        {
+            "station": "Rawalpindi",
+            "rainfall_mm": 9.0
+        },
+        {
+            "station": "Gujranwala",
+            "rainfall_mm": 7.4
+        },
+        {
+            "station": "Hafizabad",
+            "rainfall_mm": 5.0
+        },
+        {
+            "station": "Narowal",
+            "rainfall_mm": 3.4
+        },
+        {
+            "station": "Jhelum",
+            "rainfall_mm": 1.2
+        },
+        {
+            "station": "Mandi Bahauddin",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:12:06.637718"
+}

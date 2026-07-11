@@ -190,5 +190,13 @@
         "page": 3,
         "url": "https://pdma.punjab.gov.pk/system/files/Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2823.01.2026%29.pdf",
         "download_time": "2026-06-30 20:16:35"
+    },
+    {
+        "title": "Last 24 hours_02.07.2026.pdf",
+        "filename": "Last%2024%20hours_02.07.2026.pdf",
+        "year": 2026,
+        "page": 0,
+        "url": "https://pdma.punjab.gov.pk/system/files/Last%2024%20hours_02.07.2026.pdf",
+        "download_time": "2026-07-09 09:45:58"
     }
 ]

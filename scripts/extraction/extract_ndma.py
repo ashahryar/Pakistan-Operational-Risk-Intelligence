@@ -74,7 +74,7 @@ def scrape_report(report_key: str, config: Dict[str, str]) -> int:
 
         page_url = config["url"].format(page)
 
-        logger.info("%s | Page %s", report_key, all , page)
+        logger.info("%s | Page %s", report_key, "all", page)
 
         response = client.get(page_url)
 

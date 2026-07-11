@@ -1,17 +1,7 @@
-from sqlalchemy import create_engine
+import sys
+from pathlib import Path
 
-DB_USER = "postgres"
-DB_PASSWORD = "123456789"
-DB_HOST = "localhost"
-DB_PORT = "5432"
-DB_NAME = "pakistan_operational_risk"
+# Add project root to sys.path to allow config import
+sys.path.append(str(Path(__file__).resolve().parent.parent.parent))
 
-DATABASE_URL = (
-    f"postgresql+psycopg://{DB_USER}:{DB_PASSWORD}"
-    f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-)
-
-engine = create_engine(
-    DATABASE_URL,
-    echo=False,
-)
+from config.database import engine

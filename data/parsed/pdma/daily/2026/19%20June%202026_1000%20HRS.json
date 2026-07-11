@@ -1,8 +1,10 @@
 {
-    "pdf_name": "19%20June%202026_1000%20HRS.pdf",
+    "source_file": "19%20June%202026_1000%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
     "report_date": "19th June, 2026",
     "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Friday \u00d8 Faisalabad \u00d8 Scattered rain-duststorm/ thunderstorm (with few heavyfalls/hailstorm) is expected in Rawalpindi, Murree, \u2022 GMA Water Works = 67, Galiyat, Attock, Chakwal, Jhelum, Mandi Bahauddin, \u2022 Allama Iqbal Colony = 60 Gujrat, Gujranwala, Hafizabad, Wazirabad, Lahore, \u2022 Gulistan Colony OHR = 58, Sheikhupura, Sialkot, Narowal, Sahiwal, Jhang, Toba Tek Singh, Nankana Sahib, Chiniot, Faisalabad, Okara, Kasur, \u2022 WASA Head Office = 56 Khushab, Sargodha, Noor Pur Thal, Bhakkar, Layyah, \u2022 Dogar Basti OHR = 45, Mianwali, Bahawalpur, Bahawalnagar, Dera Ghazi Khan, \u2022 Madina Town Water Works= 43 Multan, Khanewal, Lodhran, Muzaffargarh, Rajanpur, \u00d8 Lahore Rahim Yar Khan, and Kot Addu. \u2022 Nishter Town = 25, Johar Town = 19, \u2022 Iqbal Town = 08, Upper Mall = 03, \u2022 Gulshan-e-Ravi, Saggian = 02, City = 01, DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation \u2022 Head Office WASA, Pani Wala Talab = 01, \u2022 Lakshmi Chowk, Mughalpuran = Trace, CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours \u2022 Tajpura, Jail Road, Chowk Nakhuda = Trace, MCL* Current Current \u2022 Samanabad, Hdyara Defense Road = Trace, RIVERS DAMS (Feet) Filled",
+    "forecast": "WEATHER FORECAST (24 HOURS) Friday Ø Faisalabad Ø Scattered rain-duststorm/ thunderstorm (with few heavyfalls/hailstorm) is expected in Rawalpindi, Murree, • GMA Water Works = 67, Galiyat, Attock, Chakwal, Jhelum, Mandi Bahauddin, • Allama Iqbal Colony = 60 Gujrat, Gujranwala, Hafizabad, Wazirabad, Lahore, • Gulistan Colony OHR = 58, Sheikhupura, Sialkot, Narowal, Sahiwal, Jhang, Toba Tek Singh, Nankana Sahib, Chiniot, Faisalabad, Okara, Kasur, • WASA Head Office = 56 Khushab, Sargodha, Noor Pur Thal, Bhakkar, Layyah, • Dogar Basti OHR = 45, Mianwali, Bahawalpur, Bahawalnagar, Dera Ghazi Khan, • Madina Town Water Works= 43 Multan, Khanewal, Lodhran, Muzaffargarh, Rajanpur, Ø Lahore Rahim Yar Khan, and Kot Addu. • Nishter Town = 25, Johar Town = 19, • Iqbal Town = 08, Upper Mall = 03, • Gulshan-e-Ravi, Saggian = 02, City = 01, DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation • Head Office WASA, Pani Wala Talab = 01, • Lakshmi Chowk, Mughalpuran = Trace, CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours • Tajpura, Jail Road, Chowk Nakhuda = Trace, MCL* Current Current • Samanabad, Hdyara Defense Road = Trace, RIVERS DAMS (Feet) Filled",
     "temperature": {},
     "rainfall": {
         "GMA Water Works": 67.0,
@@ -35,5 +37,5 @@
             "status": "Normal"
         }
     ],
-    "created_at": "2026-07-04T15:26:09.215258"
+    "created_at": "2026-07-11T09:08:55.024480"
 }

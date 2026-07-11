@@ -1,0 +1,66 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2805.05.2026%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2026",
+    "report_date": "04.05.2026",
+    "station_count": 14,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Faisalabad",
+            "rainfall_mm": 41.0
+        },
+        {
+            "station": "Jhelum",
+            "rainfall_mm": 29.0
+        },
+        {
+            "station": "Okara",
+            "rainfall_mm": 25.0
+        },
+        {
+            "station": "Sargodha",
+            "rainfall_mm": 18.0
+        },
+        {
+            "station": "Lahore",
+            "rainfall_mm": 17.0
+        },
+        {
+            "station": "Kasur",
+            "rainfall_mm": 14.0
+        },
+        {
+            "station": "Chakwal & T T Singh",
+            "rainfall_mm": 9.0
+        },
+        {
+            "station": "Sheikhupura",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Jhang",
+            "rainfall_mm": 5.0
+        },
+        {
+            "station": "Sahiwal",
+            "rainfall_mm": 4.0
+        },
+        {
+            "station": "Joharabad",
+            "rainfall_mm": 3.0
+        },
+        {
+            "station": "Mangla, Bahawalnagar",
+            "rainfall_mm": 2.0
+        },
+        {
+            "station": "Sialkot (Airport), Murree, Mandi Bahuddin, Hafizabad",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:12:26.132779"
+}

@@ -6,33 +6,17 @@ from common.pdf_reader import (
     get_pdf_page_count,
 )
 from common.pdf_table_reader import extract_tables
-
 from common.ndma_table_parser import parse_tables
-
 from common.text_cleaner import clean_text
 from common.parser_utils import save_json
-
-from common.ndma_parser import (
-    extract_report_date,
-    extract_report_number,
-    extract_subject,
-)
 from common.ndma_information_extractor import (
-
     extract_report_number,
-
     extract_report_date,
-
     extract_subject,
-
     extract_provinces,
-
     extract_rivers,
-
     extract_dams,
-
     extract_weather_events,
-
 )
 
 # ==========================================================
@@ -56,59 +40,28 @@ def parse_pdf(pdf_file: Path):
     print(f"Parsing : {pdf_file.name}")
 
     text = extract_pdf_text(pdf_file)
-
     text = clean_text(text)
     tables = extract_tables(pdf_file)
     structured_tables = parse_tables(tables)
 
-    report_number = extract_report_number(text)
-
-    report_date = extract_report_date(text)
-
-    subject = extract_subject(text)
-
     data = {
-
         "source": "NDMA",
-
         "report_type": "sitrep",
-
         "filename": pdf_file.name,
-
         "pages": get_pdf_page_count(pdf_file),
-
         "parsed_at": datetime.now().isoformat(),
-
-        "casualties": structured_tables["casualties"],
-
-        "damage": structured_tables["damage"],
-
-        "relief": structured_tables["relief"],
-
-        "rescue": structured_tables["rescue"],
-
-        "report_number": report_number,
-
-        "report_date": report_date,
-
-        "subject": subject,
-
-        "raw_text": text,
-        
         "report_number": extract_report_number(text),
-
         "report_date": extract_report_date(text),
-
         "subject": extract_subject(text),
-
+        "raw_text": text,
+        "casualties": structured_tables["casualties"],
+        "damage": structured_tables["damage"],
+        "relief": structured_tables["relief"],
+        "rescue": structured_tables["rescue"],
         "provinces": extract_provinces(text),
-
         "rivers": extract_rivers(text),
-
         "dams": extract_dams(text),
-
         "weather_events": extract_weather_events(text),
-
     }
 
     output_file = OUTPUT_FOLDER / f"{pdf_file.stem}.json"

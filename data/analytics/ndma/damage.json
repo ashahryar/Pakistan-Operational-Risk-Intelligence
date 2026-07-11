@@ -1,178 +1,461 @@
 [
     {
+        "report_number": "02",
+        "report_date": "27 June 2026",
         "province": "GB",
         "roads_km": "-",
         "bridges": "-",
-        "houses_full": "10",
-        "houses_partial": "5",
         "houses_total": "15",
-        "livestock": "0",
-        "report_date": "27 June 2026",
-        "report_number": "02"
+        "livestock": "0"
     },
     {
+        "report_number": "02",
+        "report_date": "27 June 2026",
         "province": "KP",
         "roads_km": "-",
         "bridges": "-",
-        "houses_full": "0",
-        "houses_partial": "1",
         "houses_total": "1",
-        "livestock": "0",
-        "report_date": "27 June 2026",
-        "report_number": "02"
+        "livestock": "0"
     },
     {
+        "report_number": "02",
+        "report_date": "27 June 2026",
         "province": "Balochistan",
         "roads_km": "-",
         "bridges": "-",
-        "houses_full": "2",
-        "houses_partial": "2",
         "houses_total": "4",
-        "livestock": "0",
-        "report_date": "27 June 2026",
-        "report_number": "02"
+        "livestock": "0"
     },
     {
-        "province": "Grand Total",
-        "roads_km": "0",
-        "bridges": "0",
-        "houses_full": "12",
-        "houses_partial": "8",
-        "houses_total": "20",
-        "livestock": "0",
-        "report_date": "27 June 2026",
-        "report_number": "02"
-    },
-    {
+        "report_number": "03",
+        "report_date": "28 June 2026",
         "province": "GB",
         "roads_km": "-",
         "bridges": "-",
-        "houses_full": "20",
-        "houses_partial": "10",
         "houses_total": "30",
-        "livestock": "0",
-        "report_date": "28 June 2026",
-        "report_number": "03"
+        "livestock": "0"
     },
     {
+        "report_number": "03",
+        "report_date": "28 June 2026",
         "province": "KP",
         "roads_km": "-",
         "bridges": "-",
-        "houses_full": "1",
-        "houses_partial": "1",
         "houses_total": "2",
-        "livestock": "0",
-        "report_date": "28 June 2026",
-        "report_number": "03"
+        "livestock": "0"
     },
     {
+        "report_number": "03",
+        "report_date": "28 June 2026",
         "province": "Balochistan",
         "roads_km": "-",
         "bridges": "-",
-        "houses_full": "2",
-        "houses_partial": "2",
         "houses_total": "4",
-        "livestock": "0",
-        "report_date": "28 June 2026",
-        "report_number": "03"
+        "livestock": "0"
     },
     {
-        "province": "Grand Total",
-        "roads_km": "0",
-        "bridges": "0",
-        "houses_full": "23",
-        "houses_partial": "13",
-        "houses_total": "36",
-        "livestock": "0",
-        "report_date": "28 June 2026",
-        "report_number": "03"
-    },
-    {
+        "report_number": "04",
+        "report_date": "29 June 2026",
         "province": "GB",
         "roads_km": "0.3",
         "bridges": "1",
-        "houses_full": "20",
-        "houses_partial": "10",
         "houses_total": "30",
-        "livestock": "0",
-        "report_date": "29 June 2026",
-        "report_number": "04"
+        "livestock": "0"
     },
     {
+        "report_number": "04",
+        "report_date": "29 June 2026",
         "province": "KP",
         "roads_km": "-",
         "bridges": "-",
-        "houses_full": "1",
-        "houses_partial": "1",
         "houses_total": "2",
-        "livestock": "0",
-        "report_date": "29 June 2026",
-        "report_number": "04"
+        "livestock": "0"
     },
     {
+        "report_number": "04",
+        "report_date": "29 June 2026",
         "province": "Balochistan",
         "roads_km": "-",
         "bridges": "-",
-        "houses_full": "2",
-        "houses_partial": "2",
         "houses_total": "4",
-        "livestock": "0",
-        "report_date": "29 June 2026",
-        "report_number": "04"
+        "livestock": "0"
     },
     {
-        "province": "Grand Total",
-        "roads_km": "0.3",
-        "bridges": "1",
-        "houses_full": "23",
-        "houses_partial": "13",
-        "houses_total": "36",
-        "livestock": "0",
-        "report_date": "29 June 2026",
-        "report_number": "04"
-    },
-    {
+        "report_number": "05",
+        "report_date": "30 June 2026",
         "province": "GB",
         "roads_km": "0.3",
         "bridges": "1",
-        "houses_full": "20",
-        "houses_partial": "10",
         "houses_total": "30",
-        "livestock": "0",
-        "report_date": "30 June 2026",
-        "report_number": "05"
+        "livestock": "0"
     },
     {
+        "report_number": "05",
+        "report_date": "30 June 2026",
         "province": "KP",
         "roads_km": "-",
         "bridges": "-",
-        "houses_full": "1",
-        "houses_partial": "1",
         "houses_total": "2",
-        "livestock": "0",
-        "report_date": "30 June 2026",
-        "report_number": "05"
+        "livestock": "0"
     },
     {
+        "report_number": "05",
+        "report_date": "30 June 2026",
         "province": "Balochistan",
         "roads_km": "-",
         "bridges": "-",
-        "houses_full": "2",
-        "houses_partial": "2",
         "houses_total": "4",
-        "livestock": "0",
-        "report_date": "30 June 2026",
-        "report_number": "05"
+        "livestock": "0"
     },
     {
-        "province": "Grand Total",
+        "report_number": "06",
+        "report_date": "1 July 2026",
+        "province": "GB",
         "roads_km": "0.3",
         "bridges": "1",
-        "houses_full": "23",
-        "houses_partial": "13",
-        "houses_total": "36",
-        "livestock": "0",
-        "report_date": "30 June 2026",
-        "report_number": "05"
+        "houses_total": "30",
+        "livestock": "0"
+    },
+    {
+        "report_number": "06",
+        "report_date": "1 July 2026",
+        "province": "KP",
+        "roads_km": "4.4",
+        "bridges": "1",
+        "houses_total": "30",
+        "livestock": "0"
+    },
+    {
+        "report_number": "06",
+        "report_date": "1 July 2026",
+        "province": "Balochistan",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "4",
+        "livestock": "0"
+    },
+    {
+        "report_number": "08",
+        "report_date": "3 July 2026",
+        "province": "GB",
+        "roads_km": "1.38",
+        "bridges": "1",
+        "houses_total": "34",
+        "livestock": "0"
+    },
+    {
+        "report_number": "08",
+        "report_date": "3 July 2026",
+        "province": "KP",
+        "roads_km": "4.4",
+        "bridges": "1",
+        "houses_total": "44",
+        "livestock": "163"
+    },
+    {
+        "report_number": "08",
+        "report_date": "3 July 2026",
+        "province": "Balochistan",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "7",
+        "livestock": "0"
+    },
+    {
+        "report_number": "08",
+        "report_date": "3 July 2026",
+        "province": "Punjab",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "3",
+        "livestock": "0"
+    },
+    {
+        "report_number": "09",
+        "report_date": "4 July 2026",
+        "province": "GB",
+        "roads_km": "1.38",
+        "bridges": "1",
+        "houses_total": "34",
+        "livestock": "0"
+    },
+    {
+        "report_number": "09",
+        "report_date": "4 July 2026",
+        "province": "KP",
+        "roads_km": "4.4",
+        "bridges": "1",
+        "houses_total": "47",
+        "livestock": "163"
+    },
+    {
+        "report_number": "09",
+        "report_date": "4 July 2026",
+        "province": "Balochistan",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "8",
+        "livestock": "0"
+    },
+    {
+        "report_number": "09",
+        "report_date": "4 July 2026",
+        "province": "Punjab",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "3",
+        "livestock": "0"
+    },
+    {
+        "report_number": "10",
+        "report_date": "5 July 2026",
+        "province": "GB",
+        "roads_km": "3.68",
+        "bridges": "2",
+        "houses_total": "42",
+        "livestock": "0"
+    },
+    {
+        "report_number": "10",
+        "report_date": "5 July 2026",
+        "province": "KP",
+        "roads_km": "4.4",
+        "bridges": "1",
+        "houses_total": "47",
+        "livestock": "163"
+    },
+    {
+        "report_number": "10",
+        "report_date": "5 July 2026",
+        "province": "Balochistan",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "8",
+        "livestock": "0"
+    },
+    {
+        "report_number": "10",
+        "report_date": "5 July 2026",
+        "province": "Punjab",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "3",
+        "livestock": "0"
+    },
+    {
+        "report_number": "11",
+        "report_date": "6 July 2026",
+        "province": "GB",
+        "roads_km": "0.68",
+        "bridges": "2",
+        "houses_total": "42",
+        "livestock": "0"
+    },
+    {
+        "report_number": "11",
+        "report_date": "6 July 2026",
+        "province": "KP",
+        "roads_km": "2.4",
+        "bridges": "1",
+        "houses_total": "48",
+        "livestock": "163"
+    },
+    {
+        "report_number": "11",
+        "report_date": "6 July 2026",
+        "province": "Balochistan",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "7",
+        "livestock": "0"
+    },
+    {
+        "report_number": "11",
+        "report_date": "6 July 2026",
+        "province": "Punjab",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "3",
+        "livestock": "0"
+    },
+    {
+        "report_number": "07",
+        "report_date": "2 July 2026",
+        "province": "GB",
+        "roads_km": "0.3",
+        "bridges": "1",
+        "houses_total": "30",
+        "livestock": "0"
+    },
+    {
+        "report_number": "07",
+        "report_date": "2 July 2026",
+        "province": "KP",
+        "roads_km": "4.4",
+        "bridges": "1",
+        "houses_total": "43",
+        "livestock": "163"
+    },
+    {
+        "report_number": "07",
+        "report_date": "2 July 2026",
+        "province": "Balochistan",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "5",
+        "livestock": "0"
+    },
+    {
+        "report_number": "07",
+        "report_date": "2 July 2026",
+        "province": "Punjab",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "3",
+        "livestock": "0"
+    },
+    {
+        "report_number": "12",
+        "report_date": "7 July 2026",
+        "province": "GB",
+        "roads_km": "0.73",
+        "bridges": "-",
+        "houses_total": "42",
+        "livestock": "0"
+    },
+    {
+        "report_number": "12",
+        "report_date": "7 July 2026",
+        "province": "KP",
+        "roads_km": "2.4",
+        "bridges": "-",
+        "houses_total": "50",
+        "livestock": "163"
+    },
+    {
+        "report_number": "12",
+        "report_date": "7 July 2026",
+        "province": "Balochistan",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "7",
+        "livestock": "0"
+    },
+    {
+        "report_number": "12",
+        "report_date": "7 July 2026",
+        "province": "Punjab",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "5",
+        "livestock": "0"
+    },
+    {
+        "report_number": "13",
+        "report_date": "8 July 2026",
+        "province": "GB",
+        "roads_km": "2.23",
+        "bridges": "-",
+        "houses_total": "42",
+        "livestock": "0"
+    },
+    {
+        "report_number": "13",
+        "report_date": "8 July 2026",
+        "province": "KP",
+        "roads_km": "2.6",
+        "bridges": "-",
+        "houses_total": "52",
+        "livestock": "163"
+    },
+    {
+        "report_number": "13",
+        "report_date": "8 July 2026",
+        "province": "Balochistan",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "7",
+        "livestock": "0"
+    },
+    {
+        "report_number": "13",
+        "report_date": "8 July 2026",
+        "province": "Punjab",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "9",
+        "livestock": "0"
+    },
+    {
+        "report_number": "14",
+        "report_date": "9 July 2026",
+        "province": "GB",
+        "roads_km": "2.23",
+        "bridges": "-",
+        "houses_total": "42",
+        "livestock": "0"
+    },
+    {
+        "report_number": "14",
+        "report_date": "9 July 2026",
+        "province": "KP",
+        "roads_km": "2.6",
+        "bridges": "-",
+        "houses_total": "52",
+        "livestock": "163"
+    },
+    {
+        "report_number": "14",
+        "report_date": "9 July 2026",
+        "province": "Balochistan",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "7",
+        "livestock": "0"
+    },
+    {
+        "report_number": "14",
+        "report_date": "9 July 2026",
+        "province": "Punjab",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "11",
+        "livestock": "0"
+    },
+    {
+        "report_number": "15",
+        "report_date": "10 July 2026",
+        "province": "GB",
+        "roads_km": "2.23",
+        "bridges": "-",
+        "houses_total": "42",
+        "livestock": "0"
+    },
+    {
+        "report_number": "15",
+        "report_date": "10 July 2026",
+        "province": "KP",
+        "roads_km": "2.6",
+        "bridges": "-",
+        "houses_total": "52",
+        "livestock": "163"
+    },
+    {
+        "report_number": "15",
+        "report_date": "10 July 2026",
+        "province": "Balochistan",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "7",
+        "livestock": "0"
+    },
+    {
+        "report_number": "15",
+        "report_date": "10 July 2026",
+        "province": "Punjab",
+        "roads_km": "-",
+        "bridges": "-",
+        "houses_total": "11",
+        "livestock": "0"
     }
 ]

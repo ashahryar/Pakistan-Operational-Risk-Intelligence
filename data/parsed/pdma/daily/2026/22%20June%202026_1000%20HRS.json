@@ -1,8 +1,10 @@
 {
-    "pdf_name": "22%20June%202026_1000%20HRS.pdf",
+    "source_file": "22%20June%202026_1000%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
     "report_date": "22nd June, 2026",
     "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Monday \u00d8 Rain-windstorm/thunderstorm is expected at isolated \u00d8 Khanewal = 30 places in Rawalpindi, Murree, Galiyat, Attock, Chakwal, \u00d8 Lahore = 27 Jhelum, Mandi Bahauddin, Gujrat, Gujranwala, Lahore, \u00d8 Murree = 22 Sheikhupura, Sialkot, Narowal, Sahiwal, Noorpur Thal, Khushab, Sargodha, Bhakkar, Layyah, Mianwali, Kasur, \u00d8 Lahore (Airport = 22 & City = 01) Okara, Jhang, Faisalabad, Khanewal, Multan, Vehari and \u00d8 DG Khan Bahawalnagar. while heavy rain/hailstorm may occur at \u2022 City = 21, Fort Munro = 12, Vehova = 05, isolated places during the period. Hot and dry weather is Marri = 03 likely in other parts of the province. \u00d8 Kot Addu = 16 \u00d8 Rawalpindi \u2022 Shamsabad = 15, Chaklala = 10, DAILY DISCHARGE REPORT - 0600Hrs \u2022 Gawalmandi = 08, New Kattarian = 07, Weekly Dams Situation \u2022 Katcheri = 06, Pirwidahi = 04 \u00d8 Mangla & Gujrat = 09 CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours \u00d8 Bahawalpur (Airport = 07 & City = 03) MCL* Current Current \u00d8 Multan (Airport = 06 & City = 03) RIVERS DAMS (Feet) Filled Status Status \u00d8 Bahawalnagar = 05 Tarbela INDUS 1550.00 1445.06 Normal \u00d8 Jhelum, Okara, Kasur = 01 Dam \u00d8 Hafizabad & S",
+    "forecast": "WEATHER FORECAST (24 HOURS) Monday Ø Rain-windstorm/thunderstorm is expected at isolated Ø Khanewal = 30 places in Rawalpindi, Murree, Galiyat, Attock, Chakwal, Ø Lahore = 27 Jhelum, Mandi Bahauddin, Gujrat, Gujranwala, Lahore, Ø Murree = 22 Sheikhupura, Sialkot, Narowal, Sahiwal, Noorpur Thal, Khushab, Sargodha, Bhakkar, Layyah, Mianwali, Kasur, Ø Lahore (Airport = 22 & City = 01) Okara, Jhang, Faisalabad, Khanewal, Multan, Vehari and Ø DG Khan Bahawalnagar. while heavy rain/hailstorm may occur at • City = 21, Fort Munro = 12, Vehova = 05, isolated places during the period. Hot and dry weather is Marri = 03 likely in other parts of the province. Ø Kot Addu = 16 Ø Rawalpindi • Shamsabad = 15, Chaklala = 10, DAILY DISCHARGE REPORT - 0600Hrs • Gawalmandi = 08, New Kattarian = 07, Weekly Dams Situation • Katcheri = 06, Pirwidahi = 04 Ø Mangla & Gujrat = 09 CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours Ø Bahawalpur (Airport = 07 & City = 03) MCL* Current Current Ø Multan (Airport = 06 & City = 03) RIVERS DAMS (Feet) Filled Status Status Ø Bahawalnagar = 05 Tarbela INDUS 1550.00 1445.06 Normal Ø Jhelum, Okara, Kasur = 01 Dam Ø Hafizabad & S",
     "temperature": {
         "Gujrat": 9
     },
@@ -34,5 +36,5 @@
             "status": "Normal"
         }
     ],
-    "created_at": "2026-07-04T15:26:22.687650"
+    "created_at": "2026-07-11T09:09:17.979440"
 }

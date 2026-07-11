@@ -1,0 +1,70 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29-Snowfall%20%28inches%29%20Last%2024%20hours%20%2804.03.2025%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2025",
+    "report_date": "03.03.2025",
+    "station_count": 15,
+    "stations": [
+        {
+            "station": "District",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Murree",
+            "rainfall_mm": 9.0
+        },
+        {
+            "station": "Rawalpindi",
+            "rainfall_mm": 23.0
+        },
+        {
+            "station": "Chakwal",
+            "rainfall_mm": 13.0
+        },
+        {
+            "station": "Sargodha",
+            "rainfall_mm": 12.0
+        },
+        {
+            "station": "Mandi Bahauddin",
+            "rainfall_mm": 9.0
+        },
+        {
+            "station": "Jhang",
+            "rainfall_mm": 7.0
+        },
+        {
+            "station": "Gujrat",
+            "rainfall_mm": 6.0
+        },
+        {
+            "station": "Sialkot",
+            "rainfall_mm": 1.0
+        },
+        {
+            "station": "Faisalabad",
+            "rainfall_mm": 2.0
+        },
+        {
+            "station": "Attock",
+            "rainfall_mm": 2.0
+        },
+        {
+            "station": "Jehlum",
+            "rainfall_mm": 1.2
+        },
+        {
+            "station": "Narowal",
+            "rainfall_mm": 1.0
+        },
+        {
+            "station": "Lahore",
+            "rainfall_mm": 1.0
+        },
+        {
+            "station": "Sheikhupura",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:12:20.090308"
+}

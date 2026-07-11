@@ -1,27 +1,39 @@
-import json
+"""
+PDMA Daily Report Parser
+
+Parses PDMA Daily Situation Report PDFs
+and converts them into structured JSON.
+"""
+
+from __future__ import annotations
+
 import re
+import logging
 from pathlib import Path
 from datetime import datetime
 
 import pdfplumber
-RAW_FOLDER = Path("data/raw/pdma/reports/daily_reports")
-OUTPUT_FOLDER = Path("data/parsed/pdma/daily")
 
-OUTPUT_FOLDER.mkdir(parents=True, exist_ok=True)
+logger = logging.getLogger(__name__)
+
+# ==========================================================
+# HELPERS
+# ==========================================================
+
+DATE_PATTERNS = [
+
+    r"(\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+,\s+\d{4})",
+
+    r"(\d{1,2}\s+[A-Za-z]+\s+\d{4})",
+
+    r"([A-Za-z]+\s+\d{1,2},\s+\d{4})",
+
+]
+
 
 def extract_date(text):
 
-    patterns = [
-
-        r"(\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+,\s+\d{4})",
-
-        r"(\d{1,2}\s+[A-Za-z]+\s+\d{4})",
-
-        r"([A-Za-z]+\s+\d{1,2},\s+\d{4})"
-
-    ]
-
-    for pattern in patterns:
+    for pattern in DATE_PATTERNS:
 
         match = re.search(pattern, text)
 
@@ -31,9 +43,18 @@ def extract_date(text):
 
     return None
 
+
 def extract_time(text):
 
-    match = re.search(r"TIME[:\s]+(\d{3,4})", text)
+    match = re.search(
+
+        r"TIME[:\s]+(\d{3,4})",
+
+        text,
+
+        re.IGNORECASE,
+
+    )
 
     if match:
 
@@ -41,9 +62,10 @@ def extract_time(text):
 
     return None
 
+
 def extract_forecast(text):
 
-    start = text.find("WEATHER FORECAST")
+    start = text.upper().find("WEATHER FORECAST")
 
     if start == -1:
 
@@ -53,41 +75,44 @@ def extract_forecast(text):
 
     return " ".join(forecast.split())
 
+
 def extract_temperature(text):
 
-    temps = re.findall(
+    results = re.findall(
 
         r"([A-Za-z ]+)=\s*(\d+)\s*°?C",
 
-        text
-
-    )
-
-    data = {}
-
-    for city, temp in temps:
-
-        data[city.strip()] = int(temp)
-
-    return data
-
-def extract_rainfall(text):
-
-    rain = re.findall(
-
-        r"([A-Za-z ()]+)=\s*(\d+)",
-
-        text
+        text,
 
     )
 
     output = {}
 
-    for city, value in rain:
+    for city, value in results:
 
-        output[city.strip()] = float(value)
+        output[city.strip()] = int(value)
 
     return output
+
+
+def extract_rainfall(text):
+
+    results = re.findall(
+
+        r"([A-Za-z ()]+)=\s*(\d+(?:\.\d+)?)",
+
+        text,
+
+    )
+
+    rainfall = {}
+
+    for city, value in results:
+
+        rainfall[city.strip()] = float(value)
+
+    return rainfall
+
 
 def extract_dams(text):
 
@@ -97,23 +122,34 @@ def extract_dams(text):
 
         r"(Tarbela Dam|Mangla Dam|Bhakra Dam|Pong Dam|Thein Dam).*?(Normal|Low|Medium|High)",
 
-        re.DOTALL
+        re.DOTALL,
 
     )
 
     for match in pattern.finditer(text):
 
-        dams.append({
+        dams.append(
 
-            "dam": match.group(1),
+            {
 
-            "status": match.group(2)
+                "dam": match.group(1),
 
-        })
+                "status": match.group(2),
+
+            }
+
+        )
 
     return dams
 
-def parse_pdf(pdf_path):
+
+# ==========================================================
+# MAIN PARSER
+# ==========================================================
+
+def parse_pdf(pdf_path: Path):
+
+    pdf_path = Path(pdf_path)
 
     text = ""
 
@@ -127,9 +163,13 @@ def parse_pdf(pdf_path):
 
                 text += page_text + "\n"
 
-    data = {
+    result = {
 
-        "pdf_name": pdf_path.name,
+        "source_file": pdf_path.name,
+
+        "report_type": "daily",
+
+        "report_year": pdf_path.parent.parent.name,
 
         "report_date": extract_date(text),
 
@@ -143,43 +183,19 @@ def parse_pdf(pdf_path):
 
         "dams": extract_dams(text),
 
-        "created_at": datetime.now().isoformat()
+        "created_at": datetime.now().isoformat(),
 
     }
 
-    return data
+    logger.info("Parsed %s", pdf_path.name)
 
-def main():
+    return result
 
-    total = 0
-
-    for year_folder in RAW_FOLDER.iterdir():
-
-        pdf_folder = year_folder / "pdfs"
-
-        if not pdf_folder.exists():
-
-            continue
-
-        output_year = OUTPUT_FOLDER / year_folder.name
-
-        output_year.mkdir(parents=True, exist_ok=True)
-
-        for pdf in pdf_folder.glob("*.pdf"):
-
-            print(f"Parsing {pdf.name}")
-
-            data = parse_pdf(pdf)
-
-            output = output_year / f"{pdf.stem}.json"
-
-            with open(output, "w", encoding="utf-8") as f:
-
-                json.dump(data, f, indent=4)
-
-            total += 1
-
-    print(f"\nParsed {total} PDFs")
 
 if __name__ == "__main__":
-    main()
+
+    print(
+
+        "This parser is intended to be used from parse_pdma.py"
+
+    )

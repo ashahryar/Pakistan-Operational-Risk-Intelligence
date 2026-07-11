@@ -1,93 +1,119 @@
-import json
-from pathlib import Path
+"""
+PDMA Parsing Pipeline
 
-from scripts.parsing.pdma.daily_parser import parse_daily_report
-from scripts.parsing.pdma.rainfall_parser import parse_rainfall_report
-from scripts.parsing.pdma.gauge_parser import parse_gauge_report
+Runs all PDMA parsers.
+
+Daily Reports
+Rainfall Reports
+Gauge Reports
+"""
+
+from pathlib import Path
+import json
+
+from parse_pdma_daily import parse_pdf as parse_daily
+from parse_rainfall import parse_rainfall_report as parse_rainfall
+from parse_gauge import parse_pdf as parse_gauge
 
 
 RAW_DIR = Path("data/raw/pdma/reports")
 OUTPUT_DIR = Path("data/parsed/pdma")
 
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-
-REPORT_TYPES = {
-    "daily_reports": parse_daily_report,
-    "rainfall_reports": parse_rainfall_report,
-    "gauge_reports": parse_gauge_report,
+REPORTS = {
+    "daily_reports": parse_daily,
+    "rainfall_reports": parse_rainfall,
+    "gauge_reports": parse_gauge,
 }
 
 
-def save_json(data, output_file):
+def save_json(data, output_path):
 
-    with open(output_file, "w", encoding="utf-8") as f:
+    output_path.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    with open(
+        output_path,
+        "w",
+        encoding="utf-8",
+    ) as file:
 
         json.dump(
             data,
-            f,
+            file,
             indent=4,
             ensure_ascii=False,
-            default=str
+            default=str,
         )
 
 
 def process_report(report_name, parser):
 
-    report_folder = RAW_DIR / report_name
+    report_dir = RAW_DIR / report_name
 
-    if not report_folder.exists():
-        print(f"{report_folder} not found")
+    if not report_dir.exists():
+
+        print(f"{report_dir} not found")
+
         return
 
-    for year in report_folder.iterdir():
+    for year_folder in sorted(report_dir.iterdir()):
 
-        pdf_dir = year / "pdfs"
+        if not year_folder.is_dir():
 
-        if not pdf_dir.exists():
             continue
 
-        output_year = OUTPUT_DIR / report_name / year.name
+        pdf_dir = year_folder / "pdfs"
 
-        output_year.mkdir(
-            parents=True,
-            exist_ok=True
-        )
+        if not pdf_dir.exists():
 
-        pdfs = list(pdf_dir.glob("*.pdf"))
+            continue
 
-        print(f"\n{report_name} | {year.name}")
-        print(f"PDFs : {len(pdfs)}")
+        parsed_folder_name = report_name.replace("_reports", "")
+        output_dir = OUTPUT_DIR / parsed_folder_name / year_folder.name
 
-        for pdf in pdfs:
+        pdf_files = sorted(pdf_dir.glob("*.pdf"))
+
+        print("=" * 60)
+        print(report_name)
+        print(year_folder.name)
+        print(f"PDFs : {len(pdf_files)}")
+        print("=" * 60)
+
+        for pdf in pdf_files:
 
             try:
 
                 parsed = parser(pdf)
 
+                output_file = output_dir / f"{pdf.stem}.json"
+
                 save_json(
                     parsed,
-                    output_year / f"{pdf.stem}.json"
+                    output_file,
                 )
 
-                print(f"Parsed : {pdf.name}")
+                print(f"[OK] Parsed : {pdf.name}")
 
             except Exception as e:
 
-                print(f"Failed : {pdf.name}")
+                print(f"[FAIL] Failed : {pdf.name}")
 
                 print(e)
 
 
 def main():
 
-    for report_name, parser in REPORT_TYPES.items():
+    for report_name, parser in REPORTS.items():
 
         process_report(
             report_name,
-            parser
+            parser,
         )
 
 
 if __name__ == "__main__":
+
     main()

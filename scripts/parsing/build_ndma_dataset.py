@@ -26,7 +26,7 @@ damage = []
 relief = []
 rescue = []
 
-for file in INPUT_FOLDER.glob("*.json"):
+for file in sorted(INPUT_FOLDER.glob("*.json")):
 
     with open(file, encoding="utf8") as f:
         report = json.load(f)
@@ -34,33 +34,70 @@ for file in INPUT_FOLDER.glob("*.json"):
     report_date = report["report_date"]
     report_number = report["report_number"]
 
-    # -----------------------
-    # Casualties
-    # -----------------------
+    # =====================================================
+    # CASUALTIES
+    # =====================================================
 
-    for row in report["casualties"]:
+    seen_casualties = set()
 
-        row["report_date"] = report_date
-        row["report_number"] = report_number
+    for row in report.get("casualties", []):
 
-        casualties.append(row)
+        province = str(row.get("province", "")).strip()
 
-    # -----------------------
-    # Damage
-    # -----------------------
+        # Skip invalid rows
+        if province in ("", "Grand Total"):
+            continue
 
-    for row in report["damage"]:
+        key = (report_number, report_date, province)
 
-        row["report_date"] = report_date
-        row["report_number"] = report_number
+        if key in seen_casualties:
+            continue
 
-        damage.append(row)
+        seen_casualties.add(key)
 
-    # -----------------------
-    # Relief
-    # -----------------------
+        casualties.append({
+            "report_number": report_number,
+            "report_date": report_date,
+            "province": province,
+            "deaths": row.get("deaths"),
+            "injured": row.get("injured"),
+        })
 
-    for row in report["relief"]:
+    # =====================================================
+    # DAMAGE
+    # =====================================================
+
+    seen_damage = set()
+
+    for row in report.get("damage", []):
+
+        province = str(row.get("province", "")).strip()
+
+        if province in ("", "Grand Total"):
+            continue
+
+        key = (report_number, report_date, province)
+
+        if key in seen_damage:
+            continue
+
+        seen_damage.add(key)
+
+        damage.append({
+            "report_number": report_number,
+            "report_date": report_date,
+            "province": province,
+            "roads_km": row.get("roads_km"),
+            "bridges": row.get("bridges"),
+            "houses_total": row.get("houses_total"),
+            "livestock": row.get("livestock"),
+        })
+
+    # =====================================================
+    # RELIEF
+    # =====================================================
+
+    for row in report.get("relief", []):
 
         if len(row) < len(provinces) + 1:
             continue
@@ -71,8 +108,7 @@ for file in INPUT_FOLDER.glob("*.json"):
 
             quantity = str(row[i + 1]).strip()
 
-            # Skip invalid or zero values
-            if quantity in ["", "-", "0", "None", "null"]:
+            if quantity in ("", "-", "0", "None", "null"):
                 continue
 
             try:
@@ -81,27 +117,84 @@ for file in INPUT_FOLDER.glob("*.json"):
                 continue
 
             relief.append({
-                "report_date": report_date,
                 "report_number": report_number,
+                "report_date": report_date,
                 "province": province,
                 "item": item,
-                "quantity": quantity
+                "quantity": quantity,
             })
 
-    # -----------------------
-    # Rescue
-    # -----------------------
+    # =====================================================
+    # RESCUE
+    # =====================================================
 
-    for row in report["rescue"]:
+    seen_rescue = set()
 
-        row["report_date"] = report_date
-        row["report_number"] = report_number
+    for row in report.get("rescue", []):
 
-        rescue.append(row)
+        province = str(row.get("province", "")).strip()
 
-# -----------------------
-# Save Analytics Datasets
-# -----------------------
+        if province in ("", "Grand Total"):
+            continue
+
+        key = (report_number, report_date, province)
+
+        if key in seen_rescue:
+            continue
+
+        seen_rescue.add(key)
+
+        rescue.append({
+            "report_number": report_number,
+            "report_date": report_date,
+            "province": province,
+            "operations": row.get("operations"),
+            "rescued": row.get("rescued"),
+        })
+
+
+def remove_duplicates(rows, keys):
+    seen = set()
+    cleaned = []
+
+    for row in rows:
+        key = tuple(row.get(k) for k in keys)
+
+        if key in seen:
+            continue
+
+        seen.add(key)
+        cleaned.append(row)
+
+    return cleaned
+casualties = remove_duplicates(
+    casualties,
+    ["report_number", "report_date", "province"]
+)
+
+damage = remove_duplicates(
+    damage,
+    ["report_number", "report_date", "province"]
+)
+
+relief = remove_duplicates(
+    relief,
+    [
+        "report_number",
+        "report_date",
+        "province",
+        "item"
+    ]
+)
+
+rescue = remove_duplicates(
+    rescue,
+    ["report_number", "report_date", "province"]
+)
+
+# =====================================================
+# SAVE DATASETS
+# =====================================================
 
 save_json(
     casualties,
@@ -124,10 +217,10 @@ save_json(
 )
 
 print("=" * 60)
-print("DATASETS CREATED")
+print("NDMA ANALYTICS DATASETS CREATED")
 print("=" * 60)
-print("Casualties :", len(casualties))
-print("Damage     :", len(damage))
-print("Relief     :", len(relief))
-print("Rescue     :", len(rescue))
+print(f"Casualties : {len(casualties)}")
+print(f"Damage     : {len(damage)}")
+print(f"Relief     : {len(relief)}")
+print(f"Rescue     : {len(rescue)}")
 print("=" * 60)

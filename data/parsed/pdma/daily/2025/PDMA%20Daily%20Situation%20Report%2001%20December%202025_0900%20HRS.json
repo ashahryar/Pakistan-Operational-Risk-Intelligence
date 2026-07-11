@@ -1,8 +1,10 @@
 {
-    "pdf_name": "PDMA%20Daily%20Situation%20Report%2001%20December%202025_0900%20HRS.pdf",
+    "source_file": "PDMA%20Daily%20Situation%20Report%2001%20December%202025_0900%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2025",
     "report_date": null,
     "report_time": "0900",
-    "forecast": "WEATHER FORECAST (24 HOURS) Monday \u2022 Cold and dry weather is expected over most districts of the province. \u2022 Cold and dry weather is likely in Murree and Galliyat and surroundings. \u2022 Smog/fog may develop in Sialkot, Narowal, Lahore, Sheikhupura, Gujranwala, Gujrat, Jhelum, Faisalabad, Jhang, Toba Tek Singh, Sahiwal, Multan, Khanewal, Layyah, Kot Addu, Bahawalpur and surrounding areas during morning and night hours MAXIMUM TEMPERATURE (oC) LAST 24 HOURS Maximum Temperatures recorded WEATHER ADVISORY in last 24 hours SMOG/ FOG CONDITIONS ARE LIKELY TO CONTINUE WITH INCREASING \u00a7 Bahawalpur = 27oC TENDENCY OVER PLAIN AREAS OF THE PROVINCE IN COMING DAYS \u00a7 Bahawalnagar = 26oC \u00a7 Jhang = 26oC Due to persistent dry weather, \u00a7 Khanpur = 26oC Smog/Fog conditions are likely to \u00a7 RY Khan = 26oC increase over northeast and southern \u00a7 Bhakkar = 25oC parts of Punjab (Sialkot, Narowal, \u00a7 Joharabad = 25oC Lahore, Kasur, Sheikhupura, Gujranwala, \u00a7 Sahiwal = 25oC Jhelum, Bhakkar, Mianwali, Faisalabad, \u00a7 Sargodha = 25oC Jhang, Toba Tek Singh, Sahiwal, Multan, K h a n e w a l , L a y y a h , K o t A d d u , Bahaw a l p u r a n d s u r r o u n d i n g s ) especially during morning hours. DATA SOURCE: NO",
+    "forecast": "WEATHER FORECAST (24 HOURS) Monday • Cold and dry weather is expected over most districts of the province. • Cold and dry weather is likely in Murree and Galliyat and surroundings. • Smog/fog may develop in Sialkot, Narowal, Lahore, Sheikhupura, Gujranwala, Gujrat, Jhelum, Faisalabad, Jhang, Toba Tek Singh, Sahiwal, Multan, Khanewal, Layyah, Kot Addu, Bahawalpur and surrounding areas during morning and night hours MAXIMUM TEMPERATURE (oC) LAST 24 HOURS Maximum Temperatures recorded WEATHER ADVISORY in last 24 hours SMOG/ FOG CONDITIONS ARE LIKELY TO CONTINUE WITH INCREASING § Bahawalpur = 27oC TENDENCY OVER PLAIN AREAS OF THE PROVINCE IN COMING DAYS § Bahawalnagar = 26oC § Jhang = 26oC Due to persistent dry weather, § Khanpur = 26oC Smog/Fog conditions are likely to § RY Khan = 26oC increase over northeast and southern § Bhakkar = 25oC parts of Punjab (Sialkot, Narowal, § Joharabad = 25oC Lahore, Kasur, Sheikhupura, Gujranwala, § Sahiwal = 25oC Jhelum, Bhakkar, Mianwali, Faisalabad, § Sargodha = 25oC Jhang, Toba Tek Singh, Sahiwal, Multan, K h a n e w a l , L a y y a h , K o t A d d u , Bahaw a l p u r a n d s u r r o u n d i n g s ) especially during morning hours. DATA SOURCE: NO",
     "temperature": {},
     "rainfall": {
         "Bahawalpur": 27.0,
@@ -16,5 +18,5 @@
         "Sargodha": 25.0
     },
     "dams": [],
-    "created_at": "2026-07-04T15:25:42.223869"
+    "created_at": "2026-07-11T09:07:26.519121"
 }

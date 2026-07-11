@@ -1,0 +1,46 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2812.05.2026%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2026",
+    "report_date": "11.05.2026",
+    "station_count": 9,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Murree",
+            "rainfall_mm": 12.0
+        },
+        {
+            "station": "Mangla & MB Din",
+            "rainfall_mm": 6.0
+        },
+        {
+            "station": "Gujrat",
+            "rainfall_mm": 4.0
+        },
+        {
+            "station": "Rawalpindi",
+            "rainfall_mm": 4.0
+        },
+        {
+            "station": "Attock, Gujranwala, Jhelum",
+            "rainfall_mm": 3.0
+        },
+        {
+            "station": "Sialkot",
+            "rainfall_mm": 3.0
+        },
+        {
+            "station": "Hafizabad",
+            "rainfall_mm": 2.0
+        },
+        {
+            "station": "Narowal",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:12:31.108464"
+}

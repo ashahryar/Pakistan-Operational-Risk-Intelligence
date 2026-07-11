@@ -1,0 +1,34 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2808.08.2025%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2025",
+    "report_date": "07.08.2025",
+    "station_count": 6,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Rawalpindi",
+            "rainfall_mm": 26.0
+        },
+        {
+            "station": "Attock",
+            "rainfall_mm": 20.0
+        },
+        {
+            "station": "Kamra",
+            "rainfall_mm": 17.0
+        },
+        {
+            "station": "Sialkot",
+            "rainfall_mm": 1.0
+        },
+        {
+            "station": "Gujrat",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:11:55.393131"
+}

@@ -1,0 +1,106 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2810.07.2025%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2025",
+    "report_date": "09.07.2025",
+    "station_count": 24,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Lahore",
+            "rainfall_mm": 115.0
+        },
+        {
+            "station": "Sialkot",
+            "rainfall_mm": 48.0
+        },
+        {
+            "station": "Gujranwala",
+            "rainfall_mm": 67.0
+        },
+        {
+            "station": "Chakwal",
+            "rainfall_mm": 65.0
+        },
+        {
+            "station": "Jehlum",
+            "rainfall_mm": 64.0
+        },
+        {
+            "station": "Hafizabad",
+            "rainfall_mm": 60.0
+        },
+        {
+            "station": "Gujrat",
+            "rainfall_mm": 52.0
+        },
+        {
+            "station": "Mandi Bahauddin",
+            "rainfall_mm": 47.0
+        },
+        {
+            "station": "Attock",
+            "rainfall_mm": 45.0
+        },
+        {
+            "station": "Narowal",
+            "rainfall_mm": 44.0
+        },
+        {
+            "station": "Faisalabad",
+            "rainfall_mm": 51.0
+        },
+        {
+            "station": "Okara",
+            "rainfall_mm": 33.0
+        },
+        {
+            "station": "Joharabad, TT Singh, Sheikhupura",
+            "rainfall_mm": 25.0
+        },
+        {
+            "station": "Rawalpindi",
+            "rainfall_mm": 23.0
+        },
+        {
+            "station": "Kasur",
+            "rainfall_mm": 23.0
+        },
+        {
+            "station": "Mangla",
+            "rainfall_mm": 19.0
+        },
+        {
+            "station": "Sargodha City",
+            "rainfall_mm": 18.0
+        },
+        {
+            "station": "DG Khan",
+            "rainfall_mm": 16.0
+        },
+        {
+            "station": "Jhang",
+            "rainfall_mm": 11.0
+        },
+        {
+            "station": "Mianwali",
+            "rainfall_mm": 10.0
+        },
+        {
+            "station": "Khanewal",
+            "rainfall_mm": 9.0
+        },
+        {
+            "station": "Sahiwal",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Murree",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:11:59.125171"
+}

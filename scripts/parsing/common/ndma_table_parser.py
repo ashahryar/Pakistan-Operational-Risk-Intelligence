@@ -2,12 +2,24 @@
 NDMA table parser.
 Converts raw PDF tables into structured data.
 """
-def value(row, index):
 
+
+def value(row, index):
     if index < len(row):
-        return row[index]
+        cell = row[index]
+
+        if cell is None:
+            return None
+
+        cell = str(cell).strip()
+
+        if cell == "":
+            return None
+
+        return cell
 
     return None
+
 
 def parse_tables(tables):
 
@@ -15,8 +27,21 @@ def parse_tables(tables):
         "casualties": [],
         "damage": [],
         "relief": [],
-        "rescue": []
+        "rescue": [],
     }
+
+    # -------------------------------------------------------
+    # Duplicate Tracking
+    # -------------------------------------------------------
+
+    casualty_seen = set()
+    damage_seen = set()
+    relief_seen = set()
+    rescue_seen = set()
+
+    # -------------------------------------------------------
+    # Loop tables
+    # -------------------------------------------------------
 
     for table in tables:
 
@@ -24,45 +49,69 @@ def parse_tables(tables):
             continue
 
         header = " ".join(
-            str(cell)
-            for cell in table[0]
-            if cell
+            str(c)
+            for c in table[0]
+            if c
         ).lower()
 
-        # -------------------------------------
-        # Casualties
-        # -------------------------------------
+        # =====================================================
+        # CASUALTIES
+        # =====================================================
 
         if "province" in header and "deceased" in header:
 
             for row in table[2:]:
 
-                if not row:
+                province = value(row, 0)
+
+                if province in (None, "", "Grand Total"):
                     continue
 
-                if row[0] is None:
+                key = (
+                    province,
+                    value(row, 4),
+                    value(row, 8),
+                )
+
+                if key in casualty_seen:
                     continue
+
+                casualty_seen.add(key)
 
                 data["casualties"].append({
 
-                    "province": value(row, 0),
+                    "province": province,
                     "deaths": value(row, 4),
                     "injured": value(row, 8),
+
                 })
-        # -------------------------------------
-        # Damage
-        # -------------------------------------
+
+        # =====================================================
+        # DAMAGE
+        # =====================================================
 
         elif "roads" in header and "bridges" in header:
 
             for row in table[2:]:
 
-                if not row:
+                province = value(row, 0)
+
+                if province in (None, "", "Grand Total"):
                     continue
+
+                key = (
+                    province,
+                    value(row, 5),
+                )
+
+                if key in damage_seen:
+                    continue
+
+                damage_seen.add(key)
 
                 data["damage"].append({
 
-                    "province": value(row, 0),
+                    "province": province,
 
                     "roads_km": value(row, 1),
 
@@ -76,10 +125,11 @@ def parse_tables(tables):
 
                     "livestock": value(row, 6),
 
-            })
-        # -------------------------------------
-        # Relief
-        # -------------------------------------
+                })
+
+        # =====================================================
+        # RELIEF
+        # =====================================================
 
         elif "flood activity item" in header or "relief items" in header:
 
@@ -88,28 +138,59 @@ def parse_tables(tables):
                 if not row:
                     continue
 
-                data["relief"].append(row)
+                item = value(row, 0)
 
-        # -------------------------------------
-        # Rescue
-        # -------------------------------------
+                if item in (None, ""):
+                    continue
+
+                key = tuple(
+                    value(row, i)
+                    for i in range(len(row))
+                )
+
+                if key in relief_seen:
+                    continue
+
+                relief_seen.add(key)
+
+                cleaned = [
+                    value(row, i)
+                    for i in range(len(row))
+                ]
+
+                data["relief"].append(cleaned)
+
+        # =====================================================
+        # RESCUE
+        # =====================================================
 
         elif "rescue operation" in header:
 
             for row in table[1:]:
 
-                if not row:
+                province = value(row, 0)
+
+                if province in (None, "", "Grand Total"):
                     continue
+
+                key = (
+                    province,
+                    value(row, 1),
+                    value(row, 2),
+                )
+
+                if key in rescue_seen:
+                    continue
+
+                rescue_seen.add(key)
 
                 data["rescue"].append({
 
-                    "province": value(row, 0),
+                    "province": province,
 
                     "operations": value(row, 1),
 
                     "rescued": value(row, 2),
 
                 })
-                print(row)
-
     return data

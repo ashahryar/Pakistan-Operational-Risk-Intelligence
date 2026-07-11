@@ -1,8 +1,10 @@
 {
-    "pdf_name": "03%20June%202026_1000%20HRS.pdf",
+    "source_file": "03%20June%202026_1000%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
     "report_date": "3rd JUNE, 2026",
     "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Wednesday \u00d8 Chakwal = 15 \u00d8 Scattered dust/thunderstorm-rain (with few heavyfalls and hailstorm) is expected in Rawalpindi, Murree, \u00d8 Lahore Galliyat, Attock, Chakwal, Jhelum, Mandi Bahauddin, \u2022 Mughalpura SDO Office = 13, Gujrat, Gujranwala, Hafizabad, Wazirabad, Lahore, \u2022 Tajpura SDO Office = 12.5, Sheikhupura, Sialkot, Narowal, Sahiwal, Jhang, Toba Tek \u2022 Pani Wala Talab = 07, Singh, Nankana Sahib, Chiniot, Faisalabad, Okara, Kasur, \u2022 Upper Mall, Air Port = 05, Khushab, Sargodha, Bhakkar, Mianwali, Bahawalpur, \u2022 Farrukhabad = 04, Shadi Pura = 03, Bahawalnagar, D.G. Khan, Multan, Khanewal, Lodhran, Muzaffargarh, Rajanpur, Rahimyar Khan and Layyah. \u2022 Johar Town SDO Office =2.4, Saggian = 02, \u2022 Head Office WASA, Gulberg = 1.4, \u2022 Hdyara defense Road = 1.4, \u2022 Gulshan-e-Ravi & City = 01 DAILY DISCHARGE REPORT - 0600Hrs \u00d8 Gujrat = 13 Weekly Dams Situation \u00d8 Sargodha (City) = 12 CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours \u00d8 Murree = 08 \u00d8 Rawalpindi MCL* Current Current RIVERS DAMS (Feet) Filled Status Status \u00d8 DG Khan = 43\u00b0C \u2022 Chaklala, Pirwadahi, Gawalmandi = 07, \u00d8 Bahawalpur = 41\u00b0C \u2022 New Kattarian = 06, Katcher",
+    "forecast": "WEATHER FORECAST (24 HOURS) Wednesday Ø Chakwal = 15 Ø Scattered dust/thunderstorm-rain (with few heavyfalls and hailstorm) is expected in Rawalpindi, Murree, Ø Lahore Galliyat, Attock, Chakwal, Jhelum, Mandi Bahauddin, • Mughalpura SDO Office = 13, Gujrat, Gujranwala, Hafizabad, Wazirabad, Lahore, • Tajpura SDO Office = 12.5, Sheikhupura, Sialkot, Narowal, Sahiwal, Jhang, Toba Tek • Pani Wala Talab = 07, Singh, Nankana Sahib, Chiniot, Faisalabad, Okara, Kasur, • Upper Mall, Air Port = 05, Khushab, Sargodha, Bhakkar, Mianwali, Bahawalpur, • Farrukhabad = 04, Shadi Pura = 03, Bahawalnagar, D.G. Khan, Multan, Khanewal, Lodhran, Muzaffargarh, Rajanpur, Rahimyar Khan and Layyah. • Johar Town SDO Office =2.4, Saggian = 02, • Head Office WASA, Gulberg = 1.4, • Hdyara defense Road = 1.4, • Gulshan-e-Ravi & City = 01 DAILY DISCHARGE REPORT - 0600Hrs Ø Gujrat = 13 Weekly Dams Situation Ø Sargodha (City) = 12 CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours Ø Murree = 08 Ø Rawalpindi MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Ø DG Khan = 43°C • Chaklala, Pirwadahi, Gawalmandi = 07, Ø Bahawalpur = 41°C • New Kattarian = 06, Katcher",
     "temperature": {
         "": 12,
         "DG Khan": 43,
@@ -21,15 +23,15 @@
     "rainfall": {
         "Chakwal": 35.0,
         "Mughalpura SDO Office": 13.0,
-        "Tajpura SDO Office": 12.0,
+        "Tajpura SDO Office": 12.5,
         "Pani Wala Talab": 7.0,
         "Air Port": 5.0,
         "Farrukhabad": 4.0,
         "Shadi Pura": 3.0,
-        "Johar Town SDO Office": 2.0,
+        "Johar Town SDO Office": 2.4,
         "Saggian": 2.0,
-        "Gulberg": 1.0,
-        "Hdyara defense Road": 1.0,
+        "Gulberg": 1.4,
+        "Hdyara defense Road": 1.4,
         "City": 1.0,
         "Gujrat": 13.0,
         "Sargodha (City)": 12.0,
@@ -61,5 +63,5 @@
             "status": "Normal"
         }
     ],
-    "created_at": "2026-07-04T15:25:58.600641"
+    "created_at": "2026-07-11T09:08:12.255893"
 }

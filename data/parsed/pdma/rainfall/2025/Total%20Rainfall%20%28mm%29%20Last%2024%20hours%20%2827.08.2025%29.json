@@ -1,0 +1,54 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2827.08.2025%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2025",
+    "report_date": "26.08.2025",
+    "station_count": 11,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Sialkot",
+            "rainfall_mm": 363.0
+        },
+        {
+            "station": "Gujrat",
+            "rainfall_mm": 115.0
+        },
+        {
+            "station": "Narowal",
+            "rainfall_mm": 102.0
+        },
+        {
+            "station": "Mangla",
+            "rainfall_mm": 48.0
+        },
+        {
+            "station": "Jhelum",
+            "rainfall_mm": 47.0
+        },
+        {
+            "station": "Gujranwala",
+            "rainfall_mm": 46.0
+        },
+        {
+            "station": "Lahore",
+            "rainfall_mm": 38.0
+        },
+        {
+            "station": "Mandi Bahuddin",
+            "rainfall_mm": 19.0
+        },
+        {
+            "station": "Hafizabad",
+            "rainfall_mm": 2.0
+        },
+        {
+            "station": "Kasur, Bahawalpur (Airport, City)",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:12:15.737316"
+}

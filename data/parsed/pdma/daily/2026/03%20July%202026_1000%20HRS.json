@@ -1,0 +1,42 @@
+{
+    "source_file": "03%20July%202026_1000%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
+    "report_date": "3rd July, 2026",
+    "report_time": "1000",
+    "forecast": "WEATHER FORECAST (24 HOURS) Friday Ø Rain-windstorm/thundershower is expected in Ø Attock = 10 Rawalpindi, Murree, Galliyat, Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, Gujranwala, Hafizabad, Ø Noor Pur Thal = 08 Wazirabad, Khushab, Lahore, Okara, Kasur, Sheikhupura, Ø Bhakkar = 06 Sialkot and Narowal. Hot and dry weather is likely in Ø Jhang = 02 other districts of the province. However, rain- Ø TT Singh = Trace windstorm/thundershower may also occur in Bhakkar, Layyah, Mianwali, D.G. Khan and surrounding areas during evening/night,. DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Ø Bahawalpur = 41°C Tarbela INDUS 1550.00 1458.85 Normal Ø Sahiwal = 41°C Dam Ø DG Khan = 40°C Mangla JHELUM 1242.00 1163.15 Normal Ø Multan = 40°C Dam Ø Faisalabad = 39°C Bhakra SUTLEJ 1680.00 1560.28 Normal Ø Attock = 38°C Dam Ø Sargodha = 38°C Ø Lahore = 36°C BEAS Pong Dam 1390.00 1317.77 Normal Ø Chakwal = 36°C Ø Rawalpindi 36°C R A V I T h e i n D a m 1 7 3 2 . 0 0 1 650.25 Normal Ø Murree = 26°C MCL* = Maximum Conservation Level Accor",
+    "temperature": {
+        "Bahawalpur": 41,
+        "Sahiwal": 41,
+        "DG Khan": 40,
+        "Multan": 40,
+        "Faisalabad": 39,
+        "Attock": 38,
+        "Sargodha": 38,
+        "Lahore": 36,
+        "Chakwal": 36,
+        "Murree": 26
+    },
+    "rainfall": {
+        "Attock": 38.0,
+        "Noor Pur Thal": 8.0,
+        "Bhakkar": 6.0,
+        "Jhang": 2.0,
+        "Bahawalpur": 41.0,
+        "Sahiwal": 41.0,
+        "DG Khan": 40.0,
+        "Multan": 40.0,
+        "Faisalabad": 39.0,
+        "Sargodha": 38.0,
+        "Lahore": 36.0,
+        "Chakwal": 36.0,
+        "Murree": 26.0
+    },
+    "dams": [
+        {
+            "dam": "Pong Dam",
+            "status": "Normal"
+        }
+    ],
+    "created_at": "2026-07-11T09:08:05.561374"
+}

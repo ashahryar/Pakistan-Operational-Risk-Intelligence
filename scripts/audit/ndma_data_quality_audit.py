@@ -1,15 +1,11 @@
-from sqlalchemy import create_engine, text
+import sys
+from pathlib import Path
+from sqlalchemy import text
 from datetime import datetime
 import json
-from pathlib import Path
 
-# ==========================
-# DATABASE CONFIGURATION
-# ==========================
-
-DATABASE_URL = "postgresql+psycopg2://postgres:123456789@localhost:5432/pakistan_operational_risk"
-
-engine = create_engine(DATABASE_URL)
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from config.database import engine
 
 TABLES = [
     "ndma_casualties",

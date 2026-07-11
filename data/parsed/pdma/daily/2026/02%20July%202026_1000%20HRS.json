@@ -1,0 +1,58 @@
+{
+    "source_file": "02%20July%202026_1000%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
+    "report_date": "1st July, 2026",
+    "report_time": "1000",
+    "forecast": "WEATHER FORECAST (24 HOURS) Thursday Ø Murree = 72 Ø Scattered rain windstorm/thundershower (with isolated Ø Lahore heavyfalls) is expected in Rawalpindi, Murree, Galliyat, • Nishter Town = 38, Johar Town = 24, Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, • Tajpura = 23, Gujranwala, Hafizabad, Wazirabad, Faisalabad, Khushab, • Mughalpura, Farrukhabad = 22, Sargodha, Lahore, Sheikhupura, Sialkot, Narowal, • Air Port = 21, Sahiwal, Jhang, Toba Tek Singh, Pakpattan, Nankana • Head Office WASA = 20, Defence Road = 16, Sahib, Chiniot, Okara, Kasur, Noor Pur Thal, Bhakkar, • Samanabad = 13, Shadipura = 12, Layyah Mianwali, Bahawalpur, Bahawalnagar, D.G. Khan, • Gulshan-e-Ravi = 11, Jail Road =10, Multan, Khanewal, Lodhran, Muzaffargarh and Rajanpur. • Lakshmi Chowk, Iqbal Town, Saggian = 10, • Upper Mall = 08, Pani Wala Talab = 07, • Chowk Nakhuda = 01 Ø MB Din = 25 DAILY DISCHARGE REPORT - 0600Hrs Ø Attock = 22 Weekly Dams Situation Ø Hafizabad & Sheikhupura = 14 Ø Gujranwala = 13 CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours Ø Rawalpindi MCL* Current Current RIVERS DAMS • Katcheri = 12, Kattarian = 11, (Feet) Filled Status Status • Pi",
+    "temperature": {
+        "Gujranwala": 13
+    },
+    "rainfall": {
+        "Murree": 72.0,
+        "Nishter Town": 38.0,
+        "Johar Town": 24.0,
+        "Tajpura": 23.0,
+        "Farrukhabad": 22.0,
+        "Air Port": 21.0,
+        "Head Office WASA": 20.0,
+        "Defence Road": 16.0,
+        "Samanabad": 13.0,
+        "Shadipura": 12.0,
+        "Ravi": 11.0,
+        "Jail Road": 10.0,
+        "Saggian": 10.0,
+        "Upper Mall": 8.0,
+        "Pani Wala Talab": 7.0,
+        "Chowk Nakhuda": 1.0,
+        "MB Din": 25.0,
+        "Attock": 22.0,
+        "Sheikhupura": 14.0,
+        "Gujranwala": 13.0,
+        "Katcheri": 12.0,
+        "Kattarian": 11.0,
+        "Pirwidahi": 11.0,
+        "Chaklala": 11.0,
+        "Gawalmandi": 8.0,
+        "Shamsabad": 8.0,
+        "Gujrat": 11.0,
+        "Jhelum": 8.0,
+        "Vehova": 8.0,
+        "Fort Munro": 4.0,
+        "City": 2.0,
+        "Joharabad": 1.0,
+        "Sialkot": 1.0,
+        "Kasur": 7.0,
+        "Mangla": 6.0,
+        "Noor Pur Thal": 3.0,
+        "Narowal": 3.0,
+        "Chakwal": 2.0
+    },
+    "dams": [
+        {
+            "dam": "Pong Dam",
+            "status": "Normal"
+        }
+    ],
+    "created_at": "2026-07-11T09:07:52.087934"
+}

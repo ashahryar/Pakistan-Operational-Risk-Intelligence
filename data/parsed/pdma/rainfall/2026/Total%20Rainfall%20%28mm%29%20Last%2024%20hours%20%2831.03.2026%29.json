@@ -1,0 +1,66 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2831.03.2026%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2026",
+    "report_date": "30.03.2026",
+    "station_count": 14,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 9.0
+        },
+        {
+            "station": "Murree",
+            "rainfall_mm": 48.0
+        },
+        {
+            "station": "Rawalpindi",
+            "rainfall_mm": 42.0
+        },
+        {
+            "station": "Jhelum",
+            "rainfall_mm": 33.0
+        },
+        {
+            "station": "Mangla",
+            "rainfall_mm": 18.0
+        },
+        {
+            "station": "Kot Addu",
+            "rainfall_mm": 14.0
+        },
+        {
+            "station": "Joharabad",
+            "rainfall_mm": 13.0
+        },
+        {
+            "station": "Attock",
+            "rainfall_mm": 9.0
+        },
+        {
+            "station": "Chakwal",
+            "rainfall_mm": 7.0
+        },
+        {
+            "station": "Sargodha (City)",
+            "rainfall_mm": 6.0
+        },
+        {
+            "station": "Gujrat & Hafizabad",
+            "rainfall_mm": 5.0
+        },
+        {
+            "station": "Sialkot",
+            "rainfall_mm": 2.0
+        },
+        {
+            "station": "Mandi Bahuddin",
+            "rainfall_mm": 2.0
+        },
+        {
+            "station": "Noor Pur Thal, D G Khan",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:12:35.076270"
+}

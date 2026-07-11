@@ -1,0 +1,16 @@
+{
+    "alert_type": "Rain",
+    "severity": "Heavy",
+    "duration": "24-48hrs",
+    "regions": [
+        "AJK",
+        "Balochistan",
+        "Gilgit Baltistan",
+        "Islamabad",
+        "Khyber Pakhtunkhwa",
+        "Punjab"
+    ],
+    "forecast": "Rain-windstorm thunder with isolated heavy falls in Chitral, Dir, Swat, Kohistan, Shangla, Battagram, Buner, Malakand, Mansehra, Abbottabad, Haripur, Khyber, Mohmand, Peshawar, Swabi, Mardan, Charsadda, Nowshera Bajaur, Bannu, Kohat, Karak, D.i.Khan Waziristan, Orakzai, Kurram, Kohat, Hangu ,Mianwali,Zhob, Barkhan, Musakhal ziarat, Islamabad, Murree, Galliyat Gilgit-Baltistan and Kashmir, Attock, Chakwal, Talagang, Jhelum, Sargodha, Mianwali, Bhakkar, Gujranwala, Lahore, Kasur, Okara, Pakpattan, Jhang Sahiwal, Khanewal, Vehari, Multan, Layyah, Faisalabad, Dera Ghazi Khan during next 24-48hrs",
+    "category": "weather_alerts",
+    "scraped_at": "2026-07-07T00:31:36.827554"
+}

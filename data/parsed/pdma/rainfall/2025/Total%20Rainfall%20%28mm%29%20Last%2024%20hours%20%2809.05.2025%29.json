@@ -1,0 +1,94 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2809.05.2025%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2025",
+    "report_date": "08.05.2025",
+    "station_count": 21,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Rawalpindi",
+            "rainfall_mm": 43.0
+        },
+        {
+            "station": "Murree",
+            "rainfall_mm": 42.0
+        },
+        {
+            "station": "Gujranwala",
+            "rainfall_mm": 33.0
+        },
+        {
+            "station": "Layyah (Karor) & Bhakkar",
+            "rainfall_mm": 21.0
+        },
+        {
+            "station": "Mianwali",
+            "rainfall_mm": 20.0
+        },
+        {
+            "station": "Multan",
+            "rainfall_mm": 19.0
+        },
+        {
+            "station": "Kot Addu",
+            "rainfall_mm": 14.0
+        },
+        {
+            "station": "DG Khan",
+            "rainfall_mm": 12.0
+        },
+        {
+            "station": "Mangla",
+            "rainfall_mm": 11.0
+        },
+        {
+            "station": "Lahore",
+            "rainfall_mm": 11.0
+        },
+        {
+            "station": "Hafizabad",
+            "rainfall_mm": 9.0
+        },
+        {
+            "station": "Gujrat & Chakwal",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Faisalabad",
+            "rainfall_mm": 7.0
+        },
+        {
+            "station": "Attock & Jhang",
+            "rainfall_mm": 6.0
+        },
+        {
+            "station": "MB Din & Sheikhupura",
+            "rainfall_mm": 5.0
+        },
+        {
+            "station": "Sialkot",
+            "rainfall_mm": 5.0
+        },
+        {
+            "station": "Khanewal",
+            "rainfall_mm": 3.0
+        },
+        {
+            "station": "Jehlum, Joharabad, TT Singh",
+            "rainfall_mm": 2.0
+        },
+        {
+            "station": "Sargodha City, Noor pul Thal, Narowal",
+            "rainfall_mm": 1.0
+        },
+        {
+            "station": "Bahawalpur",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:11:56.897414"
+}

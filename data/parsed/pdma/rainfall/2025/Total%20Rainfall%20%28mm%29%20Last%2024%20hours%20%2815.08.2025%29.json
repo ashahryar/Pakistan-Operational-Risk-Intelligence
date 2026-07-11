@@ -1,0 +1,46 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2815.08.2025%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2025",
+    "report_date": "14.08.2025",
+    "station_count": 9,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Murree",
+            "rainfall_mm": 28.0
+        },
+        {
+            "station": "Rawalpindi",
+            "rainfall_mm": 22.0
+        },
+        {
+            "station": "Lahore",
+            "rainfall_mm": 13.0
+        },
+        {
+            "station": "Narowal",
+            "rainfall_mm": 13.0
+        },
+        {
+            "station": "Sialkot",
+            "rainfall_mm": 11.0
+        },
+        {
+            "station": "Mangla",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Bahawalpur",
+            "rainfall_mm": 3.0
+        },
+        {
+            "station": "Gujrat & Bahawalnagar",
+            "rainfall_mm": 2.0
+        }
+    ],
+    "created_at": "2026-07-11T09:12:04.771741"
+}

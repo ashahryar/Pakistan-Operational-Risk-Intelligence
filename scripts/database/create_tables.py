@@ -1,11 +1,24 @@
+import sys
+from pathlib import Path
+
 from sqlalchemy import text
 
-from connection import engine
+# ==========================================================
+# PROJECT ROOT
+# ==========================================================
 
-TABLES = [
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+from config.database import engine
+
+# ==========================================================
+# SQL TABLES
+# ==========================================================
+
+TABLES = [  
 
     # ==========================================================
-    # NDMA TABLES
+    # NDMA CASUALTIES
     # ==========================================================
 
     """
@@ -13,9 +26,9 @@ TABLES = [
 
         id SERIAL PRIMARY KEY,
 
-        report_number TEXT,
-        report_date DATE,
-        province TEXT,
+        report_number TEXT NOT NULL,
+        report_date DATE NOT NULL,
+        province TEXT NOT NULL,
 
         deaths INTEGER,
         injured INTEGER,
@@ -28,13 +41,27 @@ TABLES = [
     """,
 
     """
+    CREATE INDEX IF NOT EXISTS idx_ndma_casualties_date
+    ON ndma_casualties(report_date);
+    """,
+
+    """
+    CREATE INDEX IF NOT EXISTS idx_ndma_casualties_province
+    ON ndma_casualties(province);
+    """,
+
+    # ==========================================================
+    # NDMA DAMAGE
+    # ==========================================================
+
+    """
     CREATE TABLE IF NOT EXISTS ndma_damage (
 
         id SERIAL PRIMARY KEY,
 
-        report_number TEXT,
-        report_date DATE,
-        province TEXT,
+        report_number TEXT NOT NULL,
+        report_date DATE NOT NULL,
+        province TEXT NOT NULL,
 
         roads_km REAL,
         bridges INTEGER,
@@ -49,15 +76,29 @@ TABLES = [
     """,
 
     """
+    CREATE INDEX IF NOT EXISTS idx_ndma_damage_date
+    ON ndma_damage(report_date);
+    """,
+
+    """
+    CREATE INDEX IF NOT EXISTS idx_ndma_damage_province
+    ON ndma_damage(province);
+    """,
+
+    # ==========================================================
+    # NDMA RELIEF
+    # ==========================================================
+
+    """
     CREATE TABLE IF NOT EXISTS ndma_relief (
 
         id SERIAL PRIMARY KEY,
 
-        report_number TEXT,
-        report_date DATE,
-        province TEXT,
+        report_number TEXT NOT NULL,
+        report_date DATE NOT NULL,
+        province TEXT NOT NULL,
 
-        item TEXT,
+        item TEXT NOT NULL,
         quantity INTEGER,
 
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -68,13 +109,32 @@ TABLES = [
     """,
 
     """
+    CREATE INDEX IF NOT EXISTS idx_ndma_relief_date
+    ON ndma_relief(report_date);
+    """,
+
+    """
+    CREATE INDEX IF NOT EXISTS idx_ndma_relief_province
+    ON ndma_relief(province);
+    """,
+
+    """
+    CREATE INDEX IF NOT EXISTS idx_ndma_relief_item
+    ON ndma_relief(item);
+    """,
+
+    # ==========================================================
+    # NDMA RESCUE
+    # ==========================================================
+
+    """
     CREATE TABLE IF NOT EXISTS ndma_rescue (
 
         id SERIAL PRIMARY KEY,
 
-        report_number TEXT,
-        report_date DATE,
-        province TEXT,
+        report_number TEXT NOT NULL,
+        report_date DATE NOT NULL,
+        province TEXT NOT NULL,
 
         rescue_operations INTEGER,
         persons_rescued INTEGER,
@@ -86,162 +146,243 @@ TABLES = [
     );
     """,
 
+    """
+    CREATE INDEX IF NOT EXISTS idx_ndma_rescue_date
+    ON ndma_rescue(report_date);
+    """,
+
+    """
+    CREATE INDEX IF NOT EXISTS idx_ndma_rescue_province
+    ON ndma_rescue(province);
+    """,
+
+    # ==========================================================
+    # PMD TABLES START HERE
+    # (Continue in Part 2)
+    # ==========================================================
     # ==========================================================
     # PMD TABLES
     # ==========================================================
 
     """
-    CREATE TABLE IF NOT EXISTS pmd_reports (
-
+    CREATE TABLE IF NOT EXISTS pmd_daily_forecast (
         id SERIAL PRIMARY KEY,
 
-        category TEXT,
-        source TEXT,
-        url TEXT,
+        city TEXT,
+        province TEXT,
 
-        forecast TEXT,
+        temperature REAL,
+        humidity REAL,
+
+        forecast_day_1 TEXT,
+        forecast_day_2 TEXT,
+        forecast_day_3 TEXT,
+
+        category TEXT,
 
         scraped_at TIMESTAMP,
-
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
     );
     """,
 
     """
-    CREATE TABLE IF NOT EXISTS pmd_weather (
+    CREATE INDEX IF NOT EXISTS idx_pmd_daily_city
+    ON pmd_daily_forecast(city);
+    """,
 
-        id SERIAL PRIMARY KEY,
+    """
+    CREATE INDEX IF NOT EXISTS idx_pmd_daily_province
+    ON pmd_daily_forecast(province);
+    """,
 
-        category TEXT,
-
-        city TEXT,
-
-        humidity TEXT,
-        max_temperature TEXT,
-
-        day1_forecast TEXT,
-        day2_forecast TEXT,
-        day3_forecast TEXT,
-
-        scraped_at TIMESTAMP,
-
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
-    );
+    """
+    CREATE INDEX IF NOT EXISTS idx_pmd_daily_scraped
+    ON pmd_daily_forecast(scraped_at);
     """,
 
     """
     CREATE TABLE IF NOT EXISTS pmd_weekly_outlook (
-
         id SERIAL PRIMARY KEY,
 
-        forecast_date TEXT,
-
-        weather_description TEXT,
+        report_date TEXT,
+        weekday TEXT,
+        weather_summary TEXT,
+        regions JSONB,
 
         scraped_at TIMESTAMP,
-
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
     );
     """,
 
-    # ==========================================================
-    # PDMA DAILY REPORTS
-    # ==========================================================
+    """
+    CREATE INDEX IF NOT EXISTS idx_pmd_weekly_date
+    ON pmd_weekly_outlook(report_date);
+    """,
 
     """
-    CREATE TABLE pdma_daily_reports (
+    CREATE INDEX IF NOT EXISTS idx_pmd_weekly_scraped
+    ON pmd_weekly_outlook(scraped_at);
+    """,
 
+    """
+    CREATE TABLE IF NOT EXISTS pmd_weather_alerts (
         id SERIAL PRIMARY KEY,
 
-        pdf_name TEXT UNIQUE,
-
-        report_date DATE,
-
-        report_time TEXT,
-
+        alert_type TEXT,
+        severity TEXT,
+        duration TEXT,
+        regions JSONB,
         forecast TEXT,
 
-        temperature JSONB,
-
-        rainfall JSONB,
-
-        dams JSONB,
-
-        created_at TIMESTAMP
-
+        scraped_at TIMESTAMP,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     """,
 
-    # ==========================================================
-    # PDMA RAINFALL REPORTS
-    # ==========================================================
+    """
+    CREATE INDEX IF NOT EXISTS idx_pmd_alert_type
+    ON pmd_weather_alerts(alert_type);
+    """,
 
     """
-    CREATE TABLE pdma_rainfall_reports(
+    CREATE INDEX IF NOT EXISTS idx_pmd_alert_severity
+    ON pmd_weather_alerts(severity);
+    """,
 
-        id SERIAL PRIMARY KEY,
-
-        pdf_name TEXT UNIQUE,
-
-        report_date DATE,
-
-        rainfall_data JSONB,
-
-        created_at TIMESTAMP
-
-    );
+    """
+    CREATE INDEX IF NOT EXISTS idx_pmd_alert_scraped
+    ON pmd_weather_alerts(scraped_at);
     """,
 
     # ==========================================================
-    # PDMA GAUGE REPORTS
+    # PDMA TABLES
     # ==========================================================
 
     """
-    CREATE TABLE pdma_gauge_reports(
-
+    CREATE TABLE IF NOT EXISTS pdma_daily_reports (
         id SERIAL PRIMARY KEY,
 
-        pdf_name TEXT UNIQUE,
-
+        source_file TEXT UNIQUE,
         report_date DATE,
+        report_year INTEGER,
 
-        gauge_data JSONB,
+        raw_data JSONB,
 
-        created_at TIMESTAMP
-
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
-    """
+    """,
 
+    """
+    CREATE INDEX IF NOT EXISTS idx_pdma_daily_date
+    ON pdma_daily_reports(report_date);
+    """,
+
+    """
+    CREATE INDEX IF NOT EXISTS idx_pdma_daily_year
+    ON pdma_daily_reports(report_year);
+    """,
+
+    """
+    CREATE TABLE IF NOT EXISTS pdma_rainfall_readings (
+        id SERIAL PRIMARY KEY,
+
+        source_file TEXT,
+        report_date DATE,
+        report_year INTEGER,
+
+        station TEXT,
+        rainfall_mm REAL,
+
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+        UNIQUE(source_file, station)
+    );
+    """,
+
+    """
+    CREATE INDEX IF NOT EXISTS idx_pdma_rainfall_date
+    ON pdma_rainfall_readings(report_date);
+    """,
+
+    """
+    CREATE INDEX IF NOT EXISTS idx_pdma_rainfall_station
+    ON pdma_rainfall_readings(station);
+    """,
+
+    """
+    CREATE TABLE IF NOT EXISTS pdma_gauge_readings (
+        id SERIAL PRIMARY KEY,
+
+        source_file TEXT,
+        report_datetime TIMESTAMP,
+        report_year INTEGER,
+
+        station TEXT,
+        river TEXT,
+
+        current_level_ft REAL,
+        danger_level_ft REAL,
+        discharge_cusecs REAL,
+
+        flow_status TEXT,
+
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+        UNIQUE(source_file, station)
+    );
+    """,
+
+    """
+    CREATE INDEX IF NOT EXISTS idx_pdma_gauge_datetime
+    ON pdma_gauge_readings(report_datetime);
+    """,
+
+    """
+    CREATE INDEX IF NOT EXISTS idx_pdma_gauge_station
+    ON pdma_gauge_readings(station);
+    """,
+
+    """
+    CREATE INDEX IF NOT EXISTS idx_pdma_gauge_river
+    ON pdma_gauge_readings(river);
+    """
 ]
 
-with engine.begin() as conn:
 
-    for sql in TABLES:
-        conn.execute(text(sql))
+def create_all_tables():
 
-print("=" * 60)
-print("DATABASE CREATED SUCCESSFULLY")
-print("=" * 60)
+    with engine.begin() as conn:
+        for sql in TABLES:
+            conn.execute(text(sql))
 
-print("NDMA")
-print("  ✓ ndma_casualties")
-print("  ✓ ndma_damage")
-print("  ✓ ndma_relief")
-print("  ✓ ndma_rescue")
-print()
+    print("=" * 60)
+    print("DATABASE TABLES CREATED SUCCESSFULLY")
+    print("=" * 60)
 
-print("PMD")
-print("  ✓ pmd_reports")
-print("  ✓ pmd_weather")
-print("  ✓ pmd_weekly_outlook")
-print()
+    print("NDMA")
+    print("  ✓ ndma_casualties")
+    print("  ✓ ndma_damage")
+    print("  ✓ ndma_relief")
+    print("  ✓ ndma_rescue")
 
-print("PDMA")
-print("  ✓ pdma_daily_reports")
-print("  ✓ pdma_rainfall_reports")
-print("  ✓ pdma_gauge_reports")
+    print()
+    print("PMD")
+    print("  ✓ pmd_daily_forecast")
+    print("  ✓ pmd_weekly_outlook")
+    print("  ✓ pmd_weather_alerts")
 
-print("=" * 60)
+    print()
+    print("PDMA")
+    print("  ✓ pdma_daily_reports")
+    print("  ✓ pdma_rainfall_readings")
+    print("  ✓ pdma_gauge_readings")
+
+    print("=" * 60)
+
+
+def main():
+    create_all_tables()
+
+
+if __name__ == "__main__":
+    main()

@@ -1,8 +1,10 @@
 {
-    "pdf_name": "Daily%20Situation%20Report%2007%20June%202026.pdf",
+    "source_file": "Daily%20Situation%20Report%2007%20June%202026.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
     "report_date": "7th June, 2026",
     "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Sunday \u00d8 Mainly hot and dry weather is expected in most districts of the province, while very hot weather is likely in \u00d8 Noor Pur Thal = 06 southern districts. \u00d8 Bhakkar = 02 \u00d8 Jhang & DG Khan = Trace DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS \u00d8 Bahawalpur = 43\u00b0C (Feet) Filled Status Status \u00d8 Sahiwal = 43\u00b0C Tarbela INDUS 1550.00 1451.58 Normal Dam \u00d8 DG Khan = 42\u00b0C Mangla \u00d8 Lahore = 42\u00b0C JHELUM 1242.00 1169.90 Normal Dam \u00d8 Sargodha = 41\u00b0C Bhakra \u00d8 Multan = 41\u00b0C SUTLEJ Dam 1680.00 1580.42 Normal \u00d8 Faisalabad = 41\u00b0C BEAS Pong Dam 1390.00 1330.39 Normal \u00d8 Attock = 39\u00b0C \u00d8 Jhelum = 37\u00b0C R A V I T h e i n D a m 1 7 3 2 . 0 0 1 681.90 Normal \u00d8 Rawalpindi = 37\u00b0C \u00d8 Chakwal = 35\u00b0C MCL* = Maximum Conservation Level \u00d8 Murree = 25\u00b0C According to Met Department; Met office has informed that a high pressure is likely to develop in upper atmosphere on 8th June and likely to persist till 11th June. Under the influence of this system, Heatwave conditions \u00d8 Near-normal to slightly below-normal are likely to develop over the province from",
+    "forecast": "WEATHER FORECAST (24 HOURS) Sunday Ø Mainly hot and dry weather is expected in most districts of the province, while very hot weather is likely in Ø Noor Pur Thal = 06 southern districts. Ø Bhakkar = 02 Ø Jhang & DG Khan = Trace DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS Ø Bahawalpur = 43°C (Feet) Filled Status Status Ø Sahiwal = 43°C Tarbela INDUS 1550.00 1451.58 Normal Dam Ø DG Khan = 42°C Mangla Ø Lahore = 42°C JHELUM 1242.00 1169.90 Normal Dam Ø Sargodha = 41°C Bhakra Ø Multan = 41°C SUTLEJ Dam 1680.00 1580.42 Normal Ø Faisalabad = 41°C BEAS Pong Dam 1390.00 1330.39 Normal Ø Attock = 39°C Ø Jhelum = 37°C R A V I T h e i n D a m 1 7 3 2 . 0 0 1 681.90 Normal Ø Rawalpindi = 37°C Ø Chakwal = 35°C MCL* = Maximum Conservation Level Ø Murree = 25°C According to Met Department; Met office has informed that a high pressure is likely to develop in upper atmosphere on 8th June and likely to persist till 11th June. Under the influence of this system, Heatwave conditions Ø Near-normal to slightly below-normal are likely to develop over the province from",
     "temperature": {
         "Bahawalpur": 43,
         "Sahiwal": 43,
@@ -39,5 +41,5 @@
             "status": "Normal"
         }
     ],
-    "created_at": "2026-07-04T15:27:14.240064"
+    "created_at": "2026-07-11T09:10:53.421013"
 }

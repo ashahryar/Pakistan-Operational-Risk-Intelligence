@@ -1,0 +1,90 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2830.08.2025%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2025",
+    "report_date": "29.08.2025",
+    "station_count": 20,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Mandi Bahauddin",
+            "rainfall_mm": 81.0
+        },
+        {
+            "station": "Hafizabad",
+            "rainfall_mm": 63.0
+        },
+        {
+            "station": "Jhelum",
+            "rainfall_mm": 50.0
+        },
+        {
+            "station": "Sialkot",
+            "rainfall_mm": 47.0
+        },
+        {
+            "station": "Mangla",
+            "rainfall_mm": 45.0
+        },
+        {
+            "station": "Bahawalnagar",
+            "rainfall_mm": 44.0
+        },
+        {
+            "station": "Gujrat",
+            "rainfall_mm": 34.0
+        },
+        {
+            "station": "Faisalabad",
+            "rainfall_mm": 32.0
+        },
+        {
+            "station": "Sheikhupura",
+            "rainfall_mm": 31.0
+        },
+        {
+            "station": "Lahore",
+            "rainfall_mm": 26.0
+        },
+        {
+            "station": "Murree",
+            "rainfall_mm": 26.0
+        },
+        {
+            "station": "Chakwal",
+            "rainfall_mm": 18.0
+        },
+        {
+            "station": "Gujranwala",
+            "rainfall_mm": 14.0
+        },
+        {
+            "station": "Khanewal",
+            "rainfall_mm": 12.0
+        },
+        {
+            "station": "Jhang, Narowal, Okara",
+            "rainfall_mm": 10.0
+        },
+        {
+            "station": "Rawalpindi",
+            "rainfall_mm": 5.0
+        },
+        {
+            "station": "Kot Addu",
+            "rainfall_mm": 4.0
+        },
+        {
+            "station": "Sahiwal",
+            "rainfall_mm": 3.0
+        },
+        {
+            "station": "Sargodha City & Kasur",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:12:17.243619"
+}

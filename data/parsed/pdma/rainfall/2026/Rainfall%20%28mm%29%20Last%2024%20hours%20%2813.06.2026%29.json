@@ -1,0 +1,74 @@
+{
+    "source_file": "Rainfall%20%28mm%29%20Last%2024%20hours%20%2813.06.2026%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2026",
+    "report_date": "12.06.2026",
+    "station_count": 16,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Joharabad",
+            "rainfall_mm": 72.0
+        },
+        {
+            "station": "Hafizabad",
+            "rainfall_mm": 44.0
+        },
+        {
+            "station": "Noor Pur Thal",
+            "rainfall_mm": 43.0
+        },
+        {
+            "station": "Faisalabad",
+            "rainfall_mm": 26.0
+        },
+        {
+            "station": "Kasur & Sheikhupura",
+            "rainfall_mm": 22.0
+        },
+        {
+            "station": "Gujranwala",
+            "rainfall_mm": 16.0
+        },
+        {
+            "station": "Sargodha (City)",
+            "rainfall_mm": 13.0
+        },
+        {
+            "station": "Jhang",
+            "rainfall_mm": 12.0
+        },
+        {
+            "station": "Attock",
+            "rainfall_mm": 11.0
+        },
+        {
+            "station": "Bhakkar",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Chakwal",
+            "rainfall_mm": 7.0
+        },
+        {
+            "station": "Okara",
+            "rainfall_mm": 5.0
+        },
+        {
+            "station": "Lahore",
+            "rainfall_mm": 7.0
+        },
+        {
+            "station": "Gujrat & Narowal",
+            "rainfall_mm": 2.0
+        },
+        {
+            "station": "MB Din & TT Singh",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:12:22.898151"
+}

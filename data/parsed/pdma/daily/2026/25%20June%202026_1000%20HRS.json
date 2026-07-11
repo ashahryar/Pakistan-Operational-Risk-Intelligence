@@ -1,8 +1,10 @@
 {
-    "pdf_name": "25%20June%202026_1000%20HRS.pdf",
+    "source_file": "25%20June%202026_1000%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
     "report_date": "25th June, 2026",
     "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Thursday \u00d8 Narowal = 48 \u00d8 Hot and dry weather is likely in most parts of the \u00d8 Gujrat = 46 \u00d8 Sialkot (City = 21 & Airport = 20) province. \u00d8 Jhelum = 07 \u00d8 Isolated rain-windstorm/thunderstorm may occur in \u00d8 Rawalpindi = Murree, Galiyat, Jhelum, Attock, Rawalpindi, Mianwali, \u2022 Katcheri = 04, Chaklala = 03, \u2022 Pirwidahi, Shamsabad = 02, Kattarian = 01 Lahore, Sheikhupura, Sialkot, Narowal, Pakpattan, \u00d8 DG Khan Vehari, Dera Ghazi Khan, Bahawalnagar and surrounding \u2022 Fort Munro = 04 areas. \u00d8 Murree = 03 \u00d8 Mangla = 02 DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Tarbela INDUS 1550.00 1445.06 Normal Dam Mangla JHELUM 1242.00 1172.05 Normal Dam Bhakra SUTLEJ 1680.00 1570.33 Normal Dam BEAS Pong Dam 1390.00 1323.44 Normal R A V I T h e i n D a m 1 7 3 2 . 0 0 1 664.84 Normal MCL* = Maximum Conservation Level \u2022 Above-normal rainfall in northern areas of Punjab is likely to improve water availability, reducing reliance on stored water for agriculture. \u2022 The increased rainfall may fulfill the irrigation ne",
+    "forecast": "WEATHER FORECAST (24 HOURS) Thursday Ø Narowal = 48 Ø Hot and dry weather is likely in most parts of the Ø Gujrat = 46 Ø Sialkot (City = 21 & Airport = 20) province. Ø Jhelum = 07 Ø Isolated rain-windstorm/thunderstorm may occur in Ø Rawalpindi = Murree, Galiyat, Jhelum, Attock, Rawalpindi, Mianwali, • Katcheri = 04, Chaklala = 03, • Pirwidahi, Shamsabad = 02, Kattarian = 01 Lahore, Sheikhupura, Sialkot, Narowal, Pakpattan, Ø DG Khan Vehari, Dera Ghazi Khan, Bahawalnagar and surrounding • Fort Munro = 04 areas. Ø Murree = 03 Ø Mangla = 02 DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Tarbela INDUS 1550.00 1445.06 Normal Dam Mangla JHELUM 1242.00 1172.05 Normal Dam Bhakra SUTLEJ 1680.00 1570.33 Normal Dam BEAS Pong Dam 1390.00 1323.44 Normal R A V I T h e i n D a m 1 7 3 2 . 0 0 1 664.84 Normal MCL* = Maximum Conservation Level • Above-normal rainfall in northern areas of Punjab is likely to improve water availability, reducing reliance on stored water for agriculture. • The increased rainfall may fulfill the irrigation ne",
     "temperature": {},
     "rainfall": {
         "Narowal": 48.0,
@@ -24,5 +26,5 @@
             "status": "Normal"
         }
     ],
-    "created_at": "2026-07-04T15:26:34.467123"
+    "created_at": "2026-07-11T09:09:40.437495"
 }

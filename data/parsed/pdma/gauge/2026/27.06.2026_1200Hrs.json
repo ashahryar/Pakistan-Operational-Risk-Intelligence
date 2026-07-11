@@ -1,0 +1,81 @@
+{
+    "source_file": "27.06.2026_1200Hrs.pdf",
+    "report_type": "gauge",
+    "report_datetime": "2026-06-27T12:00:00",
+    "gauge_count": 9,
+    "gauges": [
+        {
+            "station": "INDUS",
+            "river": "INDUS",
+            "current_level_ft": null,
+            "danger_level_ft": null,
+            "discharge_cusecs": 15.0,
+            "flow_status": "Rising"
+        },
+        {
+            "station": "JHELUM",
+            "river": "JHELUM",
+            "current_level_ft": null,
+            "danger_level_ft": null,
+            "discharge_cusecs": 10.6,
+            "flow_status": "Rising"
+        },
+        {
+            "station": "CHENAB",
+            "river": "CHENAB",
+            "current_level_ft": null,
+            "danger_level_ft": null,
+            "discharge_cusecs": 11.0,
+            "flow_status": "Steady"
+        },
+        {
+            "station": "RAVI",
+            "river": "RAVI",
+            "current_level_ft": null,
+            "danger_level_ft": null,
+            "discharge_cusecs": 2.75,
+            "flow_status": "Falling"
+        },
+        {
+            "station": "SUTLEJ",
+            "river": "SUTLEJ",
+            "current_level_ft": null,
+            "danger_level_ft": null,
+            "discharge_cusecs": 1.5,
+            "flow_status": "Steady"
+        },
+        {
+            "station": "FLOOD LIMITS IN CUSECS",
+            "river": "FLOOD LIMITS IN CUSECS",
+            "current_level_ft": null,
+            "danger_level_ft": null,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "RAJANPUR HILL TORRENTS",
+            "river": "RAJANPUR HILL TORRENTS",
+            "current_level_ft": null,
+            "danger_level_ft": null,
+            "discharge_cusecs": null,
+            "flow_status": "Discharge (Cusecs)"
+        },
+        {
+            "station": "DG KHAN HILL TORRENTS",
+            "river": "DG KHAN HILL TORRENTS",
+            "current_level_ft": null,
+            "danger_level_ft": null,
+            "discharge_cusecs": null,
+            "flow_status": "Nill"
+        },
+        {
+            "station": "NULLAHS Data Source: F",
+            "river": "NULLAHS Data Source: F",
+            "current_level_ft": null,
+            "danger_level_ft": null,
+            "discharge_cusecs": null,
+            "flow_status": "Discharge (Cusecs)"
+        }
+    ],
+    "created_at": "2026-07-11T09:19:54.971922"
+}

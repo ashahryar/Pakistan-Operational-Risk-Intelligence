@@ -1,0 +1,38 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2817.08.2025%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2025",
+    "report_date": "16.08.2025",
+    "station_count": 7,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Sialkot",
+            "rainfall_mm": 65.0
+        },
+        {
+            "station": "Mangla",
+            "rainfall_mm": 60.0
+        },
+        {
+            "station": "Rawalpindi",
+            "rainfall_mm": 44.0
+        },
+        {
+            "station": "Narowal",
+            "rainfall_mm": 4.0
+        },
+        {
+            "station": "Okara",
+            "rainfall_mm": 2.0
+        },
+        {
+            "station": "Attock & Murree",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:12:07.084107"
+}

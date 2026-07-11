@@ -1,0 +1,45 @@
+{
+    "source_file": "04%20July%202026_1000%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
+    "report_date": "4th July, 2026",
+    "report_time": "1000",
+    "forecast": "WEATHER FORECAST (24 HOURS) Saturday Ø Hot and humid weather is expected in most districts of Ø DG Khan the province. • Vehova = 21, Ø However, rain-windstorm/thundershower is likely in • City = 09, Murree, Galliyat, Gujrat, Gujranwala, Lahore, Kasur, Sheikhupura, Sialkot and Narowal during afternoon • Zain Saghar Nullah = 01, Ø Chakwal = 04 Ø Joharabad = 01 Ø Mutan (Airport & City) = Trace Ø Kot Addu = Trace DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Ø Bahawalpur = 42°C Tarbela Ø Jhelum = 41°C INDUS 1550.00 1458.85 Normal Dam Ø Sargodha = 41°C Mangla Ø DG Khan = 41°C JHELUM 1242.00 1163.15 Normal Dam Ø Multan = 41°C Ø Sahiwal = 40°C SUTLEJ Bhakra 1680.00 1560.28 Normal Ø Faisalabad = 40°C Dam Ø Attock = 38°C BEAS Pong Dam 1390.00 1317.77 Normal Ø Lahore = 38°C Ø Chakwal = 38°C R A V I T h e i n D a m 1 7 3 2 . 0 0 1 650.25 Normal Ø Rawalpindi 37°C Ø Murree = 24°C MCL* = Maximum Conservation Level According to Met Department; Met office has informed that a westerly wave is likely to enter upper parts of the country fro",
+    "temperature": {
+        "Bahawalpur": 42,
+        "Jhelum": 41,
+        "Sargodha": 41,
+        "DG Khan": 41,
+        "Multan": 41,
+        "Sahiwal": 40,
+        "Faisalabad": 40,
+        "Attock": 38,
+        "Lahore": 38,
+        "Chakwal": 38,
+        "Murree": 24
+    },
+    "rainfall": {
+        "Vehova": 21.0,
+        "City": 9.0,
+        "Zain Saghar Nullah": 1.0,
+        "Chakwal": 38.0,
+        "Joharabad": 1.0,
+        "Bahawalpur": 42.0,
+        "Jhelum": 41.0,
+        "Sargodha": 41.0,
+        "DG Khan": 41.0,
+        "Multan": 41.0,
+        "Sahiwal": 40.0,
+        "Faisalabad": 40.0,
+        "Attock": 38.0,
+        "Lahore": 38.0,
+        "Murree": 24.0
+    },
+    "dams": [
+        {
+            "dam": "Pong Dam",
+            "status": "Normal"
+        }
+    ],
+    "created_at": "2026-07-11T09:08:19.706826"
+}

@@ -1,0 +1,66 @@
+{
+    "source_file": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2807.08.2025%29.pdf",
+    "report_type": "rainfall",
+    "report_year": "2025",
+    "report_date": "06.08.2025",
+    "station_count": 14,
+    "stations": [
+        {
+            "station": "Stations",
+            "rainfall_mm": 8.0
+        },
+        {
+            "station": "Rawalpindi",
+            "rainfall_mm": 46.0
+        },
+        {
+            "station": "Mangla",
+            "rainfall_mm": 34.0
+        },
+        {
+            "station": "Mandi Bahauddin",
+            "rainfall_mm": 33.0
+        },
+        {
+            "station": "Dera Ghazi Khan",
+            "rainfall_mm": 27.0
+        },
+        {
+            "station": "Attock",
+            "rainfall_mm": 20.0
+        },
+        {
+            "station": "Kamra",
+            "rainfall_mm": 17.0
+        },
+        {
+            "station": "Jhelum",
+            "rainfall_mm": 15.0
+        },
+        {
+            "station": "Gujranwala",
+            "rainfall_mm": 9.0
+        },
+        {
+            "station": "Sialkot",
+            "rainfall_mm": 7.0
+        },
+        {
+            "station": "Chakwal",
+            "rainfall_mm": 5.0
+        },
+        {
+            "station": "Hafizabad",
+            "rainfall_mm": 3.0
+        },
+        {
+            "station": "Narowal",
+            "rainfall_mm": 2.0
+        },
+        {
+            "station": "Lahore (Airport), Murree",
+            "rainfall_mm": 1.0
+        }
+    ],
+    "created_at": "2026-07-11T09:11:53.788627"
+}
