@@ -1,11 +1,4 @@
-"""
-parser.py
-
-Common HTML parsing helpers.
-"""
-
 from urllib.parse import urljoin
-
 from bs4 import BeautifulSoup
 
 
@@ -14,36 +7,62 @@ def extract_pdf_links(
     page_url: str,
 ):
     """
-    Extract unique PDF links.
+    Extract report links (PDF + JPG + JPEG + PNG).
     """
 
-    pdfs = []
+    reports = []
     seen = set()
+
+    VALID_EXTENSIONS = (
+        ".pdf",
+        ".jpg",
+        ".jpeg",
+        ".png",
+    )
 
     for a in soup.select("a[href]"):
 
         href = a.get("href", "").strip()
+        print("FOUND:", href)
 
-        if ".pdf" not in href.lower():
+        href_lower = href.lower()
+
+        from urllib.parse import urlparse
+
+        parsed = urlparse(href_lower)
+
+        path = parsed.path
+
+        VALID_EXTENSIONS = (
+            ".pdf",
+            ".jpg",
+            ".jpeg",
+            ".png",
+        )
+
+        if not any(path.endswith(ext) for ext in VALID_EXTENSIONS):
             continue
 
-        pdf_url = urljoin(page_url, href)
+        if href.startswith("http"):
+            report_url = href
+        else:
+            report_url = urljoin(page_url, href)
 
-        if pdf_url in seen:
+        if report_url in seen:
             continue
 
-        seen.add(pdf_url)
+        seen.add(report_url)
 
         title = a.get_text(" ", strip=True)
 
         if not title:
-            title = pdf_url.split("/")[-1]
+            title = report_url.split("/")[-1]
 
-        pdfs.append(
+        reports.append(
             {
                 "title": title,
-                "url": pdf_url,
+                "url": report_url,
             }
         )
 
-    return pdfs
+    return reports

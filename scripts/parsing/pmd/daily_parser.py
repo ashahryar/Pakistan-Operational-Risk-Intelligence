@@ -1,14 +1,44 @@
-import json
+"""
+scripts/parsing/pmd/daily_parser.py
+"""
+import sys
 from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(PROJECT_ROOT))
+
+import json
+
+from validation.translator import normalize_city
+from validation.validator import validate_weather
 
 from scripts.parsing.pmd.utils import (
     clean_text,
     extract_number,
     province_from_city,
+    district_from_city,
 )
 
-RAW_FILE = Path("data/raw/pmd/reports/daily_forecast/all/latest.json")
+# ==========================================================
+# FILES
+# ==========================================================
 
+RAW_FILE = Path(
+    "data/raw/pmd/reports/daily_forecast/all/latest.json"
+)
+
+OUTPUT_DIR = Path(
+    "data/parsed/pmd/daily_forecast"
+)
+
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+OUTPUT_FILE = OUTPUT_DIR / "latest.json"
+
+
+# ==========================================================
+# PARSER
+# ==========================================================
 
 def parse_daily_forecast():
 
@@ -18,7 +48,7 @@ def parse_daily_forecast():
     with open(RAW_FILE, encoding="utf-8") as f:
         raw = json.load(f)
 
-    output = []
+    parsed = []
 
     for table in raw.get("tables", []):
 
@@ -27,11 +57,21 @@ def parse_daily_forecast():
             if len(row) < 6:
                 continue
 
+            # ---------------------------------
+            # Clean Values
+            # ---------------------------------
+
             city = clean_text(row[5])
 
-            humidity = extract_number(row[4])
+            city = normalize_city(clean_text(row[5]))
+
+            province = province_from_city(city)
+
+            district = district_from_city(city)
 
             temperature = extract_number(row[3])
+
+            humidity = extract_number(row[4])
 
             day1 = clean_text(row[2])
 
@@ -39,11 +79,29 @@ def parse_daily_forecast():
 
             day3 = clean_text(row[0])
 
-            output.append({
+            # ---------------------------------
+            # Validation
+            # ---------------------------------
+
+            if not validate_weather(
+                city=city,
+                temperature=temperature,
+                humidity=humidity,
+                day1=day1,
+            ):
+                continue
+
+            # ---------------------------------
+            # Parsed Record
+            # ---------------------------------
+
+            parsed.append({
 
                 "city": city,
 
-                "province": province_from_city(city),
+                "district": district,
+
+                "province": province,
 
                 "temperature": temperature,
 
@@ -61,13 +119,40 @@ def parse_daily_forecast():
 
             })
 
-    return output
+    return parsed
 
 
-if __name__ == "__main__":
+# ==========================================================
+# SAVE
+# ==========================================================
+
+def save_daily_forecast():
 
     data = parse_daily_forecast()
 
-    print(f"Cities Parsed : {len(data)}")
+    with open(
+        OUTPUT_FILE,
+        "w",
+        encoding="utf-8",
+    ) as f:
 
-    print(json.dumps(data[:5], indent=4, ensure_ascii=False))
+        json.dump(
+            data,
+            f,
+            ensure_ascii=False,
+            indent=4,
+        )
+
+    print("=" * 60)
+    print(f"PMD Daily Forecast Parsed : {len(data)} Records")
+    print(f"Saved : {OUTPUT_FILE}")
+    print("=" * 60)
+
+
+# ==========================================================
+# MAIN
+# ==========================================================
+
+if __name__ == "__main__":
+
+    save_daily_forecast()

@@ -1,7 +1,5 @@
 """
 PDMA Gauge Report Parser
-
-Parses PDMA Gauge / River Situation PDF reports into structured JSON.
 """
 
 from __future__ import annotations
@@ -34,10 +32,10 @@ FLOW_STATUS = {
     "receding": "FALLING",
 }
 
+
 # ==========================================================
 # HELPERS
 # ==========================================================
-
 
 def clean(value: Any) -> str:
 
@@ -54,14 +52,14 @@ def to_float(value: str):
 
     value = value.replace(",", "")
 
-    match = re.search(r"-?\d+(?:\.\d+)?", value)
+    m = re.search(r"-?\d+(?:\.\d+)?", value)
 
-    if not match:
+    if not m:
         return None
 
     try:
-        return float(match.group())
-    except ValueError:
+        return float(m.group())
+    except Exception:
         return None
 
 
@@ -69,11 +67,10 @@ def detect_flow(text: str):
 
     text = text.lower()
 
-    for key, value in FLOW_STATUS.items():
+    for k, v in FLOW_STATUS.items():
 
-        if key in text:
-
-            return value
+        if k in text:
+            return v
 
     return None
 
@@ -87,13 +84,13 @@ def extract_report_datetime(pdf_path: Path, first_page: str):
 
     for candidate in candidates:
 
-        match = FILENAME_PATTERN.search(candidate)
+        m = FILENAME_PATTERN.search(candidate)
 
-        if not match:
+        if not m:
             continue
 
-        date_part = match.group(1)
-        time_part = match.group(2).zfill(4)
+        date_part = m.group(1)
+        time_part = m.group(2).zfill(4)
 
         try:
 
@@ -105,8 +102,7 @@ def extract_report_datetime(pdf_path: Path, first_page: str):
             return dt.isoformat()
 
         except Exception:
-
-            continue
+            pass
 
     return None
 
@@ -115,111 +111,120 @@ def extract_report_datetime(pdf_path: Path, first_page: str):
 # TABLE PARSER
 # ==========================================================
 
-
 def parse_table(table):
 
     if not table:
-
         return []
 
-    rows = [[clean(cell) for cell in row] for row in table]
+    rows = [
+        [clean(c) for c in row]
+        for row in table
+    ]
 
     if len(rows) < 2:
-
         return []
-
-    header = [c.lower() for c in rows[0]]
-
-    station_idx = 0
-    river_idx = None
-    level_idx = None
-    danger_idx = None
-    discharge_idx = None
-    flow_idx = None
-
-    for i, column in enumerate(header):
-
-        if "station" in column or "gauge" in column:
-            station_idx = i
-
-        elif "river" in column:
-            river_idx = i
-
-        elif "danger" in column:
-            danger_idx = i
-
-        elif "level" in column:
-            level_idx = i
-
-        elif "discharge" in column or "cusec" in column:
-            discharge_idx = i
-
-        elif (
-            "flow" in column
-            or "trend" in column
-            or "status" in column
-        ):
-            flow_idx = i
 
     stations = []
 
-    for row in rows[1:]:
+    current_river = None
+
+    for row in rows:
 
         if not any(row):
             continue
 
-        if station_idx >= len(row):
+        # --------------------------------------------------
+        # Skip headers
+        # --------------------------------------------------
+
+        first = row[0].upper() if len(row) > 0 else ""
+        second = row[1].upper() if len(row) > 1 else ""
+
+        if first in {
+            "RIVER",
+            "SITE",
+            "DISCHARGE",
+            "FLOOD LIMITS",
+            "INFLOW",
+            "OUTFLOW",
+        }:
             continue
 
-        station = row[station_idx]
+        # --------------------------------------------------
+        # Main River Table
+        # --------------------------------------------------
 
-        if station == "":
+        if len(row) >= 12:
+
+            if row[0]:
+                current_river = clean(row[0]).upper()
+
+            station = clean(row[1])
+
+            if not station:
+                continue
+
+            river = current_river
+
+            current_level = to_float(row[3])
+
+            danger_level = to_float(row[6])
+
+            discharge = to_float(row[9])
+
+            flow = clean(row[11])
+
+            if not flow:
+                flow = detect_flow(" ".join(row))
+
+            stations.append(
+                {
+                    "station": station,
+                    "river": river,
+                    "current_level_ft": current_level,
+                    "danger_level_ft": danger_level,
+                    "discharge_cusecs": discharge,
+                    "flow_status": flow,
+                }
+            )
+
             continue
 
-        river = row[river_idx] if river_idx is not None and river_idx < len(row) else ""
+        # --------------------------------------------------
+        # Ignore notes/footer
+        # --------------------------------------------------
 
-        current = row[level_idx] if level_idx is not None and level_idx < len(row) else ""
+        text = " ".join(row).upper()
 
-        danger = row[danger_idx] if danger_idx is not None and danger_idx < len(row) else ""
+        if text.startswith("NOTE"):
+            continue
 
-        discharge = row[discharge_idx] if discharge_idx is not None and discharge_idx < len(row) else ""
+        if "DATA SOURCE" in text:
+            continue
 
-        flow = row[flow_idx] if flow_idx is not None and flow_idx < len(row) else ""
+        if "PEOC" in text:
+            continue
 
-        if not flow:
-            flow = detect_flow(" ".join(row))
-
-        stations.append(
-            {
-                "station": station,
-                "river": river or None,
-                "current_level_ft": to_float(current),
-                "danger_level_ft": to_float(danger),
-                "discharge_cusecs": to_float(discharge),
-                "flow_status": flow,
-            }
-        )
+        if "PROVINCIAL DISASTER" in text:
+            continue
 
     return stations
-
 
 # ==========================================================
 # MAIN PARSER
 # ==========================================================
 
-
 def parse_pdf(pdf_path: Path):
 
     pdf_path = Path(pdf_path)
 
-    first_page_text = ""
-
     gauges = []
+
+    first_page_text = ""
 
     with pdfplumber.open(pdf_path) as pdf:
 
         if not pdf.pages:
-
             raise ValueError("PDF contains no pages.")
 
         first_page_text = pdf.pages[0].extract_text() or ""
@@ -232,7 +237,6 @@ def parse_pdf(pdf_path: Path):
                 continue
 
             for table in tables:
-
                 gauges.extend(parse_table(table))
 
     unique = {}

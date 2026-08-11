@@ -1,8 +1,7 @@
 """
-NDMA table parser.
-Converts raw PDF tables into structured data.
+NDMA Table Parser
+Converts extracted PDF tables into structured JSON
 """
-
 
 def value(row, index):
     if index < len(row):
@@ -30,18 +29,10 @@ def parse_tables(tables):
         "rescue": [],
     }
 
-    # -------------------------------------------------------
-    # Duplicate Tracking
-    # -------------------------------------------------------
-
     casualty_seen = set()
     damage_seen = set()
     relief_seen = set()
     rescue_seen = set()
-
-    # -------------------------------------------------------
-    # Loop tables
-    # -------------------------------------------------------
 
     for table in tables:
 
@@ -49,14 +40,12 @@ def parse_tables(tables):
             continue
 
         header = " ".join(
-            str(c)
-            for c in table[0]
-            if c
+            str(c) for c in table[0] if c
         ).lower()
 
-        # =====================================================
+        # =========================================================
         # CASUALTIES
-        # =====================================================
+        # =========================================================
 
         if "province" in header and "deceased" in header:
 
@@ -81,14 +70,16 @@ def parse_tables(tables):
                 data["casualties"].append({
 
                     "province": province,
+
                     "deaths": value(row, 4),
+
                     "injured": value(row, 8),
 
                 })
 
-        # =====================================================
+        # =========================================================
         # DAMAGE
-        # =====================================================
+        # =========================================================
 
         elif "roads" in header and "bridges" in header:
 
@@ -117,35 +108,44 @@ def parse_tables(tables):
 
                     "bridges": value(row, 2),
 
-                    "houses_full": value(row, 3),
+                    "houses_fully_damaged": value(row, 3),
 
-                    "houses_partial": value(row, 4),
+                    "houses_partially_damaged": value(row, 4),
 
-                    "houses_total": value(row, 5),
+                    "houses_damaged": value(row, 5),
 
                     "livestock": value(row, 6),
 
                 })
 
-        # =====================================================
+        # =========================================================
         # RELIEF
-        # =====================================================
+        # =========================================================
 
-        elif "flood activity item" in header or "relief items" in header:
+        elif (
+            "flood activity item" in header
+            or "relief items" in header
+            or "relief item" in header
+        ):
 
             for row in table[1:]:
 
                 if not row:
                     continue
 
-                item = value(row, 0)
+                province = value(row, 0)
 
-                if item in (None, ""):
+                item = value(row, 1)
+
+                quantity = value(row, 2)
+
+                if province is None and item is None:
                     continue
 
-                key = tuple(
-                    value(row, i)
-                    for i in range(len(row))
+                key = (
+                    province,
+                    item,
+                    quantity,
                 )
 
                 if key in relief_seen:
@@ -153,16 +153,19 @@ def parse_tables(tables):
 
                 relief_seen.add(key)
 
-                cleaned = [
-                    value(row, i)
-                    for i in range(len(row))
-                ]
+                data["relief"].append({
 
-                data["relief"].append(cleaned)
+                    "province": province,
 
-        # =====================================================
+                    "item": item,
+
+                    "quantity": quantity,
+
+                })
+
+        # =========================================================
         # RESCUE
-        # =====================================================
+        # =========================================================
 
         elif "rescue operation" in header:
 
@@ -193,4 +196,5 @@ def parse_tables(tables):
                     "rescued": value(row, 2),
 
                 })
+
     return data

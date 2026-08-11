@@ -1,30 +1,88 @@
-# Virtual Environment
-venv/
-.venv/
+# =========================
+# ENVIRONMENT / SECRETS
+# =========================
 
-# Python Cache
+.env
+.env.*
+!.env.example
+
+*.pem
+*.key
+credentials
+credentials.json
+
+# =========================
+# PYTHON
+# =========================
+
 __pycache__/
 *.py[cod]
 *.pyo
+*.pyd
 
-# Environment Variables
-.env
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
-# VS Code
-.vscode/
+*.egg-info/
+.venv/
+venv/
+env/
 
-# Logs
+# =========================
+# AIRFLOW
+# =========================
+
+airflow/logs/
 logs/
 *.log
 
-# OS Files
+# =========================
+# DATA
+# =========================
+
+data/raw/
+data/parsed/
+data/processed/
+
+*.csv
+*.xlsx
+*.xls
+*.parquet
+
+# =========================
+# DATABASE
+# =========================
+
+*.sql.gz
+*.dump
+*.backup
+
+# =========================
+# OS
+# =========================
+
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Jupyter
-.ipynb_checkpoints/
+# =========================
+# IDE
+# =========================
 
-# Python build
-build/
-dist/
-*.egg-info/
+.vscode/
+.idea/
+
+# =========================
+# STREAMLIT
+# =========================
+
+.streamlit/secrets.toml
+
+# =========================
+# TEMPORARY FILES
+# =========================
+
+*.tmp
+*.temp
+*.bak

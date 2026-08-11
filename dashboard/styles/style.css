@@ -1,0 +1,774 @@
+/* /* =====================================================================
+   PAKISTAN OPERATIONAL RISK INTELLIGENCE PLATFORM
+   Enterprise Design System — style.css
+   ---------------------------------------------------------------------
+   Phase 1 — Design System & UI Foundation
+   No business logic. No KPI/chart changes. UI tokens & components only.
+
+   Theming strategy:
+   This stylesheet reads Streamlit's own native theme variables
+   (--primary-color, --background-color, --secondary-background-color,
+   --text-color) which Streamlit sets automatically for whichever theme
+   (Light or Dark) is active. All custom tokens below are derived from
+   those variables with safe fallbacks, so every component here adapts
+   automatically to both themes without any JS or duplicate stylesheets.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   1. DESIGN TOKENS
+   --------------------------------------------------------------------- */
+
+:root{
+
+  /* ---- Brand / Semantic Colors ---- */
+  --pori-primary:        var(--primary-color, #2563eb);
+  --pori-primary-dark:   #1d4ed8;
+  --pori-primary-soft:   rgba(37,99,235,0.12);
+
+  --pori-success:        #16a34a;
+  --pori-success-soft:   rgba(22,163,74,0.12);
+
+  --pori-warning:        #f59e0b;
+  --pori-warning-soft:   rgba(245,158,11,0.14);
+
+  --pori-danger:         #ef4444;
+  --pori-danger-soft:    rgba(239,68,68,0.13);
+
+  --pori-info:           #0ea5e9;
+  --pori-info-soft:      rgba(14,165,233,0.12);
+
+  --pori-neutral:        #64748b;
+  --pori-neutral-soft:   rgba(100,116,139,0.14);
+
+  /* ---- Surfaces (theme-aware via Streamlit vars) ---- */
+  --pori-bg:             var(--background-color, #f6f8fb);
+  --pori-surface:        var(--secondary-background-color, #ffffff);
+  --pori-surface-raised: var(--secondary-background-color, #ffffff);
+  --pori-text:           var(--text-color, #0f172a);
+
+  /* ---- Text opacity scale (theme-independent) ---- */
+  --pori-text-secondary-opacity: 0.66;
+  --pori-text-tertiary-opacity:  0.48;
+
+  /* ---- Borders / Dividers ----
+     Neutral, low-opacity so it reads correctly on light AND dark
+     surfaces without needing two separate token sets. */
+  --pori-border:         rgba(120,132,150,0.20);
+  --pori-border-strong:  rgba(120,132,150,0.34);
+
+  /* ---- Shadows ---- */
+  --pori-shadow-sm:  0 1px 2px rgba(15,23,42,.06), 0 1px 1px rgba(15,23,42,.04);
+  --pori-shadow-md:  0 4px 12px rgba(15,23,42,.08), 0 2px 4px rgba(15,23,42,.05);
+  --pori-shadow-lg:  0 10px 28px rgba(15,23,42,.12), 0 4px 10px rgba(15,23,42,.06);
+  --pori-shadow-hover: 0 16px 36px rgba(15,23,42,.16), 0 6px 14px rgba(15,23,42,.08);
+
+  /* ---- Radius ---- */
+  --pori-radius-sm:  10px;
+  --pori-radius-md:  14px;
+  --pori-radius-lg:  18px;
+  --pori-radius-xl:  22px;
+  --pori-radius-pill: 999px;
+
+  /* ---- 8px Spacing System ---- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+  --sp-8: 40px;
+
+  /* ---- Motion ---- */
+  --pori-transition-fast: 140ms cubic-bezier(.4,0,.2,1);
+  --pori-transition:      220ms cubic-bezier(.4,0,.2,1);
+  --pori-transition-slow: 360ms cubic-bezier(.4,0,.2,1);
+
+  /* ---- Typography ---- */
+  --font-sans: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont,
+               Roboto, Helvetica, Arial, sans-serif;
+
+  --fs-page-title:    clamp(28px, 2.4vw, 40px);
+  --fs-section-title: clamp(19px, 1.5vw, 24px);
+  --fs-card-title:    13px;
+  --fs-metric:        clamp(26px, 2vw, 36px);
+  --fs-body:          14.5px;
+  --fs-caption:       12.5px;
+}
+
+/* Respect explicit dark preference as an extra safety net in case
+   Streamlit's native vars are unavailable (older versions / embeds). */
+@media (prefers-color-scheme: dark){
+  :root{
+    --pori-bg:      var(--background-color, #0e1117);
+    --pori-surface: var(--secondary-background-color, #161a23);
+    --pori-text:    var(--text-color, #f1f5f9);
+  }
+}
+
+
+/* ---------------------------------------------------------------------
+   2. BASE / LAYOUT
+   --------------------------------------------------------------------- */
+
+html, body, [class*="css"]{
+  font-family: var(--font-sans);
+}
+
+.block-container{
+  max-width: 1680px;
+  padding-top: var(--sp-5);
+  padding-left: var(--sp-7);
+  padding-right: var(--sp-7);
+  padding-bottom: var(--sp-8);
+}
+
+hr{
+  margin-top: var(--sp-5) !important;
+  margin-bottom: var(--sp-6) !important;
+  border-color: var(--pori-border) !important;
+  opacity: 1 !important;
+}
+
+/* Native heading rhythm doubles as "Section Title" / "Card Title"
+   typography without requiring every component to add a class. */
+h1{
+  font-size: var(--fs-page-title);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--pori-text);
+}
+
+h2{
+  font-size: var(--fs-section-title);
+  font-weight: 700;
+  color: var(--pori-text);
+  margin-top: var(--sp-2);
+  margin-bottom: var(--sp-4);
+  letter-spacing: -0.01em;
+}
+
+h3{
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--pori-text);
+}
+
+h4, h5{
+  font-size: var(--fs-card-title);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--pori-text);
+  opacity: var(--pori-text-secondary-opacity);
+}
+
+p, li, .stMarkdown{
+  font-size: var(--fs-body);
+  line-height: 1.65;
+}
+
+.stCaption, small{
+  font-size: var(--fs-caption) !important;
+}
+
+
+/* ---------------------------------------------------------------------
+   3. TYPOGRAPHY UTILITY CLASSES
+   --------------------------------------------------------------------- */
+
+.page-title{
+  font-size: var(--fs-page-title);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--pori-text);
+  margin-bottom: 0;
+  letter-spacing: -0.015em;
+}
+
+/* Back-compat alias used by components/header.py */
+.main-title{
+  font-size: var(--fs-page-title);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--pori-text);
+  margin-bottom: 0;
+  letter-spacing: -0.015em;
+}
+
+.subtitle{
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--pori-text);
+  opacity: var(--pori-text-secondary-opacity);
+  margin-top: var(--sp-2);
+  margin-bottom: var(--sp-4);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.section-title{
+  font-size: var(--fs-section-title);
+  font-weight: 700;
+  margin-top: var(--sp-2);
+  margin-bottom: var(--sp-4);
+  color: var(--pori-text);
+}
+
+.card-title{
+  font-size: var(--fs-card-title);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--pori-text);
+  opacity: var(--pori-text-secondary-opacity);
+}
+
+.text-secondary{ opacity: var(--pori-text-secondary-opacity); }
+.text-tertiary{ opacity: var(--pori-text-tertiary-opacity); }
+
+.metric-value-lg{
+  font-size: var(--fs-metric);
+  font-weight: 800;
+  color: var(--pori-text);
+  line-height: 1.1;
+}
+
+
+/* ---------------------------------------------------------------------
+   4. LIVE / STATUS BADGES
+   --------------------------------------------------------------------- */
+
+.live-badge{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: var(--pori-radius-pill);
+  background: var(--pori-success-soft);
+  color: var(--pori-success);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  border: 1px solid rgba(22,163,74,0.28);
+  white-space: nowrap;
+}
+
+.live-badge .dot{
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--pori-success);
+  box-shadow: 0 0 0 0 rgba(22,163,74,.55);
+  animation: pori-pulse 1.8s infinite;
+}
+
+@keyframes pori-pulse{
+  0%   { box-shadow: 0 0 0 0 rgba(22,163,74,.5); }
+  70%  { box-shadow: 0 0 0 8px rgba(22,163,74,0); }
+  100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); }
+}
+
+.status-chip{
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--pori-info-soft);
+  border: 1px solid rgba(14,165,233,0.3);
+  color: var(--pori-info);
+  border-radius: var(--pori-radius-pill);
+  font-size: 12.5px;
+  font-weight: 700;
+  margin-right: var(--sp-2);
+  margin-bottom: var(--sp-2);
+}
+
+.status-red{ color: var(--pori-danger); font-weight: 700; }
+.status-orange{ color: var(--pori-warning); font-weight: 700; }
+.status-green{ color: var(--pori-success); font-weight: 700; }
+.status-gray{ color: var(--pori-text); opacity: var(--pori-text-secondary-opacity); font-weight: 700; }
+
+
+/* ---------------------------------------------------------------------
+   5. CARD PRIMITIVES (shared shell for all card-style components)
+   --------------------------------------------------------------------- */
+
+.pori-card-base,
+.metric-box,
+.command-card,
+.metric-card,
+.executive-card{
+  background: var(--pori-surface);
+  border: 1px solid var(--pori-border);
+  border-radius: var(--pori-radius-lg);
+  box-shadow: var(--pori-shadow-sm);
+  transition: transform var(--pori-transition),
+              box-shadow var(--pori-transition),
+              border-color var(--pori-transition);
+  overflow: hidden;
+}
+
+.pori-card-base:hover,
+.metric-box:hover,
+.command-card:hover,
+.metric-card:hover,
+.executive-card:hover{
+  transform: translateY(-3px);
+  box-shadow: var(--pori-shadow-hover);
+  border-color: var(--pori-border-strong);
+}
+
+
+/* ---------------------------------------------------------------------
+   6. EXECUTIVE KPI CARDS (components/executive_cards.py -> .metric-box)
+   --------------------------------------------------------------------- */
+
+.metric-box{
+  padding: var(--sp-5);
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--sp-2);
+}
+
+.metric-title{
+  font-size: var(--fs-card-title);
+  letter-spacing: .06em;
+  color: var(--pori-text);
+  opacity: var(--pori-text-secondary-opacity);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.metric-number{
+  font-size: var(--fs-metric);
+  font-weight: 800;
+  color: var(--pori-text);
+  line-height: 1.1;
+}
+
+.metric-desc{
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--pori-primary);
+}
+
+
+/* ---------------------------------------------------------------------
+   7. EXECUTIVE / COMMAND CARDS
+   (components/executive_summary.py -> .command-card,
+    components/executive_summary.py "Ops Control Center" -> .metric-card)
+   --------------------------------------------------------------------- */
+
+.command-card{
+  padding: var(--sp-6);
+  min-height: 235px;
+}
+
+.command-title{
+  font-size: 13px;
+  color: var(--pori-text);
+  opacity: var(--pori-text-secondary-opacity);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: var(--sp-4);
+}
+
+.command-value{
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--pori-text);
+  margin-bottom: var(--sp-3);
+}
+
+.command-text{
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--pori-text);
+  opacity: 0.86;
+}
+
+/* National Operations Control Center cards render plain <h5>/<h1> markup
+   inside .metric-card — style the internal typography without touching
+   the Python markup. */
+.metric-card{
+  padding: var(--sp-5) var(--sp-6);
+  min-height: 168px;
+}
+
+.metric-card h5{
+  margin-bottom: var(--sp-3);
+  opacity: var(--pori-text-secondary-opacity);
+}
+
+.metric-card h1{
+  font-size: 34px;
+  font-weight: 800;
+  margin: var(--sp-1) 0 var(--sp-2) 0;
+  color: var(--pori-primary);
+}
+
+
+/* ---------------------------------------------------------------------
+   8. LEGACY / REUSABLE EXECUTIVE CARD (generic, available for reuse)
+   --------------------------------------------------------------------- */
+
+.executive-card{
+  padding: var(--sp-5);
+  min-height: 190px;
+}
+
+.executive-title{
+  font-size: var(--fs-card-title);
+  font-weight: 700;
+  color: var(--pori-text);
+  opacity: var(--pori-text-secondary-opacity);
+  margin-bottom: var(--sp-4);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.executive-value{
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--pori-text);
+  margin-bottom: var(--sp-3);
+}
+
+.executive-text{
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--pori-text);
+  opacity: 0.86;
+}
+
+
+/* ---------------------------------------------------------------------
+   9. STATUS / HEADER CARD (components/header.py -> .status-card)
+   --------------------------------------------------------------------- */
+
+.status-card{
+  background: var(--pori-surface);
+  border: 1px solid var(--pori-border);
+  border-left: 4px solid var(--pori-success);
+  border-radius: var(--pori-radius-lg);
+  padding: var(--sp-4) var(--sp-5);
+  box-shadow: var(--pori-shadow-sm);
+  transition: box-shadow var(--pori-transition), transform var(--pori-transition);
+}
+
+.status-card:hover{
+  box-shadow: var(--pori-shadow-md);
+  transform: translateY(-2px);
+}
+
+.status-card h3{
+  margin-bottom: var(--sp-2);
+  font-size: 15px;
+}
+
+
+/* ---------------------------------------------------------------------
+   10. ALERT CARDS (components/alerts.py)
+   --------------------------------------------------------------------- */
+
+.alert-card{
+  border-left: 6px solid var(--alert-color, var(--pori-primary));
+  padding: var(--sp-5) var(--sp-6);
+  border-radius: var(--pori-radius-lg);
+  background: var(--pori-surface);
+  box-shadow: var(--pori-shadow-sm);
+  border-top: 1px solid var(--pori-border);
+  border-right: 1px solid var(--pori-border);
+  border-bottom: 1px solid var(--pori-border);
+  transition: box-shadow var(--pori-transition), transform var(--pori-transition);
+}
+
+.alert-card:hover{
+  box-shadow: var(--pori-shadow-md);
+  transform: translateY(-2px);
+}
+
+.alert-card h3{
+  margin: 0 0 var(--sp-2) 0;
+}
+
+
+/* Restyle Streamlit's own alert boxes (st.success/info/warning/error)
+   so every callout across the app shares the same card language. */
+div[data-testid="stAlert"]{
+  border-radius: var(--pori-radius-lg);
+  box-shadow: var(--pori-shadow-sm);
+  border: 1px solid var(--pori-border);
+  padding: var(--sp-4) var(--sp-5);
+  transition: box-shadow var(--pori-transition), transform var(--pori-transition);
+}
+
+div[data-testid="stAlert"]:hover{
+  box-shadow: var(--pori-shadow-md);
+}
+
+
+/* ---------------------------------------------------------------------
+   11. NATIVE st.metric() CARDS
+   --------------------------------------------------------------------- */
+
+div[data-testid="stMetric"]{
+  background: var(--pori-surface);
+  border: 1px solid var(--pori-border);
+  border-radius: var(--pori-radius-md);
+  padding: var(--sp-4) var(--sp-5);
+  box-shadow: var(--pori-shadow-sm);
+  transition: transform var(--pori-transition), box-shadow var(--pori-transition);
+}
+
+div[data-testid="stMetric"]:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--pori-shadow-md);
+}
+
+div[data-testid="stMetricLabel"]{
+  font-size: 13px;
+  font-weight: 600;
+  opacity: var(--pori-text-secondary-opacity);
+}
+
+div[data-testid="stMetricValue"]{
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--pori-text);
+}
+
+
+/* ---------------------------------------------------------------------
+   12. CHART CONTAINERS
+   Every Plotly chart automatically gets the same card shell — no
+   changes required in chart/section files.
+   --------------------------------------------------------------------- */
+
+div[data-testid="stPlotlyChart"]{
+  background: var(--pori-surface);
+  border: 1px solid var(--pori-border);
+  border-radius: var(--pori-radius-lg);
+  padding: var(--sp-4);
+  box-shadow: var(--pori-shadow-sm);
+  transition: box-shadow var(--pori-transition), transform var(--pori-transition);
+}
+
+div[data-testid="stPlotlyChart"]:hover{
+  box-shadow: var(--pori-shadow-md);
+}
+
+
+/* ---------------------------------------------------------------------
+   13. TABLES / DATAFRAMES
+   --------------------------------------------------------------------- */
+
+div[data-testid="stDataFrame"]{
+  border-radius: var(--pori-radius-md);
+  border: 1px solid var(--pori-border);
+  box-shadow: var(--pori-shadow-sm);
+  overflow: hidden;
+}
+
+div[data-testid="stDataFrame"] table{
+  font-size: 13.5px;
+}
+
+div[data-testid="stDataFrame"] thead tr th{
+  background: var(--pori-surface);
+  color: var(--pori-text);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 11.5px;
+  letter-spacing: .04em;
+  padding: 10px 12px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  border-bottom: 2px solid var(--pori-border-strong);
+}
+
+div[data-testid="stDataFrame"] td{
+  padding: 8px 12px;
+}
+
+div[data-testid="stDataFrame"] tbody tr:hover td{
+  background: var(--pori-primary-soft);
+}
+
+
+/* ---------------------------------------------------------------------
+   14. SIDEBAR
+   --------------------------------------------------------------------- */
+
+section[data-testid="stSidebar"]{
+  background: var(--pori-surface);
+  border-right: 1px solid var(--pori-border);
+}
+
+section[data-testid="stSidebar"] .block-container{
+  padding-top: var(--sp-6);
+  padding-left: var(--sp-4);
+  padding-right: var(--sp-4);
+}
+
+section[data-testid="stSidebar"] h2{
+  font-size: 18px;
+  margin-bottom: 0;
+}
+
+section[data-testid="stSidebar"] h3{
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  opacity: var(--pori-text-secondary-opacity);
+  margin-top: var(--sp-5);
+  margin-bottom: var(--sp-2);
+}
+
+section[data-testid="stSidebar"] hr{
+  margin-top: var(--sp-4) !important;
+  margin-bottom: var(--sp-4) !important;
+}
+
+section[data-testid="stSidebar"] .stCaption{
+  opacity: var(--pori-text-secondary-opacity);
+}
+
+section[data-testid="stSidebar"] img{
+  border-radius: var(--pori-radius-sm);
+}
+
+/* Sidebar "connected source / infra" list rows */
+section[data-testid="stSidebar"] div[data-testid="stMarkdownContainer"] p{
+  font-size: 13.5px;
+  padding: 2px 0;
+}
+
+
+/* ---------------------------------------------------------------------
+   15. HEADER
+   --------------------------------------------------------------------- */
+
+.pori-header-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-6);
+}
+
+
+/* ---------------------------------------------------------------------
+   16. FOOTER
+   --------------------------------------------------------------------- */
+
+.footer,
+.app-footer{
+  text-align: center;
+  color: var(--pori-text);
+  opacity: var(--pori-text-secondary-opacity);
+  font-size: var(--fs-caption);
+  padding-top: var(--sp-4);
+}
+
+.app-footer-banner{
+  border-radius: var(--pori-radius-xl);
+  box-shadow: var(--pori-shadow-lg);
+}
+
+
+/* ---------------------------------------------------------------------
+   17. BUTTONS
+   --------------------------------------------------------------------- */
+
+.stButton > button,
+.stDownloadButton > button{
+  border-radius: var(--pori-radius-sm);
+  font-weight: 600;
+  transition: transform var(--pori-transition-fast), box-shadow var(--pori-transition-fast);
+  box-shadow: var(--pori-shadow-sm);
+}
+
+.stButton > button:hover,
+.stDownloadButton > button:hover{
+  transform: translateY(-1px);
+  box-shadow: var(--pori-shadow-md);
+}
+
+
+/* ---------------------------------------------------------------------
+   18. PROGRESS BARS
+   --------------------------------------------------------------------- */
+
+div[data-testid="stProgress"] > div > div{
+  border-radius: var(--pori-radius-pill);
+}
+
+
+/* ---------------------------------------------------------------------
+   19. SECTION / CHART SPACING RHYTHM
+   --------------------------------------------------------------------- */
+
+div[data-testid="column"]{
+  padding: var(--sp-1);
+}
+
+div[data-testid="stVerticalBlock"] > div{
+  gap: var(--sp-4);
+}
+
+
+/* ---------------------------------------------------------------------
+   20. RESPONSIVE BREAKPOINTS
+   Desktop (>1600px) · Laptop (1024–1600px) · Tablet (<1024px)
+   --------------------------------------------------------------------- */
+
+/* Laptop */
+@media (max-width: 1600px){
+  .block-container{
+    padding-left: var(--sp-6);
+    padding-right: var(--sp-6);
+  }
+
+  .command-card{ min-height: 215px; }
+  .metric-box{ min-height: 140px; }
+}
+
+/* Tablet */
+@media (max-width: 1024px){
+  .block-container{
+    padding-left: var(--sp-4);
+    padding-right: var(--sp-4);
+    padding-top: var(--sp-4);
+  }
+
+  .page-title, .main-title{ font-size: 30px; }
+  .subtitle{ font-size: 14px; }
+
+  .metric-box, .command-card, .metric-card, .executive-card{
+    min-height: auto;
+    padding: var(--sp-4);
+  }
+
+  .metric-number{ font-size: 28px; }
+  .command-value{ font-size: 24px; }
+
+  div[data-testid="stPlotlyChart"]{
+    padding: var(--sp-2);
+  }
+}
+
+/* Small tablet / large phone */
+@media (max-width: 680px){
+  .pori-header-row{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .live-badge{ font-size: 11.5px; }
+} 
+

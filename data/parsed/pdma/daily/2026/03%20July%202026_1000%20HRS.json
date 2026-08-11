@@ -1,42 +1,110 @@
 {
-    "source_file": "03%20July%202026_1000%20HRS.pdf",
-    "report_type": "daily",
-    "report_year": "2026",
-    "report_date": "3rd July, 2026",
+    "report_date": "3RD JULY, 2026",
     "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Friday Ø Rain-windstorm/thundershower is expected in Ø Attock = 10 Rawalpindi, Murree, Galliyat, Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, Gujranwala, Hafizabad, Ø Noor Pur Thal = 08 Wazirabad, Khushab, Lahore, Okara, Kasur, Sheikhupura, Ø Bhakkar = 06 Sialkot and Narowal. Hot and dry weather is likely in Ø Jhang = 02 other districts of the province. However, rain- Ø TT Singh = Trace windstorm/thundershower may also occur in Bhakkar, Layyah, Mianwali, D.G. Khan and surrounding areas during evening/night,. DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Ø Bahawalpur = 41°C Tarbela INDUS 1550.00 1458.85 Normal Ø Sahiwal = 41°C Dam Ø DG Khan = 40°C Mangla JHELUM 1242.00 1163.15 Normal Ø Multan = 40°C Dam Ø Faisalabad = 39°C Bhakra SUTLEJ 1680.00 1560.28 Normal Ø Attock = 38°C Dam Ø Sargodha = 38°C Ø Lahore = 36°C BEAS Pong Dam 1390.00 1317.77 Normal Ø Chakwal = 36°C Ø Rawalpindi 36°C R A V I T h e i n D a m 1 7 3 2 . 0 0 1 650.25 Normal Ø Murree = 26°C MCL* = Maximum Conservation Level Accor",
+    "forecast": "Friday Ø Rain-windstorm/thundershower is expected in Ø Attock = 10 Rawalpindi, Murree, Galliyat, Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, Gujranwala, Hafizabad, Ø Noor Pur Thal = 08 Wazirabad, Khushab, Lahore, Okara, Kasur, Sheikhupura, Ø Bhakkar = 06 Sialkot and Narowal. Hot and dry weather is likely in Ø Jhang = 02 other districts of the province. However, rain- Ø TT Singh = Trace windstorm/thundershower may also occur in Bhakkar, Layyah, Mianwali, D.G. Khan and surrounding areas during evening/night,. DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Ø Tarbela INDUS 1550.00 1458.85 Normal Ø Dam Ø Mangla JHELUM 1242.00 1163.15 Normal Ø Dam Ø Bhakra SUTLEJ 1680.00 1560.28 Normal Ø Dam Ø Ø BEAS Pong Dam 1390.00 1317.77 Normal Ø Ø Rawalpindi 36°C R A V I T h e i n D a m 1 7 3 2 . 0 0 1 650.25 Normal Ø MCL* = Maximum Conservation Level According to Met Department; Met office has informed that a westerly wave is likely to enter upper parts of the country from Ø Near-normal to slightly below-normal 30th June (evening/night). Meanwhile, moist currents from the Arabian Sea are continuously rainfall is largely anticipated across the penetrating the eastern and central parts of the country. Moist currents from the Bay of Bengal country during June 2026, with the most are expected to reach the upper parts from 2nd July. Under the influence of this weather pronounced negative anomalies expected system: over northeastern Punjab. Ø Scattered rain windstorm/thundershower (with isolated heavyfalls) is expected in Ø In contrast, Normal rainfall is likely over the Rawalpindi, Murree, Galliyat, Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, southern regions of punjab Gujranwala, Hafizabad, Wazirabad, Faisalabad, Khushab, Sargodha, Lahore, Sheikhupura, Ø Overall, rainfall is expected to exhibit Sialkot, Narowal from 1st to 6th July, while in Sahiwal, Jhang, Toba Tek Singh, Pakpattan, considerable spatial variability. Nankana Sahib, Chiniot, Okara, Kasur, Noor Pur Thal, Bhakkar, Layyah Mianwali, Bahawalpur, Bahawalnagar, D.G. Khan, Multan, Khanewal, Lodhran, Muzaffargarh and Rajanpur from 3rd to 6th July with occasional gaps. Below-normal rainfall is likely to reduce water availability, increasing reliance on stored water and groundwater for agriculture. Windstorm & lightning may damage weak structures (solar panels, electric poles, bill boards The reduced rainfall may fail to fulfill irrigation needs for seasonal vegetables and growing Kharif etc.) during the forecast period. crops in Punjab, requiring supplemental irrigation. Possibility of flash-flooding in the hill torrents of DG Khan from 2nd to 6th July. Above-normal temperatures may cause heat stress on newly sown and early-stage Kharif crops; timely irrigation management is advised to minimize potential losses. Heavy rains may cause Urban/flash flooding in Rawalpindi, Sialkot, Narowal, Gujranwala, Elevated temperatures over northern areas pf country are likely to accelerate snowmelt, while Lahore and Faisalabad from 1st to 4th July. slightly above-normal rainfall may further exacerbate the situation, increasing the risk of flash floods and landslides in mountainous and flood-prone areas. Tourists and travelers are advised to remain extra cautious and avoid unnecessary travelling Despite below-normal rainfall, isolated heavy downpours may still trigger localized urban flooding in during the forecast period. major cities, particularly in poorly drained and low-lying areas. Farmers are advised to manage their crop activities keeping in view the weather conditions Spatial temperature gradient may cause strong winds, dust storms, and hailstorms which may affect and take care of their livestock as well. seasonal crops, vegetables, and orchards; farmers are advised to take precautionary measures to protect standing crops. Prevailing hot and humid conditions are likely to subside during the forecast period.",
+    "weather_alert": "",
+    "forecast_districts": [
+        "Attock",
+        "Bahawalnagar",
+        "Bahawalpur",
+        "Bhakkar",
+        "Chakwal",
+        "Chiniot",
+        "D.G. Khan",
+        "DG Khan",
+        "Faisalabad",
+        "Galliyat",
+        "Gujranwala",
+        "Gujrat",
+        "Hafizabad",
+        "Jhang",
+        "Jhelum",
+        "Kasur",
+        "Khanewal",
+        "Khushab",
+        "Lahore",
+        "Layyah",
+        "Lodhran",
+        "Mandi Bahauddin",
+        "Mianwali",
+        "Multan",
+        "Murree",
+        "Muzaffargarh",
+        "Nankana Sahib",
+        "Narowal",
+        "Okara",
+        "Pakpattan",
+        "Rajanpur",
+        "Rawalpindi",
+        "Sahiwal",
+        "Sargodha",
+        "Sheikhupura",
+        "Sialkot",
+        "Toba Tek Singh"
+    ],
     "temperature": {
-        "Bahawalpur": 41,
-        "Sahiwal": 41,
-        "DG Khan": 40,
-        "Multan": 40,
-        "Faisalabad": 39,
-        "Attock": 38,
-        "Sargodha": 38,
-        "Lahore": 36,
-        "Chakwal": 36,
-        "Murree": 26
-    },
-    "rainfall": {
-        "Attock": 38.0,
-        "Noor Pur Thal": 8.0,
-        "Bhakkar": 6.0,
-        "Jhang": 2.0,
         "Bahawalpur": 41.0,
         "Sahiwal": 41.0,
         "DG Khan": 40.0,
         "Multan": 40.0,
         "Faisalabad": 39.0,
+        "Attock": 38.0,
         "Sargodha": 38.0,
         "Lahore": 36.0,
         "Chakwal": 36.0,
         "Murree": 26.0
     },
+    "rainfall": {},
     "dams": [
         {
-            "dam": "Pong Dam",
+            "dam": "Tarbela",
             "status": "Normal"
+        },
+        {
+            "dam": "Mangla",
+            "status": "Normal"
+        },
+        {
+            "dam": "Chashma",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Taunsa",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Bhakra",
+            "status": "Normal"
+        },
+        {
+            "dam": "Pong",
+            "status": "Normal"
+        },
+        {
+            "dam": "Thein",
+            "status": "Unknown"
         }
     ],
-    "created_at": "2026-07-11T09:08:05.561374"
+    "source_file": "03%20July%202026_1000%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
+    "created_at": "2026-08-10T23:23:54.643100",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 75.0,
+            "passed": true
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 75.0,
+            "quality_score": 90.0,
+            "score": 90.0,
+            "status": "Excellent",
+            "validated_at": "2026-08-10T23:23:54.643187"
+        }
+    }
 }

@@ -39,21 +39,29 @@ TABLES = [
 
         id SERIAL PRIMARY KEY,
 
-        city TEXT,
-        province TEXT,
+        city TEXT NOT NULL,
+
+        district TEXT,
+
+        province TEXT NOT NULL,
 
         temperature REAL,
+
         humidity REAL,
 
         forecast_day_1 TEXT,
+
         forecast_day_2 TEXT,
+
         forecast_day_3 TEXT,
 
-        category TEXT,
+        category TEXT NOT NULL,
 
-        scraped_at TIMESTAMP,
+        scraped_at TIMESTAMP NOT NULL,
 
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+        UNIQUE(city, scraped_at)
 
     );
     """,
@@ -61,6 +69,11 @@ TABLES = [
     """
     CREATE INDEX IF NOT EXISTS idx_pmd_daily_city
     ON pmd_daily_forecast(city);
+    """,
+
+    """
+    CREATE INDEX IF NOT EXISTS idx_pmd_daily_district
+    ON pmd_daily_forecast(district);
     """,
 
     """
@@ -72,7 +85,6 @@ TABLES = [
     CREATE INDEX IF NOT EXISTS idx_pmd_daily_scraped
     ON pmd_daily_forecast(scraped_at);
     """,
-
     # ==========================================================
     # WEEKLY OUTLOOK
     # ==========================================================
@@ -82,17 +94,21 @@ TABLES = [
 
         id SERIAL PRIMARY KEY,
 
-        report_date TEXT,
+        report_date TEXT NOT NULL,
 
-        weekday TEXT,
+        weekday TEXT NOT NULL,
 
-        weather_summary TEXT,
+        weather_summary TEXT NOT NULL,
 
         regions JSONB,
 
-        scraped_at TIMESTAMP,
+        category TEXT NOT NULL,
 
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        scraped_at TIMESTAMP NOT NULL,
+
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+        UNIQUE(report_date, scraped_at)
 
     );
     """,
@@ -100,6 +116,11 @@ TABLES = [
     """
     CREATE INDEX IF NOT EXISTS idx_pmd_weekly_date
     ON pmd_weekly_outlook(report_date);
+    """,
+
+    """
+    CREATE INDEX IF NOT EXISTS idx_pmd_weekly_weekday
+    ON pmd_weekly_outlook(weekday);
     """,
 
     """
@@ -116,19 +137,23 @@ TABLES = [
 
         id SERIAL PRIMARY KEY,
 
-        alert_type TEXT,
+        alert_type TEXT NOT NULL,
 
-        severity TEXT,
+        severity TEXT NOT NULL,
 
         duration TEXT,
 
         regions JSONB,
 
-        forecast TEXT,
+        forecast TEXT NOT NULL,
 
-        scraped_at TIMESTAMP,
+        category TEXT NOT NULL,
 
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        scraped_at TIMESTAMP NOT NULL,
+
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+        UNIQUE(alert_type, scraped_at)
 
     );
     """,
@@ -146,11 +171,9 @@ TABLES = [
     """
     CREATE INDEX IF NOT EXISTS idx_pmd_alert_scraped
     ON pmd_weather_alerts(scraped_at);
-    """
+    """,
 
 ]
-
-
 # ==========================================================
 # CREATE TABLES
 # ==========================================================
@@ -180,6 +203,10 @@ def main():
 
     create_pmd_tables()
 
+
+# ==========================================================
+# ENTRY POINT
+# ==========================================================
 
 if __name__ == "__main__":
 

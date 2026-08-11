@@ -2,58 +2,154 @@
     "source_file": "PDMA_GAUGES_AND_RIVERS_SITUATION_REPORT_11-07-2025_1200_HRS.pdf",
     "report_type": "gauge",
     "report_datetime": null,
-    "gauge_count": 11,
+    "gauge_count": 40,
     "gauges": [
         {
-            "station": "INDUS",
+            "station": "Tarbela",
             "river": "INDUS",
-            "current_level_ft": null,
-            "danger_level_ft": null,
-            "discharge_cusecs": 15.0,
-            "flow_status": "Falling"
+            "current_level_ft": 2.5,
+            "danger_level_ft": 3.75,
+            "discharge_cusecs": 6.5,
+            "flow_status": "296,000"
         },
         {
-            "station": "JHELUM",
+            "station": "Kalabagh",
+            "river": "INDUS",
+            "current_level_ft": 2.5,
+            "danger_level_ft": 3.75,
+            "discharge_cusecs": 6.5,
+            "flow_status": "368,071"
+        },
+        {
+            "station": "Chashma",
+            "river": "INDUS",
+            "current_level_ft": 2.5,
+            "danger_level_ft": 3.75,
+            "discharge_cusecs": 6.5,
+            "flow_status": "406,987"
+        },
+        {
+            "station": "Taunsa",
+            "river": "INDUS",
+            "current_level_ft": 2.5,
+            "danger_level_ft": 3.75,
+            "discharge_cusecs": 6.5,
+            "flow_status": "373,185"
+        },
+        {
+            "station": "Mangla",
             "river": "JHELUM",
-            "current_level_ft": null,
-            "danger_level_ft": null,
-            "discharge_cusecs": 10.6,
-            "flow_status": "Rising"
+            "current_level_ft": 0.75,
+            "danger_level_ft": 1.1,
+            "discharge_cusecs": 2.25,
+            "flow_status": "40,000"
         },
         {
-            "station": "CHENAB",
+            "station": "Rasul",
+            "river": "JHELUM",
+            "current_level_ft": 0.75,
+            "danger_level_ft": 1.1,
+            "discharge_cusecs": 2.25,
+            "flow_status": "4,585"
+        },
+        {
+            "station": "Marala",
             "river": "CHENAB",
-            "current_level_ft": null,
-            "danger_level_ft": null,
-            "discharge_cusecs": 11.0,
-            "flow_status": "Steady"
+            "current_level_ft": 1.0,
+            "danger_level_ft": 1.5,
+            "discharge_cusecs": 4.0,
+            "flow_status": "58,822"
         },
         {
-            "station": "RAVI",
+            "station": "Khanki",
+            "river": "CHENAB",
+            "current_level_ft": 1.0,
+            "danger_level_ft": 1.5,
+            "discharge_cusecs": 4.0,
+            "flow_status": "55,668"
+        },
+        {
+            "station": "Qadirabad",
+            "river": "CHENAB",
+            "current_level_ft": 1.0,
+            "danger_level_ft": 1.5,
+            "discharge_cusecs": 4.0,
+            "flow_status": "51,265"
+        },
+        {
+            "station": "Trimmu",
+            "river": "CHENAB",
+            "current_level_ft": 1.5,
+            "danger_level_ft": 2.0,
+            "discharge_cusecs": 4.5,
+            "flow_status": "43,704"
+        },
+        {
+            "station": "Panjnad",
+            "river": "CHENAB",
+            "current_level_ft": 1.5,
+            "danger_level_ft": 2.0,
+            "discharge_cusecs": 4.5,
+            "flow_status": "17,565"
+        },
+        {
+            "station": "Jassar",
             "river": "RAVI",
-            "current_level_ft": null,
-            "danger_level_ft": null,
-            "discharge_cusecs": 2.75,
-            "flow_status": "Rising"
-        },
-        {
-            "station": "SUTLEJ",
-            "river": "SUTLEJ",
-            "current_level_ft": null,
-            "danger_level_ft": null,
+            "current_level_ft": 0.5,
+            "danger_level_ft": 0.75,
             "discharge_cusecs": 1.5,
-            "flow_status": "Rising"
+            "flow_status": "6,605"
         },
         {
-            "station": "FLOOD LIMIT IN CUSECS",
-            "river": "FLOOD LIMIT IN CUSECS",
-            "current_level_ft": null,
-            "danger_level_ft": null,
-            "discharge_cusecs": null,
-            "flow_status": null
+            "station": "Shahdara",
+            "river": "RAVI",
+            "current_level_ft": 0.4,
+            "danger_level_ft": 0.65,
+            "discharge_cusecs": 1.35,
+            "flow_status": "13,306"
         },
         {
-            "station": "RAJANPUR HILL TORRENTS",
+            "station": "Balloki",
+            "river": "RAVI",
+            "current_level_ft": 0.4,
+            "danger_level_ft": 0.65,
+            "discharge_cusecs": 1.35,
+            "flow_status": "44,005"
+        },
+        {
+            "station": "Sidhnai",
+            "river": "RAVI",
+            "current_level_ft": 0.3,
+            "danger_level_ft": 0.45,
+            "discharge_cusecs": 0.9,
+            "flow_status": "18,636"
+        },
+        {
+            "station": "G.S.Wala",
+            "river": "SUTLEJ",
+            "current_level_ft": 0.5,
+            "danger_level_ft": 0.8,
+            "discharge_cusecs": 1.75,
+            "flow_status": "5,436"
+        },
+        {
+            "station": "Suleimanki",
+            "river": "SUTLEJ",
+            "current_level_ft": 0.5,
+            "danger_level_ft": 0.8,
+            "discharge_cusecs": 1.75,
+            "flow_status": "17,370"
+        },
+        {
+            "station": "Islam",
+            "river": "SUTLEJ",
+            "current_level_ft": 0.5,
+            "danger_level_ft": 0.8,
+            "discharge_cusecs": 1.75,
+            "flow_status": "1,450"
+        },
+        {
+            "station": "SITE",
             "river": "RAJANPUR HILL TORRENTS",
             "current_level_ft": null,
             "danger_level_ft": null,
@@ -61,37 +157,191 @@
             "flow_status": null
         },
         {
-            "station": "DG KHAN HILL TORRENTS",
-            "river": "DG KHAN HILL TORRENTS",
-            "current_level_ft": null,
+            "station": "Kaha",
+            "river": "RAJANPUR HILL TORRENTS",
+            "current_level_ft": 30000.0,
             "danger_level_ft": null,
             "discharge_cusecs": null,
             "flow_status": null
         },
         {
-            "station": "NULLAHS",
+            "station": "Chachar",
+            "river": "RAJANPUR HILL TORRENTS",
+            "current_level_ft": 15000.0,
+            "danger_level_ft": null,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "Kala-Bagga Khosra",
+            "river": "RAJANPUR HILL TORRENTS",
+            "current_level_ft": 10000.0,
+            "danger_level_ft": null,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "Sori Janobi",
+            "river": "RAJANPUR HILL TORRENTS",
+            "current_level_ft": 10000.0,
+            "danger_level_ft": null,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "Pitok",
+            "river": "RAJANPUR HILL TORRENTS",
+            "current_level_ft": 5000.0,
+            "danger_level_ft": null,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "Sori Shumali",
+            "river": "RAJANPUR HILL TORRENTS",
+            "current_level_ft": 5000.0,
+            "danger_level_ft": null,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "Zangi",
+            "river": "RAJANPUR HILL TORRENTS",
+            "current_level_ft": 5000.0,
+            "danger_level_ft": null,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "Kaura",
+            "river": "DG KHAN HILL TORRENTS",
+            "current_level_ft": 40000.0,
+            "danger_level_ft": null,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "Vehova",
+            "river": "DG KHAN HILL TORRENTS",
+            "current_level_ft": 40000.0,
+            "danger_level_ft": null,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "Sanghar",
+            "river": "DG KHAN HILL TORRENTS",
+            "current_level_ft": 70000.0,
+            "danger_level_ft": null,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "Sori Lund",
+            "river": "DG KHAN HILL TORRENTS",
+            "current_level_ft": 30000.0,
+            "danger_level_ft": null,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "Vidore",
+            "river": "DG KHAN HILL TORRENTS",
+            "current_level_ft": 24000.0,
+            "danger_level_ft": null,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "Sakhi Serwar",
+            "river": "DG KHAN HILL TORRENTS",
+            "current_level_ft": 10000.0,
+            "danger_level_ft": null,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "Mithawan",
+            "river": "DG KHAN HILL TORRENTS",
+            "current_level_ft": 25000.0,
+            "danger_level_ft": null,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "SITE",
             "river": "NULLAHS",
             "current_level_ft": null,
             "danger_level_ft": null,
             "discharge_cusecs": null,
-            "flow_status": "Discharge (Cusecs)"
+            "flow_status": null
         },
         {
-            "station": "NOTE: All Nullahs are flowing at Normal Level. Overall no risk of flooding.",
-            "river": null,
+            "station": "Deg",
+            "river": "NULLAHS",
             "current_level_ft": null,
-            "danger_level_ft": null,
+            "danger_level_ft": 15000.0,
             "discharge_cusecs": null,
             "flow_status": null
         },
         {
-            "station": "All Nullahs are in Normal Flood Condition. Overall No Risk of Flooding at Nullahs.",
-            "river": null,
+            "station": "Aik",
+            "river": "NULLAHS",
+            "current_level_ft": null,
+            "danger_level_ft": 9000.0,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "Palkhu",
+            "river": "NULLAHS",
+            "current_level_ft": null,
+            "danger_level_ft": 1000.0,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "Bein",
+            "river": "NULLAHS",
+            "current_level_ft": null,
+            "danger_level_ft": 3000.0,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "Basanter",
+            "river": "NULLAHS",
+            "current_level_ft": null,
+            "danger_level_ft": 4700.0,
+            "discharge_cusecs": null,
+            "flow_status": null
+        },
+        {
+            "station": "Lai",
+            "river": "NULLAHS",
             "current_level_ft": null,
             "danger_level_ft": null,
             "discharge_cusecs": null,
             "flow_status": null
         }
     ],
-    "created_at": "2026-07-11T09:13:52.563793"
+    "created_at": "2026-08-10T23:31:01.632213",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 80.0,
+            "passed": true
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 80.0,
+            "quality_score": 92.0,
+            "score": 92.0,
+            "status": "Excellent",
+            "validated_at": "2026-08-10T23:31:01.632858"
+        }
+    }
 }

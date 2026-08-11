@@ -1,19 +1,84 @@
-import sys
+"""
+Load PMD Data
+
+Loads
+
+1. Daily Forecast
+2. Weekly Outlook
+3. Weather Alerts
+
+from parsed JSON into PostgreSQL.
+"""
+
 import json
+import sys
+
 from pathlib import Path
+from datetime import datetime
 
 from sqlalchemy import text
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+# ==========================================================
+# PROJECT ROOT
+# ==========================================================
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+sys.path.insert(0, str(PROJECT_ROOT))
 
 from config.database import engine
 
+
+# ==========================================================
+# CONFIGURATION
+# ==========================================================
+
 BASE = Path("data/parsed/pmd")
-daily_file = BASE / "daily_forecast" / "latest.json"
 
-if daily_file.exists():
+DAILY_FILE = BASE / "daily_forecast" / "latest.json"
 
-    rows = json.loads(daily_file.read_text(encoding="utf-8"))
+WEEKLY_FILE = BASE / "weekly_outlook" / "latest.json"
+
+ALERT_FILE = BASE / "weather_alerts" / "latest.json"
+
+
+# ==========================================================
+# HELPERS
+# ==========================================================
+
+def load_json(path: Path):
+
+    if not path.exists():
+
+        raise FileNotFoundError(f"{path} not found")
+
+    with open(path, "r", encoding="utf-8") as file:
+
+        return json.load(file)
+
+
+def parse_timestamp(value):
+
+    if not value:
+
+        return None
+
+    try:
+
+        return datetime.fromisoformat(value)
+
+    except Exception:
+
+        return None
+# ==========================================================
+# LOAD DAILY FORECAST
+# ==========================================================
+
+def load_daily():
+
+    rows = load_json(DAILY_FILE)
+
+    inserted = 0
 
     with engine.begin() as conn:
 
@@ -26,6 +91,7 @@ if daily_file.exists():
                 INSERT INTO pmd_daily_forecast(
 
                     city,
+                    district,
                     province,
                     temperature,
                     humidity,
@@ -40,6 +106,7 @@ if daily_file.exists():
                 VALUES(
 
                     :city,
+                    :district,
                     :province,
                     :temperature,
                     :humidity,
@@ -47,34 +114,57 @@ if daily_file.exists():
                     :day2,
                     :day3,
                     :category,
-                    :scraped_at
+                    :scraped
 
                 )
+
+                ON CONFLICT DO NOTHING
 
                 """),
 
                 {
 
-                    "city": row["city"],
-                    "province": row["province"],
-                    "temperature": row["temperature"],
-                    "humidity": row["humidity"],
-                    "day1": row["forecast_day_1"],
-                    "day2": row["forecast_day_2"],
-                    "day3": row["forecast_day_3"],
-                    "category": row["category"],
-                    "scraped_at": row["scraped_at"]
+                    "city": row.get("city"),
+
+                    "district": row.get("district"),
+
+                    "province": row.get("province"),
+
+                    "temperature": row.get("temperature"),
+
+                    "humidity": row.get("humidity"),
+
+                    "day1": row.get("forecast_day_1"),
+
+                    "day2": row.get("forecast_day_2"),
+
+                    "day3": row.get("forecast_day_3"),
+
+                    "category": row.get("category"),
+
+                    "scraped": parse_timestamp(
+                        row.get("scraped_at")
+                    ),
 
                 }
 
             )
 
-print("✓ Daily Forecast Loaded")
-weekly_file = BASE / "weekly_outlook" / "latest.json"
+            inserted += 1
 
-if weekly_file.exists():
+    print("=" * 60)
+    print(f"Daily Forecast Loaded : {inserted}")
+    print("=" * 60)
 
-    rows = json.loads(weekly_file.read_text(encoding="utf-8"))
+# ==========================================================
+# LOAD WEEKLY OUTLOOK
+# ==========================================================
+
+def load_weekly():
+
+    rows = load_json(WEEKLY_FILE)
+
+    inserted = 0
 
     with engine.begin() as conn:
 
@@ -90,6 +180,7 @@ if weekly_file.exists():
                     weekday,
                     weather_summary,
                     regions,
+                    category,
                     scraped_at
 
                 )
@@ -100,30 +191,53 @@ if weekly_file.exists():
                     :weekday,
                     :summary,
                     :regions,
+                    :category,
                     :scraped
 
                 )
+
+                ON CONFLICT DO NOTHING
 
                 """),
 
                 {
 
-                    "date": row["date"],
-                    "weekday": row["weekday"],
-                    "summary": row["weather_summary"],
-                    "regions": json.dumps(row["regions"]),
-                    "scraped": row["scraped_at"]
+                    "date": row.get("date"),
+
+                    "weekday": row.get("weekday"),
+
+                    "summary": row.get("weather_summary"),
+
+                    "regions": json.dumps(
+                        row.get("regions", [])
+                    ),
+
+                    "category": row.get("category"),
+
+                    "scraped": parse_timestamp(
+                        row.get("scraped_at")
+                    ),
 
                 }
 
             )
 
-print("✓ Weekly Outlook Loaded")
-alert_file = BASE / "weather_alerts" / "latest.json"
+            inserted += 1
 
-if alert_file.exists():
+    print("=" * 60)
+    print(f"Weekly Outlook Loaded : {inserted}")
+    print("=" * 60)
 
-    row = json.loads(alert_file.read_text(encoding="utf-8"))
+
+# ==========================================================
+# LOAD WEATHER ALERT
+# ==========================================================
+
+def load_alerts():
+
+    row = load_json(ALERT_FILE)
+
+    inserted = 0
 
     with engine.begin() as conn:
 
@@ -138,6 +252,7 @@ if alert_file.exists():
                 duration,
                 regions,
                 forecast,
+                category,
                 scraped_at
 
             )
@@ -149,26 +264,72 @@ if alert_file.exists():
                 :duration,
                 :regions,
                 :forecast,
+                :category,
                 :scraped
 
             )
+
+            ON CONFLICT DO NOTHING
 
             """),
 
             {
 
-                "type": row["alert_type"],
-                "severity": row["severity"],
-                "duration": row["duration"],
-                "regions": json.dumps(row["regions"]),
-                "forecast": row["forecast"],
-                "scraped": row["scraped_at"]
+                "type": row.get("alert_type"),
+
+                "severity": row.get("severity"),
+
+                "duration": row.get("duration"),
+
+                "regions": json.dumps(
+                    row.get("regions", [])
+                ),
+
+                "forecast": row.get("forecast"),
+
+                "category": row.get("category"),
+
+                "scraped": parse_timestamp(
+                    row.get("scraped_at")
+                ),
 
             }
 
         )
 
-print("✓ Weather Alerts Loaded")
-print("="*60)
-print("PMD DATA LOADED SUCCESSFULLY")
-print("="*60)
+        inserted += 1
+
+    print("=" * 60)
+    print(f"Weather Alerts Loaded : {inserted}")
+    print("=" * 60)
+
+# ==========================================================
+# MAIN
+# ==========================================================
+
+def main():
+
+    print("=" * 60)
+    print("LOADING PMD DATASETS")
+    print("=" * 60)
+
+    load_daily()
+
+    load_weekly()
+
+    load_alerts()
+
+    print()
+
+    print("=" * 60)
+    print("PMD DATA LOADED SUCCESSFULLY")
+    print("=" * 60)
+
+
+# ==========================================================
+# ENTRY POINT
+# ==========================================================
+
+if __name__ == "__main__":
+
+    main()

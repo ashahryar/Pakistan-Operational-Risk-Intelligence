@@ -684,5 +684,887 @@
         "province": "ICT",
         "deaths": "0",
         "injured": "0"
+    },
+    {
+        "report_number": "16",
+        "report_date": "11 July 2026",
+        "province": "Punjab",
+        "deaths": "0",
+        "injured": null
+    },
+    {
+        "report_number": "16",
+        "report_date": "11 July 2026",
+        "province": "KP",
+        "deaths": "11",
+        "injured": "34"
+    },
+    {
+        "report_number": "16",
+        "report_date": "11 July 2026",
+        "province": "Sindh",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "16",
+        "report_date": "11 July 2026",
+        "province": "Balochistan",
+        "deaths": "5",
+        "injured": "13"
+    },
+    {
+        "report_number": "16",
+        "report_date": "11 July 2026",
+        "province": "GB",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "16",
+        "report_date": "11 July 2026",
+        "province": "AJ&K",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "16",
+        "report_date": "11 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "17",
+        "report_date": "12 July 2026",
+        "province": "Punjab",
+        "deaths": "0",
+        "injured": null
+    },
+    {
+        "report_number": "17",
+        "report_date": "12 July 2026",
+        "province": "KP",
+        "deaths": "1",
+        "injured": null
+    },
+    {
+        "report_number": "17",
+        "report_date": "12 July 2026",
+        "province": "Sindh",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "17",
+        "report_date": "12 July 2026",
+        "province": "Balochistan",
+        "deaths": "5",
+        "injured": "13"
+    },
+    {
+        "report_number": "17",
+        "report_date": "12 July 2026",
+        "province": "GB",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "17",
+        "report_date": "12 July 2026",
+        "province": "AJ&K",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "17",
+        "report_date": "12 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "18",
+        "report_date": "13 July 2026",
+        "province": "Punjab",
+        "deaths": "0",
+        "injured": null
+    },
+    {
+        "report_number": "18",
+        "report_date": "13 July 2026",
+        "province": "KP",
+        "deaths": "12",
+        "injured": "34"
+    },
+    {
+        "report_number": "18",
+        "report_date": "13 July 2026",
+        "province": "Sindh",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "18",
+        "report_date": "13 July 2026",
+        "province": "Balochistan",
+        "deaths": "5",
+        "injured": "13"
+    },
+    {
+        "report_number": "18",
+        "report_date": "13 July 2026",
+        "province": "GB",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "18",
+        "report_date": "13 July 2026",
+        "province": "AJ&K",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "18",
+        "report_date": "13 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "19",
+        "report_date": "14 July 2026",
+        "province": "KP",
+        "deaths": "1",
+        "injured": null
+    },
+    {
+        "report_number": "19",
+        "report_date": "14 July 2026",
+        "province": "Punjab",
+        "deaths": "9",
+        "injured": "51"
+    },
+    {
+        "report_number": "19",
+        "report_date": "14 July 2026",
+        "province": "Sindh",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "19",
+        "report_date": "14 July 2026",
+        "province": "Balochistan",
+        "deaths": "5",
+        "injured": "13"
+    },
+    {
+        "report_number": "19",
+        "report_date": "14 July 2026",
+        "province": "GB",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "19",
+        "report_date": "14 July 2026",
+        "province": "AJ&K",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "19",
+        "report_date": "14 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "20",
+        "report_date": "15 July 2026",
+        "province": "Punjab",
+        "deaths": "0",
+        "injured": null
+    },
+    {
+        "report_number": "20",
+        "report_date": "15 July 2026",
+        "province": "KP",
+        "deaths": "23",
+        "injured": "43"
+    },
+    {
+        "report_number": "20",
+        "report_date": "15 July 2026",
+        "province": "Sindh",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "20",
+        "report_date": "15 July 2026",
+        "province": "Balochistan",
+        "deaths": "5",
+        "injured": "13"
+    },
+    {
+        "report_number": "20",
+        "report_date": "15 July 2026",
+        "province": "GB",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "20",
+        "report_date": "15 July 2026",
+        "province": "AJ&K",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "20",
+        "report_date": "15 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "21",
+        "report_date": "16 July 2026",
+        "province": "Punjab",
+        "deaths": "10",
+        "injured": "64"
+    },
+    {
+        "report_number": "21",
+        "report_date": "16 July 2026",
+        "province": "KP",
+        "deaths": "23",
+        "injured": "43"
+    },
+    {
+        "report_number": "21",
+        "report_date": "16 July 2026",
+        "province": "Sindh",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "21",
+        "report_date": "16 July 2026",
+        "province": "Balochistan",
+        "deaths": "5",
+        "injured": "13"
+    },
+    {
+        "report_number": "21",
+        "report_date": "16 July 2026",
+        "province": "GB",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "21",
+        "report_date": "16 July 2026",
+        "province": "AJ&K",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "21",
+        "report_date": "16 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "22",
+        "report_date": "17 July 2026",
+        "province": "Punjab",
+        "deaths": "10",
+        "injured": "64"
+    },
+    {
+        "report_number": "22",
+        "report_date": "17 July 2026",
+        "province": "KP",
+        "deaths": "23",
+        "injured": "43"
+    },
+    {
+        "report_number": "22",
+        "report_date": "17 July 2026",
+        "province": "Sindh",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "22",
+        "report_date": "17 July 2026",
+        "province": "Balochistan",
+        "deaths": "5",
+        "injured": "13"
+    },
+    {
+        "report_number": "22",
+        "report_date": "17 July 2026",
+        "province": "GB",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "22",
+        "report_date": "17 July 2026",
+        "province": "AJ&K",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "22",
+        "report_date": "17 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "23",
+        "report_date": "18 July 2026",
+        "province": "Punjab",
+        "deaths": "10",
+        "injured": "64"
+    },
+    {
+        "report_number": "23",
+        "report_date": "18 July 2026",
+        "province": "KP",
+        "deaths": "23",
+        "injured": "43"
+    },
+    {
+        "report_number": "23",
+        "report_date": "18 July 2026",
+        "province": "Sindh",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "23",
+        "report_date": "18 July 2026",
+        "province": "Balochistan",
+        "deaths": "5",
+        "injured": "13"
+    },
+    {
+        "report_number": "23",
+        "report_date": "18 July 2026",
+        "province": "GB",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "23",
+        "report_date": "18 July 2026",
+        "province": "AJ&K",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "23",
+        "report_date": "18 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "24",
+        "report_date": "19 July 2026",
+        "province": "Punjab",
+        "deaths": "10",
+        "injured": "64"
+    },
+    {
+        "report_number": "24",
+        "report_date": "19 July 2026",
+        "province": "KP",
+        "deaths": "23",
+        "injured": "43"
+    },
+    {
+        "report_number": "24",
+        "report_date": "19 July 2026",
+        "province": "Sindh",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "24",
+        "report_date": "19 July 2026",
+        "province": "Balochistan",
+        "deaths": "5",
+        "injured": "13"
+    },
+    {
+        "report_number": "24",
+        "report_date": "19 July 2026",
+        "province": "GB",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "24",
+        "report_date": "19 July 2026",
+        "province": "AJ&K",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "24",
+        "report_date": "19 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "25",
+        "report_date": "20 July 2026",
+        "province": "Punjab",
+        "deaths": "0",
+        "injured": null
+    },
+    {
+        "report_number": "25",
+        "report_date": "20 July 2026",
+        "province": "KP",
+        "deaths": "2",
+        "injured": null
+    },
+    {
+        "report_number": "25",
+        "report_date": "20 July 2026",
+        "province": "AJ&K",
+        "deaths": "2",
+        "injured": null
+    },
+    {
+        "report_number": "25",
+        "report_date": "20 July 2026",
+        "province": "Sindh",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "25",
+        "report_date": "20 July 2026",
+        "province": "Balochistan",
+        "deaths": "5",
+        "injured": "13"
+    },
+    {
+        "report_number": "25",
+        "report_date": "20 July 2026",
+        "province": "GB",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "25",
+        "report_date": "20 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "26",
+        "report_date": "21 July 2026",
+        "province": "KP",
+        "deaths": "0",
+        "injured": null
+    },
+    {
+        "report_number": "26",
+        "report_date": "21 July 2026",
+        "province": "AJ&K",
+        "deaths": "0",
+        "injured": null
+    },
+    {
+        "report_number": "26",
+        "report_date": "21 July 2026",
+        "province": "Punjab",
+        "deaths": "10",
+        "injured": "72"
+    },
+    {
+        "report_number": "26",
+        "report_date": "21 July 2026",
+        "province": "Sindh",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "26",
+        "report_date": "21 July 2026",
+        "province": "Balochistan",
+        "deaths": "5",
+        "injured": "13"
+    },
+    {
+        "report_number": "26",
+        "report_date": "21 July 2026",
+        "province": "GB",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "26",
+        "report_date": "21 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "27",
+        "report_date": "22 July 2026",
+        "province": "Punjab",
+        "deaths": "0",
+        "injured": null
+    },
+    {
+        "report_number": "27",
+        "report_date": "22 July 2026",
+        "province": "KP",
+        "deaths": "0",
+        "injured": null
+    },
+    {
+        "report_number": "27",
+        "report_date": "22 July 2026",
+        "province": "Sindh",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "27",
+        "report_date": "22 July 2026",
+        "province": "Balochistan",
+        "deaths": "5",
+        "injured": "13"
+    },
+    {
+        "report_number": "27",
+        "report_date": "22 July 2026",
+        "province": "GB",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "27",
+        "report_date": "22 July 2026",
+        "province": "AJ&K",
+        "deaths": "7",
+        "injured": "2"
+    },
+    {
+        "report_number": "27",
+        "report_date": "22 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "28",
+        "report_date": "23 July 2026",
+        "province": "Punjab",
+        "deaths": "1",
+        "injured": null
+    },
+    {
+        "report_number": "28",
+        "report_date": "23 July 2026",
+        "province": "KP",
+        "deaths": "1",
+        "injured": null
+    },
+    {
+        "report_number": "28",
+        "report_date": "23 July 2026",
+        "province": "Balochistan",
+        "deaths": "1",
+        "injured": null
+    },
+    {
+        "report_number": "28",
+        "report_date": "23 July 2026",
+        "province": "Sindh",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "28",
+        "report_date": "23 July 2026",
+        "province": "GB",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "28",
+        "report_date": "23 July 2026",
+        "province": "AJ&K",
+        "deaths": "7",
+        "injured": "2"
+    },
+    {
+        "report_number": "28",
+        "report_date": "23 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "29",
+        "report_date": "24 July 2026",
+        "province": "Punjab",
+        "deaths": "0",
+        "injured": null
+    },
+    {
+        "report_number": "29",
+        "report_date": "24 July 2026",
+        "province": "KP",
+        "deaths": "1",
+        "injured": null
+    },
+    {
+        "report_number": "29",
+        "report_date": "24 July 2026",
+        "province": "Sindh",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "29",
+        "report_date": "24 July 2026",
+        "province": "Balochistan",
+        "deaths": "6",
+        "injured": "15"
+    },
+    {
+        "report_number": "29",
+        "report_date": "24 July 2026",
+        "province": "GB",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "29",
+        "report_date": "24 July 2026",
+        "province": "AJ&K",
+        "deaths": "7",
+        "injured": "2"
+    },
+    {
+        "report_number": "29",
+        "report_date": "24 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "30",
+        "report_date": "25 July 2026",
+        "province": "Punjab",
+        "deaths": "1",
+        "injured": null
+    },
+    {
+        "report_number": "30",
+        "report_date": "25 July 2026",
+        "province": "KP",
+        "deaths": "0",
+        "injured": null
+    },
+    {
+        "report_number": "30",
+        "report_date": "25 July 2026",
+        "province": "Sindh",
+        "deaths": "1",
+        "injured": null
+    },
+    {
+        "report_number": "30",
+        "report_date": "25 July 2026",
+        "province": "GB",
+        "deaths": "0",
+        "injured": null
+    },
+    {
+        "report_number": "30",
+        "report_date": "25 July 2026",
+        "province": "Balochistan",
+        "deaths": "6",
+        "injured": "15"
+    },
+    {
+        "report_number": "30",
+        "report_date": "25 July 2026",
+        "province": "AJ&K",
+        "deaths": "7",
+        "injured": "2"
+    },
+    {
+        "report_number": "30",
+        "report_date": "25 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "31",
+        "report_date": "26 July 2026",
+        "province": "Punjab",
+        "deaths": "0",
+        "injured": null
+    },
+    {
+        "report_number": "31",
+        "report_date": "26 July 2026",
+        "province": "KP",
+        "deaths": "1",
+        "injured": null
+    },
+    {
+        "report_number": "31",
+        "report_date": "26 July 2026",
+        "province": "GB",
+        "deaths": "0",
+        "injured": null
+    },
+    {
+        "report_number": "31",
+        "report_date": "26 July 2026",
+        "province": "Sindh",
+        "deaths": "2",
+        "injured": "2"
+    },
+    {
+        "report_number": "31",
+        "report_date": "26 July 2026",
+        "province": "Balochistan",
+        "deaths": "6",
+        "injured": "15"
+    },
+    {
+        "report_number": "31",
+        "report_date": "26 July 2026",
+        "province": "AJ&K",
+        "deaths": "7",
+        "injured": "2"
+    },
+    {
+        "report_number": "31",
+        "report_date": "26 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "32",
+        "report_date": "27 July 2026",
+        "province": "Balochistan",
+        "deaths": "1",
+        "injured": null
+    },
+    {
+        "report_number": "32",
+        "report_date": "27 July 2026",
+        "province": "Punjab",
+        "deaths": "36",
+        "injured": "263"
+    },
+    {
+        "report_number": "32",
+        "report_date": "27 July 2026",
+        "province": "KP",
+        "deaths": "55",
+        "injured": "78"
+    },
+    {
+        "report_number": "32",
+        "report_date": "27 July 2026",
+        "province": "Sindh",
+        "deaths": "2",
+        "injured": "2"
+    },
+    {
+        "report_number": "32",
+        "report_date": "27 July 2026",
+        "province": "GB",
+        "deaths": "1",
+        "injured": "0"
+    },
+    {
+        "report_number": "32",
+        "report_date": "27 July 2026",
+        "province": "AJ&K",
+        "deaths": "7",
+        "injured": "2"
+    },
+    {
+        "report_number": "32",
+        "report_date": "27 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
+    },
+    {
+        "report_number": "33",
+        "report_date": "28 July 2026",
+        "province": "Punjab",
+        "deaths": "36",
+        "injured": "263"
+    },
+    {
+        "report_number": "33",
+        "report_date": "28 July 2026",
+        "province": "KP",
+        "deaths": "55",
+        "injured": "80"
+    },
+    {
+        "report_number": "33",
+        "report_date": "28 July 2026",
+        "province": "Sindh",
+        "deaths": "2",
+        "injured": "2"
+    },
+    {
+        "report_number": "33",
+        "report_date": "28 July 2026",
+        "province": "Balochistan",
+        "deaths": "8",
+        "injured": "15"
+    },
+    {
+        "report_number": "33",
+        "report_date": "28 July 2026",
+        "province": "GB",
+        "deaths": "1",
+        "injured": "0"
+    },
+    {
+        "report_number": "33",
+        "report_date": "28 July 2026",
+        "province": "AJ&K",
+        "deaths": "7",
+        "injured": "2"
+    },
+    {
+        "report_number": "33",
+        "report_date": "28 July 2026",
+        "province": "ICT",
+        "deaths": "0",
+        "injured": "0"
     }
 ]

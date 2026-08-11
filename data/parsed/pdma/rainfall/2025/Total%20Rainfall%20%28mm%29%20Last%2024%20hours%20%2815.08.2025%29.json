@@ -42,5 +42,23 @@
             "rainfall_mm": 2.0
         }
     ],
-    "created_at": "2026-07-11T09:12:04.771741"
+    "created_at": "2026-08-10T23:28:57.909952",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 100.0,
+            "passed": true
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 100.0,
+            "quality_score": 100.0,
+            "score": 100.0,
+            "status": "Excellent",
+            "validated_at": "2026-08-10T23:28:57.910058"
+        }
+    }
 }

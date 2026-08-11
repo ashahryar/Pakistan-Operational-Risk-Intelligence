@@ -1,47 +1,67 @@
 {
-    "source_file": "Daily%20Situation%20Report%2014%20June%202026.pdf",
-    "report_type": "daily",
-    "report_year": "2026",
-    "report_date": "14th June, 2026",
+    "report_date": "14TH JUNE, 2026",
     "report_time": "1100",
-    "forecast": "WEATHER FORECAST (24 HOURS) 08 AM (13.06.2026) till 08 AM (14.06.2026) Sunday ➢ Hot and dry weather is expected inmostdistrictsofthe province. However, rain-wind/thunderstorm is expected • Murree = 3 mm inMurree,Galliyatandsurroundings. DAILY DISCHARGE REPORT -0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES MaximumTemperaturesrecorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status ➢ Bahawalpur = 40°C ➢ Sargodha = 36°C Tarbela INDUS 1550.00 1450.03 Normal ➢ Jhelum = 37°C ➢ Lahore = 35°C Dam Mangla JHELUM 1242.00 1172.10 Normal ➢ Sahiwal = 37°C ➢ Chakwal = 35°C Dam Bhakra ➢ Multan = 37°C ➢ Rawalpindi = 34°C SUTLEJ Dam 1680.00 1576.22 Normal ➢ Attock = 37°C ➢ Murree = 24°C BEAS Pong Dam 1390.00 1326.52 Normal ➢ DG Khan = 38°C RAVI Thein Dam 1732.00 1672.73 Normal ➢ Faisalabad = 37°C MCL* = Maximum Conservation Level MONTHLY RAINFALL OUTLOOK - JUNE POSSIBLE IMPACTS • Below-normal rainfall is likely to reduce water availability, increasing reliance on storedwaterandgroundwater for agriculture. • The reduced rainfall may fail to fulfill irrigation needs for seasonal vegetables and growing Kharif cropsinPunjab, requiring supplemen",
-    "temperature": {
-        "Bahawalpur": 40,
-        "Sargodha": 36,
-        "Jhelum": 37,
-        "Lahore": 35,
-        "Sahiwal": 37,
-        "Chakwal": 35,
-        "Multan": 37,
-        "Rawalpindi": 34,
-        "Attock": 37,
-        "Murree": 24,
-        "DG Khan": 38,
-        "Faisalabad": 37
-    },
+    "forecast": "08 AM (13.06.2026) till 08 AM (14.06.2026) Sunday ➢ Hot and dry weather is expected inmostdistrictsofthe province. However, rain-wind/thunderstorm is expected Murree = 3 mm inMurree,Galliyatandsurroundings. DAILY DISCHARGE REPORT -0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES MaximumTemperaturesrecorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status ➢ ➢ Tarbela INDUS 1550.00 1450.03 Normal ➢ ➢ Dam Mangla JHELUM 1242.00 1172.10 Normal ➢ ➢ Dam Bhakra ➢ ➢ SUTLEJ Dam 1680.00 1576.22 Normal ➢ ➢ BEAS Pong Dam 1390.00 1326.52 Normal ➢ RAVI Thein Dam 1732.00 1672.73 Normal ➢ MCL* = Maximum Conservation Level MONTHLY RAINFALL OUTLOOK - JUNE POSSIBLE IMPACTS Below-normal rainfall is likely to reduce water availability, increasing reliance on storedwaterandgroundwater for agriculture. The reduced rainfall may fail to fulfill irrigation needs for seasonal vegetables and growing Kharif cropsinPunjab, requiring supplemental irrigation. Above-normal temperatures may cause heat stress on newly sown and early-stage Kharif crops; timelyirrigation management is advised to minimize potential losses. Elevated temperatures over northern areas pf country are likely to accelerate snowmelt, while slightly above-normal rainfall in northern regionns may further exacerbate the situation, increasing the risk of flash floods and landslides in mountainous and flood-prone areas. Despite below-normal rainfall, isolated heavy downpours may still trigger localized urban flooding in major cities, particularly in poorly drained and low-lying areas. Spatial temperature gradient may cause strong winds, dust storms, and hailstorms AccordingtoMetDepartment; whichmayaffectseasonal crops, vegetables, and orchards Farmers are advised to take precautionary measures to protect standing crops. ➢ Near-normal to slightly below-normal rainfall is largely anticipated across the country during June 2026, with the most pronounced negative anomalies expected over northeasternPunjab. ➢ In contrast, Normal rainfall is likely over thesouthernregionsofpunjab ➢ Overall, rainfall is expected to exhibit considerable spatial variability",
+    "weather_alert": "",
+    "forecast_districts": [
+        "Galliyat",
+        "Jhelum",
+        "Murree"
+    ],
+    "temperature": {},
     "rainfall": {
-        "Murree": 24.0,
-        "Bahawalpur": 40.0,
-        "Sargodha": 36.0,
-        "Jhelum": 37.0,
-        "Lahore": 35.0,
-        "Sahiwal": 37.0,
-        "Chakwal": 35.0,
-        "Multan": 37.0,
-        "Rawalpindi": 34.0,
-        "Attock": 37.0,
-        "DG Khan": 38.0,
-        "Faisalabad": 37.0
+        "thunderstorm is expected Murree": 3.0
     },
     "dams": [
         {
-            "dam": "Pong Dam",
+            "dam": "Tarbela",
             "status": "Normal"
         },
         {
-            "dam": "Thein Dam",
+            "dam": "Mangla",
+            "status": "Normal"
+        },
+        {
+            "dam": "Chashma",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Taunsa",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Bhakra",
+            "status": "Normal"
+        },
+        {
+            "dam": "Pong",
+            "status": "Normal"
+        },
+        {
+            "dam": "Thein",
             "status": "Normal"
         }
     ],
-    "created_at": "2026-07-11T09:11:25.422190"
+    "source_file": "Daily%20Situation%20Report%2014%20June%202026.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
+    "created_at": "2026-08-10T23:28:19.628873",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 75.0,
+            "passed": true
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 75.0,
+            "quality_score": 90.0,
+            "score": 90.0,
+            "status": "Excellent",
+            "validated_at": "2026-08-10T23:28:19.628939"
+        }
+    }
 }

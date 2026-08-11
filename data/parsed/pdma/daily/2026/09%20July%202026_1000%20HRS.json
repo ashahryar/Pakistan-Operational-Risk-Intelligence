@@ -1,33 +1,28 @@
 {
-    "source_file": "09%20July%202026_1000%20HRS.pdf",
-    "report_type": "daily",
-    "report_year": "2026",
-    "report_date": "9th July, 2026",
+    "report_date": "9TH JULY, 2026",
     "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Thursday Ø Hot and very humid weather is expected in most Ø Gujranwala & Hafizabad = 23 districts of the province. Ø Sialkot Ø Isolated rain-wind/thundershower is expected in • Airport = 17, City = 01 Murree, Galiyat, Chakwal, Jhelum, Mandi Bahauddin, Ø Bahawalnagar = 16 Gujrat, Gujranwala, Hafizabad, Khushab, Lahore, Ø Chakwal & Sheikhupura = 09 Sheikhupura, Sialkot, Narowal and Kasur during Ø Gujrat = 04 evening/night. Ø Sargodha & Mandi Bahuddin = 03 Ø Joharabad = 02 Ø Murree = 01 Ø Lahore, Faisalabad, Jhelum, Mangla= Trace DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Ø Bahawalpur = 41°C Ø Sahiwal = 41°C INDUS Tarbela 1550.00 1458.85 Normal Ø Sargodha = 41°C Dam Ø Multan = 41°C Mangla JHELUM 1242.00 1163.15 Normal Ø DG Khan = 41°C Dam Ø Faisalabad = 40°C Bhakra SUTLEJ 1680.00 1560.28 Normal Ø Attock = 40°C Dam Ø Jhelum = 38°C Ø Lahore = 37°C BEAS Pong Dam 1390.00 1317.77 Normal Ø Chakwal = 37°C Ø Rawalpindi 37°C R A V I T h e i n D a m 1 7 3 2 . 0 0 1 650.25 Normal Ø Murree = 26°C MCL* = Ma",
+    "forecast": "Thursday Ø Hot and very humid weather is expected in most Ø Gujranwala & Hafizabad = 23 districts of the province. Ø Sialkot Ø Isolated rain-wind/thundershower is expected in Airport = 17, City = 01 Murree, Galiyat, Chakwal, Jhelum, Mandi Bahauddin, Ø Bahawalnagar = 16 Gujrat, Gujranwala, Hafizabad, Khushab, Lahore, Ø Chakwal & Sheikhupura = 09 Sheikhupura, Sialkot, Narowal and Kasur during Ø Gujrat = 04 evening/night. Ø Sargodha & Mandi Bahuddin = 03 Ø Joharabad = 02 Ø Murree = 01 Ø Lahore, Faisalabad, Jhelum, Mangla= Trace DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Ø Ø INDUS Tarbela 1550.00 1458.85 Normal Ø Dam Ø Mangla JHELUM 1242.00 1163.15 Normal Ø Dam Ø Bhakra SUTLEJ 1680.00 1560.28 Normal Ø Dam Ø Ø BEAS Pong Dam 1390.00 1317.77 Normal Ø Ø Rawalpindi 37°C R A V I T h e i n D a m 1 7 3 2 . 0 0 1 650.25 Normal Ø MCL* = Maximum Conservation Level Below-normal rainfall is likely to reduce water availability, increasing reliance on stored water and groundwater for agriculture. The reduced rainfall may fail to fulfill irrigation needs for seasonal vegetables and growing Kharif crops, particularly in Punjab, requiring supplemental irrigation. Prolonged intermittent gaps between the rainfall spells could significantly increase the potential for heat stress, especially over the plain areas of Punjab. Despite below-normal rainfall, isolated heavy downpours may still trigger flash flooding in mountainous areas of Punjab, urban flooding in big metropolitan areas and hill torrents in southern Punjab. Spatial temperature gradient may cause strong winds, dust storms, and thunderstorm and hailstorms which may affect seasonal crops, vegetables, and orchards; farmers are advised to take precautionary measures to protect standing crops. According to Met Department; Ø",
+    "weather_alert": "",
+    "forecast_districts": [
+        "Bahawalnagar",
+        "Chakwal",
+        "Faisalabad",
+        "Gujranwala",
+        "Gujrat",
+        "Hafizabad",
+        "Jhelum",
+        "Kasur",
+        "Khushab",
+        "Lahore",
+        "Mandi Bahauddin",
+        "Murree",
+        "Narowal",
+        "Rawalpindi",
+        "Sargodha",
+        "Sheikhupura",
+        "Sialkot"
+    ],
     "temperature": {
-        "Bahawalpur": 41,
-        "Sahiwal": 41,
-        "Sargodha": 41,
-        "Multan": 41,
-        "DG Khan": 41,
-        "Faisalabad": 40,
-        "Attock": 40,
-        "Jhelum": 38,
-        "Lahore": 37,
-        "Chakwal": 37,
-        "Murree": 26
-    },
-    "rainfall": {
-        "Hafizabad": 23.0,
-        "Airport": 17.0,
-        "City": 1.0,
-        "Bahawalnagar": 16.0,
-        "Sheikhupura": 9.0,
-        "Gujrat": 4.0,
-        "Mandi Bahuddin": 3.0,
-        "Joharabad": 2.0,
-        "Murree": 26.0,
         "Bahawalpur": 41.0,
         "Sahiwal": 41.0,
         "Sargodha": 41.0,
@@ -37,13 +32,60 @@
         "Attock": 40.0,
         "Jhelum": 38.0,
         "Lahore": 37.0,
-        "Chakwal": 37.0
+        "Chakwal": 37.0,
+        "Murree": 26.0
     },
+    "rainfall": {},
     "dams": [
         {
-            "dam": "Pong Dam",
+            "dam": "Tarbela",
             "status": "Normal"
+        },
+        {
+            "dam": "Mangla",
+            "status": "Normal"
+        },
+        {
+            "dam": "Chashma",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Taunsa",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Bhakra",
+            "status": "Normal"
+        },
+        {
+            "dam": "Pong",
+            "status": "Normal"
+        },
+        {
+            "dam": "Thein",
+            "status": "Unknown"
         }
     ],
-    "created_at": "2026-07-11T09:08:38.588688"
+    "source_file": "09%20July%202026_1000%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
+    "created_at": "2026-08-10T23:24:25.902521",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 75.0,
+            "passed": true
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 75.0,
+            "quality_score": 90.0,
+            "score": 90.0,
+            "status": "Excellent",
+            "validated_at": "2026-08-10T23:24:25.902604"
+        }
+    }
 }

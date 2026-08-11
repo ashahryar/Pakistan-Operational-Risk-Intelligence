@@ -1,22 +1,80 @@
 {
+    "report_date": "1ST DECEMBER 2025",
+    "report_time": "0900",
+    "forecast": "Monday Cold and dry weather is expected over most districts of the province. Cold and dry weather is likely in Murree and Galliyat and surroundings. Smog/fog may develop in Sialkot, Narowal, Lahore, Sheikhupura, Gujranwala, Gujrat, Jhelum, Faisalabad, Jhang, Toba Tek Singh, Sahiwal, Multan, Khanewal, Layyah, Kot Addu, Bahawalpur and surrounding areas during morning and night hours MAXIMUM TEMPERATURE (oC) LAST 24 HOURS Maximum Temperatures recorded WEATHER",
+    "weather_alert": "",
+    "forecast_districts": [
+        "Bahawalpur",
+        "Faisalabad",
+        "Galliyat",
+        "Gujranwala",
+        "Gujrat",
+        "Jhang",
+        "Jhelum",
+        "Khanewal",
+        "Kot Addu",
+        "Lahore",
+        "Layyah",
+        "Multan",
+        "Murree",
+        "Narowal",
+        "Sahiwal",
+        "Sheikhupura",
+        "Sialkot",
+        "Toba Tek Singh"
+    ],
+    "temperature": {},
+    "rainfall": {},
+    "dams": [
+        {
+            "dam": "Tarbela",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Mangla",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Chashma",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Taunsa",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Bhakra",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Pong",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Thein",
+            "status": "Unknown"
+        }
+    ],
     "source_file": "PDMA%20Daily%20Situation%20Report%2001%20December%202025_0900%20HRS.pdf",
     "report_type": "daily",
     "report_year": "2025",
-    "report_date": null,
-    "report_time": "0900",
-    "forecast": "WEATHER FORECAST (24 HOURS) Monday • Cold and dry weather is expected over most districts of the province. • Cold and dry weather is likely in Murree and Galliyat and surroundings. • Smog/fog may develop in Sialkot, Narowal, Lahore, Sheikhupura, Gujranwala, Gujrat, Jhelum, Faisalabad, Jhang, Toba Tek Singh, Sahiwal, Multan, Khanewal, Layyah, Kot Addu, Bahawalpur and surrounding areas during morning and night hours MAXIMUM TEMPERATURE (oC) LAST 24 HOURS Maximum Temperatures recorded WEATHER ADVISORY in last 24 hours SMOG/ FOG CONDITIONS ARE LIKELY TO CONTINUE WITH INCREASING § Bahawalpur = 27oC TENDENCY OVER PLAIN AREAS OF THE PROVINCE IN COMING DAYS § Bahawalnagar = 26oC § Jhang = 26oC Due to persistent dry weather, § Khanpur = 26oC Smog/Fog conditions are likely to § RY Khan = 26oC increase over northeast and southern § Bhakkar = 25oC parts of Punjab (Sialkot, Narowal, § Joharabad = 25oC Lahore, Kasur, Sheikhupura, Gujranwala, § Sahiwal = 25oC Jhelum, Bhakkar, Mianwali, Faisalabad, § Sargodha = 25oC Jhang, Toba Tek Singh, Sahiwal, Multan, K h a n e w a l , L a y y a h , K o t A d d u , Bahaw a l p u r a n d s u r r o u n d i n g s ) especially during morning hours. DATA SOURCE: NO",
-    "temperature": {},
-    "rainfall": {
-        "Bahawalpur": 27.0,
-        "Bahawalnagar": 26.0,
-        "Jhang": 26.0,
-        "Khanpur": 26.0,
-        "RY Khan": 26.0,
-        "Bhakkar": 25.0,
-        "Joharabad": 25.0,
-        "Sahiwal": 25.0,
-        "Sargodha": 25.0
-    },
-    "dams": [],
-    "created_at": "2026-07-11T09:07:26.519121"
+    "created_at": "2026-08-10T23:23:05.099157",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 62.5,
+            "passed": false
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 62.5,
+            "quality_score": 85.0,
+            "score": 85.0,
+            "status": "Good",
+            "validated_at": "2026-08-10T23:23:05.099251"
+        }
+    }
 }

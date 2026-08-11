@@ -414,5 +414,21 @@
         "page": 3,
         "url": "https://pdma.punjab.gov.pk/system/files/Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2803.03.2025%29.pdf",
         "download_time": "2026-06-30 20:16:55"
+    },
+    {
+        "title": "Total Rainfall (mm) Last 24 hours (31.12.2025).png",
+        "filename": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2831.12.2025%29.png",
+        "year": 2025,
+        "page": 0,
+        "url": "https://pdma.punjab.gov.pk/system/files/Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2831.12.2025%29.png",
+        "download_time": "2026-07-31 18:00:39"
+    },
+    {
+        "title": "Total Rainfall (mm) Last 24 hours (23.12.2025).png",
+        "filename": "Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2823.12.2025%29.png",
+        "year": 2025,
+        "page": 0,
+        "url": "https://pdma.punjab.gov.pk/system/files/Total%20Rainfall%20%28mm%29%20Last%2024%20hours%20%2823.12.2025%29.png",
+        "download_time": "2026-07-31 18:00:40"
     }
 ]

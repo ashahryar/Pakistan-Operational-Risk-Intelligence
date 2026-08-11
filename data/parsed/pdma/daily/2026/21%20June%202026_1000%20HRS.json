@@ -1,32 +1,43 @@
 {
-    "source_file": "21%20June%202026_1000%20HRS.pdf",
-    "report_type": "daily",
-    "report_year": "2026",
-    "report_date": "21st June, 2026",
+    "report_date": "21ST JUNE, 2026",
     "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Sunday Ø Rain-windstorm/thunderstorm is expected at Ø Sahiwal = 19 isolated places in Rawalpindi, Murree, Galiyat, Ø Noor Pur Thal = 14 Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, Ø Layyah, Kot Addu, DG Khan = Trace Gujranwala, Lahore, Sheikhupura, Sialkot, Narowal, Sahiwal, Khushab, Bhakkar, Layyah, Mianwali, Jhang, Ø Rawalpindi (Chaklala) = Trace Faislabad, Kasur, Okara, Khanewal, Multan, Vehari and Bahawalnagar. Hot and dry weather is likely in other parts of the province. DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Ø Sargodha = 41°C Tarbela Ø Attock = 40°C INDUS Dam 1550.00 1445.06 Normal Ø Jhelum = 40°C Mangla Ø Bahawalpur = 39°C JHELUM 1242.00 1172.05 Normal Dam Ø DG Khan = 39°C Bhakra Ø Sahiwal = 39°C SUTLEJ 1680.00 1570.33 Normal Dam Ø Multan = 39°C Ø Faisalabad = 39°C BEAS Pong Dam 1390.00 1323.44 Normal Ø Lahore = 39°C Ø Chakwal = 36°C R A V I T h e i n D a m 1 7 3 2 . 0 0 1 664.84 Normal Ø Rawalpindi = 37°C Ø Murree = 26°C MCL* = Maximum Conservation Level • Above-normal rain",
+    "forecast": "Sunday Ø Rain-windstorm/thunderstorm is expected at Ø Sahiwal = 19 isolated places in Rawalpindi, Murree, Galiyat, Ø Noor Pur Thal = 14 Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, Ø Layyah, Kot Addu, DG Khan = Trace Gujranwala, Lahore, Sheikhupura, Sialkot, Narowal, Sahiwal, Khushab, Bhakkar, Layyah, Mianwali, Jhang, Ø Rawalpindi (Chaklala) = Trace Faislabad, Kasur, Okara, Khanewal, Multan, Vehari and Bahawalnagar. Hot and dry weather is likely in other parts of the province. DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Ø Tarbela Ø INDUS Dam 1550.00 1445.06 Normal Ø Mangla Ø JHELUM 1242.00 1172.05 Normal Dam Ø Bhakra Ø SUTLEJ 1680.00 1570.33 Normal Dam Ø Ø BEAS Pong Dam 1390.00 1323.44 Normal Ø Ø R A V I T h e i n D a m 1 7 3 2 . 0 0 1 664.84 Normal Ø Ø MCL* = Maximum Conservation Level Above-normal rainfall in northern areas of Punjab is likely to improve water availability, reducing reliance on stored water for agriculture. The increased rainfall may fulfill the irrigation need for seasonal vegetables and newly sown Kharif crops in Punjab. Above-normal temperatures may support harvesting of remaining Rabi crops. Spatial temperature gradient may cause strong winds, dust storm, and hailstorm which may affect the seasonal crops, vegetables and orchard; therefore, timely harvesting of Rabi crops is advised to minimize potential losses. Above-normal temperatures in May could increase the potential for heat spikes and heatwave conditions especially over the plain areas of Punjab; despite the expected above-normal rainfall, these regions may still experience heat-like conditions between rainfall spells. The rising temperatures particularly over southern regions, may increase vector-borne disease According to Met Department; risk like Dengue. Above-normal rainfall may increase the risk of flash floods and landslides, particularly in Ø Near-normal to slightly below-normal rainfall is largely anticipated across the country mountainous and flood-prone areas. during June 2026, with the most pronounced negative anomalies expected over Additionally, this could also raise the likelihood of localized urban flooding in major cities, northeastern Punjab. especially in poorly drained and low-lying areas. Ø In contrast, Normal rainfall is likely over the southern regions of punjab Heavy rainfall along with the hailing and windstorm may damage public property (electric poles, Ø Overall, rainfall is expected to exhibit considerable spatial variability bill boards and solar panels etc.) Above-normal rainfall is expected to enhance runoff in the upper Indus basin.",
+    "weather_alert": "",
+    "forecast_districts": [
+        "Attock",
+        "Bahawalnagar",
+        "Bhakkar",
+        "Chakwal",
+        "DG Khan",
+        "Gujranwala",
+        "Gujrat",
+        "Jhang",
+        "Jhelum",
+        "Kasur",
+        "Khanewal",
+        "Khushab",
+        "Kot Addu",
+        "Lahore",
+        "Layyah",
+        "Mandi Bahauddin",
+        "Mianwali",
+        "Multan",
+        "Murree",
+        "Narowal",
+        "Okara",
+        "Rawalpindi",
+        "Sahiwal",
+        "Sheikhupura",
+        "Sialkot",
+        "Vehari"
+    ],
     "temperature": {
-        "Sargodha": 41,
-        "Attock": 40,
-        "Jhelum": 40,
-        "Bahawalpur": 39,
-        "DG Khan": 39,
-        "Sahiwal": 39,
-        "Multan": 39,
-        "Faisalabad": 39,
-        "Lahore": 39,
-        "Chakwal": 36,
-        "Rawalpindi": 37,
-        "Murree": 26
-    },
-    "rainfall": {
-        "Sahiwal": 39.0,
-        "Noor Pur Thal": 14.0,
         "Sargodha": 41.0,
         "Attock": 40.0,
         "Jhelum": 40.0,
         "Bahawalpur": 39.0,
         "DG Khan": 39.0,
+        "Sahiwal": 39.0,
         "Multan": 39.0,
         "Faisalabad": 39.0,
         "Lahore": 39.0,
@@ -34,11 +45,57 @@
         "Rawalpindi": 37.0,
         "Murree": 26.0
     },
+    "rainfall": {},
     "dams": [
         {
-            "dam": "Pong Dam",
+            "dam": "Tarbela",
             "status": "Normal"
+        },
+        {
+            "dam": "Mangla",
+            "status": "Normal"
+        },
+        {
+            "dam": "Chashma",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Taunsa",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Bhakra",
+            "status": "Normal"
+        },
+        {
+            "dam": "Pong",
+            "status": "Normal"
+        },
+        {
+            "dam": "Thein",
+            "status": "Unknown"
         }
     ],
-    "created_at": "2026-07-11T09:09:06.231442"
+    "source_file": "21%20June%202026_1000%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
+    "created_at": "2026-08-10T23:25:29.490971",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 75.0,
+            "passed": true
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 75.0,
+            "quality_score": 90.0,
+            "score": 90.0,
+            "status": "Excellent",
+            "validated_at": "2026-08-10T23:25:29.491101"
+        }
+    }
 }

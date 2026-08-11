@@ -1,28 +1,31 @@
 {
-    "source_file": "23%20May%202026_1000%20HRS.pdf",
-    "report_type": "daily",
-    "report_year": "2026",
-    "report_date": "23rd MAY, 2026",
+    "report_date": "23RD MAY, 2026",
     "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Saturday Ø Mainly hot and dry weather is expected in most districts Ø Murree = 04 of the province. Ø Faisalabad, Attock Sheikhupura = 02 Ø Partly cloudy weather accompanied with windstorm- Ø Kasur = 01 rain/thunderstorm may occur at isolated places in Ø Lahore Rawalpindi, Jhelum, Chakwal, Attock, Murree, Galiyat, • Airport = 01 Sialkot, Gujranwala, Khushab and surrounding areas. • City = Trace Ø Okara = Trace Weekly Dams Situation Maximum Temperatures recorded in last 24 hours CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Current Year MCL* RIVERS DAMS Current Status Ø Sargodha = 42°C (Feet) Filled Status Trend Ø Sahiwal = 42°C INDUS Tarbela Dam 1550.00 19% Decreasing Normal Ø Jhelum = 42°C Ø Bahawalpur = 41°C Ø Multan = 41°C JHELUM Mangla Dam 1242.00 31% Increasing Normal Ø DG Khan = 41°C Ø Faisalabad = 41°C SUTLEJ Bhakra Dam 1680.00 30% Decreasing Normal Ø Attock = 38°C Ø Chakwal = 37°C BEAS Pong Dam 1390.00 36% Decreasing Normal Ø Rawalpindi = 37°C Ø Murree = 24°C RAVI Thein Dam 1732.00 64% Decreasing Normal MCL* = Maximum Conservation Level According to Met Department; Ø A general tendency for above-normal rainfall is anticipated across the country du",
+    "forecast": "Saturday Ø Mainly hot and dry weather is expected in most districts Ø Murree = 04 of the province. Ø Faisalabad, Attock Sheikhupura = 02 Ø Partly cloudy weather accompanied with windstorm- Ø Kasur = 01 rain/thunderstorm may occur at isolated places in Ø Lahore Rawalpindi, Jhelum, Chakwal, Attock, Murree, Galiyat, Airport = 01 Sialkot, Gujranwala, Khushab and surrounding areas. City = Trace Ø Okara = Trace Weekly Dams Situation Maximum Temperatures recorded in last 24 hours CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Current Year MCL* RIVERS DAMS Current Status Ø (Feet) Filled Status Trend Ø INDUS Tarbela Dam 1550.00 19% Decreasing Normal Ø Ø Ø JHELUM Mangla Dam 1242.00 31% Increasing Normal Ø Ø SUTLEJ Bhakra Dam 1680.00 30% Decreasing Normal Ø Ø BEAS Pong Dam 1390.00 36% Decreasing Normal Ø Ø RAVI Thein Dam 1732.00 64% Decreasing Normal MCL* = Maximum Conservation Level According to Met Department; Ø A general tendency for above-normal rainfall is anticipated across the country during May Met office has informed that a westerly wave is likely to approach northwestern parts of the 2026, with the most pronounced positive country on 18th May (Night) and likely to persist in upper parts till 23rd May. Under the anomalies concentrated over the northern half influence of this weather system: of the country, particularly adjoining areas of Ø Dust-thunderstorm/rain with isolated hailstorm is expected in Murree, Galiyat, Rawalpindi, northern Punjab. Ø Whereas slightly above-normal rainfall is Attock, Chakwal, Jhelum, Khushab, Joharabad, Bhakkar, Layyah, Sargodha, Mianwali, expected over Southern Punjab during the Faisalabad, Jhang, Lahore, Sheikhupura, Okara, Gujranwala, Hafizabad, Mandi Bahuddin, forecast month. Sialkot, Narowal from 18th (Night) to 23rd May with occasional gaps. Ø Overall, the wet conditions are expected to persist with a clear north-to-south weakening gradient Above-normal rainfall in northern areas of Punjab is likely to improve water availability, reducing reliance on stored water for agriculture. The increased rainfall may fulfill the irrigation need for seasonal vegetables and newly sown Kharif crops in Punjab. Above-normal temperatures may support harvesting of remaining Rabi crops. Windstorm and lightning may damage weak structures (electric poles, bill boards, solar panels Spatial temperature gradient may cause strong winds, dust storm, and hailstorm which may affect the seasonal crops, vegetables and orchard; therefore, timely harvesting of Rabi crops is advised to minimize etc.) during the forecast period. potential losses. Above-normal temperatures in May could increase the potential for heat spikes and heatwave conditions Very hot weather is likely to continue in southern parts of the province in coming days. especially over the plain areas of Punjab; despite the expected above-normal rainfall, these regions may Farmers are advised to manage their crop activities in accordance with the dust storm and rain still experience heat-like conditions between rainfall spells. The rising temperatures particularly over southern regions, may increase vector-borne disease risk like prediction. Dengue. Above-normal rainfall may increase the risk of flash floods and landslides, particularly in mountainous and Tourists and travelers are advised to remain cautious and avoid unnecessary travelling during flood-prone areas. the forecast period. Additionally, this could also raise the likelihood of localized urban flooding in major cities, especially in poorly drained and low-lying areas. Heavy rainfall along with the hailing and windstorm may damage public property (electric poles, bill boards and solar panels etc.) Above-normal rainfall is expected to enhance runoff in the upper Indus basin.",
+    "weather_alert": "",
+    "forecast_districts": [
+        "Attock",
+        "Bhakkar",
+        "Chakwal",
+        "Faisalabad",
+        "Gujranwala",
+        "Hafizabad",
+        "Jhang",
+        "Jhelum",
+        "Kasur",
+        "Khushab",
+        "Lahore",
+        "Layyah",
+        "Mianwali",
+        "Murree",
+        "Narowal",
+        "Okara",
+        "Rawalpindi",
+        "Sargodha",
+        "Sheikhupura",
+        "Sialkot"
+    ],
     "temperature": {
-        "Sargodha": 42,
-        "Sahiwal": 42,
-        "Jhelum": 42,
-        "Bahawalpur": 41,
-        "Multan": 41,
-        "DG Khan": 41,
-        "Faisalabad": 41,
-        "Attock": 38,
-        "Chakwal": 37,
-        "Rawalpindi": 37,
-        "Murree": 24
-    },
-    "rainfall": {
-        "Murree": 24.0,
-        "Attock Sheikhupura": 2.0,
-        "Kasur": 1.0,
-        "Airport": 1.0,
         "Sargodha": 42.0,
         "Sahiwal": 42.0,
         "Jhelum": 42.0,
@@ -32,29 +35,60 @@
         "Faisalabad": 41.0,
         "Attock": 38.0,
         "Chakwal": 37.0,
-        "Rawalpindi": 37.0
+        "Rawalpindi": 37.0,
+        "Murree": 24.0
     },
+    "rainfall": {},
     "dams": [
         {
-            "dam": "Tarbela Dam",
+            "dam": "Tarbela",
             "status": "Normal"
         },
         {
-            "dam": "Mangla Dam",
+            "dam": "Mangla",
             "status": "Normal"
         },
         {
-            "dam": "Bhakra Dam",
+            "dam": "Chashma",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Taunsa",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Bhakra",
             "status": "Normal"
         },
         {
-            "dam": "Pong Dam",
+            "dam": "Pong",
             "status": "Normal"
         },
         {
-            "dam": "Thein Dam",
+            "dam": "Thein",
             "status": "Normal"
         }
     ],
-    "created_at": "2026-07-11T09:09:27.854816"
+    "source_file": "23%20May%202026_1000%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
+    "created_at": "2026-08-10T23:25:54.168970",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 75.0,
+            "passed": true
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 75.0,
+            "quality_score": 90.0,
+            "score": 90.0,
+            "status": "Excellent",
+            "validated_at": "2026-08-10T23:25:54.169064"
+        }
+    }
 }

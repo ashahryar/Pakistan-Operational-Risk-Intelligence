@@ -1,32 +1,30 @@
 {
-    "source_file": "20%20June%202026_1000%20HRS.pdf",
-    "report_type": "daily",
-    "report_year": "2026",
-    "report_date": "20th June, 2026",
+    "report_date": "20TH JUNE, 2026",
     "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Saturday Ø Rain-windstorm/thunderstorm is expected at Ø RY Khan = 19 Ø Khanpur = 14 isolated places in Rawalpindi, Murree, Galiyat, Ø Rawalpindi (Pirwadhai)= 04 Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, Ø Gujranwala = 03 Gujranwala, Lahore, Sheikhupura, Sialkot, Narowal, Ø DG Khan Sahiwal, Khushab, Bhakkar, Layyah, and Mianwali. • Fort Munro = 03, Marri = 01 Ø Murree = 02 Ø Layyah (Karor) = Trace Ø Bahawalpur (City) = Trace DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Ø Bahawalpur = 40°C Tarbela Ø DG Khan = 39°C INDUS Dam 1550.00 1445.06 Normal Ø Sahiwal = 38°C Mangla Ø Sargodha = 38°C JHELUM 1242.00 1172.05 Normal Dam Ø Jhelum = 38°C Bhakra Ø Multan = 38°C SUTLEJ 1680.00 1570.33 Normal Dam Ø Faisalabad = 37°C Ø Lahore = 37°C BEAS Pong Dam 1390.00 1323.44 Normal Ø Attock = 36°C Ø Chakwal = 35°C R A V I T h e i n D a m 1 7 3 2 . 0 0 1 664.84 Normal Ø Rawalpindi = 34°C Ø Murree = 24°C MCL* = Maximum Conservation Level • Below-normal rainfall is likely to reduce water availability, increa",
+    "forecast": "Saturday Ø Rain-windstorm/thunderstorm is expected at Ø RY Khan = 19 Ø Khanpur = 14 isolated places in Rawalpindi, Murree, Galiyat, Ø Rawalpindi (Pirwadhai)= 04 Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, Ø Gujranwala = 03 Gujranwala, Lahore, Sheikhupura, Sialkot, Narowal, Ø DG Khan Sahiwal, Khushab, Bhakkar, Layyah, and Mianwali. Fort Munro = 03, Marri = 01 Ø Murree = 02 Ø Layyah (Karor) = Trace Ø Bahawalpur (City) = Trace DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Ø Tarbela Ø INDUS Dam 1550.00 1445.06 Normal Ø Mangla Ø JHELUM 1242.00 1172.05 Normal Dam Ø Bhakra Ø SUTLEJ 1680.00 1570.33 Normal Dam Ø Ø BEAS Pong Dam 1390.00 1323.44 Normal Ø Ø R A V I T h e i n D a m 1 7 3 2 . 0 0 1 664.84 Normal Ø Ø MCL* = Maximum Conservation Level Below-normal rainfall is likely to reduce water availability, increasing reliance on storedwaterandgroundwater for agriculture. The reduced rainfall may fail to fulfill irrigation needs for seasonal vegetables and growing Kharif cropsinPunjab, requiring supplemental irrigation. Above-normal temperatures may cause heat stress on newly sown and early-stage Kharif crops; timelyirrigation management is advised to minimize potential losses. Elevated temperatures over northern areas pf country are likely to accelerate snowmelt, while slightly above-normal rainfall in northern regionns may further exacerbate the situation, increasing the risk of flash floods and landslides in mountainous and flood-prone areas. Despite below-normal rainfall, isolated heavy downpours may still trigger localized urban flooding in major cities, particularly in poorly drained and low-lying areas. Spatial temperature gradient may cause strong winds, dust storms, and hailstorms According to Met Department; whichmayaffectseasonal crops, vegetables, and orchards Farmers are advised to take precautionary measures to protect standing crops. Ø Near-normal to slightly below-normal rainfall is largely anticipated across the country during June 2026, with the most pronounced negative anomalies expected over northeastern Punjab. Ø In contrast, Normal rainfall is likely over the southern regions of punjab Ø Overall, rainfall is expected to exhibit considerable spatial variability",
+    "weather_alert": "",
+    "forecast_districts": [
+        "Attock",
+        "Bahawalpur",
+        "Bhakkar",
+        "Chakwal",
+        "DG Khan",
+        "Gujranwala",
+        "Gujrat",
+        "Jhelum",
+        "Khushab",
+        "Lahore",
+        "Layyah",
+        "Mandi Bahauddin",
+        "Mianwali",
+        "Murree",
+        "Narowal",
+        "Rawalpindi",
+        "Sahiwal",
+        "Sheikhupura",
+        "Sialkot"
+    ],
     "temperature": {
-        "Bahawalpur": 40,
-        "DG Khan": 39,
-        "Sahiwal": 38,
-        "Sargodha": 38,
-        "Jhelum": 38,
-        "Multan": 38,
-        "Faisalabad": 37,
-        "Lahore": 37,
-        "Attock": 36,
-        "Chakwal": 35,
-        "Rawalpindi": 34,
-        "Murree": 24
-    },
-    "rainfall": {
-        "RY Khan": 19.0,
-        "Khanpur": 14.0,
-        "Rawalpindi (Pirwadhai)": 4.0,
-        "Gujranwala": 3.0,
-        "Fort Munro": 3.0,
-        "Marri": 1.0,
-        "Murree": 24.0,
         "Bahawalpur": 40.0,
         "DG Khan": 39.0,
         "Sahiwal": 38.0,
@@ -37,13 +35,60 @@
         "Lahore": 37.0,
         "Attock": 36.0,
         "Chakwal": 35.0,
-        "Rawalpindi": 34.0
+        "Rawalpindi": 34.0,
+        "Murree": 24.0
     },
+    "rainfall": {},
     "dams": [
         {
-            "dam": "Pong Dam",
+            "dam": "Tarbela",
             "status": "Normal"
+        },
+        {
+            "dam": "Mangla",
+            "status": "Normal"
+        },
+        {
+            "dam": "Chashma",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Taunsa",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Bhakra",
+            "status": "Normal"
+        },
+        {
+            "dam": "Pong",
+            "status": "Normal"
+        },
+        {
+            "dam": "Thein",
+            "status": "Unknown"
         }
     ],
-    "created_at": "2026-07-11T09:08:56.824456"
+    "source_file": "20%20June%202026_1000%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
+    "created_at": "2026-08-10T23:25:16.200091",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 75.0,
+            "passed": true
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 75.0,
+            "quality_score": 90.0,
+            "score": 90.0,
+            "status": "Excellent",
+            "validated_at": "2026-08-10T23:25:16.200199"
+        }
+    }
 }

@@ -3,7 +3,7 @@
     "report_type": "sitrep",
     "filename": "6a4ce0c163a82.pdf",
     "pages": 13,
-    "parsed_at": "2026-07-11T09:10:42.009154",
+    "parsed_at": "2026-07-29T01:13:32.224877",
     "report_number": "12",
     "report_date": "7 July 2026",
     "subject": "NDMA - Monsoon 2026 Daily Situation Report No. 12",
@@ -50,840 +50,380 @@
             "province": "GB",
             "roads_km": "0.73",
             "bridges": "-",
-            "houses_full": "26",
-            "houses_partial": "16",
-            "houses_total": "42",
+            "houses_fully_damaged": "26",
+            "houses_partially_damaged": "16",
+            "houses_damaged": "42",
             "livestock": "0"
         },
         {
             "province": "KP",
             "roads_km": "2.4",
             "bridges": "-",
-            "houses_full": "6",
-            "houses_partial": "44",
-            "houses_total": "50",
+            "houses_fully_damaged": "6",
+            "houses_partially_damaged": "44",
+            "houses_damaged": "50",
             "livestock": "163"
         },
         {
             "province": "Balochistan",
             "roads_km": "-",
             "bridges": "-",
-            "houses_full": "5",
-            "houses_partial": "2",
-            "houses_total": "7",
+            "houses_fully_damaged": "5",
+            "houses_partially_damaged": "2",
+            "houses_damaged": "7",
             "livestock": "0"
         },
         {
             "province": "Punjab",
             "roads_km": "-",
             "bridges": "-",
-            "houses_full": "0",
-            "houses_partial": "5",
-            "houses_total": "5",
+            "houses_fully_damaged": "0",
+            "houses_partially_damaged": "5",
+            "houses_damaged": "5",
             "livestock": "0"
         }
     ],
     "relief": [
-        [
-            "Tents",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Ration Bags",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Blankets",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Sand Bags",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Quilts / Sleeping Bags",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Gas Cylinder",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Mattress",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Kitchen sets",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Mosquito Nets",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Plastic Mats",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Hygiene Kits",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Jerry Can",
-            "-",
-            "-",
-            "340",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Tarpaulin",
-            "-",
-            "-",
-            "280",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Solar Panel",
-            "-",
-            "-",
-            "210",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Food Packs",
-            "-",
-            "-",
-            "400",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "De-Watering Pumps",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Gabions",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Charpai",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Stove",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Life Jacket",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Boat",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Meals",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Drinking Water Bottles",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Plastic Sheet",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Water Tank",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Generators",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Ration Bags (Tons)",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Medicine (KG)",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Water Cooler",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Filter Plant",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Solar Lamp",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Water (Tons)",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Milk (Tons)",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Portable Toilets",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Cereal (Tons)",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "First Aid Kit",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Towel",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Boats with OBM",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Clothes",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Camping Heaters",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Wheelchairs",
-            "137",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Tents",
-            "-",
-            "32",
-            "-",
-            "6",
-            "108",
-            "-",
-            "-"
-        ],
-        [
-            "Ration Bags",
-            "-",
-            "-",
-            "-",
-            "-",
-            "62",
-            "-",
-            "-"
-        ],
-        [
-            "Blankets",
-            "-",
-            "26",
-            "-",
-            "-",
-            "95",
-            "-",
-            "-"
-        ],
-        [
-            "Sand Bags",
-            "-",
-            "-",
-            "-",
-            "-",
-            "1400",
-            "-",
-            "-"
-        ],
-        [
-            "Quilts / Sleeping Bags",
-            "-",
-            "14",
-            "-",
-            "6",
-            "375",
-            "-",
-            "-"
-        ],
-        [
-            "Gas Cylinder",
-            "-",
-            "-",
-            "-",
-            "-",
-            "10",
-            "-",
-            "-"
-        ],
-        [
-            "Mattress",
-            "-",
-            "13",
-            "-",
-            "-",
-            "20",
-            "-",
-            "-"
-        ],
-        [
-            "Kitchen sets",
-            "-",
-            "13",
-            "-",
-            "4",
-            "50",
-            "-",
-            "-"
-        ],
-        [
-            "Mosquito Nets",
-            "-",
-            "9",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Hygiene Kits",
-            "-",
-            "3",
-            "-",
-            "-",
-            "55",
-            "-",
-            "-"
-        ],
-        [
-            "Jerry Can",
-            "-",
-            "17",
-            "-",
-            "6",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Tarpaulin",
-            "-",
-            "-",
-            "-",
-            "6",
-            "25",
-            "-",
-            "-"
-        ],
-        [
-            "Food Packs",
-            "-",
-            "12",
-            "-",
-            "-",
-            "21",
-            "-",
-            "-"
-        ],
-        [
-            "Gabions",
-            "-",
-            "-",
-            "-",
-            "-",
-            "185",
-            "-",
-            "-"
-        ],
-        [
-            "Plastic Sheet",
-            "-",
-            "12",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Water Cooler",
-            "-",
-            "-",
-            "-",
-            "6",
-            "7",
-            "-",
-            "-"
-        ],
-        [
-            "Portable Toilets",
-            "-",
-            "-",
-            "-",
-            "-",
-            "5",
-            "-",
-            "-"
-        ],
-        [
-            "Towel",
-            "-",
-            "-",
-            "-",
-            "-",
-            "10",
-            "-",
-            "-"
-        ],
-        [
-            "Boats with OBM",
-            "-",
-            "30",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Tents",
-            "-",
-            "12",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Blankets",
-            "700",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Kitchen sets",
-            "200",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Mosquito Nets",
-            "-",
-            "24",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Tarpaulin",
-            "-",
-            "12",
-            "280",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Food Packs",
-            "-",
-            "12",
-            "400",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Drinking Water Bottles",
-            "850",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Water Tank",
-            "-",
-            "12",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Filter Plant",
-            "157",
-            "16",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Solar Lamp",
-            "200",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Clothes",
-            "925",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Camping Heaters",
-            "260",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Tents",
-            "-",
-            "44",
-            "-",
-            "6",
-            "108",
-            "-",
-            "-"
-        ],
-        [
-            "Blankets",
-            "700",
-            "26",
-            "-",
-            "-",
-            "95",
-            "-",
-            "-"
-        ],
-        [
-            "Sand Bags",
-            "-",
-            "-",
-            "-",
-            "-",
-            "1,400",
-            "-",
-            "-"
-        ],
-        [
-            "Kitchen sets",
-            "200",
-            "13",
-            "-",
-            "4",
-            "50",
-            "-",
-            "-"
-        ],
-        [
-            "Mosquito Nets",
-            "-",
-            "33",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Jerry Can",
-            "-",
-            "17",
-            "340",
-            "6",
-            "-",
-            "-",
-            "-"
-        ],
-        [
-            "Tarpaulin",
-            "-",
-            "12",
-            "280",
-            "6",
-            "25",
-            "-",
-            "-"
-        ],
-        [
-            "Food Packs",
-            "-",
-            "24",
-            "400",
-            "-",
-            "21",
-            "-",
-            "-"
-        ]
+        {
+            "province": "Tents",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Ration Bags",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Blankets",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Sand Bags",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Quilts / Sleeping Bags",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Gas Cylinder",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Mattress",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Kitchen sets",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Mosquito Nets",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Plastic Mats",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Hygiene Kits",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Jerry Can",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Tarpaulin",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Solar Panel",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Food Packs",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "De-Watering Pumps",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Gabions",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Charpai",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Stove",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Life Jacket",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Boat",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Meals",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Drinking Water Bottles",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Plastic Sheet",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Water Tank",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Generators",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Ration Bags (Tons)",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Medicine (KG)",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Water Cooler",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Filter Plant",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Solar Lamp",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Water (Tons)",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Milk (Tons)",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Portable Toilets",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Cereal (Tons)",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "First Aid Kit",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Towel",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Boats with OBM",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Clothes",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Camping Heaters",
+            "item": "-",
+            "quantity": "-"
+        },
+        {
+            "province": "Wheelchairs",
+            "item": "137",
+            "quantity": "-"
+        },
+        {
+            "province": "Tents",
+            "item": "-",
+            "quantity": "32"
+        },
+        {
+            "province": "Blankets",
+            "item": "-",
+            "quantity": "26"
+        },
+        {
+            "province": "Quilts / Sleeping Bags",
+            "item": "-",
+            "quantity": "14"
+        },
+        {
+            "province": "Mattress",
+            "item": "-",
+            "quantity": "13"
+        },
+        {
+            "province": "Kitchen sets",
+            "item": "-",
+            "quantity": "13"
+        },
+        {
+            "province": "Mosquito Nets",
+            "item": "-",
+            "quantity": "9"
+        },
+        {
+            "province": "Hygiene Kits",
+            "item": "-",
+            "quantity": "3"
+        },
+        {
+            "province": "Jerry Can",
+            "item": "-",
+            "quantity": "17"
+        },
+        {
+            "province": "Food Packs",
+            "item": "-",
+            "quantity": "12"
+        },
+        {
+            "province": "Plastic Sheet",
+            "item": "-",
+            "quantity": "12"
+        },
+        {
+            "province": "Boats with OBM",
+            "item": "-",
+            "quantity": "30"
+        },
+        {
+            "province": "Tents",
+            "item": "-",
+            "quantity": "12"
+        },
+        {
+            "province": "Blankets",
+            "item": "700",
+            "quantity": "-"
+        },
+        {
+            "province": "Kitchen sets",
+            "item": "200",
+            "quantity": "-"
+        },
+        {
+            "province": "Mosquito Nets",
+            "item": "-",
+            "quantity": "24"
+        },
+        {
+            "province": "Tarpaulin",
+            "item": "-",
+            "quantity": "12"
+        },
+        {
+            "province": "Drinking Water Bottles",
+            "item": "850",
+            "quantity": "-"
+        },
+        {
+            "province": "Water Tank",
+            "item": "-",
+            "quantity": "12"
+        },
+        {
+            "province": "Filter Plant",
+            "item": "157",
+            "quantity": "16"
+        },
+        {
+            "province": "Solar Lamp",
+            "item": "200",
+            "quantity": "-"
+        },
+        {
+            "province": "Clothes",
+            "item": "925",
+            "quantity": "-"
+        },
+        {
+            "province": "Camping Heaters",
+            "item": "260",
+            "quantity": "-"
+        },
+        {
+            "province": "Tents",
+            "item": "-",
+            "quantity": "44"
+        },
+        {
+            "province": "Blankets",
+            "item": "700",
+            "quantity": "26"
+        },
+        {
+            "province": "Kitchen sets",
+            "item": "200",
+            "quantity": "13"
+        },
+        {
+            "province": "Mosquito Nets",
+            "item": "-",
+            "quantity": "33"
+        },
+        {
+            "province": "Food Packs",
+            "item": "-",
+            "quantity": "24"
+        }
     ],
     "rescue": [
         {
@@ -921,5 +461,15 @@
         "Flash Flood",
         "Flood",
         "Rain"
-    ]
+    ],
+    "validation": {
+        "schema_valid": true,
+        "completeness": 100,
+        "quality_score": 100,
+        "quality_level": "Excellent",
+        "error_count": 0,
+        "penalty": 0,
+        "valid": true,
+        "errors": []
+    }
 }

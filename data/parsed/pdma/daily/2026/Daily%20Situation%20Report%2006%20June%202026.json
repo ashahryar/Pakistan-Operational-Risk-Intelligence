@@ -1,25 +1,19 @@
 {
-    "source_file": "Daily%20Situation%20Report%2006%20June%202026.pdf",
-    "report_type": "daily",
-    "report_year": "2026",
-    "report_date": "6th June, 2026",
+    "report_date": "6TH JUNE, 2026",
     "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Saturday Ø Mainly hot and dry weather is expected in most districts of the province, while partly cloudy weather is expected in northeastern districts during afternoon. Gusty/dust Ø T T Singh, Bhakkar, Khanewal = Trace raising winds are expected in central districts (Mianwali, Sargodha, Bhakkar, Khushab, Jhang, Faisalabad and surrounding areas) during the day time. DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Ø Bahawalpur = 43°C Ø Sahiwal = 42°C INDUS Tarbela 1550.00 1450.95 Normal Dam Ø Multan = 41°C Ø DG Khan = 41°C Mangla JHELUM 1242.00 1167.80 Normal Ø Sargodha = 40°C Dam Ø Faisalabad = 40°C Bhakra SUTLEJ 1680.00 1581.78 Normal Ø Lahore = 39°C Dam Ø Attock = 37°C Ø Jhelum = 37°C BEAS Pong Dam 1390.00 1331.31 Normal Ø Chakwal = 32°C Ø Rawalpindi = 26°C R A V I T h e i n D a m 1 7 3 2 . 0 0 1 688.39 Normal Ø Murree = 18°C MCL* = Maximum Conservation Level • Below-normal rainfall is likely to reduce water availability, increasing reliance on storedwaterandgroundwater for agriculture. • The re",
+    "forecast": "Saturday Ø Mainly hot and dry weather is expected in most districts of the province, while partly cloudy weather is expected in northeastern districts during afternoon. Gusty/dust Ø T T Singh, Bhakkar, Khanewal = Trace raising winds are expected in central districts (Mianwali, Sargodha, Bhakkar, Khushab, Jhang, Faisalabad and surrounding areas) during the day time. DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Ø Ø INDUS Tarbela 1550.00 1450.95 Normal Dam Ø Ø Mangla JHELUM 1242.00 1167.80 Normal Ø Dam Ø Bhakra SUTLEJ 1680.00 1581.78 Normal Ø Dam Ø Ø BEAS Pong Dam 1390.00 1331.31 Normal Ø Ø R A V I T h e i n D a m 1 7 3 2 . 0 0 1 688.39 Normal Ø MCL* = Maximum Conservation Level Below-normal rainfall is likely to reduce water availability, increasing reliance on storedwaterandgroundwater for agriculture. The reduced rainfall may fail to fulfill irrigation needs for seasonal vegetables and growing Kharif cropsinPunjab, requiring supplemental irrigation. Above-normal temperatures may cause heat stress on newly sown and early-stage Kharif crops; timelyirrigation management is advised to minimize potential losses. Elevated temperatures over northern areas pf country are likely to accelerate snowmelt, while slightly above-normal rainfall in northern regionns may further exacerbate the situation, increasing the risk of flash floods and landslides in mountainous and flood-prone areas. Despite below-normal rainfall, isolated heavy downpours may still trigger localized urban According to Met Department; flooding in major cities, particularly in poorly drained and low-lying areas. Spatial temperature gradient may cause strong winds, dust storms, and hailstorms Ø Near-normal to slightly below-normal rainfall is largely anticipated across the country whichmayaffectseasonal crops, vegetables, and orchards during June 2026, with the most pronounced negative anomalies expected over Farmers are advised to take precautionary measures to protect standing crops. northeastern Punjab. Ø In contrast, Normal rainfall is likely over the southern regions of punjab Ø Overall, rainfall is expected to exhibit considerable spatial variability",
+    "weather_alert": "",
+    "forecast_districts": [
+        "Bhakkar",
+        "Faisalabad",
+        "Jhang",
+        "Jhelum",
+        "Khanewal",
+        "Khushab",
+        "Mianwali",
+        "Sargodha"
+    ],
     "temperature": {
-        "Bahawalpur": 43,
-        "Sahiwal": 42,
-        "Multan": 41,
-        "DG Khan": 41,
-        "Sargodha": 40,
-        "Faisalabad": 40,
-        "Lahore": 39,
-        "Attock": 37,
-        "Jhelum": 37,
-        "Chakwal": 32,
-        "Rawalpindi": 26,
-        "Murree": 18
-    },
-    "rainfall": {
         "Bahawalpur": 43.0,
         "Sahiwal": 42.0,
         "Multan": 41.0,
@@ -33,11 +27,57 @@
         "Rawalpindi": 26.0,
         "Murree": 18.0
     },
+    "rainfall": {},
     "dams": [
         {
-            "dam": "Pong Dam",
+            "dam": "Tarbela",
             "status": "Normal"
+        },
+        {
+            "dam": "Mangla",
+            "status": "Normal"
+        },
+        {
+            "dam": "Chashma",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Taunsa",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Bhakra",
+            "status": "Normal"
+        },
+        {
+            "dam": "Pong",
+            "status": "Normal"
+        },
+        {
+            "dam": "Thein",
+            "status": "Unknown"
         }
     ],
-    "created_at": "2026-07-11T09:10:49.719554"
+    "source_file": "Daily%20Situation%20Report%2006%20June%202026.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
+    "created_at": "2026-08-10T23:27:46.154430",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 75.0,
+            "passed": true
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 75.0,
+            "quality_score": 90.0,
+            "score": 90.0,
+            "status": "Excellent",
+            "validated_at": "2026-08-10T23:27:46.154595"
+        }
+    }
 }

@@ -1,44 +1,104 @@
 {
-    "source_file": "25%20May%202026_1000%20HRS.pdf",
-    "report_type": "daily",
-    "report_year": "2026",
-    "report_date": "25th MAY, 2026",
+    "report_date": "00 TO 1600",
     "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Monday Ø Chakwal = 06 Ø Hot and dry weather is expected in most districts of Ø Mangla = 05 Punjab while very hot is likely in central and southern Ø Sialkot (Airport) & Jhelum = 01 districts. Ø Gujranwala, Narowal = Trace Ø Gujrat, Rawalpindi = Trace DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Ø Bahawalpur = 44°C Ø Sahiwal = 43°C Tarbela Ø DG Khan = 43°C INDUS Dam 1550.00 1454.95 Normal Ø Multan = 43°C Mangla JHELUM 1242.00 1167.01 Normal Ø Faisalabad = 42°C Dam Ø Jhelum = 41°C Bhakra SUTLEJ 1680.00 1582.72 Normal Ø Sargodha = 39°C Dam Ø Lahore = 39°C BEAS Pong Dam 1390.00 1331.70 Normal Ø Attock = 39°C Ø Rawalpindi = 37°C R A V I T h e i n D a m 1 7 3 2 . 0 0 1 694.13 Normal Ø Chakwal = 36°C MCL* = Maximum Conservation Level Ø Murree = 23°C According to Met Department; Ø A general tendency for above-normal rainfall is anticipated across the country during May Met office has informed that a high pressure is likely to develop in upper atmosphere on 25th 2026, with the most pronounced positive",
+    "forecast": "Monday Ø Chakwal = 06 Ø Hot and dry weather is expected in most districts of Ø Mangla = 05 Punjab while very hot is likely in central and southern Ø Sialkot (Airport) & Jhelum = 01 districts. Ø Gujranwala, Narowal = Trace Ø Gujrat, Rawalpindi = Trace DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Ø Ø Tarbela Ø INDUS Dam 1550.00 1454.95 Normal Ø Mangla JHELUM 1242.00 1167.01 Normal Ø Dam Ø Bhakra SUTLEJ 1680.00 1582.72 Normal Ø Dam Ø BEAS Pong Dam 1390.00 1331.70 Normal Ø Ø R A V I T h e i n D a m 1 7 3 2 . 0 0 1 694.13 Normal Ø MCL* = Maximum Conservation Level Ø According to Met Department; Ø A general tendency for above-normal rainfall is anticipated across the country during May Met office has informed that a high pressure is likely to develop in upper atmosphere on 25th 2026, with the most pronounced positive May and likely to strengthen on 26th May. Under the influence of this system, moderate to anomalies concentrated over the northern half severe Heatwave conditions are likely to develop over the province from 25th to 31st May. of the country, particularly adjoining areas of Ø Maximum temperature is likely to remain 05 – 07 °C above normal and may rise to 42 - 45°C northern Punjab. Ø Whereas slightly above-normal rainfall is in the districts of Rawalpindi, Attock, Chakwal, Jhelum, Lahore, Gujrat, Gujranwala, expected over Southern Punjab during the Hafizabad, Mandi Bahauddin, Sialkot, Narowal, Okara, Kasur, Faisalabad. forecast month. Ø Overall, the wet conditions are expected to Ø Maximum temperature is likely to remain 04 – 06 °C above normal and may rise to 47 - 50°C persist with a clear north-to-south weakening in the districts of Dera Ghazi Khan, Multan, Khanewal, Pakpattan, Rahim Yar Khan, Rajanpur, gradient Bahawalpur, Bahawalnagar, Bhakkar, Layyah, Kot Addu, Sargodha, Joharabad, Khushab, Mianwali, Noor Pur Thal, Jhang, Toba Tek Sing and Sahiwal. Above-normal rainfall in northern areas of Punjab is likely to improve water availability, reducing reliance Ø Night temperatures are also likely to rise during the forecast period. on stored water for agriculture. The increased rainfall may fulfill the irrigation need for seasonal vegetables and newly sown Kharif crops in Punjab. Above-normal temperatures may support harvesting of remaining Rabi crops. Spatial temperature gradient may cause strong winds, dust storm, and hailstorm which may affect the seasonal crops, vegetables and orchard; therefore, timely harvesting of Rabi crops is advised to minimize Due to heatwave condition, general public especially children, women and senior citizens are potential losses. Above-normal temperatures in May could increase the potential for heat spikes and heatwave conditions advised to be extra cautious. especially over the plain areas of Punjab; despite the expected above-normal rainfall, these regions may Farmers are advised to manage their crop activities keeping in view the weather conditions still experience heat-like conditions between rainfall spells. The rising temperatures particularly over southern regions, may increase vector-borne disease risk like and take care of their livestock as well. Dengue. Above-normal rainfall may increase the risk of flash floods and landslides, particularly in mountainous and General public is advised to avoid unnecessary exposure to direct sunlight from (1000 to 1600 flood-prone areas. PST) and remain hydrated. Additionally, this could also raise the likelihood of localized urban flooding in major cities, especially in poorly drained and low-lying areas. Electricity demand/consumption may increase during the forecast period. Heavy rainfall along with the hailing and windstorm may damage public property (electric poles, bill boards and solar panels etc.) Judicious use of water is requested in all aspects of life. Above-normal rainfall is expected to enhance runoff in the upper Indus basin.",
+    "weather_alert": "",
+    "forecast_districts": [
+        "Attock",
+        "Bahawalnagar",
+        "Bahawalpur",
+        "Bhakkar",
+        "Chakwal",
+        "Faisalabad",
+        "Gujranwala",
+        "Gujrat",
+        "Hafizabad",
+        "Jhang",
+        "Jhelum",
+        "Kasur",
+        "Khanewal",
+        "Khushab",
+        "Kot Addu",
+        "Lahore",
+        "Layyah",
+        "Mandi Bahauddin",
+        "Mianwali",
+        "Multan",
+        "Narowal",
+        "Okara",
+        "Pakpattan",
+        "Rahim Yar Khan",
+        "Rajanpur",
+        "Rawalpindi",
+        "Sahiwal",
+        "Sargodha",
+        "Sialkot"
+    ],
     "temperature": {
-        "Bahawalpur": 44,
-        "Sahiwal": 43,
-        "DG Khan": 43,
-        "Multan": 43,
-        "Faisalabad": 42,
-        "Jhelum": 41,
-        "Sargodha": 39,
-        "Lahore": 39,
-        "Attock": 39,
-        "Rawalpindi": 37,
-        "Chakwal": 36,
-        "Murree": 23
-    },
-    "rainfall": {
-        "Chakwal": 36.0,
-        "Mangla": 5.0,
-        "Jhelum": 41.0,
         "Bahawalpur": 44.0,
         "Sahiwal": 43.0,
         "DG Khan": 43.0,
         "Multan": 43.0,
         "Faisalabad": 42.0,
+        "Jhelum": 41.0,
         "Sargodha": 39.0,
         "Lahore": 39.0,
         "Attock": 39.0,
         "Rawalpindi": 37.0,
+        "Chakwal": 36.0,
         "Murree": 23.0
     },
+    "rainfall": {},
     "dams": [
         {
-            "dam": "Pong Dam",
+            "dam": "Tarbela",
             "status": "Normal"
+        },
+        {
+            "dam": "Mangla",
+            "status": "Normal"
+        },
+        {
+            "dam": "Chashma",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Taunsa",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Bhakra",
+            "status": "Normal"
+        },
+        {
+            "dam": "Pong",
+            "status": "Normal"
+        },
+        {
+            "dam": "Thein",
+            "status": "Unknown"
         }
     ],
-    "created_at": "2026-07-11T09:09:48.744591"
+    "source_file": "25%20May%202026_1000%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
+    "created_at": "2026-08-10T23:26:14.669079",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 75.0,
+            "passed": true
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 75.0,
+            "quality_score": 90.0,
+            "score": 90.0,
+            "status": "Excellent",
+            "validated_at": "2026-08-10T23:26:14.669214"
+        }
+    }
 }

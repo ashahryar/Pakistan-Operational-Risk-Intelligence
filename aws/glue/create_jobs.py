@@ -42,17 +42,17 @@ JOBS = [
     {
         "name":   "etl_ndma",
         "script": "etl_ndma.py",
-        "desc":   "NDMA parsed JSON → Redshift",
+        "desc":   "NDMA parsed JSON to Redshift",
     },
     {
         "name":   "etl_pdma",
         "script": "etl_pdma.py",
-        "desc":   "PDMA parsed JSON → Redshift",
+        "desc":   "PDMA parsed JSON to Redshift",
     },
     {
         "name":   "etl_pmd",
         "script": "etl_pmd.py",
-        "desc":   "PMD latest JSON → Redshift",
+        "desc":   "PMD latest JSON to Redshift",
     },
 ]
 
@@ -122,6 +122,7 @@ def create_or_update_job(glue, job, script_s3_path):
 
 
 def main():
+    print("GLUE ROLE:", GLUE_ROLE_ARN)
     if not GLUE_ROLE_ARN:
         print("ERROR: GLUE_ROLE_ARN not set in .env")
         print("  Add: GLUE_ROLE_ARN=arn:aws:iam::<account-id>:role/<role-name>")

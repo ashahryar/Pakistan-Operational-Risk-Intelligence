@@ -23,7 +23,9 @@ from config.database import engine
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 
-BASE = Path("data/parsed/pdma")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+BASE = PROJECT_ROOT / "data" / "parsed" / "pdma"
 
 
 # ----------------------------------------------------------
@@ -167,7 +169,7 @@ def load_gauge_readings():
                                     (:source_file, :report_datetime, :report_year,
                                      :station, :river, :current_level_ft,
                                      :danger_level_ft, :discharge_cusecs, :flow_status)
-                                ON CONFLICT (source_file, station) DO NOTHING
+                                ON CONFLICT (source_file, station, river) DO NOTHING
                             """),
                             {
                                 "source_file": json_file.name,
@@ -197,6 +199,8 @@ def main():
     print("=" * 60)
     print("LOADING PDMA DATASETS")
     print("=" * 60)
+    print(BASE)
+    print(BASE.exists())
     load_daily_reports()
     load_rainfall_readings()
     load_gauge_readings()

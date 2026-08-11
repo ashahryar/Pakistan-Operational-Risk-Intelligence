@@ -1,24 +1,77 @@
 {
+    "report_date": "01 NOVEMBER 2025",
+    "report_time": "0900",
+    "forecast": "Saturday Dry weather is expected in most districts of the province. Dry weather is likely in Murree, Galiyat and surrounding areas while, cold during morning and night hours. However, smog/fog is likely to persist in Lahore, Gujranwala, Kasur, Sheikhupura, Okara, Faisalabad, Sialkot, Khanewal, Sahiwal, Rahim Yar Khan, Bahawalpur, Multan and Surroundings. MAXIMUM TEMPERATURE (oC) LAST 24 HOURS WWEEAATTHHEERR AADDVVIISSOORRYY Maximum Temperatures recorded RRIISSIINNGG SSMMOOGG LLEEVVEELL IINN TTHHEE PPRROOVVIINNCCEE IINN CCOOMMIINNGG DDAAYYSS in last 24 hours According to Met office, conditions, the atmosphere. Calm wind pattern, lower temperatures, P u n j a b ( L a h o r e , G u j r a n w a l a , Sheikhupura, Kasur, Nankana Sahib, Faisalabad, Multan, Bahawalpur, Rahim Yar Khan, Bahawalnagar and Khanpur).",
+    "weather_alert": "",
+    "forecast_districts": [
+        "Bahawalnagar",
+        "Bahawalpur",
+        "Faisalabad",
+        "Gujranwala",
+        "Kasur",
+        "Khanewal",
+        "Lahore",
+        "Multan",
+        "Murree",
+        "Nankana Sahib",
+        "Okara",
+        "Rahim Yar Khan",
+        "Sahiwal",
+        "Sheikhupura",
+        "Sialkot"
+    ],
+    "temperature": {},
+    "rainfall": {},
+    "dams": [
+        {
+            "dam": "Tarbela",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Mangla",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Chashma",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Taunsa",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Bhakra",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Pong",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Thein",
+            "status": "Unknown"
+        }
+    ],
     "source_file": "PDMA%20Daily%20Situation%20Report%2001%20November%202025_0900%20HRS.pdf",
     "report_type": "daily",
     "report_year": "2025",
-    "report_date": "01 NOVEMBER 2025",
-    "report_time": "0900",
-    "forecast": "WEATHER FORECAST (24 HOURS) Saturday • Dry weather is expected in most districts of the province. • Dry weather is likely in Murree, Galiyat and surrounding areas while, cold during morning and night hours. • However, smog/fog is likely to persist in Lahore, Gujranwala, Kasur, Sheikhupura, Okara, Faisalabad, Sialkot, Khanewal, Sahiwal, Rahim Yar Khan, Bahawalpur, Multan and Surroundings. MAXIMUM TEMPERATURE (oC) LAST 24 HOURS WWEEAATTHHEERR AADDVVIISSOORRYY Maximum Temperatures recorded RRIISSIINNGG SSMMOOGG LLEEVVEELL IINN TTHHEE PPRROOVVIINNCCEE IINN CCOOMMIINNGG DDAAYYSS in last 24 hours According to Met office, Stable weather § Bahawalnagar = 34 oC conditions, will contribute to the § RY Khan = 34 oC accumulation of harmful pollutants in § Bhakkar = 33 oC the atmosphere. Calm wind pattern, § Jhang = 33 oC lower temperatures, and humidity § Joharabad = 33 oC may prevent po llutants fro m § Khanpur = 33 oC dispersing and causing thick layers of § TT Singh = 33 oC smog to linger on Eastern parts of § Layyah = 32 oC P u n j a b ( L a h o r e , G u j r a n w a l a , § Bahawalpur = 32 oC Sheikhupura, Kasur, Nankana Sahib, § Kot addu = 32 oC Faisalabad, Multan, Bahawalpur, § Sahiwal =",
-    "temperature": {},
-    "rainfall": {
-        "Bahawalnagar": 34.0,
-        "RY Khan": 34.0,
-        "Bhakkar": 33.0,
-        "Jhang": 33.0,
-        "Joharabad": 33.0,
-        "Khanpur": 33.0,
-        "TT Singh": 33.0,
-        "Layyah": 32.0,
-        "Bahawalpur": 32.0,
-        "Kot addu": 32.0,
-        "Sahiwal": 32.0
-    },
-    "dams": [],
-    "created_at": "2026-07-11T09:07:28.226149"
+    "created_at": "2026-08-10T23:23:08.722374",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 62.5,
+            "passed": false
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 62.5,
+            "quality_score": 85.0,
+            "score": 85.0,
+            "status": "Good",
+            "validated_at": "2026-08-10T23:23:08.722464"
+        }
+    }
 }

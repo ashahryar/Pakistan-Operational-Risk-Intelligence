@@ -1,42 +1,101 @@
 {
+    "report_date": "16TH JUNE, 2026",
+    "report_time": "1000",
+    "forecast": "Tuesday Ø Sialkot Ø Mainly hot and dry weather is expected in most districts Sialkot Cantt, City = 52, Airport = 38, of the province. However, rain-wind/thunderstorm is Sambrial = 16, Daska = 12, Pasrur = 10 likely at isolated places in Murree, Galiyat, Jhelum, Ø Attock = 18 Kasur, Multan, Rajanpur, Rahim Yar Khan, D.G. Khan and Ø Faisalabad Bahawalpur during the afternoon. WASA Office = 15, Gulistan Colony = 14, Allama Iqbal Colony = 13, Dogar Basti = 12, GMA Water Works = 11, Madina Town = 10, City = 03 DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation Ø ATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours Ø Chakwal = 09 MCL* Current Current Ø DG Khan (Fort Munro) = 08 RIVERS DAMS (Feet) Filled Status Status Ø Gujrat = 07 Tarbela INDUS 1550.00 1450.03 Normal Dam Ø Sahiwal & Murree = 05 Mangla JHELUM 1242.00 1172.10 Normal Ø Hafizabad & Okara = 04 Dam Ø Rajanpur (Marri) = 03 SUTLEJ Bhakra 1680.00 1576.22 Normal Dam Ø Sheikhupura, Narowal = 01 BEAS Pong Dam 1390.00 1326.52 Normal Ø Bhakkar, Gujranwala = 01 Ø Rawalpindi R A V I T h e i n D a m 1 7 3 2 . 0 0 1 672.73 Normal New Kattarian = 01, Chaklala = Trace MCL* = Maximum Conservation Level According to Met Department; Met office has informed thata westerly wave is likely to approach upper parts of the country Ø Near-normal to slightly below-normal rainfall from 16th June and likely to persist till 20th June. Under the influence of this system:. is largely anticipated across the country during June 2026, with the most pronounced negative Ø Scattered dust/windstorm & rain-thunderstorm (with isolated heavyfalls/hailstorm) is anomalies expected over northeastern Punjab. expected in Rawalpindi, Murree, Galliyat, Attock, Chakwal, Jhelum, Mandi Bahauddin, Ø In contrast, Normal rainfall is likely over the southern regions of punjab Gujrat, Gujranwala, Hafizabad, Wazirabad, Lahore, Sheikhupura, Sialkot, Narowal, Sahiwal, Ø Overall, rainfall is expected to exhibit Jhang, Toba Tek Singh, Pakpattan, Nankana Sahib, Chiniot, Faisalabad, Okara, Kasur, considerable spatial variability. Khushab, Sargodha, Noorputhal, Bhakkar, Layyah Mianwali, Bahawalpur, Bahawalnagar, D.G. Khan, Multan, Khanewal, Lodhran, Muzaffargarh, Rajanpur, Rahimyar Khan and Kot Addu from 16th to 20th June with occasional gaps. Below-normal rainfall is likely to reduce water availability, increasing reliance on stored water and groundwater for agriculture. The reduced rainfall may fail to fulfill irrigation needs for seasonal vegetables and growing Kharif crops in Punjab, requiring supplemental irrigation. Above-normal temperatures may cause heat stress on newly sown and early-stage Kharif crops; timely Strong windstorm/hailstorm and lightning may damage weak structures (electric poles, bill irrigation management is advised to minimize potential losses. boards, solar panels etc.) during the forecast period. Elevated temperatures over northern areas pf country are likely to accelerate snowmelt, while slightly Heavy rains may cause Urban flooding in Rawalpindi, Gujranwala, Sialkot, Lahore and above-normal rainfall may further exacerbate the situation, increasing the risk of flash floods and Faisalabad. landslides in mountainous and flood-prone areas. Farmers are advised to manage their activities in accordance with the dust storm and rain Despite below-normal rainfall, isolated heavy downpours may still trigger localized urban flooding in prediction. major cities, particularly in poorly drained and low-lying areas. Tourists and travelers are advised to remain cautious and avoid unnecessary travelling during Spatial temperature gradient may cause strong winds, dust storms, and hailstorms which may affect the forecast period seasonal crops, vegetables, and orchards; farmers are advised to take precautionary measures to protect standing crops.",
+    "weather_alert": "",
+    "forecast_districts": [
+        "Attock",
+        "Bahawalnagar",
+        "Bahawalpur",
+        "Bhakkar",
+        "Chakwal",
+        "Chiniot",
+        "D.G. Khan",
+        "DG Khan",
+        "Faisalabad",
+        "Galliyat",
+        "Gujranwala",
+        "Gujrat",
+        "Hafizabad",
+        "Jhang",
+        "Jhelum",
+        "Kasur",
+        "Khanewal",
+        "Khushab",
+        "Kot Addu",
+        "Lahore",
+        "Layyah",
+        "Lodhran",
+        "Mandi Bahauddin",
+        "Mianwali",
+        "Multan",
+        "Murree",
+        "Muzaffargarh",
+        "Nankana Sahib",
+        "Narowal",
+        "Okara",
+        "Pakpattan",
+        "Rahim Yar Khan",
+        "Rajanpur",
+        "Rawalpindi",
+        "Sahiwal",
+        "Sargodha",
+        "Sheikhupura",
+        "Sialkot",
+        "Toba Tek Singh"
+    ],
+    "temperature": {},
+    "rainfall": {},
+    "dams": [
+        {
+            "dam": "Tarbela",
+            "status": "Normal"
+        },
+        {
+            "dam": "Mangla",
+            "status": "Normal"
+        },
+        {
+            "dam": "Chashma",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Taunsa",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Bhakra",
+            "status": "Normal"
+        },
+        {
+            "dam": "Pong",
+            "status": "Normal"
+        },
+        {
+            "dam": "Thein",
+            "status": "Unknown"
+        }
+    ],
     "source_file": "Daily%20Situation%20Report%2016%20June%202026.pdf",
     "report_type": "daily",
     "report_year": "2026",
-    "report_date": "16th June, 2026",
-    "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Tuesday Ø Sialkot Ø Mainly hot and dry weather is expected in most districts • Sialkot Cantt, City = 52, Airport = 38, of the province. However, rain-wind/thunderstorm is • Sambrial = 16, Daska = 12, Pasrur = 10 likely at isolated places in Murree, Galiyat, Jhelum, Ø Attock = 18 Kasur, Multan, Rajanpur, Rahim Yar Khan, D.G. Khan and Ø Faisalabad Bahawalpur during the afternoon. • WASA Office = 15, Gulistan Colony = 14, • Allama Iqbal Colony = 13, • Dogar Basti = 12, GMA Water Works = 11, Madina Town = 10, City = 03 DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation Ø Sargodha (City) = 13 CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours Ø Chakwal = 09 MCL* Current Current Ø DG Khan (Fort Munro) = 08 RIVERS DAMS (Feet) Filled Status Status Ø Gujrat = 07 Tarbela INDUS 1550.00 1450.03 Normal Dam Ø Sahiwal & Murree = 05 Mangla JHELUM 1242.00 1172.10 Normal Ø Hafizabad & Okara = 04 Dam Ø Rajanpur (Marri) = 03 SUTLEJ Bhakra 1680.00 1576.22 Normal Dam Ø Sheikhupura, Narowal = 01 BEAS Pong Dam 1390.00 1326.52 Normal Ø Bhakkar, Gujranwala = 01 Ø Rawalpindi R A V I T h e i n D a m 1 7 3 2 . 0 0 1 672.73 Normal • New K",
-    "temperature": {
-        "": 13
-    },
-    "rainfall": {
-        "City": 3.0,
-        "Airport": 38.0,
-        "Sambrial": 16.0,
-        "Daska": 12.0,
-        "Pasrur": 10.0,
-        "Attock": 18.0,
-        "WASA Office": 15.0,
-        "Gulistan Colony": 14.0,
-        "Allama Iqbal Colony": 13.0,
-        "Dogar Basti": 12.0,
-        "GMA Water Works": 11.0,
-        "Madina Town": 10.0,
-        "Sargodha (City)": 13.0,
-        "Chakwal": 9.0,
-        "DG Khan (Fort Munro)": 8.0,
-        "Gujrat": 7.0,
-        "Murree": 5.0,
-        "Okara": 4.0,
-        "Rajanpur (Marri)": 3.0,
-        "Narowal": 1.0,
-        "Gujranwala": 1.0,
-        "New Kattarian": 1.0
-    },
-    "dams": [
-        {
-            "dam": "Pong Dam",
-            "status": "Normal"
+    "created_at": "2026-08-10T23:28:25.528847",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 62.5,
+            "passed": false
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 62.5,
+            "quality_score": 85.0,
+            "score": 85.0,
+            "status": "Good",
+            "validated_at": "2026-08-10T23:28:25.528961"
         }
-    ],
-    "created_at": "2026-07-11T09:11:34.069647"
+    }
 }

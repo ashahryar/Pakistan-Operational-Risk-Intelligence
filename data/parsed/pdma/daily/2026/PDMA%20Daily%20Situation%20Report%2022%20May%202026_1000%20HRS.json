@@ -1,38 +1,34 @@
 {
-    "source_file": "PDMA%20Daily%20Situation%20Report%2022%20May%202026_1000%20HRS.pdf",
-    "report_type": "daily",
-    "report_year": "2026",
-    "report_date": "22nd MAY, 2026",
+    "report_date": "22ND MAY, 2026",
     "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Friday Ø Murree = 20 Ø Mainly hot and dry weather is expected in most districts Ø DG Khan (Vehova) = 09 of the province. Ø Mangla = 07 Ø Partly cloudy weather accompanied with windstorm- Ø Rawalpindi rain/thunderstorm (isolated hailstorm) is expected at • Chaklala = 06, Gawalmandi = 05 isolated places in Rawalpindi, Jhelum, Chakwal, Attock, • Shamsabad = 03, Pirwidahi = 02 Murree, Galiyat, Mandi Bahauddin, Gujrat, Sialkot, • New Kattarian = 01 Gujranwala, Sargodha, Noorpurthal, Jhang, Faisalabad, Ø Narowal = 06 Khushab, Mianwali, Bhakkar and surroundings. Ø Bhakkar = 04 Ø TT Singh = 02 Ø Lahore Airport = 01, City = Trace Ø Chakwal & Kasur = 01 Weekly Dams Situation Ø Joharabad, Okara, Layyah (Karor), Jhelum = Trace Maximum Temperatures recorded in last 24 hours CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Current Year MCL* RIVERS DAMS Current Status Ø DG Khan = 45°C (Feet) Filled Status Trend Ø Lahore = 44°C INDUS Tarbela Dam 1550.00 19% Decreasing Normal Ø Sahiwal = 44°C Ø Multan = 44°C Ø Sargodha = 44°C JHELUM Mangla Dam 1242.00 31% Increasing Normal Ø Jhelum = 44°C Ø Faisalabad = 44°C SUTLEJ Bhakra Dam 1680.00 30% Decreasing Normal Ø Bahawalpur = 43°",
+    "forecast": "Friday Ø Murree = 20 Ø Mainly hot and dry weather is expected in most districts Ø DG Khan (Vehova) = 09 of the province. Ø Mangla = 07 Ø Partly cloudy weather accompanied with windstorm- Ø Rawalpindi rain/thunderstorm (isolated hailstorm) is expected at Chaklala = 06, Gawalmandi = 05 isolated places in Rawalpindi, Jhelum, Chakwal, Attock, Shamsabad = 03, Pirwidahi = 02 Murree, Galiyat, Mandi Bahauddin, Gujrat, Sialkot, New Kattarian = 01 Gujranwala, Sargodha, Noorpurthal, Jhang, Faisalabad, Ø Narowal = 06 Khushab, Mianwali, Bhakkar and surroundings. Ø Bhakkar = 04 Ø TT Singh = 02 Ø Lahore Airport = 01, City = Trace Ø Chakwal & Kasur = 01 Weekly Dams Situation Ø Joharabad, Okara, Layyah (Karor), Jhelum = Trace Maximum Temperatures recorded in last 24 hours CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Current Year MCL* RIVERS DAMS Current Status Ø (Feet) Filled Status Trend Ø INDUS Tarbela Dam 1550.00 19% Decreasing Normal Ø Ø Ø JHELUM Mangla Dam 1242.00 31% Increasing Normal Ø Ø SUTLEJ Bhakra Dam 1680.00 30% Decreasing Normal Ø Ø BEAS Pong Dam 1390.00 36% Decreasing Normal Ø Ø RAVI Thein Dam 1732.00 64% Decreasing Normal Ø MCL* = Maximum Conservation Level According to Met Department; Ø A general tendency for above-normal rainfall is anticipated across the country during May Met office has informed that a westerly wave is likely to approach northwestern parts of the 2026, with the most pronounced positive country on 18th May (Night) and likely to persist in upper parts till 23rd May. Under the anomalies concentrated over the northern half influence of this weather system: of the country, particularly adjoining areas of Ø Dust-thunderstorm/rain with isolated hailstorm is expected in Murree, Galiyat, Rawalpindi, northern Punjab. Ø Whereas slightly above-normal rainfall is Attock, Chakwal, Jhelum, Khushab, Joharabad, Bhakkar, Layyah, Sargodha, Mianwali, expected over Southern Punjab during the Faisalabad, Jhang, Lahore, Sheikhupura, Okara, Gujranwala, Hafizabad, Mandi Bahuddin, forecast month. Sialkot, Narowal from 18th (Night) to 23rd May with occasional gaps. Ø Overall, the wet conditions are expected to persist with a clear north-to-south weakening gradient Above-normal rainfall in northern areas of Punjab is likely to improve water availability, reducing reliance on stored water for agriculture. The increased rainfall may fulfill the irrigation need for seasonal vegetables and newly sown Kharif crops in Punjab. Above-normal temperatures may support harvesting of remaining Rabi crops. Windstorm and lightning may damage weak structures (electric poles, bill boards, solar panels Spatial temperature gradient may cause strong winds, dust storm, and hailstorm which may affect the seasonal crops, vegetables and orchard; therefore, timely harvesting of Rabi crops is advised to minimize etc.) during the forecast period. potential losses. Above-normal temperatures in May could increase the potential for heat spikes and heatwave conditions Very hot weather is likely to continue in southern parts of the province in coming days. especially over the plain areas of Punjab; despite the expected above-normal rainfall, these regions may Farmers are advised to manage their crop activities in accordance with the dust storm and rain still experience heat-like conditions between rainfall spells. The rising temperatures particularly over southern regions, may increase vector-borne disease risk like prediction. Dengue. Above-normal rainfall may increase the risk of flash floods and landslides, particularly in mountainous and Tourists and travelers are advised to remain cautious and avoid unnecessary travelling during flood-prone areas. the forecast period. Additionally, this could also raise the likelihood of localized urban flooding in major cities, especially in poorly drained and low-lying areas. Heavy rainfall along with the hailing and windstorm may damage public property (electric poles, bill boards and solar panels etc.) Above-normal rainfall is expected to enhance runoff in the upper Indus basin.",
+    "weather_alert": "",
+    "forecast_districts": [
+        "Attock",
+        "Bhakkar",
+        "Chakwal",
+        "DG Khan",
+        "Faisalabad",
+        "Gujranwala",
+        "Gujrat",
+        "Hafizabad",
+        "Jhang",
+        "Jhelum",
+        "Kasur",
+        "Khushab",
+        "Lahore",
+        "Layyah",
+        "Mandi Bahauddin",
+        "Mianwali",
+        "Murree",
+        "Narowal",
+        "Okara",
+        "Rawalpindi",
+        "Sargodha",
+        "Sheikhupura",
+        "Sialkot"
+    ],
     "temperature": {
-        "DG Khan": 45,
-        "Lahore": 44,
-        "Sahiwal": 44,
-        "Multan": 44,
-        "Sargodha": 44,
-        "Jhelum": 44,
-        "Faisalabad": 44,
-        "Bahawalpur": 43,
-        "Attock": 41,
-        "Chakwal": 41,
-        "Rawalpindi": 40,
-        "Murree": 29
-    },
-    "rainfall": {
-        "Murree": 29.0,
-        "DG Khan (Vehova)": 9.0,
-        "Mangla": 7.0,
-        "Chaklala": 6.0,
-        "Gawalmandi": 5.0,
-        "Shamsabad": 3.0,
-        "Pirwidahi": 2.0,
-        "New Kattarian": 1.0,
-        "Narowal": 6.0,
-        "Bhakkar": 4.0,
-        "TT Singh": 2.0,
-        "Lahore Airport": 1.0,
-        "Kasur": 1.0,
         "DG Khan": 45.0,
         "Lahore": 44.0,
         "Sahiwal": 44.0,
@@ -43,29 +39,60 @@
         "Bahawalpur": 43.0,
         "Attock": 41.0,
         "Chakwal": 41.0,
-        "Rawalpindi": 40.0
+        "Rawalpindi": 40.0,
+        "Murree": 29.0
     },
+    "rainfall": {},
     "dams": [
         {
-            "dam": "Tarbela Dam",
+            "dam": "Tarbela",
             "status": "Normal"
         },
         {
-            "dam": "Mangla Dam",
+            "dam": "Mangla",
             "status": "Normal"
         },
         {
-            "dam": "Bhakra Dam",
+            "dam": "Chashma",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Taunsa",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Bhakra",
             "status": "Normal"
         },
         {
-            "dam": "Pong Dam",
+            "dam": "Pong",
             "status": "Normal"
         },
         {
-            "dam": "Thein Dam",
+            "dam": "Thein",
             "status": "Normal"
         }
     ],
-    "created_at": "2026-07-11T09:11:44.675649"
+    "source_file": "PDMA%20Daily%20Situation%20Report%2022%20May%202026_1000%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
+    "created_at": "2026-08-10T23:28:36.253545",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 75.0,
+            "passed": true
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 75.0,
+            "quality_score": 90.0,
+            "score": 90.0,
+            "status": "Excellent",
+            "validated_at": "2026-08-10T23:28:36.253637"
+        }
+    }
 }

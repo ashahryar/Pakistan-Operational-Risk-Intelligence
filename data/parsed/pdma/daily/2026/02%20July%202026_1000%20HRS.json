@@ -1,58 +1,99 @@
 {
+    "report_date": "08 INDUS 1550",
+    "report_time": "1000",
+    "forecast": "Thursday Ø Murree = 72 Ø Scattered rain windstorm/thundershower (with isolated Ø Lahore heavyfalls) is expected in Rawalpindi, Murree, Galliyat, Nishter Town = 38, Johar Town = 24, Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, Tajpura = 23, Gujranwala, Hafizabad, Wazirabad, Faisalabad, Khushab, Mughalpura, Farrukhabad = 22, Sargodha, Lahore, Sheikhupura, Sialkot, Narowal, Air Port = 21, Sahiwal, Jhang, Toba Tek Singh, Pakpattan, Nankana Head Office WASA = 20, Defence Road = 16, Sahib, Chiniot, Okara, Kasur, Noor Pur Thal, Bhakkar, Samanabad = 13, Shadipura = 12, Layyah Mianwali, Bahawalpur, Bahawalnagar, D.G. Khan, Gulshan-e-Ravi = 11, Jail Road =10, Multan, Khanewal, Lodhran, Muzaffargarh and Rajanpur. Lakshmi Chowk, Iqbal Town, Saggian = 10, Upper Mall = 08, Pani Wala Talab = 07, Chowk Nakhuda = 01 Ø MB Din = 25 DAILY DISCHARGE REPORT - 0600Hrs Ø Attock = 22 Weekly Dams Situation Ø Hafizabad & Sheikhupura = 14 Ø ATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours Ø Rawalpindi MCL* Current Current RIVERS DAMS Katcheri = 12, Kattarian = 11, (Feet) Filled Status Status Pirwidahi = 11, Chaklala = 11, Tarbela Gawalmandi = 08, Shamsabad = 08 INDUS 1550.00 1437.07 Normal Dam Ø Gujrat = 11 Ø Jhelum = 08 JHELUM Mangla 1242.00 1166.05 Normal Dam Ø DG Khan Bhakra Vehova = 08, Fort Munro = 04, City = 02 SUTLEJ 1680.00 1561.26 Normal Dam Ø Joharabad = 01 Ø Sialkot = 01 BEAS Pong Dam 1390.00 1320.37 Normal Ø Kasur = 07 Ø Mangla = 06 R A V I T h e i n D a m 1 7 3 2 . 0 0 1 656.04 Normal Ø Noor Pur Thal = 03 Ø Narowal = 03 MCL* = Maximum Conservation Level Ø Chakwal = 02 According to Met Department; Met office has informed that a westerly wave is likely to enter upper parts of the country from Ø Near-normal to slightly below-normal 30th June (evening/night). Meanwhile, moist currents from the Arabian Sea are continuously rainfall is largely anticipated across the penetrating the eastern and central parts of the country. Moist currents from the Bay of Bengal country during June 2026, with the most are expected to reach the upper parts from 2nd July. Under the influence of this weather pronounced negative anomalies expected system: over northeastern Punjab. Ø Scattered rain windstorm/thundershower (with isolated heavyfalls) is expected in Ø In contrast, Normal rainfall is likely over the Rawalpindi, Murree, Galliyat, Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, southern regions of punjab Gujranwala, Hafizabad, Wazirabad, Faisalabad, Khushab, Sargodha, Lahore, Sheikhupura, Ø Overall, rainfall is expected to exhibit Sialkot, Narowal from 1st to 6th July, while in Sahiwal, Jhang, Toba Tek Singh, Pakpattan, considerable spatial variability. Nankana Sahib, Chiniot, Okara, Kasur, Noor Pur Thal, Bhakkar, Layyah Mianwali, Bahawalpur, Bahawalnagar, D.G. Khan, Multan, Khanewal, Lodhran, Muzaffargarh and Rajanpur from 3rd to 6th July with occasional gaps. Below-normal rainfall is likely to reduce water availability, increasing reliance on stored water and groundwater for agriculture. Windstorm & lightning may damage weak structures (solar panels, electric poles, bill boards The reduced rainfall may fail to fulfill irrigation needs for seasonal vegetables and growing Kharif etc.) during the forecast period. crops in Punjab, requiring supplemental irrigation. Possibility of flash-flooding in the hill torrents of DG Khan from 2nd to 6th July. Above-normal temperatures may cause heat stress on newly sown and early-stage Kharif crops; timely irrigation management is advised to minimize potential losses. Heavy rains may cause Urban/flash flooding in Rawalpindi, Sialkot, Narowal, Gujranwala, Elevated temperatures over northern areas pf country are likely to accelerate snowmelt, while Lahore and Faisalabad from 1st to 4th July. slightly above-normal rainfall may further exacerbate the situation, increasing the risk of flash floods and landslides in mountainous and flood-prone areas. Tourists and travelers are advised to remain extra cautious and avoid unnecessary travelling Despite below-normal rainfall, isolated heavy downpours may still trigger localized urban flooding in during the forecast period. major cities, particularly in poorly drained and low-lying areas. Farmers are advised to manage their crop activities keeping in view the weather conditions Spatial temperature gradient may cause strong winds, dust storms, and hailstorms which may affect and take care of their livestock as well. seasonal crops, vegetables, and orchards; farmers are advised to take precautionary measures to protect standing crops. Prevailing hot and humid conditions are likely to subside during the forecast period.",
+    "weather_alert": "",
+    "forecast_districts": [
+        "Attock",
+        "Bahawalnagar",
+        "Bahawalpur",
+        "Bhakkar",
+        "Chakwal",
+        "Chiniot",
+        "D.G. Khan",
+        "DG Khan",
+        "Faisalabad",
+        "Galliyat",
+        "Gujranwala",
+        "Gujrat",
+        "Hafizabad",
+        "Jhang",
+        "Jhelum",
+        "Kasur",
+        "Khanewal",
+        "Khushab",
+        "Lahore",
+        "Layyah",
+        "Lodhran",
+        "Mandi Bahauddin",
+        "Mianwali",
+        "Multan",
+        "Murree",
+        "Muzaffargarh",
+        "Nankana Sahib",
+        "Narowal",
+        "Okara",
+        "Pakpattan",
+        "Rajanpur",
+        "Rawalpindi",
+        "Sahiwal",
+        "Sargodha",
+        "Sheikhupura",
+        "Sialkot",
+        "Toba Tek Singh"
+    ],
+    "temperature": {},
+    "rainfall": {},
+    "dams": [
+        {
+            "dam": "Tarbela",
+            "status": "Normal"
+        },
+        {
+            "dam": "Mangla",
+            "status": "Normal"
+        },
+        {
+            "dam": "Chashma",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Taunsa",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Bhakra",
+            "status": "Normal"
+        },
+        {
+            "dam": "Pong",
+            "status": "Normal"
+        },
+        {
+            "dam": "Thein",
+            "status": "Unknown"
+        }
+    ],
     "source_file": "02%20July%202026_1000%20HRS.pdf",
     "report_type": "daily",
     "report_year": "2026",
-    "report_date": "1st July, 2026",
-    "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Thursday Ø Murree = 72 Ø Scattered rain windstorm/thundershower (with isolated Ø Lahore heavyfalls) is expected in Rawalpindi, Murree, Galliyat, • Nishter Town = 38, Johar Town = 24, Attock, Chakwal, Jhelum, Mandi Bahauddin, Gujrat, • Tajpura = 23, Gujranwala, Hafizabad, Wazirabad, Faisalabad, Khushab, • Mughalpura, Farrukhabad = 22, Sargodha, Lahore, Sheikhupura, Sialkot, Narowal, • Air Port = 21, Sahiwal, Jhang, Toba Tek Singh, Pakpattan, Nankana • Head Office WASA = 20, Defence Road = 16, Sahib, Chiniot, Okara, Kasur, Noor Pur Thal, Bhakkar, • Samanabad = 13, Shadipura = 12, Layyah Mianwali, Bahawalpur, Bahawalnagar, D.G. Khan, • Gulshan-e-Ravi = 11, Jail Road =10, Multan, Khanewal, Lodhran, Muzaffargarh and Rajanpur. • Lakshmi Chowk, Iqbal Town, Saggian = 10, • Upper Mall = 08, Pani Wala Talab = 07, • Chowk Nakhuda = 01 Ø MB Din = 25 DAILY DISCHARGE REPORT - 0600Hrs Ø Attock = 22 Weekly Dams Situation Ø Hafizabad & Sheikhupura = 14 Ø Gujranwala = 13 CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours Ø Rawalpindi MCL* Current Current RIVERS DAMS • Katcheri = 12, Kattarian = 11, (Feet) Filled Status Status • Pi",
-    "temperature": {
-        "Gujranwala": 13
-    },
-    "rainfall": {
-        "Murree": 72.0,
-        "Nishter Town": 38.0,
-        "Johar Town": 24.0,
-        "Tajpura": 23.0,
-        "Farrukhabad": 22.0,
-        "Air Port": 21.0,
-        "Head Office WASA": 20.0,
-        "Defence Road": 16.0,
-        "Samanabad": 13.0,
-        "Shadipura": 12.0,
-        "Ravi": 11.0,
-        "Jail Road": 10.0,
-        "Saggian": 10.0,
-        "Upper Mall": 8.0,
-        "Pani Wala Talab": 7.0,
-        "Chowk Nakhuda": 1.0,
-        "MB Din": 25.0,
-        "Attock": 22.0,
-        "Sheikhupura": 14.0,
-        "Gujranwala": 13.0,
-        "Katcheri": 12.0,
-        "Kattarian": 11.0,
-        "Pirwidahi": 11.0,
-        "Chaklala": 11.0,
-        "Gawalmandi": 8.0,
-        "Shamsabad": 8.0,
-        "Gujrat": 11.0,
-        "Jhelum": 8.0,
-        "Vehova": 8.0,
-        "Fort Munro": 4.0,
-        "City": 2.0,
-        "Joharabad": 1.0,
-        "Sialkot": 1.0,
-        "Kasur": 7.0,
-        "Mangla": 6.0,
-        "Noor Pur Thal": 3.0,
-        "Narowal": 3.0,
-        "Chakwal": 2.0
-    },
-    "dams": [
-        {
-            "dam": "Pong Dam",
-            "status": "Normal"
+    "created_at": "2026-08-10T23:23:38.271057",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 62.5,
+            "passed": false
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 62.5,
+            "quality_score": 85.0,
+            "score": 85.0,
+            "status": "Good",
+            "validated_at": "2026-08-10T23:23:38.271195"
         }
-    ],
-    "created_at": "2026-07-11T09:07:52.087934"
+    }
 }

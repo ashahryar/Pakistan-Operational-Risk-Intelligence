@@ -81,6 +81,16 @@ def scrape_report_year(report_key: str, config: Dict[str, str], year: int) -> in
         logger.info("%s | %s | Page %s", report_key, year, page)
 
         response = client.get(page_url)
+        print("=" * 100)
+        print("URL:", page_url)
+        print("STATUS:", response.status_code)
+        print("FINAL URL:", response.url)
+        print("=" * 100)
+
+        if response:
+            with open("debug_pdma.html", "w", encoding="utf-8") as f:
+                f.write(response.text)
+            print("Saved HTML -> debug_pdma.html")
 
         if response is None:
             break

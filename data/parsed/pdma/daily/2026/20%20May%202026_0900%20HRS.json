@@ -1,25 +1,30 @@
 {
-    "source_file": "20%20May%202026_0900%20HRS.pdf",
-    "report_type": "daily",
-    "report_year": "2026",
-    "report_date": "20th MAY, 2026",
+    "report_date": "20TH MAY, 2026",
     "report_time": "0900",
-    "forecast": "WEATHER FORECAST (24 HOURS) Wednesday Ø Mainly hot and dry weather is expected in most districts of the province, while very hot in southern and central districts. NO RAINFALL HAS BEEN REPORTED IN ANY Ø Isolated rain-windstorm/thunderstorm is likely in DISTRICTS Rawalpindi, Jhelum, Chakwal, Attock, Murree, Galiyat, Sargodha, Noorpurthal, Khushab, Jhang, Mianwali, Layyah, Bhakkar and surroundings. DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation Maximum Temperatures recorded in last 24 hours CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Current Year MCL* Current RIVERS DAMS Ø DG Khan = 48°C (Feet) Filled Status Trend Ø Multan = 45°C Status Ø Sargodha = 44°C INDUS Tarbela 1550.00 19% Decreasing Normal Dam Ø Sahiwal = 44°C Ø Jhelum = 44°C JHELUM Mangla 1242.00 31% Increasing Normal Ø Faisalabad = 44°C Dam Ø Lahore = 43°C Bhakra Ø Bahawalpur = 43°C SUTLEJ Dam 1680.00 32% Decreasing Normal Ø Attock = 43°C Pong Ø Rawalpindi = 41°C B E A S D a m 1 3 9 0 . 0 0 37% Steady Normal Ø Chakwal = 41°C T h e i n Ø Murree = 30°C RAVI 1732.00 67% Steady Normal Dam MCL* = Maximum Conservation Level According to Met Department; Ø A general tendency for above-normal rainfall is anticipated across",
+    "forecast": "Wednesday Ø Mainly hot and dry weather is expected in most districts of the province, while very hot in southern and central districts. NO RAINFALL HAS BEEN REPORTED IN ANY Ø Isolated rain-windstorm/thunderstorm is likely in DISTRICTS Rawalpindi, Jhelum, Chakwal, Attock, Murree, Galiyat, Sargodha, Noorpurthal, Khushab, Jhang, Mianwali, Layyah, Bhakkar and surroundings. DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation Maximum Temperatures recorded in last 24 hours CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Current Year MCL* Current RIVERS DAMS Ø (Feet) Filled Status Trend Ø Status Ø INDUS Tarbela 1550.00 19% Decreasing Normal Dam Ø Ø JHELUM Mangla 1242.00 31% Increasing Normal Ø Dam Ø Bhakra Ø SUTLEJ Dam 1680.00 32% Decreasing Normal Ø Pong Ø B E A S D a m 1 3 9 0 . 0 0 37% Steady Normal Ø T h e i n Ø RAVI 1732.00 67% Steady Normal Dam MCL* = Maximum Conservation Level According to Met Department; Ø A general tendency for above-normal rainfall is anticipated across the country during May Met office has informed that a westerly wave is likely to approach northwestern parts of the 2026, with the most pronounced positive country on 18th May (Night) and likely to persist in upper parts till 23rd May. Under the anomalies concentrated over the northern half influence of this weather system: of the country, particularly adjoining areas of Ø Dust-thunderstorm/rain with isolated hailstorm is expected in Murree, Galiyat, Rawalpindi, northern Punjab. Ø Whereas slightly above-normal rainfall is Attock, Chakwal, Jhelum, Khushab, Joharabad, Bhakkar, Layyah, Sargodha, Mianwali, expected over Southern Punjab during the Faisalabad, Jhang, Lahore, Sheikhupura, Okara, Gujranwala, Hafizabad, Mandi Bahuddin, forecast month. Sialkot, Narowal from 18th (Night) to 23rd May with occasional gaps. Ø Overall, the wet conditions are expected to persist with a clear north-to-south weakening gradient Above-normal rainfall in northern areas of Punjab is likely to improve water availability, reducing reliance on stored water for agriculture. The increased rainfall may fulfill the irrigation need for seasonal vegetables and newly sown Kharif crops in Punjab. Above-normal temperatures may support harvesting of remaining Rabi crops. Windstorm and lightning may damage weak structures (electric poles, bill boards, solar panels Spatial temperature gradient may cause strong winds, dust storm, and hailstorm which may affect the seasonal crops, vegetables and orchard; therefore, timely harvesting of Rabi crops is advised to minimize etc.) during the forecast period. potential losses. Above-normal temperatures in May could increase the potential for heat spikes and heatwave conditions Very hot weather is likely to continue in southern parts of the province in coming days. especially over the plain areas of Punjab; despite the expected above-normal rainfall, these regions may Farmers are advised to manage their crop activities in accordance with the dust storm and rain still experience heat-like conditions between rainfall spells. The rising temperatures particularly over southern regions, may increase vector-borne disease risk like prediction. Dengue. Above-normal rainfall may increase the risk of flash floods and landslides, particularly in mountainous and Tourists and travelers are advised to remain cautious and avoid unnecessary travelling during flood-prone areas. the forecast period. Additionally, this could also raise the likelihood of localized urban flooding in major cities, especially in poorly drained and low-lying areas. Heavy rainfall along with the hailing and windstorm may damage public property (electric poles, bill boards and solar panels etc.) Above-normal rainfall is expected to enhance runoff in the upper Indus basin.",
+    "weather_alert": "",
+    "forecast_districts": [
+        "Attock",
+        "Bhakkar",
+        "Chakwal",
+        "Faisalabad",
+        "Gujranwala",
+        "Hafizabad",
+        "Jhang",
+        "Jhelum",
+        "Khushab",
+        "Lahore",
+        "Layyah",
+        "Mianwali",
+        "Murree",
+        "Narowal",
+        "Okara",
+        "Rawalpindi",
+        "Sargodha",
+        "Sheikhupura",
+        "Sialkot"
+    ],
     "temperature": {
-        "DG Khan": 48,
-        "Multan": 45,
-        "Sargodha": 44,
-        "Sahiwal": 44,
-        "Jhelum": 44,
-        "Faisalabad": 44,
-        "Lahore": 43,
-        "Bahawalpur": 43,
-        "Attock": 43,
-        "Rawalpindi": 41,
-        "Chakwal": 41,
-        "Murree": 30
-    },
-    "rainfall": {
         "DG Khan": 48.0,
         "Multan": 45.0,
         "Sargodha": 44.0,
@@ -33,6 +38,57 @@
         "Chakwal": 41.0,
         "Murree": 30.0
     },
-    "dams": [],
-    "created_at": "2026-07-11T09:09:03.224379"
+    "rainfall": {},
+    "dams": [
+        {
+            "dam": "Tarbela",
+            "status": "Normal"
+        },
+        {
+            "dam": "Mangla",
+            "status": "Normal"
+        },
+        {
+            "dam": "Chashma",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Taunsa",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Bhakra",
+            "status": "Normal"
+        },
+        {
+            "dam": "Pong",
+            "status": "Normal"
+        },
+        {
+            "dam": "Thein",
+            "status": "Unknown"
+        }
+    ],
+    "source_file": "20%20May%202026_0900%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2026",
+    "created_at": "2026-08-10T23:25:21.745741",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 75.0,
+            "passed": true
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 75.0,
+            "quality_score": 90.0,
+            "score": 90.0,
+            "status": "Excellent",
+            "validated_at": "2026-08-10T23:25:21.746412"
+        }
+    }
 }

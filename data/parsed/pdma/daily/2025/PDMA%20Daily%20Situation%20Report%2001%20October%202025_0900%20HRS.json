@@ -1,12 +1,10 @@
 {
-    "source_file": "PDMA%20Daily%20Situation%20Report%2001%20October%202025_0900%20HRS.pdf",
-    "report_type": "daily",
-    "report_year": "2025",
     "report_date": "01 OCTOBER 2025",
     "report_time": "0900",
-    "forecast": "WEATHER FORECAST (24 HOURS) Maximum Temperatures recorded in last 24 hours § Bhakkar = 40 oC § Khanpur = 39 oC § Joharabad = 39 oC § Noor Pur Thal = 39 oC § Narowal = 39 oC Wednesday § Bahawalnagar = 39 oC § Faisalabad = 39 oC § Rahim Yar Khan = 39oC • Mainly hot and dry weather is § Okara = 39 oC § Kot Addu = 39 oC expected in most districts of the province. WEATHER ADVISORY • Isolated rain-wind/thunderstorm is likely in Bahawalnagar, Bahawalpur, RETREAT OF MONSOON 2025 FROM PAKISTAN R a h i m Y a r K h a n d u r i n g evening/night. According to Met office, monsoon 2025 has been retrieved from most parts of the country. No Significant Rainfall is expected up No significant weather is expected in most parts to 4th October. of the country in coming days. Hot and dry weather is expected in flood A freshly westerly weather system is affected areas of Punjab and Sindh during the next week. The night time temperature in likely to affect upper parts of the upper parts of the country are likely to country from 5th of October remain moderately be comfortable during the next week, while hot weather is expected in most plain areas of the country during day time. DATA SOURCE: JAXA SATELLITE,",
-    "temperature": {},
-    "rainfall": {
+    "forecast": "Maximum Temperatures recorded in last 24 expected in most districts of the province. WEATHER",
+    "weather_alert": "",
+    "forecast_districts": [],
+    "temperature": {
         "Bhakkar": 40.0,
         "Khanpur": 39.0,
         "Joharabad": 39.0,
@@ -15,13 +13,60 @@
         "Bahawalnagar": 39.0,
         "Faisalabad": 39.0,
         "Rahim Yar Khan": 39.0,
-        "Okara": 39.0,
-        "Kot Addu": 39.0,
-        "Deaths": 186.0,
-        "Injured": 652.0,
-        "House damages": 238.0,
-        "Lightening Cattle perished": 121.0
+        "Mainly hot and dry weather is Okara": 39.0,
+        "Kot Addu": 39.0
     },
-    "dams": [],
-    "created_at": "2026-07-11T09:07:30.668876"
+    "rainfall": {},
+    "dams": [
+        {
+            "dam": "Tarbela",
+            "status": "Low"
+        },
+        {
+            "dam": "Mangla",
+            "status": "Low"
+        },
+        {
+            "dam": "Chashma",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Taunsa",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Bhakra",
+            "status": "Low"
+        },
+        {
+            "dam": "Pong",
+            "status": "Low"
+        },
+        {
+            "dam": "Thein",
+            "status": "Low"
+        }
+    ],
+    "source_file": "PDMA%20Daily%20Situation%20Report%2001%20October%202025_0900%20HRS.pdf",
+    "report_type": "daily",
+    "report_year": "2025",
+    "created_at": "2026-08-10T23:23:13.271926",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 75.0,
+            "passed": true
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 75.0,
+            "quality_score": 90.0,
+            "score": 90.0,
+            "status": "Excellent",
+            "validated_at": "2026-08-10T23:23:13.272054"
+        }
+    }
 }

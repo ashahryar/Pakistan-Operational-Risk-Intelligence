@@ -1,8 +1,8 @@
 """
-aws/glue/scripts/etl_pdma.py
+aws/glue/scripts/etl_pmd.py
 
-AWS Glue ETL Job — PDMA
-Reads parsed PDMA JSON files from S3 and loads them into Redshift.
+AWS Glue ETL Job — PMD
+Reads PMD latest.json files from S3 and loads them into Redshift.
 
 Glue job parameters:
   --S3_BUCKET          pakistan-operational-risk-intelligence
@@ -18,10 +18,6 @@ from awsglue.context import GlueContext
 from awsglue.job import Job
 from pyspark.context import SparkContext
 from pyspark.sql import functions as F
-from pyspark.sql.types import (
-    StructType, StructField,
-    StringType, IntegerType, FloatType, TimestampType,
-)
 
 # ----------------------------------------------------------
 # INIT
@@ -42,7 +38,7 @@ spark       = glueContext.spark_session
 job         = Job(glueContext)
 job.init(args["JOB_NAME"], args)
 
-BUCKET  = args["S3_BUCKET"]
+BUCKET   = args["S3_BUCKET"]
 RS_PROPS = {
     "url":      args["REDSHIFT_URL"],
     "user":     args["REDSHIFT_USER"],
@@ -50,124 +46,104 @@ RS_PROPS = {
     "tempdir":  args["REDSHIFT_TMP_DIR"],
 }
 
-DATE_FORMATS = ["dd MMMM yyyy", "dd.MM.yyyy", "MMMM dd, yyyy", "dd MMM yyyy"]
+REPORT_PATHS = {
+    "daily_forecast": f"s3://{BUCKET}/raw/pmd/reports/daily_forecast/all/latest.json",
+    "weekly_outlook": f"s3://{BUCKET}/raw/pmd/reports/weekly_outlook/all/latest.json",
+    "weather_alerts": f"s3://{BUCKET}/raw/pmd/reports/weather_alerts/all/latest.json",
+}
 
 
-def try_parse_date(col_name):
-    """Try multiple date formats, return first non-null."""
-    result = F.lit(None).cast("date")
-    for fmt in DATE_FORMATS:
-        result = F.when(
-            F.to_date(F.col(col_name), fmt).isNotNull(),
-            F.to_date(F.col(col_name), fmt)
-        ).otherwise(result)
-    return result
-
-
-def write_to_redshift(df, table, preaction=None):
-    pre = preaction or f"DELETE FROM {table}"
+def write_to_redshift(df, table):
     glueContext.write_dynamic_frame.from_options(
         frame=glueContext.create_dynamic_frame.from_dataframe(df, glueContext),
         connection_type="redshift",
         connection_options={
             **RS_PROPS,
             "dbtable":    table,
-            "preactions": pre,
+            "preactions": f"DELETE FROM {table}",
         },
     )
 
 
 # ----------------------------------------------------------
-# DAILY REPORTS
+# PMD REPORTS  (one row per category)
 # ----------------------------------------------------------
 
-daily_schema = StructType([
-    StructField("source_file",  StringType()),
-    StructField("report_date",  StringType()),
-    StructField("report_year",  StringType()),
-    StructField("forecast",     StringType()),
-    StructField("report_time",  StringType()),
-])
+reports_rows = []
+for category, path in REPORT_PATHS.items():
+    try:
+        df = spark.read.option("multiline", "true").json(path)
+        reports_rows.append(
+            df.select(
+                F.lit(category).alias("category"),
+                F.col("source"),
+                F.col("url"),
+                F.col("forecast"),
+                F.to_timestamp("scraped_at").alias("scraped_at"),
+            )
+        )
+    except Exception as e:
+        print(f"[WARN] Could not read {path}: {e}")
 
-df_daily = (
-    spark.read
-    .schema(daily_schema)
-    .json(f"s3://{BUCKET}/parsed/pdma/daily/*/*.json")
-    .withColumn("report_date", try_parse_date("report_date"))
-    .withColumn("report_year", F.col("report_year").cast(IntegerType()))
-    .dropDuplicates(["source_file"])
-)
-
-write_to_redshift(df_daily, "pdma_daily_reports")
-print(f"pdma_daily_reports: {df_daily.count()} rows loaded")
+if reports_rows:
+    from functools import reduce
+    df_reports = reduce(lambda a, b: a.union(b), reports_rows)
+    write_to_redshift(df_reports, "pmd_reports")
+    print(f"pmd_reports: {df_reports.count()} rows loaded")
 
 # ----------------------------------------------------------
-# RAINFALL READINGS  (explode stations array)
+# PMD WEATHER  (explode tables → rows from daily_forecast)
 # ----------------------------------------------------------
 
-rainfall_schema = StructType([
-    StructField("source_file",  StringType()),
-    StructField("report_date",  StringType()),
-    StructField("report_year",  StringType()),
-    StructField("stations", StructType([
-        StructField("station",     StringType()),
-        StructField("rainfall_mm", FloatType()),
-    ])),
-])
-
-df_rainfall_raw = (
+df_daily_raw = (
     spark.read
     .option("multiline", "true")
-    .json(f"s3://{BUCKET}/parsed/pdma/rainfall/*/*.json")
+    .json(REPORT_PATHS["daily_forecast"])
 )
 
-df_rainfall = (
-    df_rainfall_raw
-    .withColumn("station_row", F.explode("stations"))
+df_weather = (
+    df_daily_raw
+    .withColumn("tbl", F.explode("tables"))
+    .withColumn("row", F.explode("tbl.rows"))
     .select(
-        F.col("source_file"),
-        try_parse_date("report_date").alias("report_date"),
-        F.col("report_year").cast(IntegerType()).alias("report_year"),
-        F.col("station_row.station").alias("station"),
-        F.col("station_row.rainfall_mm").alias("rainfall_mm"),
+        F.lit("daily_forecast").alias("category"),
+        F.to_timestamp("scraped_at").alias("scraped_at"),
+        F.col("row")[5].alias("city"),
+        F.col("row")[4].alias("humidity"),
+        F.col("row")[3].alias("max_temperature"),
+        F.col("row")[2].alias("day1_forecast"),
+        F.col("row")[1].alias("day2_forecast"),
+        F.col("row")[0].alias("day3_forecast"),
     )
-    .dropDuplicates(["source_file", "station"])
+    .filter(F.col("city").isNotNull())
 )
 
-write_to_redshift(df_rainfall, "pdma_rainfall_readings")
-print(f"pdma_rainfall_readings: {df_rainfall.count()} rows loaded")
+write_to_redshift(df_weather, "pmd_weather")
+print(f"pmd_weather: {df_weather.count()} rows loaded")
 
 # ----------------------------------------------------------
-# GAUGE READINGS  (explode gauges array)
+# PMD WEEKLY OUTLOOK  (explode tables → rows)
 # ----------------------------------------------------------
 
-df_gauge_raw = (
+df_outlook_raw = (
     spark.read
     .option("multiline", "true")
-    .json(f"s3://{BUCKET}/parsed/pdma/gauge/*/*.json")
+    .json(REPORT_PATHS["weekly_outlook"])
 )
 
-df_gauge = (
-    df_gauge_raw
-    .withColumn("gauge_row", F.explode("gauges"))
+df_outlook = (
+    df_outlook_raw
+    .withColumn("tbl", F.explode("tables"))
+    .withColumn("row", F.explode("tbl.rows"))
     .select(
-        F.col("source_file"),
-        F.to_timestamp("report_datetime").alias("report_datetime"),
-        F.col("gauge_row.station").alias("station"),
-        F.col("gauge_row.river").alias("river"),
-        F.col("gauge_row.current_level_ft").cast(FloatType()).alias("current_level_ft"),
-        F.col("gauge_row.danger_level_ft").cast(FloatType()).alias("danger_level_ft"),
-        F.col("gauge_row.discharge_cusecs").cast(FloatType()).alias("discharge_cusecs"),
-        F.col("gauge_row.flow_status").alias("flow_status"),
+        F.to_timestamp("scraped_at").alias("scraped_at"),
+        F.col("row")[1].alias("forecast_date"),
+        F.col("row")[0].alias("weather_description"),
     )
-    .withColumn(
-        "report_year",
-        F.year("report_datetime").cast(IntegerType())
-    )
-    .dropDuplicates(["source_file", "station"])
+    .filter(F.col("forecast_date").isNotNull())
 )
 
-write_to_redshift(df_gauge, "pdma_gauge_readings")
-print(f"pdma_gauge_readings: {df_gauge.count()} rows loaded")
+write_to_redshift(df_outlook, "pmd_weekly_outlook")
+print(f"pmd_weekly_outlook: {df_outlook.count()} rows loaded")
 
 job.commit()

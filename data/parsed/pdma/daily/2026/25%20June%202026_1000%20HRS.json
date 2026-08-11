@@ -1,30 +1,76 @@
 {
+    "report_date": "25TH JUNE, 2026",
+    "report_time": "1000",
+    "forecast": "Thursday Ø Narowal = 48 Ø Hot and dry weather is likely in most parts of the Ø Gujrat = 46 Ø Sialkot (City = 21 & Airport = 20) province. Ø Jhelum = 07 Ø Isolated rain-windstorm/thunderstorm may occur in Ø Rawalpindi = Murree, Galiyat, Jhelum, Attock, Rawalpindi, Mianwali, Katcheri = 04, Chaklala = 03, Pirwidahi, Shamsabad = 02, Kattarian = 01 Lahore, Sheikhupura, Sialkot, Narowal, Pakpattan, Ø DG Khan Vehari, Dera Ghazi Khan, Bahawalnagar and surrounding Fort Munro = 04 areas. Ø Murree = 03 Ø Mangla = 02 DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Tarbela INDUS 1550.00 1445.06 Normal Dam Mangla JHELUM 1242.00 1172.05 Normal Dam Bhakra SUTLEJ 1680.00 1570.33 Normal Dam BEAS Pong Dam 1390.00 1323.44 Normal R A V I T h e i n D a m 1 7 3 2 . 0 0 1 664.84 Normal MCL* = Maximum Conservation Level Above-normal rainfall in northern areas of Punjab is likely to improve water availability, reducing reliance on stored water for agriculture. The increased rainfall may fulfill the irrigation need for seasonal vegetables and newly sown Kharif crops in Punjab. Above-normal temperatures may support harvesting of remaining Rabi crops. Spatial temperature gradient may cause strong winds, dust storm, and hailstorm which may affect the seasonal crops, vegetables and orchard; therefore, timely harvesting of Rabi crops is advised to minimize potential losses. Above-normal temperatures in May could increase the potential for heat spikes and heatwave conditions especially over the plain areas of Punjab; despite the expected above-normal rainfall, these regions may still experience heat-like conditions between rainfall spells. The rising temperatures particularly over southern regions, may increase vector-borne disease According to Met Department; risk like Dengue. Above-normal rainfall may increase the risk of flash floods and landslides, particularly in Ø Near-normal to slightly below-normal rainfall is largely anticipated across the country mountainous and flood-prone areas. during June 2026, with the most pronounced negative anomalies expected over Additionally, this could also raise the likelihood of localized urban flooding in major cities, northeastern Punjab. especially in poorly drained and low-lying areas. Ø In contrast, Normal rainfall is likely over the southern regions of punjab Heavy rainfall along with the hailing and windstorm may damage public property (electric poles, Ø Overall, rainfall is expected to exhibit considerable spatial variability bill boards and solar panels etc.) Above-normal rainfall is expected to enhance runoff in the upper Indus basin.",
+    "weather_alert": "",
+    "forecast_districts": [
+        "Attock",
+        "Bahawalnagar",
+        "DG Khan",
+        "Gujrat",
+        "Jhelum",
+        "Lahore",
+        "Mianwali",
+        "Murree",
+        "Narowal",
+        "Pakpattan",
+        "Rawalpindi",
+        "Sheikhupura",
+        "Sialkot",
+        "Vehari"
+    ],
+    "temperature": {},
+    "rainfall": {},
+    "dams": [
+        {
+            "dam": "Tarbela",
+            "status": "Normal"
+        },
+        {
+            "dam": "Mangla",
+            "status": "Normal"
+        },
+        {
+            "dam": "Chashma",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Taunsa",
+            "status": "Unknown"
+        },
+        {
+            "dam": "Bhakra",
+            "status": "Normal"
+        },
+        {
+            "dam": "Pong",
+            "status": "Normal"
+        },
+        {
+            "dam": "Thein",
+            "status": "Unknown"
+        }
+    ],
     "source_file": "25%20June%202026_1000%20HRS.pdf",
     "report_type": "daily",
     "report_year": "2026",
-    "report_date": "25th June, 2026",
-    "report_time": "1000",
-    "forecast": "WEATHER FORECAST (24 HOURS) Thursday Ø Narowal = 48 Ø Hot and dry weather is likely in most parts of the Ø Gujrat = 46 Ø Sialkot (City = 21 & Airport = 20) province. Ø Jhelum = 07 Ø Isolated rain-windstorm/thunderstorm may occur in Ø Rawalpindi = Murree, Galiyat, Jhelum, Attock, Rawalpindi, Mianwali, • Katcheri = 04, Chaklala = 03, • Pirwidahi, Shamsabad = 02, Kattarian = 01 Lahore, Sheikhupura, Sialkot, Narowal, Pakpattan, Ø DG Khan Vehari, Dera Ghazi Khan, Bahawalnagar and surrounding • Fort Munro = 04 areas. Ø Murree = 03 Ø Mangla = 02 DAILY DISCHARGE REPORT - 0600Hrs Weekly Dams Situation CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Maximum Temperatures recorded in last 24 hours MCL* Current Current RIVERS DAMS (Feet) Filled Status Status Tarbela INDUS 1550.00 1445.06 Normal Dam Mangla JHELUM 1242.00 1172.05 Normal Dam Bhakra SUTLEJ 1680.00 1570.33 Normal Dam BEAS Pong Dam 1390.00 1323.44 Normal R A V I T h e i n D a m 1 7 3 2 . 0 0 1 664.84 Normal MCL* = Maximum Conservation Level • Above-normal rainfall in northern areas of Punjab is likely to improve water availability, reducing reliance on stored water for agriculture. • The increased rainfall may fulfill the irrigation ne",
-    "temperature": {},
-    "rainfall": {
-        "Narowal": 48.0,
-        "Gujrat": 46.0,
-        "Sialkot (City": 21.0,
-        "Airport": 20.0,
-        "Jhelum": 7.0,
-        "Katcheri": 4.0,
-        "Chaklala": 3.0,
-        "Shamsabad": 2.0,
-        "Kattarian": 1.0,
-        "Fort Munro": 4.0,
-        "Murree": 3.0,
-        "Mangla": 2.0
-    },
-    "dams": [
-        {
-            "dam": "Pong Dam",
-            "status": "Normal"
+    "created_at": "2026-08-10T23:26:11.568472",
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "completeness": {
+            "score": 62.5,
+            "passed": false
+        },
+        "quality_score": {
+            "schema_valid": true,
+            "schema_score": 100,
+            "schema_errors": [],
+            "completeness_score": 62.5,
+            "quality_score": 85.0,
+            "score": 85.0,
+            "status": "Good",
+            "validated_at": "2026-08-10T23:26:11.568661"
         }
-    ],
-    "created_at": "2026-07-11T09:09:40.437495"
+    }
 }

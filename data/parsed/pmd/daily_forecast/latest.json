@@ -1,17 +1,19 @@
 [
     {
-        "city": "اسلام آباد",
-        "province": "Unknown",
+        "city": "Islamabad",
+        "district": "Islamabad",
+        "province": "Islamabad",
         "temperature": 38.0,
         "humidity": 48.0,
         "forecast_day_1": "35-37",
         "forecast_day_2": "35-37",
         "forecast_day_3": "35-37",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "کوئٹہ سمنگلی",
+        "city": "Quetta Samungli",
+        "district": "Quetta",
         "province": "Balochistan",
         "temperature": 38.0,
         "humidity": 24.0,
@@ -19,10 +21,11 @@
         "forecast_day_2": "36-38",
         "forecast_day_3": "36-38",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "گوادر",
+        "city": "Gwadar",
+        "district": "Gwadar",
         "province": "Balochistan",
         "temperature": 33.0,
         "humidity": 76.0,
@@ -30,10 +33,11 @@
         "forecast_day_2": "31-33",
         "forecast_day_3": "31-33",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "قلات",
+        "city": "Kalat",
+        "district": "Kalat",
         "province": "Balochistan",
         "temperature": 33.0,
         "humidity": 15.0,
@@ -41,10 +45,11 @@
         "forecast_day_2": "32-34",
         "forecast_day_3": "32-34",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "تربت",
+        "city": "Turbat",
+        "district": "Kech",
         "province": "Balochistan",
         "temperature": 42.0,
         "humidity": 33.0,
@@ -52,21 +57,23 @@
         "forecast_day_2": "40-42",
         "forecast_day_3": "40-42",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "جيوانى",
-        "province": "Unknown",
+        "city": "Jiwani",
+        "district": "Gwadar",
+        "province": "Balochistan",
         "temperature": 34.0,
         "humidity": 73.0,
         "forecast_day_1": "33-35",
         "forecast_day_2": "33-35",
         "forecast_day_3": "33-35",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "سبی",
+        "city": "Sibi",
+        "district": "Sibi",
         "province": "Balochistan",
         "temperature": 47.0,
         "humidity": 42.0,
@@ -74,32 +81,35 @@
         "forecast_day_2": "46-48",
         "forecast_day_3": "46-48",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "نوکنڈی",
-        "province": "Unknown",
+        "city": "Nokundi",
+        "district": "Chagai",
+        "province": "Balochistan",
         "temperature": 48.0,
         "humidity": 6.0,
         "forecast_day_1": "46-48",
         "forecast_day_2": "46-48",
         "forecast_day_3": "46-48",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "مری",
-        "province": "Unknown",
+        "city": "Murree",
+        "district": "Murree",
+        "province": "Punjab",
         "temperature": 23.0,
         "humidity": 64.0,
         "forecast_day_1": "21-23",
         "forecast_day_2": "21-23",
         "forecast_day_3": "21-23",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "بہاولپور",
+        "city": "Bahawalpur",
+        "district": "Bahawalpur",
         "province": "Punjab",
         "temperature": 42.0,
         "humidity": 34.0,
@@ -107,10 +117,11 @@
         "forecast_day_2": "38-40",
         "forecast_day_3": "38-40",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "ڈیرہ غازی خان",
+        "city": "Dera Ghazi Khan",
+        "district": "Dera Ghazi Khan",
         "province": "Punjab",
         "temperature": 40.0,
         "humidity": 33.0,
@@ -118,10 +129,11 @@
         "forecast_day_2": "38-40",
         "forecast_day_3": "38-40",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "ملتان",
+        "city": "Multan",
+        "district": "Multan",
         "province": "Punjab",
         "temperature": 40.0,
         "humidity": 41.0,
@@ -129,10 +141,11 @@
         "forecast_day_2": "38-40",
         "forecast_day_3": "38-40",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "چکوال",
+        "city": "Chakwal",
+        "district": "Chakwal",
         "province": "Punjab",
         "temperature": 36.0,
         "humidity": 39.0,
@@ -140,21 +153,23 @@
         "forecast_day_2": "32-34",
         "forecast_day_3": "32-34",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "فیصل آباد",
-        "province": "Unknown",
+        "city": "Faisalabad",
+        "district": "Faisalabad",
+        "province": "Punjab",
         "temperature": 38.0,
         "humidity": 44.0,
         "forecast_day_1": "36-38",
         "forecast_day_2": "36-38",
         "forecast_day_3": "36-38",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "سرگودھا",
+        "city": "Sargodha",
+        "district": "Sargodha",
         "province": "Punjab",
         "temperature": 39.0,
         "humidity": 37.0,
@@ -162,10 +177,11 @@
         "forecast_day_2": "37-39",
         "forecast_day_3": "37-39",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "لاہور",
+        "city": "Lahore",
+        "district": "Lahore",
         "province": "Punjab",
         "temperature": 37.0,
         "humidity": 39.0,
@@ -173,10 +189,11 @@
         "forecast_day_2": "37-39",
         "forecast_day_3": "37-39",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "اٹک",
+        "city": "Attock",
+        "district": "Attock",
         "province": "Punjab",
         "temperature": 40.0,
         "humidity": 37.0,
@@ -184,10 +201,11 @@
         "forecast_day_2": "37-39",
         "forecast_day_3": "37-39",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "راولپنڈی",
+        "city": "Rawalpindi",
+        "district": "Rawalpindi",
         "province": "Punjab",
         "temperature": 37.0,
         "humidity": 44.0,
@@ -195,10 +213,11 @@
         "forecast_day_2": "34-36",
         "forecast_day_3": "34-36",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "جہلم",
+        "city": "Jhelum",
+        "district": "Jhelum",
         "province": "Punjab",
         "temperature": 41.0,
         "humidity": 38.0,
@@ -206,10 +225,11 @@
         "forecast_day_2": "36-38",
         "forecast_day_3": "36-38",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "ساہیوال",
+        "city": "Sahiwal",
+        "district": "Sahiwal",
         "province": "Punjab",
         "temperature": 36.0,
         "humidity": 50.0,
@@ -217,10 +237,11 @@
         "forecast_day_2": "33-35",
         "forecast_day_3": "33-35",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "کراچی",
+        "city": "Karachi",
+        "district": "Karachi",
         "province": "Sindh",
         "temperature": 35.0,
         "humidity": 58.0,
@@ -228,21 +249,23 @@
         "forecast_day_2": "33-35",
         "forecast_day_3": "33-35",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "حیدر آباد",
-        "province": "Unknown",
+        "city": "Hyderabad",
+        "district": "Hyderabad",
+        "province": "Sindh",
         "temperature": 39.0,
         "humidity": 44.0,
         "forecast_day_1": "37-39",
         "forecast_day_2": "37-39",
         "forecast_day_3": "37-39",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "سکھر",
+        "city": "Sukkur",
+        "district": "Sukkur",
         "province": "Sindh",
         "temperature": 43.0,
         "humidity": 36.0,
@@ -250,10 +273,11 @@
         "forecast_day_2": "41-43",
         "forecast_day_3": "41-43",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "ٹھٹھہ",
+        "city": "Thatta",
+        "district": "Thatta",
         "province": "Sindh",
         "temperature": 36.0,
         "humidity": 56.0,
@@ -261,10 +285,11 @@
         "forecast_day_2": "35-37",
         "forecast_day_3": "35-37",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "موہنجوڈاڑو",
+        "city": "Mohenjo Daro",
+        "district": null,
         "province": "Unknown",
         "temperature": 43.0,
         "humidity": 23.0,
@@ -272,10 +297,11 @@
         "forecast_day_2": "41-43",
         "forecast_day_3": "41-43",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "دادو",
+        "city": "Dadu",
+        "district": "Dadu",
         "province": "Sindh",
         "temperature": 47.0,
         "humidity": 29.0,
@@ -283,10 +309,11 @@
         "forecast_day_2": "44-46",
         "forecast_day_3": "44-46",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "مٹھی",
+        "city": "Mithi",
+        "district": "Tharparkar",
         "province": "Sindh",
         "temperature": 40.0,
         "humidity": 42.0,
@@ -294,10 +321,11 @@
         "forecast_day_2": "38-40",
         "forecast_day_3": "38-40",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "نوابشاہ",
+        "city": "Nawabshah",
+        "district": "Shaheed Benazirabad",
         "province": "Sindh",
         "temperature": 44.0,
         "humidity": 37.0,
@@ -305,10 +333,11 @@
         "forecast_day_2": "42-44",
         "forecast_day_3": "42-44",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "چترال",
+        "city": "Chitral",
+        "district": "Chitral",
         "province": "Khyber Pakhtunkhwa",
         "temperature": 37.0,
         "humidity": 21.0,
@@ -316,10 +345,11 @@
         "forecast_day_2": "35-37",
         "forecast_day_3": "35-37",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "دیر",
+        "city": "Dir",
+        "district": "Upper Dir",
         "province": "Khyber Pakhtunkhwa",
         "temperature": 33.0,
         "humidity": 44.0,
@@ -327,10 +357,11 @@
         "forecast_day_2": "30-32",
         "forecast_day_3": "30-32",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "مالم جبہ",
+        "city": "Malam Jabba",
+        "district": null,
         "province": "Unknown",
         "temperature": 24.0,
         "humidity": 54.0,
@@ -338,10 +369,11 @@
         "forecast_day_2": "19-21",
         "forecast_day_3": "19-21",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "سیدوشریف",
+        "city": "Saidu Sharif",
+        "district": null,
         "province": "Unknown",
         "temperature": 36.0,
         "humidity": 38.0,
@@ -349,10 +381,11 @@
         "forecast_day_2": "32-34",
         "forecast_day_3": "32-34",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "پشاور",
+        "city": "Peshawar",
+        "district": "Peshawar",
         "province": "Khyber Pakhtunkhwa",
         "temperature": 40.0,
         "humidity": 31.0,
@@ -360,10 +393,11 @@
         "forecast_day_2": "37-39",
         "forecast_day_3": "37-39",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "بنوں",
+        "city": "Bannu",
+        "district": "Bannu",
         "province": "Khyber Pakhtunkhwa",
         "temperature": 38.0,
         "humidity": 41.0,
@@ -371,10 +405,11 @@
         "forecast_day_2": "34-36",
         "forecast_day_3": "34-36",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "ڈیرہ اسماعیل خان",
+        "city": "Dera Ismail Khan",
+        "district": null,
         "province": "Unknown",
         "temperature": 41.0,
         "humidity": 44.0,
@@ -382,10 +417,11 @@
         "forecast_day_2": "38-40",
         "forecast_day_3": "38-40",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "ایبٹ آباد",
+        "city": "Abbottabad",
+        "district": "Abbottabad",
         "province": "Khyber Pakhtunkhwa",
         "temperature": 30.0,
         "humidity": 48.0,
@@ -393,10 +429,11 @@
         "forecast_day_2": "28-30",
         "forecast_day_3": "28-30",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "گلگت",
+        "city": "Gilgit",
+        "district": "Gilgit",
         "province": "Gilgit Baltistan",
         "temperature": 37.0,
         "humidity": 19.0,
@@ -404,10 +441,11 @@
         "forecast_day_2": "32-34",
         "forecast_day_3": "32-34",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "سکردو",
+        "city": "Skardu",
+        "district": "Skardu",
         "province": "Gilgit Baltistan",
         "temperature": 30.0,
         "humidity": 12.0,
@@ -415,10 +453,11 @@
         "forecast_day_2": "27-29",
         "forecast_day_3": "27-29",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "استور",
+        "city": "Astore",
+        "district": "Astore",
         "province": "Gilgit Baltistan",
         "temperature": 28.0,
         "humidity": 19.0,
@@ -426,10 +465,11 @@
         "forecast_day_2": "24-26",
         "forecast_day_3": "24-26",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "ہنزہ",
+        "city": "Hunza",
+        "district": "Hunza",
         "province": "Gilgit Baltistan",
         "temperature": 32.0,
         "humidity": 30.0,
@@ -437,10 +477,11 @@
         "forecast_day_2": "29-31",
         "forecast_day_3": "29-31",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "گوپس",
+        "city": "Gupis",
+        "district": null,
         "province": "Unknown",
         "temperature": 35.0,
         "humidity": 20.0,
@@ -448,10 +489,11 @@
         "forecast_day_2": "29-31",
         "forecast_day_3": "29-31",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "بونجی",
+        "city": "Bunji",
+        "district": null,
         "province": "Unknown",
         "temperature": 37.0,
         "humidity": 24.0,
@@ -459,10 +501,11 @@
         "forecast_day_2": "34-36",
         "forecast_day_3": "34-36",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "چلاس",
+        "city": "Chilas",
+        "district": null,
         "province": "Unknown",
         "temperature": 40.0,
         "humidity": 15.0,
@@ -470,10 +513,11 @@
         "forecast_day_2": "37-39",
         "forecast_day_3": "37-39",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "بابو سر پاس",
+        "city": "Babusar Pass",
+        "district": null,
         "province": "Unknown",
         "temperature": 17.0,
         "humidity": 27.0,
@@ -481,10 +525,11 @@
         "forecast_day_2": "15-17",
         "forecast_day_3": "15-17",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "راولاکوٹ",
+        "city": "Rawalakot",
+        "district": "Poonch",
         "province": "AJK",
         "temperature": 24.0,
         "humidity": 46.0,
@@ -492,10 +537,11 @@
         "forecast_day_2": "21-23",
         "forecast_day_3": "21-23",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "شو پیاں",
+        "city": "Shopian",
+        "district": null,
         "province": "Unknown",
         "temperature": 28.0,
         "humidity": 46.0,
@@ -503,10 +549,11 @@
         "forecast_day_2": "24-26",
         "forecast_day_3": "24-26",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "اننت ناگ",
+        "city": "Anantnag",
+        "district": null,
         "province": "Unknown",
         "temperature": 30.0,
         "humidity": 52.0,
@@ -514,10 +561,11 @@
         "forecast_day_2": "24-26",
         "forecast_day_3": "24-26",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "پلوامہ",
+        "city": "Pulwama",
+        "district": null,
         "province": "Unknown",
         "temperature": 29.0,
         "humidity": 50.0,
@@ -525,10 +573,11 @@
         "forecast_day_2": "25-27",
         "forecast_day_3": "25-27",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "لہہ",
+        "city": "Leh",
+        "district": null,
         "province": "Unknown",
         "temperature": 17.0,
         "humidity": 48.0,
@@ -536,10 +585,11 @@
         "forecast_day_2": "14-16",
         "forecast_day_3": "14-16",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "سری نگر",
+        "city": "Srinagar",
+        "district": null,
         "province": "Unknown",
         "temperature": 29.0,
         "humidity": 48.0,
@@ -547,10 +597,11 @@
         "forecast_day_2": "24-26",
         "forecast_day_3": "24-26",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "جموں",
+        "city": "Jammu",
+        "district": null,
         "province": "Unknown",
         "temperature": 38.0,
         "humidity": 38.0,
@@ -558,10 +609,11 @@
         "forecast_day_2": "34-36",
         "forecast_day_3": "34-36",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "گڑھی دوپٹہ",
+        "city": "Garhi Dupatta",
+        "district": "Muzaffarabad",
         "province": "AJK",
         "temperature": 37.0,
         "humidity": 35.0,
@@ -569,21 +621,23 @@
         "forecast_day_2": "35-37",
         "forecast_day_3": "35-37",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "مظفر آباد",
-        "province": "Unknown",
+        "city": "Muzaffarabad",
+        "district": "Muzaffarabad",
+        "province": "AJK",
         "temperature": 36.0,
         "humidity": 38.0,
         "forecast_day_1": "33-35",
         "forecast_day_2": "33-35",
         "forecast_day_3": "33-35",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     },
     {
-        "city": "بارہ مو لہ",
+        "city": "Baramulla",
+        "district": null,
         "province": "Unknown",
         "temperature": 29.0,
         "humidity": 48.0,
@@ -591,6 +645,6 @@
         "forecast_day_2": "24-26",
         "forecast_day_3": "24-26",
         "category": "daily_forecast",
-        "scraped_at": "2026-07-07T00:31:34.424492"
+        "scraped_at": "2026-08-11T18:00:09.107419"
     }
 ]
