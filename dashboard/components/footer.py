@@ -206,17 +206,13 @@ Dashboard refreshes automatically every 60 seconds.
 
     st.markdown(
         """
-<div style='text-align:center;
-padding:25px;
-border-radius:15px;
-background:linear-gradient(90deg,#2563eb,#1d4ed8);
-color:white;'>
+<div class='app-footer-banner'>
 
-<h2 style='margin-bottom:8px;'>
+<h2>
 Pakistan Operational Risk Intelligence Platform
 </h2>
 
-<p style='font-size:18px;'>
+<p style='font-size:15px;'>
 
 Real-Time Disaster • Weather • Flood • Operational Risk Intelligence
 

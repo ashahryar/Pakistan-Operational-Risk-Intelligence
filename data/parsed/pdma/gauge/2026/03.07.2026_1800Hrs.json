@@ -325,7 +325,7 @@
             "flow_status": "1 ft"
         }
     ],
-    "created_at": "2026-08-10T23:34:00.100689",
+    "created_at": "2026-08-31T17:28:47.512728",
     "validation": {
         "valid": true,
         "errors": [],
@@ -341,7 +341,7 @@
             "quality_score": 100.0,
             "score": 100.0,
             "status": "Excellent",
-            "validated_at": "2026-08-10T23:34:00.101256"
+            "validated_at": "2026-08-31T17:28:47.512820"
         }
     }
 }

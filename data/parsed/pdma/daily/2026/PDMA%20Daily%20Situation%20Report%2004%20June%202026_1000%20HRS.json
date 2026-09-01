@@ -90,7 +90,7 @@
     "source_file": "PDMA%20Daily%20Situation%20Report%2004%20June%202026_1000%20HRS.pdf",
     "report_type": "daily",
     "report_year": "2026",
-    "created_at": "2026-08-10T23:28:31.361330",
+    "created_at": "2026-08-31T17:25:22.192699",
     "validation": {
         "valid": true,
         "errors": [],
@@ -106,7 +106,7 @@
             "quality_score": 90.0,
             "score": 90.0,
             "status": "Excellent",
-            "validated_at": "2026-08-10T23:28:31.361423"
+            "validated_at": "2026-08-31T17:25:22.192794"
         }
     }
 }

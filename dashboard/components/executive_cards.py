@@ -24,7 +24,10 @@ def render_executive_cards(kpi: dict) -> None:
     # .metric-number, .metric-desc) so every KPI card across the app stays
     # visually consistent and theme-aware (light/dark).
 
-    c1, c2, c3 = st.columns(3)
+    # Single 6-across row (matches the Stitch reference layout) instead
+    # of two stacked rows of 3 -- same six KPI values, same .metric-box
+    # markup per card, just one row of columns instead of two.
+    c1, c2, c3, c4, c5, c6 = st.columns(6)
 
     with c1:
 
@@ -85,8 +88,6 @@ Infrastructure Impact
 
 </div>
 """, unsafe_allow_html=True)
-
-    c4, c5, c6 = st.columns(3)
 
     with c4:
 

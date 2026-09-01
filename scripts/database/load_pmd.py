@@ -84,6 +84,21 @@ def load_daily():
 
         for row in rows:
 
+            scraped_at = parse_timestamp(row.get("scraped_at"))
+
+            # The normal unique constraint handles this on a fresh schema.
+            # This guard also keeps legacy databases idempotent.
+            if conn.execute(
+                text("""
+                    SELECT 1 FROM pmd_daily_forecast
+                    WHERE city IS NOT DISTINCT FROM :city
+                      AND scraped_at IS NOT DISTINCT FROM :scraped
+                    LIMIT 1
+                """),
+                {"city": row.get("city"), "scraped": scraped_at},
+            ).fetchone():
+                continue
+
             conn.execute(
 
                 text("""
@@ -142,9 +157,7 @@ def load_daily():
 
                     "category": row.get("category"),
 
-                    "scraped": parse_timestamp(
-                        row.get("scraped_at")
-                    ),
+                    "scraped": scraped_at,
 
                 }
 
@@ -169,6 +182,19 @@ def load_weekly():
     with engine.begin() as conn:
 
         for row in rows:
+
+            scraped_at = parse_timestamp(row.get("scraped_at"))
+
+            if conn.execute(
+                text("""
+                    SELECT 1 FROM pmd_weekly_outlook
+                    WHERE report_date IS NOT DISTINCT FROM :report_date
+                      AND scraped_at IS NOT DISTINCT FROM :scraped
+                    LIMIT 1
+                """),
+                {"report_date": row.get("date"), "scraped": scraped_at},
+            ).fetchone():
+                continue
 
             conn.execute(
 
@@ -214,9 +240,7 @@ def load_weekly():
 
                     "category": row.get("category"),
 
-                    "scraped": parse_timestamp(
-                        row.get("scraped_at")
-                    ),
+                    "scraped": scraped_at,
 
                 }
 
@@ -240,6 +264,22 @@ def load_alerts():
     inserted = 0
 
     with engine.begin() as conn:
+
+        scraped_at = parse_timestamp(row.get("scraped_at"))
+
+        if conn.execute(
+            text("""
+                SELECT 1 FROM pmd_weather_alerts
+                WHERE alert_type IS NOT DISTINCT FROM :alert_type
+                  AND scraped_at IS NOT DISTINCT FROM :scraped
+                LIMIT 1
+            """),
+            {"alert_type": row.get("alert_type"), "scraped": scraped_at},
+        ).fetchone():
+            print("=" * 60)
+            print(f"Weather Alerts Loaded : {inserted}")
+            print("=" * 60)
+            return
 
         conn.execute(
 
@@ -289,9 +329,7 @@ def load_alerts():
 
                 "category": row.get("category"),
 
-                "scraped": parse_timestamp(
-                    row.get("scraped_at")
-                ),
+                "scraped": scraped_at,
 
             }
 

@@ -1,17 +1,17 @@
-/* /* =====================================================================
+/* =====================================================================
    PAKISTAN OPERATIONAL RISK INTELLIGENCE PLATFORM
-   Enterprise Design System — style.css
+   Executive Command Surface — style.css
    ---------------------------------------------------------------------
-   Phase 1 — Design System & UI Foundation
-   No business logic. No KPI/chart changes. UI tokens & components only.
+   UI/UX-only redesign. No business logic, no KPI/chart data changes.
+   Every CSS class below is one actually referenced by the Python
+   components in dashboard/components, dashboard/sections and Home.py
+   (audited via grep across the whole package before writing this).
 
-   Theming strategy:
-   This stylesheet reads Streamlit's own native theme variables
-   (--primary-color, --background-color, --secondary-background-color,
-   --text-color) which Streamlit sets automatically for whichever theme
-   (Light or Dark) is active. All custom tokens below are derived from
-   those variables with safe fallbacks, so every component here adapts
-   automatically to both themes without any JS or duplicate stylesheets.
+   Tokens are sourced from DESIGN.md ("Executive Command Surface"):
+   dark, low-glare surfaces, Inter for UI text, JetBrains Mono for
+   metrics/data, Electric Cyan as the single interactive/neutral accent,
+   and a strict traffic-light system (green/amber/red) reserved for
+   status only.
    ===================================================================== */
 
 /* ---------------------------------------------------------------------
@@ -20,56 +20,58 @@
 
 :root{
 
-  /* ---- Brand / Semantic Colors ---- */
-  --pori-primary:        var(--primary-color, #2563eb);
-  --pori-primary-dark:   #1d4ed8;
-  --pori-primary-soft:   rgba(37,99,235,0.12);
+  /* ---- Surfaces (Tonal Layering, per DESIGN.md) ---- */
+  --pori-bg:             #0e1417;
+  --pori-surface:        #1a2123;
+  --pori-surface-high:   #242b2e;
+  --pori-surface-highest:#2f3639;
 
-  --pori-success:        #16a34a;
-  --pori-success-soft:   rgba(22,163,74,0.12);
-
-  --pori-warning:        #f59e0b;
-  --pori-warning-soft:   rgba(245,158,11,0.14);
-
-  --pori-danger:         #ef4444;
-  --pori-danger-soft:    rgba(239,68,68,0.13);
-
-  --pori-info:           #0ea5e9;
-  --pori-info-soft:      rgba(14,165,233,0.12);
-
-  --pori-neutral:        #64748b;
-  --pori-neutral-soft:   rgba(100,116,139,0.14);
-
-  /* ---- Surfaces (theme-aware via Streamlit vars) ---- */
-  --pori-bg:             var(--background-color, #f6f8fb);
-  --pori-surface:        var(--secondary-background-color, #ffffff);
-  --pori-surface-raised: var(--secondary-background-color, #ffffff);
-  --pori-text:           var(--text-color, #0f172a);
+  --pori-text:           #dde3e7;
+  --pori-text-variant:   #bbc9cf;
 
   /* ---- Text opacity scale (theme-independent) ---- */
-  --pori-text-secondary-opacity: 0.66;
-  --pori-text-tertiary-opacity:  0.48;
+  --pori-text-secondary-opacity: 0.72;
+  --pori-text-tertiary-opacity:  0.52;
 
-  /* ---- Borders / Dividers ----
-     Neutral, low-opacity so it reads correctly on light AND dark
-     surfaces without needing two separate token sets. */
-  --pori-border:         rgba(120,132,150,0.20);
-  --pori-border-strong:  rgba(120,132,150,0.34);
+  /* ---- Brand / Interactive accent (Electric Cyan) ---- */
+  --pori-primary:        #a4e6ff;
+  --pori-primary-dark:   #00566a;
+  --pori-primary-soft:   rgba(164,230,255,0.12);
 
-  /* ---- Shadows ---- */
-  --pori-shadow-sm:  0 1px 2px rgba(15,23,42,.06), 0 1px 1px rgba(15,23,42,.04);
-  --pori-shadow-md:  0 4px 12px rgba(15,23,42,.08), 0 2px 4px rgba(15,23,42,.05);
-  --pori-shadow-lg:  0 10px 28px rgba(15,23,42,.12), 0 4px 10px rgba(15,23,42,.06);
-  --pori-shadow-hover: 0 16px 36px rgba(15,23,42,.16), 0 6px 14px rgba(15,23,42,.08);
+  /* ---- Semantic status (traffic-light, used ONLY for status) ---- */
+  --pori-success:        #79dd68;
+  --pori-success-soft:   rgba(121,221,104,0.14);
 
-  /* ---- Radius ---- */
-  --pori-radius-sm:  10px;
-  --pori-radius-md:  14px;
-  --pori-radius-lg:  18px;
-  --pori-radius-xl:  22px;
+  --pori-warning:        #ffd59c;
+  --pori-warning-soft:   rgba(255,213,156,0.14);
+
+  --pori-danger:         #ffb4ab;
+  --pori-danger-soft:    rgba(255,180,171,0.14);
+
+  --pori-info:           #a4e6ff;
+  --pori-info-soft:      rgba(164,230,255,0.12);
+
+  --pori-neutral:        #859399;
+  --pori-neutral-soft:   rgba(133,147,153,0.14);
+
+  /* ---- Borders / Dividers ---- */
+  --pori-border:         #2c2c2e;
+  --pori-border-strong:  #3c494e;
+
+  /* ---- Shadows (subtle — Tonal Layering, not drop-shadow heavy) ---- */
+  --pori-shadow-sm:  0 1px 2px rgba(0,0,0,.35);
+  --pori-shadow-md:  0 6px 16px rgba(0,0,0,.40);
+  --pori-shadow-lg:  0 14px 32px rgba(0,0,0,.45);
+  --pori-shadow-hover: 0 0 0 1px rgba(164,230,255,.35), 0 10px 24px rgba(0,0,0,.4);
+
+  /* ---- Radius (Precision-Focused: 4px base, 8px large) ---- */
+  --pori-radius-sm:  4px;
+  --pori-radius-md:  6px;
+  --pori-radius-lg:  8px;
+  --pori-radius-xl:  10px;
   --pori-radius-pill: 999px;
 
-  /* ---- 8px Spacing System ---- */
+  /* ---- 4px Spacing System ---- */
   --sp-1: 4px;
   --sp-2: 8px;
   --sp-3: 12px;
@@ -80,30 +82,22 @@
   --sp-8: 40px;
 
   /* ---- Motion ---- */
-  --pori-transition-fast: 140ms cubic-bezier(.4,0,.2,1);
-  --pori-transition:      220ms cubic-bezier(.4,0,.2,1);
-  --pori-transition-slow: 360ms cubic-bezier(.4,0,.2,1);
+  --pori-transition-fast: 120ms cubic-bezier(.4,0,.2,1);
+  --pori-transition:      200ms cubic-bezier(.4,0,.2,1);
+  --pori-transition-slow: 320ms cubic-bezier(.4,0,.2,1);
 
-  /* ---- Typography ---- */
+  /* ---- Typography (dual-font strategy per DESIGN.md) ---- */
   --font-sans: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont,
                Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo,
+               Consolas, monospace;
 
-  --fs-page-title:    clamp(28px, 2.4vw, 40px);
-  --fs-section-title: clamp(19px, 1.5vw, 24px);
-  --fs-card-title:    13px;
-  --fs-metric:        clamp(26px, 2vw, 36px);
-  --fs-body:          14.5px;
-  --fs-caption:       12.5px;
-}
-
-/* Respect explicit dark preference as an extra safety net in case
-   Streamlit's native vars are unavailable (older versions / embeds). */
-@media (prefers-color-scheme: dark){
-  :root{
-    --pori-bg:      var(--background-color, #0e1117);
-    --pori-surface: var(--secondary-background-color, #161a23);
-    --pori-text:    var(--text-color, #f1f5f9);
-  }
+  --fs-page-title:    clamp(24px, 2vw, 32px);
+  --fs-section-title: clamp(17px, 1.3vw, 20px);
+  --fs-card-title:    11px;
+  --fs-metric:        clamp(24px, 1.8vw, 30px);
+  --fs-body:          14px;
+  --fs-caption:       12px;
 }
 
 
@@ -113,6 +107,12 @@
 
 html, body, [class*="css"]{
   font-family: var(--font-sans);
+  background: var(--pori-bg);
+  color: var(--pori-text);
+}
+
+.stApp{
+  background: var(--pori-bg);
 }
 
 .block-container{
@@ -130,8 +130,6 @@ hr{
   opacity: 1 !important;
 }
 
-/* Native heading rhythm doubles as "Section Title" / "Card Title"
-   typography without requiring every component to add a class. */
 h1{
   font-size: var(--fs-page-title);
   font-weight: 800;
@@ -149,7 +147,7 @@ h2{
 }
 
 h3{
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--pori-text);
 }
@@ -158,18 +156,21 @@ h4, h5{
   font-size: var(--fs-card-title);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .06em;
+  letter-spacing: .08em;
   color: var(--pori-text);
   opacity: var(--pori-text-secondary-opacity);
+  font-family: var(--font-mono);
 }
 
 p, li, .stMarkdown{
   font-size: var(--fs-body);
-  line-height: 1.65;
+  line-height: 1.6;
+  color: var(--pori-text-variant);
 }
 
 .stCaption, small{
   font-size: var(--fs-caption) !important;
+  color: var(--pori-text-variant) !important;
 }
 
 
@@ -177,16 +178,7 @@ p, li, .stMarkdown{
    3. TYPOGRAPHY UTILITY CLASSES
    --------------------------------------------------------------------- */
 
-.page-title{
-  font-size: var(--fs-page-title);
-  font-weight: 800;
-  line-height: 1.15;
-  color: var(--pori-text);
-  margin-bottom: 0;
-  letter-spacing: -0.015em;
-}
-
-/* Back-compat alias used by components/header.py */
+.page-title,
 .main-title{
   font-size: var(--fs-page-title);
   font-weight: 800;
@@ -197,15 +189,14 @@ p, li, .stMarkdown{
 }
 
 .subtitle{
-  font-size: 16px;
+  font-size: 14.5px;
   font-weight: 500;
-  color: var(--pori-text);
-  opacity: var(--pori-text-secondary-opacity);
+  color: var(--pori-text-variant);
   margin-top: var(--sp-2);
   margin-bottom: var(--sp-4);
   display: flex;
   align-items: center;
-  gap: var(--sp-2);
+  gap: var(--sp-3);
   flex-wrap: wrap;
 }
 
@@ -221,9 +212,9 @@ p, li, .stMarkdown{
   font-size: var(--fs-card-title);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .06em;
-  color: var(--pori-text);
-  opacity: var(--pori-text-secondary-opacity);
+  letter-spacing: .08em;
+  color: var(--pori-text-variant);
+  font-family: var(--font-mono);
 }
 
 .text-secondary{ opacity: var(--pori-text-secondary-opacity); }
@@ -231,28 +222,30 @@ p, li, .stMarkdown{
 
 .metric-value-lg{
   font-size: var(--fs-metric);
-  font-weight: 800;
+  font-weight: 700;
   color: var(--pori-text);
   line-height: 1.1;
+  font-family: var(--font-mono);
 }
 
 
 /* ---------------------------------------------------------------------
-   4. LIVE / STATUS BADGES
+   4. LIVE / STATUS BADGES + DOTS
    --------------------------------------------------------------------- */
 
 .live-badge{
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   padding: 5px 14px;
   border-radius: var(--pori-radius-pill);
   background: var(--pori-success-soft);
   color: var(--pori-success);
-  font-size: 12.5px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
   font-weight: 700;
-  letter-spacing: .02em;
-  border: 1px solid rgba(22,163,74,0.28);
+  letter-spacing: .04em;
+  border: 1px solid rgba(121,221,104,0.3);
   white-space: nowrap;
 }
 
@@ -261,33 +254,67 @@ p, li, .stMarkdown{
   height: 7px;
   border-radius: 50%;
   background: var(--pori-success);
-  box-shadow: 0 0 0 0 rgba(22,163,74,.55);
+  box-shadow: 0 0 0 0 rgba(121,221,104,.55);
   animation: pori-pulse 1.8s infinite;
 }
 
 @keyframes pori-pulse{
-  0%   { box-shadow: 0 0 0 0 rgba(22,163,74,.5); }
-  70%  { box-shadow: 0 0 0 8px rgba(22,163,74,0); }
-  100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); }
+  0%   { box-shadow: 0 0 0 0 rgba(121,221,104,.5); }
+  70%  { box-shadow: 0 0 0 8px rgba(121,221,104,0); }
+  100% { box-shadow: 0 0 0 0 rgba(121,221,104,0); }
 }
+
+/* Generic dot, used standalone (header.py status-card rows) */
+.dot{
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--pori-neutral);
+  margin-right: 6px;
+}
+
+.dot-green{ background: var(--pori-success); box-shadow: 0 0 6px rgba(121,221,104,.5); }
+.dot-orange{ background: var(--pori-warning); box-shadow: 0 0 6px rgba(255,213,156,.5); }
+.dot-red{ background: var(--pori-danger); box-shadow: 0 0 6px rgba(255,180,171,.5); }
 
 .status-chip{
   display: inline-block;
-  padding: 6px 14px;
+  padding: 5px 13px;
   background: var(--pori-info-soft);
-  border: 1px solid rgba(14,165,233,0.3);
+  border: 1px solid rgba(164,230,255,0.3);
   color: var(--pori-info);
   border-radius: var(--pori-radius-pill);
-  font-size: 12.5px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
   font-weight: 700;
+  letter-spacing: .03em;
   margin-right: var(--sp-2);
   margin-bottom: var(--sp-2);
+}
+
+.status-chip-high{
+  background: var(--pori-danger-soft);
+  border-color: rgba(255,180,171,0.4);
+  color: var(--pori-danger);
+}
+
+.status-chip-medium{
+  background: var(--pori-warning-soft);
+  border-color: rgba(255,213,156,0.4);
+  color: var(--pori-warning);
+}
+
+.status-chip-low{
+  background: var(--pori-success-soft);
+  border-color: rgba(121,221,104,0.4);
+  color: var(--pori-success);
 }
 
 .status-red{ color: var(--pori-danger); font-weight: 700; }
 .status-orange{ color: var(--pori-warning); font-weight: 700; }
 .status-green{ color: var(--pori-success); font-weight: 700; }
-.status-gray{ color: var(--pori-text); opacity: var(--pori-text-secondary-opacity); font-weight: 700; }
+.status-gray{ color: var(--pori-text-variant); font-weight: 700; }
 
 
 /* ---------------------------------------------------------------------
@@ -314,7 +341,7 @@ p, li, .stMarkdown{
 .command-card:hover,
 .metric-card:hover,
 .executive-card:hover{
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   box-shadow: var(--pori-shadow-hover);
   border-color: var(--pori-border-strong);
 }
@@ -325,8 +352,8 @@ p, li, .stMarkdown{
    --------------------------------------------------------------------- */
 
 .metric-box{
-  padding: var(--sp-5);
-  min-height: 150px;
+  padding: var(--sp-4) var(--sp-4);
+  min-height: 132px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -334,23 +361,24 @@ p, li, .stMarkdown{
 }
 
 .metric-title{
+  font-family: var(--font-mono);
   font-size: var(--fs-card-title);
   letter-spacing: .06em;
-  color: var(--pori-text);
-  opacity: var(--pori-text-secondary-opacity);
+  color: var(--pori-text-variant);
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .metric-number{
+  font-family: var(--font-mono);
   font-size: var(--fs-metric);
-  font-weight: 800;
+  font-weight: 700;
   color: var(--pori-text);
   line-height: 1.1;
 }
 
 .metric-desc{
-  font-size: 13.5px;
+  font-size: 12.5px;
   font-weight: 600;
   color: var(--pori-primary);
 }
@@ -359,54 +387,55 @@ p, li, .stMarkdown{
 /* ---------------------------------------------------------------------
    7. EXECUTIVE / COMMAND CARDS
    (components/executive_summary.py -> .command-card,
-    components/executive_summary.py "Ops Control Center" -> .metric-card)
+    "Ops Control Center" -> .metric-card)
    --------------------------------------------------------------------- */
 
 .command-card{
-  padding: var(--sp-6);
-  min-height: 235px;
+  padding: var(--sp-5);
+  min-height: 200px;
 }
 
 .command-title{
-  font-size: 13px;
-  color: var(--pori-text);
-  opacity: var(--pori-text-secondary-opacity);
+  font-family: var(--font-mono);
+  font-size: var(--fs-card-title);
+  color: var(--pori-text-variant);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .06em;
-  margin-bottom: var(--sp-4);
-}
-
-.command-value{
-  font-size: 28px;
-  font-weight: 800;
-  color: var(--pori-text);
+  letter-spacing: .08em;
   margin-bottom: var(--sp-3);
 }
 
-.command-text{
-  font-size: 14.5px;
-  line-height: 1.7;
+.command-value{
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
   color: var(--pori-text);
-  opacity: 0.86;
+  margin-bottom: var(--sp-2);
+}
+
+.command-text{
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--pori-text-variant);
 }
 
 /* National Operations Control Center cards render plain <h5>/<h1> markup
    inside .metric-card — style the internal typography without touching
    the Python markup. */
 .metric-card{
-  padding: var(--sp-5) var(--sp-6);
-  min-height: 168px;
+  padding: var(--sp-4) var(--sp-5);
+  min-height: 150px;
 }
 
 .metric-card h5{
-  margin-bottom: var(--sp-3);
+  margin-bottom: var(--sp-2);
   opacity: var(--pori-text-secondary-opacity);
 }
 
 .metric-card h1{
-  font-size: 34px;
-  font-weight: 800;
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 700;
   margin: var(--sp-1) 0 var(--sp-2) 0;
   color: var(--pori-primary);
 }
@@ -417,32 +446,32 @@ p, li, .stMarkdown{
    --------------------------------------------------------------------- */
 
 .executive-card{
-  padding: var(--sp-5);
-  min-height: 190px;
+  padding: var(--sp-4);
+  min-height: 170px;
 }
 
 .executive-title{
+  font-family: var(--font-mono);
   font-size: var(--fs-card-title);
   font-weight: 700;
-  color: var(--pori-text);
-  opacity: var(--pori-text-secondary-opacity);
-  margin-bottom: var(--sp-4);
+  color: var(--pori-text-variant);
+  margin-bottom: var(--sp-3);
   text-transform: uppercase;
-  letter-spacing: .06em;
+  letter-spacing: .08em;
 }
 
 .executive-value{
-  font-size: 30px;
-  font-weight: 800;
+  font-family: var(--font-mono);
+  font-size: 26px;
+  font-weight: 700;
   color: var(--pori-text);
-  margin-bottom: var(--sp-3);
+  margin-bottom: var(--sp-2);
 }
 
 .executive-text{
-  font-size: 14.5px;
-  line-height: 1.65;
-  color: var(--pori-text);
-  opacity: 0.86;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--pori-text-variant);
 }
 
 
@@ -453,11 +482,12 @@ p, li, .stMarkdown{
 .status-card{
   background: var(--pori-surface);
   border: 1px solid var(--pori-border);
-  border-left: 4px solid var(--pori-success);
+  border-left: 3px solid var(--pori-success);
   border-radius: var(--pori-radius-lg);
-  padding: var(--sp-4) var(--sp-5);
+  padding: var(--sp-4);
   box-shadow: var(--pori-shadow-sm);
   transition: box-shadow var(--pori-transition), transform var(--pori-transition);
+  height: 100%;
 }
 
 .status-card:hover{
@@ -465,9 +495,21 @@ p, li, .stMarkdown{
   transform: translateY(-2px);
 }
 
-.status-card h3{
+.status-card-title{
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--pori-text);
   margin-bottom: var(--sp-2);
-  font-size: 15px;
+}
+
+.status-card-row{
+  display: flex;
+  align-items: center;
+  font-size: 12.5px;
+  color: var(--pori-text-variant);
+  padding: 2px 0;
 }
 
 
@@ -476,8 +518,8 @@ p, li, .stMarkdown{
    --------------------------------------------------------------------- */
 
 .alert-card{
-  border-left: 6px solid var(--alert-color, var(--pori-primary));
-  padding: var(--sp-5) var(--sp-6);
+  border-left: 5px solid var(--alert-color, var(--pori-primary));
+  padding: var(--sp-4) var(--sp-5);
   border-radius: var(--pori-radius-lg);
   background: var(--pori-surface);
   box-shadow: var(--pori-shadow-sm);
@@ -492,10 +534,44 @@ p, li, .stMarkdown{
   transform: translateY(-2px);
 }
 
+.alert-card-high{
+  --alert-color: var(--pori-danger);
+  background: linear-gradient(135deg, var(--pori-danger-soft) 0%, var(--pori-surface) 65%);
+}
+
+.alert-card-medium{
+  --alert-color: var(--pori-warning);
+  background: linear-gradient(135deg, var(--pori-warning-soft) 0%, var(--pori-surface) 65%);
+}
+
+.alert-card-low{
+  --alert-color: var(--pori-success);
+  background: linear-gradient(135deg, var(--pori-success-soft) 0%, var(--pori-surface) 65%);
+}
+
+.alert-card-title{
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--pori-text);
+  margin: var(--sp-2) 0 4px 0;
+}
+
+.alert-card-meta{
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--pori-text-variant);
+  margin-bottom: var(--sp-2);
+}
+
+.alert-card-summary{
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--pori-text-variant);
+}
+
 .alert-card h3{
   margin: 0 0 var(--sp-2) 0;
 }
-
 
 /* Restyle Streamlit's own alert boxes (st.success/info/warning/error)
    so every callout across the app shares the same card language. */
@@ -513,6 +589,38 @@ div[data-testid="stAlert"]:hover{
 
 
 /* ---------------------------------------------------------------------
+   10b. COMPACT EXECUTIVE ALERT STRIP (components/alerts.py
+   render_executive_alert_center — distinct from the full .alert-card)
+   --------------------------------------------------------------------- */
+
+.exec-alert-strip{
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  background: var(--pori-surface);
+  border: 1px solid var(--pori-border);
+  border-radius: var(--pori-radius-lg);
+  padding: var(--sp-4) var(--sp-5);
+  box-shadow: var(--pori-shadow-sm);
+}
+
+.exec-alert-label{
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--pori-text-variant);
+  margin-bottom: 2px;
+}
+
+.exec-alert-title{
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--pori-text);
+}
+
+
+/* ---------------------------------------------------------------------
    11. NATIVE st.metric() CARDS
    --------------------------------------------------------------------- */
 
@@ -520,7 +628,7 @@ div[data-testid="stMetric"]{
   background: var(--pori-surface);
   border: 1px solid var(--pori-border);
   border-radius: var(--pori-radius-md);
-  padding: var(--sp-4) var(--sp-5);
+  padding: var(--sp-3) var(--sp-4);
   box-shadow: var(--pori-shadow-sm);
   transition: transform var(--pori-transition), box-shadow var(--pori-transition);
 }
@@ -531,15 +639,25 @@ div[data-testid="stMetric"]:hover{
 }
 
 div[data-testid="stMetricLabel"]{
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: 11px;
   font-weight: 600;
-  opacity: var(--pori-text-secondary-opacity);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--pori-text-variant);
+  opacity: 1;
 }
 
 div[data-testid="stMetricValue"]{
-  font-size: 28px;
-  font-weight: 800;
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
   color: var(--pori-text);
+}
+
+div[data-testid="stMetricDelta"]{
+  font-family: var(--font-mono);
+  font-size: 12px;
 }
 
 
@@ -553,7 +671,7 @@ div[data-testid="stPlotlyChart"]{
   background: var(--pori-surface);
   border: 1px solid var(--pori-border);
   border-radius: var(--pori-radius-lg);
-  padding: var(--sp-4);
+  padding: var(--sp-3);
   box-shadow: var(--pori-shadow-sm);
   transition: box-shadow var(--pori-transition), transform var(--pori-transition);
 }
@@ -565,6 +683,7 @@ div[data-testid="stPlotlyChart"]:hover{
 
 /* ---------------------------------------------------------------------
    13. TABLES / DATAFRAMES
+   Zebra-striping is forbidden per DESIGN.md — thin dividers only.
    --------------------------------------------------------------------- */
 
 div[data-testid="stDataFrame"]{
@@ -575,25 +694,27 @@ div[data-testid="stDataFrame"]{
 }
 
 div[data-testid="stDataFrame"] table{
-  font-size: 13.5px;
+  font-family: var(--font-mono);
+  font-size: 13px;
 }
 
 div[data-testid="stDataFrame"] thead tr th{
-  background: var(--pori-surface);
+  background: var(--pori-surface-high);
   color: var(--pori-text);
   font-weight: 700;
   text-transform: uppercase;
-  font-size: 11.5px;
-  letter-spacing: .04em;
-  padding: 10px 12px;
+  font-size: 11px;
+  letter-spacing: .05em;
+  padding: 9px 12px;
   position: sticky;
   top: 0;
   z-index: 2;
-  border-bottom: 2px solid var(--pori-border-strong);
+  border-bottom: 1px solid var(--pori-border-strong);
 }
 
 div[data-testid="stDataFrame"] td{
-  padding: 8px 12px;
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--pori-border);
 }
 
 div[data-testid="stDataFrame"] tbody tr:hover td{
@@ -611,18 +732,22 @@ section[data-testid="stSidebar"]{
 }
 
 section[data-testid="stSidebar"] .block-container{
-  padding-top: var(--sp-6);
+  padding-top: var(--sp-5);
   padding-left: var(--sp-4);
   padding-right: var(--sp-4);
 }
 
 section[data-testid="stSidebar"] h2{
-  font-size: 18px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 700;
   margin-bottom: 0;
+  color: var(--pori-text);
 }
 
 section[data-testid="stSidebar"] h3{
-  font-size: 12.5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: .08em;
   opacity: var(--pori-text-secondary-opacity);
@@ -645,8 +770,45 @@ section[data-testid="stSidebar"] img{
 
 /* Sidebar "connected source / infra" list rows */
 section[data-testid="stSidebar"] div[data-testid="stMarkdownContainer"] p{
-  font-size: 13.5px;
+  font-size: 13px;
   padding: 2px 0;
+  color: var(--pori-text-variant);
+}
+
+/* Native multipage nav links (Home / NDMA Casualties / ... / PDMA Rivers) */
+section[data-testid="stSidebarNav"]{
+  background: var(--pori-surface);
+}
+
+section[data-testid="stSidebarNav"] a{
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  border-radius: var(--pori-radius-sm);
+  color: var(--pori-text-variant);
+}
+
+section[data-testid="stSidebarNav"] a:hover{
+  background: var(--pori-surface-high);
+  color: var(--pori-text);
+}
+
+section[data-testid="stSidebarNav"] a[aria-current="page"]{
+  background: var(--pori-primary-soft);
+  color: var(--pori-primary);
+  font-weight: 700;
+}
+
+section[data-testid="stSidebar"] div[data-baseweb="select"] > div,
+section[data-testid="stSidebar"] input{
+  background: var(--pori-bg) !important;
+  border-color: var(--pori-border) !important;
+  border-radius: var(--pori-radius-sm) !important;
+  color: var(--pori-text) !important;
+}
+
+section[data-testid="stSidebar"] div[data-baseweb="tag"]{
+  background: var(--pori-primary-soft) !important;
+  border-radius: var(--pori-radius-sm) !important;
 }
 
 
@@ -669,8 +831,7 @@ section[data-testid="stSidebar"] div[data-testid="stMarkdownContainer"] p{
 .footer,
 .app-footer{
   text-align: center;
-  color: var(--pori-text);
-  opacity: var(--pori-text-secondary-opacity);
+  color: var(--pori-text-variant);
   font-size: var(--fs-caption);
   padding-top: var(--sp-4);
 }
@@ -678,6 +839,21 @@ section[data-testid="stSidebar"] div[data-testid="stMarkdownContainer"] p{
 .app-footer-banner{
   border-radius: var(--pori-radius-xl);
   box-shadow: var(--pori-shadow-lg);
+  background: linear-gradient(135deg, var(--pori-surface-high) 0%, var(--pori-surface) 100%);
+  border: 1px solid var(--pori-border-strong);
+  padding: var(--sp-6);
+  text-align: center;
+}
+
+.app-footer-banner h2{
+  font-family: var(--font-mono);
+  color: var(--pori-primary);
+  margin-bottom: var(--sp-2);
+}
+
+.app-footer-banner p{
+  color: var(--pori-text-variant);
+  margin: 4px 0;
 }
 
 
@@ -718,7 +894,7 @@ div[data-testid="column"]{
 }
 
 div[data-testid="stVerticalBlock"] > div{
-  gap: var(--sp-4);
+  gap: var(--sp-3);
 }
 
 
@@ -734,8 +910,8 @@ div[data-testid="stVerticalBlock"] > div{
     padding-right: var(--sp-6);
   }
 
-  .command-card{ min-height: 215px; }
-  .metric-box{ min-height: 140px; }
+  .command-card{ min-height: 190px; }
+  .metric-box{ min-height: 120px; }
 }
 
 /* Tablet */
@@ -746,16 +922,16 @@ div[data-testid="stVerticalBlock"] > div{
     padding-top: var(--sp-4);
   }
 
-  .page-title, .main-title{ font-size: 30px; }
-  .subtitle{ font-size: 14px; }
+  .page-title, .main-title{ font-size: 26px; }
+  .subtitle{ font-size: 13px; }
 
   .metric-box, .command-card, .metric-card, .executive-card{
     min-height: auto;
     padding: var(--sp-4);
   }
 
-  .metric-number{ font-size: 28px; }
-  .command-value{ font-size: 24px; }
+  .metric-number{ font-size: 24px; }
+  .command-value{ font-size: 21px; }
 
   div[data-testid="stPlotlyChart"]{
     padding: var(--sp-2);
@@ -769,6 +945,5 @@ div[data-testid="stVerticalBlock"] > div{
     align-items: flex-start;
   }
 
-  .live-badge{ font-size: 11.5px; }
-} 
-
+  .live-badge{ font-size: 11px; }
+}

@@ -24,11 +24,14 @@ def _base(fig, title, height=400):
 
     fig.update_layout(
 
+        template="plotly_dark",
+
         title=dict(
             text=title,
             font=dict(
                 size=16,
                 family="Inter, Segoe UI, Arial",
+                color="#dde3e7",
             ),
             x=0.01,
             xanchor="left",
@@ -49,10 +52,14 @@ def _base(fig, title, height=400):
 
         font=dict(
             family="Inter, Segoe UI, Arial",
+            color="#bbc9cf",
         ),
 
         hoverlabel=dict(
+            bgcolor="#1a2123",
+            bordercolor="#3c494e",
             font_size=13,
+            font_color="#dde3e7",
         ),
 
     )

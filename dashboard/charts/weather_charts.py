@@ -32,6 +32,8 @@ def _apply_base_layout(fig, title, height):
 
     fig.update_layout(
 
+        template="plotly_dark",
+
         title=dict(
             text=title,
             font=dict(

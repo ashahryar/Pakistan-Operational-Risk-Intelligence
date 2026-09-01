@@ -23,6 +23,22 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from config.database import engine
 
+# Kept separate from CREATE TABLE IF NOT EXISTS so an already-created
+# database can be upgraded safely when this schema is run again.
+MIGRATIONS = [
+    """
+    ALTER TABLE pmd_daily_forecast
+    ADD COLUMN IF NOT EXISTS district TEXT;
+    """,
+    """
+    ALTER TABLE pmd_weekly_outlook
+    ADD COLUMN IF NOT EXISTS category TEXT;
+    """,
+    """
+    ALTER TABLE pmd_weather_alerts
+    ADD COLUMN IF NOT EXISTS category TEXT;
+    """,
+]
 
 # ==========================================================
 # TABLES
@@ -181,6 +197,9 @@ TABLES = [
 def create_pmd_tables():
 
     with engine.begin() as conn:
+
+        for sql in MIGRATIONS:
+            conn.execute(text(sql))
 
         for sql in TABLES:
 

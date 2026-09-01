@@ -54,7 +54,7 @@
     "source_file": "PDMA%20Daily%20Situation%20Report%2002%20July%202025_1400%20HRS.pdf",
     "report_type": "daily",
     "report_year": "2025",
-    "created_at": "2026-08-10T23:23:20.987625",
+    "created_at": "2026-08-31T17:22:17.079527",
     "validation": {
         "valid": true,
         "errors": [],
@@ -70,7 +70,7 @@
             "quality_score": 85.0,
             "score": 85.0,
             "status": "Good",
-            "validated_at": "2026-08-10T23:23:20.987740"
+            "validated_at": "2026-08-31T17:22:17.079615"
         }
     }
 }

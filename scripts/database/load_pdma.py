@@ -169,7 +169,7 @@ def load_gauge_readings():
                                     (:source_file, :report_datetime, :report_year,
                                      :station, :river, :current_level_ft,
                                      :danger_level_ft, :discharge_cusecs, :flow_status)
-                                ON CONFLICT (source_file, station, river) DO NOTHING
+                                ON CONFLICT (source_file, station) DO NOTHING
                             """),
                             {
                                 "source_file": json_file.name,

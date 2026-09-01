@@ -169,6 +169,7 @@ TABLES = [
         id SERIAL PRIMARY KEY,
 
         city TEXT,
+        district TEXT,
         province TEXT,
 
         temperature REAL,
@@ -181,13 +182,20 @@ TABLES = [
         category TEXT,
 
         scraped_at TIMESTAMP,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+        UNIQUE(city, scraped_at)
     );
     """,
 
     """
     CREATE INDEX IF NOT EXISTS idx_pmd_daily_city
     ON pmd_daily_forecast(city);
+    """,
+
+    """
+    CREATE INDEX IF NOT EXISTS idx_pmd_daily_district
+    ON pmd_daily_forecast(district);
     """,
 
     """
@@ -208,9 +216,12 @@ TABLES = [
         weekday TEXT,
         weather_summary TEXT,
         regions JSONB,
+        category TEXT,
 
         scraped_at TIMESTAMP,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+        UNIQUE(report_date, scraped_at)
     );
     """,
 
@@ -233,9 +244,12 @@ TABLES = [
         duration TEXT,
         regions JSONB,
         forecast TEXT,
+        category TEXT,
 
         scraped_at TIMESTAMP,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+        UNIQUE(alert_type, scraped_at)
     );
     """,
 

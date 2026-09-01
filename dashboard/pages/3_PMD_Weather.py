@@ -1,43 +1,5 @@
 """
 dashboard/pages/3_PMD_Weather.py
-
-PMD Weather Intelligence — Executive Command Center UI (v3).
-
-v3 changes vs v2 (UI/UX + visualization fixes only — no business
-logic, no CSS/theme/font changes, no filters removed):
-
-  1. Sidebar Province / City / Weather Category multiselects replaced
-     with a dropdown-style control (render_multiselect_dropdown):
-     closed by default, shows a compact summary ("All Provinces" /
-     "3 Provinces Selected"), opens like the Aggregation selectbox.
-     Still returns a plain list, so filtering logic is unchanged.
-
-  2. Combined Weather Trend chart: added 3-period rolling-average
-     overlays for both temperature and humidity, a humidity fill
-     layer to match the temperature fill, and min/max point
-     annotations -- all computed from the same temp_trend /
-     humidity_trend series already used for the KPI trend pills.
-     No fabricated data.
-
-  3. Temperature Footprint by Province (treemap): root-caused and
-     fixed the "NaN°C" bug. `%{color}` in texttemplate/hovertemplate
-     does not reliably resolve when Plotly Express assigns a
-     *continuous* `color=` column (it renders via a shared coloraxis,
-     not per-trace marker.colors). Replaced with explicit `customdata`
-     carrying the real temperature / humidity / city-count / record
-     values, so both the on-block label and the hover now show
-     correct numbers. Also added city_count (from filtered_df, no new
-     query) so the block can show "Province · Avg Temp · City Count"
-     as requested.
-
-  4. Minor visual polish: hover templates, axis titles, margins,
-     legend placement -- no redesign, no theme/color/font change.
-
-Everything else -- get_pmd_weather(), get_pmd_forecast(), data
-cleaning, the filtered_df pipeline (row filters + aggregation), every
-KPI calculation, every existing chart's underlying data, table
-columns, and CSV/Excel export content/filenames -- is unchanged from
-v2.
 """
 
 import io
@@ -1565,527 +1527,71 @@ with k10:
 st.divider()
 
 # ==========================================================
-# COMBINED WEATHER TREND -- Enterprise version (Grafana / Kibana /
-# QuickSight / Power BI style): KPI strip, auto-generated insight
-# card, threshold background zones, rolling averages, max/min
-# markers, dynamic annotations, rich unified hover, a Combined/Split
-# view toggle, and a proper top legend + dual/independent axes.
-#
-# Still built entirely from temp_trend / humidity_trend / filtered_df
-# (already computed above, unchanged) and styled through
-# _PLOTLY_LAYOUT_BASE. No new dependencies, no new files, no upstream
-# data changes -- this is a pure visualization upgrade of the same
-# aggregated series.
+# WEATHER TREND -- clean dual-axis view (Temperature + Humidity),
+# styled after a classic dual-axis line chart: top legend, left
+# axis = Humidity, right axis = Temperature. No rolling averages,
+# no peak markers, no threshold zones, no view toggle -- just the
+# two series, built from temp_trend / humidity_trend (unchanged)
+# and styled through style_fig.
 # ==========================================================
 
-render_section_title("📈", "Combined Weather Trend", aggregation)
+# render_section_title("📈", "Weather Trend", aggregation)
 
-combined_trend = temp_trend.merge(humidity_trend, on="scraped_at", how="outer").sort_values("scraped_at")
+# combined_trend = (
+#     temp_trend
+#     .merge(humidity_trend, on="scraped_at", how="outer")
+#     .sort_values("scraped_at")
+# )
 
-_temp_valid = combined_trend.dropna(subset=["temperature"])
-_hum_valid = combined_trend.dropna(subset=["humidity"])
+# fig = make_subplots(specs=[[{"secondary_y": True}]])
 
-# ---- Threshold bands (same cut-points already used elsewhere on
-# this page in style_metric_column(), so the visual language is
-# consistent across the dashboard) ----
+# fig.add_trace(
+#     go.Scatter(
+#         x=combined_trend["scraped_at"],
+#         y=combined_trend["humidity"],
+#         name="Humidity",
+#         mode="lines",
+#         line=dict(width=2.5, color="#22d3ee"),
+#         hovertemplate="<b>%{x|%d %b %Y}</b><br>Humidity: %{y:.0f}%<extra></extra>",
+#     ),
+#     secondary_y=False,
+# )
 
-_TEMP_ZONES = [
-    (float("-inf"), 30, "rgba(255,194,71,0.06)", "Normal"),
-    (30, 38, "rgba(255,138,61,0.08)", "Warm"),
-    (38, float("inf"), "rgba(255,77,77,0.10)", "Hot"),
-]
+# fig.add_trace(
+#     go.Scatter(
+#         x=combined_trend["scraped_at"],
+#         y=combined_trend["temperature"],
+#         name="Temp",
+#         mode="lines",
+#         line=dict(width=2.5, color="#ef4444"),
+#         hovertemplate="<b>%{x|%d %b %Y}</b><br>Temperature: %{y:.1f} °C<extra></extra>",
+#     ),
+#     secondary_y=True,
+# )
 
-_HUM_ZONES = [
-    (float("-inf"), 45, "rgba(34,211,238,0.06)", "Low"),
-    (45, 70, "rgba(14,165,233,0.08)", "Moderate"),
-    (70, float("inf"), "rgba(12,74,124,0.12)", "High"),
-]
+# fig = style_fig(
+#     fig,
+#     height=420,
+#     hovermode="x unified",
+#     margin=dict(l=20, r=20, t=45, b=20),
+#     legend=dict(
+#         orientation="h",
+#         yanchor="bottom",
+#         y=1.05,
+#         xanchor="center",
+#         x=0.5,
+#     ),
+# )
 
-# ==========================================================
-# COMBINED / SPLIT WEATHER TREND
-# ==========================================================
+# fig.update_xaxes(title_text="")
+# fig.update_yaxes(title_text="Humidity [rH %]", secondary_y=False)
+# fig.update_yaxes(title_text="Temperature [°C]", secondary_y=True, showgrid=False)
 
-render_section_title(
-    "📈",
-    "Weather Trend",
-    aggregation,
-)
-
-combined_trend = (
-    temp_trend
-    .merge(
-        humidity_trend,
-        on="scraped_at",
-        how="outer",
-    )
-    .sort_values("scraped_at")
-)
-
-_temp_valid = combined_trend.dropna(
-    subset=["temperature"]
-)
-
-_hum_valid = combined_trend.dropna(
-    subset=["humidity"]
-)
-
-_temp_max_row = (
-    _temp_valid.loc[
-        _temp_valid["temperature"].idxmax()
-    ]
-    if not _temp_valid.empty
-    else None
-)
-
-_temp_min_row = (
-    _temp_valid.loc[
-        _temp_valid["temperature"].idxmin()
-    ]
-    if not _temp_valid.empty
-    else None
-)
-
-_hum_max_row = (
-    _hum_valid.loc[
-        _hum_valid["humidity"].idxmax()
-    ]
-    if not _hum_valid.empty
-    else None
-)
-
-_hum_min_row = (
-    _hum_valid.loc[
-        _hum_valid["humidity"].idxmin()
-    ]
-    if not _hum_valid.empty
-    else None
-)
-
-
-# ----------------------------------------------------------
-# VIEW SWITCH
-# ----------------------------------------------------------
-
-trend_view = st.radio(
-    "Trend view",
-    ["Combined View", "Split View"],
-    horizontal=True,
-    label_visibility="collapsed",
-    key="wx_trend_view_toggle",
-)
-
-
-# ==========================================================
-# COMBINED VIEW
-# ==========================================================
-
-if trend_view == "Combined View":
-
-    fig = make_subplots(
-        specs=[[{"secondary_y": True}]]
-    )
-
-    # ------------------------------
-    # Temperature
-    # ------------------------------
-
-    fig.add_trace(
-        go.Scatter(
-            x=combined_trend["scraped_at"],
-            y=combined_trend["temperature"],
-            name="Temperature",
-            mode="lines+markers",
-            line=dict(
-                width=3,
-                color="#ff8a3d",
-                shape="linear",
-            ),
-            marker=dict(
-                size=5,
-                color="#ff8a3d",
-            ),
-            hovertemplate=(
-                "<b>%{x|%d %b %Y %H:%M}</b>"
-                "<br>Temperature: %{y:.1f} °C"
-                "<extra></extra>"
-            ),
-        ),
-        secondary_y=False,
-    )
-
-    # Temperature rolling average
-
-    fig.add_trace(
-        go.Scatter(
-            x=combined_trend["scraped_at"],
-            y=combined_trend["temperature_rolling"],
-            name="Temperature Rolling Avg",
-            mode="lines",
-            line=dict(
-                width=2,
-                color="#ffc247",
-                dash="dot",
-            ),
-            hovertemplate=(
-                "Temperature avg: %{y:.1f} °C"
-                "<extra></extra>"
-            ),
-        ),
-        secondary_y=False,
-    )
-
-    # ------------------------------
-    # Humidity
-    # ------------------------------
-
-    fig.add_trace(
-        go.Scatter(
-            x=combined_trend["scraped_at"],
-            y=combined_trend["humidity"],
-            name="Humidity",
-            mode="lines+markers",
-            line=dict(
-                width=3,
-                color="#22d3ee",
-                shape="linear",
-            ),
-            marker=dict(
-                size=5,
-                color="#22d3ee",
-            ),
-            hovertemplate=(
-                "<b>%{x|%d %b %Y %H:%M}</b>"
-                "<br>Humidity: %{y:.0f}%"
-                "<extra></extra>"
-            ),
-        ),
-        secondary_y=True,
-    )
-
-    # Humidity rolling average
-
-    fig.add_trace(
-        go.Scatter(
-            x=combined_trend["scraped_at"],
-            y=combined_trend["humidity_rolling"],
-            name="Humidity Rolling Avg",
-            mode="lines",
-            line=dict(
-                width=2,
-                color="#0ea5e9",
-                dash="dot",
-            ),
-            hovertemplate=(
-                "Humidity avg: %{y:.0f}%"
-                "<extra></extra>"
-            ),
-        ),
-        secondary_y=True,
-    )
-
-    # ------------------------------
-    # Peak markers
-    # ------------------------------
-
-    if _temp_max_row is not None:
-        fig.add_trace(
-            go.Scatter(
-                x=[_temp_max_row["scraped_at"]],
-                y=[_temp_max_row["temperature"]],
-                mode="markers",
-                name="Peak Temperature",
-                marker=dict(
-                    size=11,
-                    color="#ff4d4d",
-                    symbol="triangle-up",
-                ),
-                hovertemplate=(
-                    "Peak Temperature: %{y:.1f} °C"
-                    "<extra></extra>"
-                ),
-                showlegend=False,
-            ),
-            secondary_y=False,
-        )
-
-    if _hum_max_row is not None:
-        fig.add_trace(
-            go.Scatter(
-                x=[_hum_max_row["scraped_at"]],
-                y=[_hum_max_row["humidity"]],
-                mode="markers",
-                name="Peak Humidity",
-                marker=dict(
-                    size=11,
-                    color="#0c4a7c",
-                    symbol="triangle-up",
-                ),
-                hovertemplate=(
-                    "Peak Humidity: %{y:.0f}%"
-                    "<extra></extra>"
-                ),
-                showlegend=False,
-            ),
-            secondary_y=True,
-        )
-
-    # ------------------------------
-    # Layout
-    # ------------------------------
-
-    fig = style_fig(
-        fig,
-        height=440,
-        hovermode="x unified",
-        margin=dict(
-            l=20,
-            r=20,
-            t=45,
-            b=25,
-        ),
-        legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=1.02,
-            xanchor="left",
-            x=0,
-        ),
-    )
-
-    fig.update_xaxes(
-        title_text="Time",
-        rangeslider=dict(
-            visible=True,
-            thickness=0.05,
-        ),
-    )
-
-    fig.update_yaxes(
-        title_text="Temperature (°C)",
-        secondary_y=False,
-    )
-
-    fig.update_yaxes(
-        title_text="Humidity (%)",
-        secondary_y=True,
-        showgrid=False,
-    )
-
-    st.plotly_chart(
-        fig,
-        use_container_width=True,
-        config={
-            "scrollZoom": True,
-            "displaylogo": False,
-        },
-    )
-
-
-# ==========================================================
-# SPLIT VIEW
-# ==========================================================
-
-else:
-
-    left, right = st.columns(2)
-
-    # ======================================================
-    # TEMPERATURE
-    # ======================================================
-
-    with left:
-
-        fig_temp = go.Figure()
-
-        fig_temp.add_trace(
-            go.Scatter(
-                x=combined_trend["scraped_at"],
-                y=combined_trend["temperature"],
-                name="Temperature",
-                mode="lines+markers",
-                line=dict(
-                    width=3,
-                    color="#ff8a3d",
-                    shape="linear",
-                ),
-                marker=dict(
-                    size=5,
-                    color="#ff8a3d",
-                ),
-                hovertemplate=(
-                    "<b>%{x|%d %b %Y %H:%M}</b>"
-                    "<br>Temperature: %{y:.1f} °C"
-                    "<extra></extra>"
-                ),
-            )
-        )
-
-        fig_temp.add_trace(
-            go.Scatter(
-                x=combined_trend["scraped_at"],
-                y=combined_trend["temperature_rolling"],
-                name="Rolling Avg",
-                mode="lines",
-                line=dict(
-                    width=2,
-                    color="#ffc247",
-                    dash="dot",
-                ),
-                hovertemplate=(
-                    "Rolling Avg: %{y:.1f} °C"
-                    "<extra></extra>"
-                ),
-            )
-        )
-
-        if _temp_max_row is not None:
-            fig_temp.add_trace(
-                go.Scatter(
-                    x=[_temp_max_row["scraped_at"]],
-                    y=[_temp_max_row["temperature"]],
-                    mode="markers",
-                    marker=dict(
-                        size=11,
-                        color="#ff4d4d",
-                        symbol="triangle-up",
-                    ),
-                    name="Peak",
-                    hovertemplate=(
-                        "Peak: %{y:.1f} °C"
-                        "<extra></extra>"
-                    ),
-                    showlegend=False,
-                )
-            )
-
-        fig_temp = style_fig(
-            fig_temp,
-            height=360,
-            hovermode="x unified",
-            title=dict(
-                text="🌡 Temperature Trend",
-                font=dict(
-                    size=14,
-                    family="JetBrains Mono, monospace",
-                ),
-            ),
-            xaxis_title="",
-            yaxis_title="°C",
-            margin=dict(
-                l=20,
-                r=20,
-                t=50,
-                b=20,
-            ),
-        )
-
-        st.plotly_chart(
-            fig_temp,
-            use_container_width=True,
-            config={
-                "scrollZoom": True,
-                "displaylogo": False,
-            },
-        )
-
-    # ======================================================
-    # HUMIDITY
-    # ======================================================
-
-    with right:
-
-        fig_hum = go.Figure()
-
-        fig_hum.add_trace(
-            go.Scatter(
-                x=combined_trend["scraped_at"],
-                y=combined_trend["humidity"],
-                name="Humidity",
-                mode="lines+markers",
-                line=dict(
-                    width=3,
-                    color="#22d3ee",
-                    shape="linear",
-                ),
-                marker=dict(
-                    size=5,
-                    color="#22d3ee",
-                ),
-                hovertemplate=(
-                    "<b>%{x|%d %b %Y %H:%M}</b>"
-                    "<br>Humidity: %{y:.0f}%"
-                    "<extra></extra>"
-                ),
-            )
-        )
-
-        fig_hum.add_trace(
-            go.Scatter(
-                x=combined_trend["scraped_at"],
-                y=combined_trend["humidity_rolling"],
-                name="Rolling Avg",
-                mode="lines",
-                line=dict(
-                    width=2,
-                    color="#0ea5e9",
-                    dash="dot",
-                ),
-                hovertemplate=(
-                    "Rolling Avg: %{y:.0f}%"
-                    "<extra></extra>"
-                ),
-            )
-        )
-
-        if _hum_max_row is not None:
-            fig_hum.add_trace(
-                go.Scatter(
-                    x=[_hum_max_row["scraped_at"]],
-                    y=[_hum_max_row["humidity"]],
-                    mode="markers",
-                    marker=dict(
-                        size=11,
-                        color="#0c4a7c",
-                        symbol="triangle-up",
-                    ),
-                    name="Peak",
-                    hovertemplate=(
-                        "Peak: %{y:.0f}%"
-                        "<extra></extra>"
-                    ),
-                    showlegend=False,
-                )
-            )
-
-        fig_hum = style_fig(
-            fig_hum,
-            height=360,
-            hovermode="x unified",
-            title=dict(
-                text="💧 Humidity Trend",
-                font=dict(
-                    size=14,
-                    family="JetBrains Mono, monospace",
-                ),
-            ),
-            xaxis_title="Time",
-            yaxis_title="%",
-            margin=dict(
-                l=20,
-                r=20,
-                t=50,
-                b=20,
-            ),
-        )
-
-        st.plotly_chart(
-            fig_hum,
-            use_container_width=True,
-            config={
-                "scrollZoom": True,
-                "displaylogo": False,
-            },
-        )
+# st.plotly_chart(
+#     fig,
+#     use_container_width=True,
+#     config={"scrollZoom": True, "displaylogo": False},
+# )
 # ==========================================================
 # PROVINCE COMPARISON -- ONE grouped bar chart replacing the
 # separate Avg Temperature / Avg Humidity by Province charts.

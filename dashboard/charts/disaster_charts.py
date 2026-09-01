@@ -11,17 +11,22 @@ _FONT = dict(
     family="Inter, Segoe UI, Arial, sans-serif"
 )
 
-_DEATHS_COLOR = "#ef4444"
-_INJURED_COLOR = "#2563eb"
+_TEXT_COLOR = "#dde3e7"
+_TEXT_MUTED = "#bbc9cf"
 
-_GRID_COLOR = "rgba(120,132,150,0.14)"
+_DEATHS_COLOR = "#ff8a80"
+_INJURED_COLOR = "#a4e6ff"
 
+_GRID_COLOR = "rgba(133,147,153,0.14)"
+
+# Dark-surface-compatible risk scale: pale-neutral (low risk) through to
+# the same alert red used across the rest of the platform (high risk).
 _RISK_SCALE = [
-    [0.0, "#fee2e2"],
-    [0.30, "#fecaca"],
-    [0.55, "#fca5a5"],
-    [0.75, "#f87171"],
-    [1.0, "#b91c1c"],
+    [0.0, "#3c494e"],
+    [0.30, "#8a5a54"],
+    [0.55, "#b9564b"],
+    [0.75, "#e0433a"],
+    [1.0, "#ffb4ab"],
 ]
 
 
@@ -33,17 +38,23 @@ def _apply_base_layout(fig, title, height):
 
     fig.update_layout(
 
+        template="plotly_dark",
+
         title=dict(
             text=title,
             font=dict(
                 size=15,
+                color=_TEXT_COLOR,
                 **_FONT
             ),
             x=0.01,
             xanchor="left",
         ),
 
-        font=_FONT,
+        font=dict(
+            color=_TEXT_MUTED,
+            **_FONT,
+        ),
 
         height=height,
 
@@ -59,8 +70,10 @@ def _apply_base_layout(fig, title, height):
         ),
 
         hoverlabel=dict(
-            bgcolor="white",
+            bgcolor="#1a2123",
+            bordercolor="#3c494e",
             font_size=12,
+            font_color=_TEXT_COLOR,
             font_family=_FONT["family"],
         ),
 
@@ -71,6 +84,7 @@ def _apply_base_layout(fig, title, height):
             xanchor="right",
             x=1,
             title=None,
+            font=dict(color=_TEXT_MUTED),
         ),
 
     )
@@ -568,20 +582,20 @@ def disaster_heatmap(
 
             textfont=dict(
                 size=12,
-                color="#111827",
+                color="#dde3e7",
             ),
 
             colorscale=[
 
-                [0.00, "#f8fafc"],
+                [0.00, "#2f3639"],
 
-                [0.20, "#fecaca"],
+                [0.20, "#8a5a54"],
 
-                [0.45, "#fca5a5"],
+                [0.45, "#b9564b"],
 
-                [0.70, "#f87171"],
+                [0.70, "#e0433a"],
 
-                [1.00, "#b91c1c"],
+                [1.00, "#ffb4ab"],
 
             ],
 
