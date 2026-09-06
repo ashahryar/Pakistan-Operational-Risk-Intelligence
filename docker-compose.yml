@@ -74,6 +74,8 @@ x-airflow-common: &airflow-common
     - ./.env:/opt/project/.env
     - ./requirements.txt:/opt/project/requirements.txt
     - ./README.md:/opt/project/README.md
+    - ./tests:/opt/project/tests
+    - ./pytest.ini:/opt/project/pytest.ini
 
   depends_on:
     postgres:

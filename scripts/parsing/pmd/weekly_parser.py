@@ -3,8 +3,11 @@ import re
 from pathlib import Path
 
 from scripts.parsing.pmd.utils import clean_text
+from pipeline.utils.quarantine import write_quarantine
 
 RAW_FILE = Path("data/raw/pmd/reports/weekly_outlook/all/latest.json")
+
+PARSER_VERSION = "1.0.0"
 
 
 def extract_regions(text):
@@ -65,12 +68,29 @@ def parse_weekly_outlook():
         raw = json.load(f)
 
     output = []
+    processed = 0
+    rejected = 0
 
     for table in raw.get("tables", []):
 
         for row in table.get("rows", []):
 
+            processed += 1
+
             if len(row) < 2:
+
+                rejected += 1
+
+                write_quarantine(
+                    source="pmd",
+                    domain="weekly_outlook",
+                    source_document=str(RAW_FILE),
+                    reason_code="row_too_short",
+                    message=f"Row has {len(row)} cells, expected >= 2",
+                    parser_version=PARSER_VERSION,
+                    raw_payload=row,
+                )
+
                 continue
 
             summary = clean_text(row[0])
@@ -93,13 +113,13 @@ def parse_weekly_outlook():
 
             })
 
-    return output
+    return output, processed, rejected
 
 
 if __name__ == "__main__":
 
-    parsed = parse_weekly_outlook()
+    parsed, processed, rejected = parse_weekly_outlook()
 
-    print(f"Days Parsed : {len(parsed)}")
+    print(f"Days Parsed : {len(parsed)} | Processed : {processed} | Rejected : {rejected}")
 
     print(json.dumps(parsed, indent=4, ensure_ascii=False))

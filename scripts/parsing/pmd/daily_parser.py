@@ -19,6 +19,10 @@ from scripts.parsing.pmd.utils import (
     district_from_city,
 )
 
+from pipeline.utils.quarantine import write_quarantine
+
+PARSER_VERSION = "1.0.0"
+
 # ==========================================================
 # FILES
 # ==========================================================
@@ -49,12 +53,29 @@ def parse_daily_forecast():
         raw = json.load(f)
 
     parsed = []
+    processed = 0
+    rejected = 0
 
     for table in raw.get("tables", []):
 
         for row in table.get("rows", []):
 
+            processed += 1
+
             if len(row) < 6:
+
+                rejected += 1
+
+                write_quarantine(
+                    source="pmd",
+                    domain="daily_forecast",
+                    source_document=str(RAW_FILE),
+                    reason_code="row_too_short",
+                    message=f"Row has {len(row)} cells, expected >= 6",
+                    parser_version=PARSER_VERSION,
+                    raw_payload=row,
+                )
+
                 continue
 
             # ---------------------------------
@@ -89,6 +110,19 @@ def parse_daily_forecast():
                 humidity=humidity,
                 day1=day1,
             ):
+
+                rejected += 1
+
+                write_quarantine(
+                    source="pmd",
+                    domain="daily_forecast",
+                    source_document=str(RAW_FILE),
+                    reason_code="failed_weather_validation",
+                    message=f"validate_weather() failed for city={city!r}",
+                    parser_version=PARSER_VERSION,
+                    raw_payload=row,
+                )
+
                 continue
 
             # ---------------------------------
@@ -119,7 +153,7 @@ def parse_daily_forecast():
 
             })
 
-    return parsed
+    return parsed, processed, rejected
 
 
 # ==========================================================
@@ -128,7 +162,7 @@ def parse_daily_forecast():
 
 def save_daily_forecast():
 
-    data = parse_daily_forecast()
+    data, processed, rejected = parse_daily_forecast()
 
     with open(
         OUTPUT_FILE,
@@ -145,6 +179,7 @@ def save_daily_forecast():
 
     print("=" * 60)
     print(f"PMD Daily Forecast Parsed : {len(data)} Records")
+    print(f"Processed : {processed} | Rejected : {rejected}")
     print(f"Saved : {OUTPUT_FILE}")
     print("=" * 60)
 

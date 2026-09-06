@@ -27,6 +27,15 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 BASE = PROJECT_ROOT / "data" / "parsed" / "pdma"
 
+# ==========================================================
+# DATA QUALITY (Phase 1 / Task 6, ADR-0001)
+# ==========================================================
+
+from pipeline.utils.quarantine import write_quarantine
+from config.data_quality import REJECTION_THRESHOLD
+
+PARSER_VERSION = "1.0.0"
+
 
 # ----------------------------------------------------------
 # HELPERS
@@ -58,19 +67,24 @@ def load_daily_reports():
     folder = BASE / "daily"
     if not folder.exists():
         logger.warning("daily folder not found: %s", folder)
-        return 0
+        return 0, 0, 0, 0
 
+    processed = 0
     inserted = 0
-    with engine.begin() as conn:
-        for year_dir in sorted(folder.iterdir()):
-            if not year_dir.is_dir():
-                continue
-            year = to_int(year_dir.name)
-            for json_file in sorted(year_dir.glob("*.json")):
-                try:
-                    data = json.loads(json_file.read_text(encoding="utf-8"))
-                    report_date = parse_date(data.get("report_date"))
-                    conn.execute(
+    skipped = 0
+    rejected = 0
+
+    for year_dir in sorted(folder.iterdir()):
+        if not year_dir.is_dir():
+            continue
+        year = to_int(year_dir.name)
+        for json_file in sorted(year_dir.glob("*.json")):
+            processed += 1
+            try:
+                data = json.loads(json_file.read_text(encoding="utf-8"))
+                report_date = parse_date(data.get("report_date"))
+                with engine.begin() as conn:
+                    result = conn.execute(
                         text("""
                             INSERT INTO pdma_daily_reports
                                 (source_file, report_date, report_year, raw_data)
@@ -85,12 +99,27 @@ def load_daily_reports():
                             "raw_data": json.dumps(data),
                         },
                     )
-                    inserted += 1
-                except Exception as e:
-                    logger.error("daily %s: %s", json_file.name, e)
+                    if result.rowcount:
+                        inserted += 1
+                    else:
+                        skipped += 1
+            except Exception as e:
+                rejected += 1
+                logger.error("daily %s: %s", json_file.name, e)
+                write_quarantine(
+                    source="pdma",
+                    domain="daily",
+                    source_document=str(json_file),
+                    reason_code="load_exception",
+                    message=str(e),
+                    parser_version=PARSER_VERSION,
+                )
 
-    logger.info("Daily reports inserted/skipped: %d", inserted)
-    return inserted
+    logger.info(
+        "Daily reports processed=%d inserted=%d skipped=%d rejected=%d",
+        processed, inserted, skipped, rejected,
+    )
+    return processed, inserted, skipped, rejected
 
 
 # ----------------------------------------------------------
@@ -101,20 +130,40 @@ def load_rainfall_readings():
     folder = BASE / "rainfall"
     if not folder.exists():
         logger.warning("rainfall folder not found: %s", folder)
-        return 0
+        return 0, 0, 0, 0
 
+    processed = 0
     inserted = 0
-    with engine.begin() as conn:
-        for year_dir in sorted(folder.iterdir()):
-            if not year_dir.is_dir():
+    skipped = 0
+    rejected = 0
+
+    for year_dir in sorted(folder.iterdir()):
+        if not year_dir.is_dir():
+            continue
+        year = to_int(year_dir.name)
+        for json_file in sorted(year_dir.glob("*.json")):
+            try:
+                data = json.loads(json_file.read_text(encoding="utf-8"))
+                report_date = parse_date(data.get("report_date"))
+            except Exception as e:
+                processed += 1
+                rejected += 1
+                logger.error("rainfall %s: %s", json_file.name, e)
+                write_quarantine(
+                    source="pdma",
+                    domain="rainfall",
+                    source_document=str(json_file),
+                    reason_code="load_exception",
+                    message=str(e),
+                    parser_version=PARSER_VERSION,
+                )
                 continue
-            year = to_int(year_dir.name)
-            for json_file in sorted(year_dir.glob("*.json")):
+
+            for station in data.get("stations", []):
+                processed += 1
                 try:
-                    data = json.loads(json_file.read_text(encoding="utf-8"))
-                    report_date = parse_date(data.get("report_date"))
-                    for station in data.get("stations", []):
-                        conn.execute(
+                    with engine.begin() as conn:
+                        result = conn.execute(
                             text("""
                                 INSERT INTO pdma_rainfall_readings
                                     (source_file, report_date, report_year, station, rainfall_mm)
@@ -130,12 +179,28 @@ def load_rainfall_readings():
                                 "rainfall_mm": station.get("rainfall_mm"),
                             },
                         )
-                        inserted += 1
+                        if result.rowcount:
+                            inserted += 1
+                        else:
+                            skipped += 1
                 except Exception as e:
+                    rejected += 1
                     logger.error("rainfall %s: %s", json_file.name, e)
+                    write_quarantine(
+                        source="pdma",
+                        domain="rainfall",
+                        source_document=str(json_file),
+                        reason_code="load_exception",
+                        message=str(e),
+                        parser_version=PARSER_VERSION,
+                        raw_payload=station,
+                    )
 
-    logger.info("Rainfall readings inserted/skipped: %d", inserted)
-    return inserted
+    logger.info(
+        "Rainfall readings processed=%d inserted=%d skipped=%d rejected=%d",
+        processed, inserted, skipped, rejected,
+    )
+    return processed, inserted, skipped, rejected
 
 
 # ----------------------------------------------------------
@@ -146,20 +211,40 @@ def load_gauge_readings():
     folder = BASE / "gauge"
     if not folder.exists():
         logger.warning("gauge folder not found: %s", folder)
-        return 0
+        return 0, 0, 0, 0
 
+    processed = 0
     inserted = 0
-    with engine.begin() as conn:
-        for year_dir in sorted(folder.iterdir()):
-            if not year_dir.is_dir():
+    skipped = 0
+    rejected = 0
+
+    for year_dir in sorted(folder.iterdir()):
+        if not year_dir.is_dir():
+            continue
+        year = to_int(year_dir.name)
+        for json_file in sorted(year_dir.glob("*.json")):
+            try:
+                data = json.loads(json_file.read_text(encoding="utf-8"))
+                report_dt = data.get("report_datetime")
+            except Exception as e:
+                processed += 1
+                rejected += 1
+                logger.error("gauge %s: %s", json_file.name, e)
+                write_quarantine(
+                    source="pdma",
+                    domain="gauge",
+                    source_document=str(json_file),
+                    reason_code="load_exception",
+                    message=str(e),
+                    parser_version=PARSER_VERSION,
+                )
                 continue
-            year = to_int(year_dir.name)
-            for json_file in sorted(year_dir.glob("*.json")):
+
+            for gauge in data.get("gauges", []):
+                processed += 1
                 try:
-                    data = json.loads(json_file.read_text(encoding="utf-8"))
-                    report_dt = data.get("report_datetime")
-                    for gauge in data.get("gauges", []):
-                        conn.execute(
+                    with engine.begin() as conn:
+                        result = conn.execute(
                             text("""
                                 INSERT INTO pdma_gauge_readings
                                     (source_file, report_datetime, report_year,
@@ -183,12 +268,28 @@ def load_gauge_readings():
                                 "flow_status": gauge.get("flow_status"),
                             },
                         )
-                        inserted += 1
+                        if result.rowcount:
+                            inserted += 1
+                        else:
+                            skipped += 1
                 except Exception as e:
+                    rejected += 1
                     logger.error("gauge %s: %s", json_file.name, e)
+                    write_quarantine(
+                        source="pdma",
+                        domain="gauge",
+                        source_document=str(json_file),
+                        reason_code="load_exception",
+                        message=str(e),
+                        parser_version=PARSER_VERSION,
+                        raw_payload=gauge,
+                    )
 
-    logger.info("Gauge readings inserted/skipped: %d", inserted)
-    return inserted
+    logger.info(
+        "Gauge readings processed=%d inserted=%d skipped=%d rejected=%d",
+        processed, inserted, skipped, rejected,
+    )
+    return processed, inserted, skipped, rejected
 
 
 # ----------------------------------------------------------
@@ -201,12 +302,44 @@ def main():
     print("=" * 60)
     print(BASE)
     print(BASE.exists())
-    load_daily_reports()
-    load_rainfall_readings()
-    load_gauge_readings()
+
+    daily_p, daily_i, daily_s, daily_r = load_daily_reports()
+    rain_p, rain_i, rain_s, rain_r = load_rainfall_readings()
+    gauge_p, gauge_i, gauge_s, gauge_r = load_gauge_readings()
+
+    grand_processed = daily_p + rain_p + gauge_p
+    grand_inserted = daily_i + rain_i + gauge_i
+    grand_skipped = daily_s + rain_s + gauge_s
+    grand_rejected = daily_r + rain_r + gauge_r
+
     print("=" * 60)
     print("PDMA DATA LOADED SUCCESSFULLY")
+    print(f"Processed : {grand_processed}")
+    print(f"Inserted  : {grand_inserted}")
+    print(f"Skipped   : {grand_skipped}")
+    print(f"Rejected  : {grand_rejected}")
     print("=" * 60)
+
+    # ------------------------------------------------------
+    # DATA QUALITY GATE (Phase 1 / Task 6, ADR-0001, CLAUDE.md rule 5)
+    # ------------------------------------------------------
+
+    if grand_processed == 0:
+        return
+
+    rejection_ratio = grand_rejected / grand_processed
+
+    print(f"Rejection Ratio      : {round(rejection_ratio * 100, 2)}%")
+    print(f"Rejection Threshold  : {round(REJECTION_THRESHOLD * 100, 2)}%")
+
+    if rejection_ratio > REJECTION_THRESHOLD:
+
+        print("=" * 60)
+        print("DATA QUALITY GATE FAILED")
+        print(f"{grand_rejected}/{grand_processed} rows rejected — exceeds threshold")
+        print("=" * 60)
+
+        sys.exit(1)
 
 
 if __name__ == "__main__":

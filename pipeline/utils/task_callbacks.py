@@ -97,20 +97,11 @@ def task_success(context):
 
     line()
 
-    subject = f"✅ Airflow Task Success | {dag.dag_id}"
-
-    message = f"""
-Task completed successfully.
-
-DAG            : {dag.dag_id}
-Task           : {task.task_id}
-Run ID         : {context.get('run_id')}
-Execution Date : {context.get('execution_date')}
-Duration       : {get_duration(context)}
-Finished       : {datetime.now()}
-"""
-
-    send_email(subject, message)
+    # NOTE: no email on the success path (Phase 1 / Task 3, ADR-0001).
+    # Emailing on every one of ~40 task successes per pipeline run added
+    # SMTP latency and, while the credential was dead, buried real
+    # failures under a misleading SMTPAuthenticationError traceback.
+    # Failure notification (task_failure, below) is unchanged.
 
     send_slack(
         f"Task Success : {dag.dag_id} -> {task.task_id}"

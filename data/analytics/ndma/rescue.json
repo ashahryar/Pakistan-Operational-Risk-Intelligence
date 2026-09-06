@@ -621,5 +621,1573 @@
         "province": "Balochistan",
         "operations": "1",
         "rescued": "2"
+    },
+    {
+        "report_number": "34",
+        "report_date": "29 July 2026",
+        "province": "KP",
+        "operations": "42",
+        "rescued": "2863"
+    },
+    {
+        "report_number": "34",
+        "report_date": "29 July 2026",
+        "province": "GB",
+        "operations": "7",
+        "rescued": "788"
+    },
+    {
+        "report_number": "34",
+        "report_date": "29 July 2026",
+        "province": "Punjab",
+        "operations": "98",
+        "rescued": "458"
+    },
+    {
+        "report_number": "34",
+        "report_date": "29 July 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "35",
+        "report_date": "30 July 2026",
+        "province": "Punjab",
+        "operations": "11",
+        "rescued": "16"
+    },
+    {
+        "report_number": "35",
+        "report_date": "30 July 2026",
+        "province": "KP",
+        "operations": "42",
+        "rescued": "2863"
+    },
+    {
+        "report_number": "35",
+        "report_date": "30 July 2026",
+        "province": "GB",
+        "operations": "7",
+        "rescued": "788"
+    },
+    {
+        "report_number": "35",
+        "report_date": "30 July 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "36",
+        "report_date": "31 July 2026",
+        "province": "Punjab",
+        "operations": "5",
+        "rescued": "7"
+    },
+    {
+        "report_number": "36",
+        "report_date": "31 July 2026",
+        "province": "KP",
+        "operations": "42",
+        "rescued": "2863"
+    },
+    {
+        "report_number": "36",
+        "report_date": "31 July 2026",
+        "province": "GB",
+        "operations": "7",
+        "rescued": "788"
+    },
+    {
+        "report_number": "36",
+        "report_date": "31 July 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "37",
+        "report_date": "1 August 2026",
+        "province": "Punjab",
+        "operations": "4",
+        "rescued": "9"
+    },
+    {
+        "report_number": "37",
+        "report_date": "1 August 2026",
+        "province": "KP",
+        "operations": "2",
+        "rescued": "2"
+    },
+    {
+        "report_number": "37",
+        "report_date": "1 August 2026",
+        "province": "Sindh",
+        "operations": "1",
+        "rescued": "5"
+    },
+    {
+        "report_number": "37",
+        "report_date": "1 August 2026",
+        "province": "GB",
+        "operations": "7",
+        "rescued": "788"
+    },
+    {
+        "report_number": "37",
+        "report_date": "1 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "38",
+        "report_date": "2 August 2026",
+        "province": "Punjab",
+        "operations": "7",
+        "rescued": "11"
+    },
+    {
+        "report_number": "38",
+        "report_date": "2 August 2026",
+        "province": "Sindh",
+        "operations": "1",
+        "rescued": "1"
+    },
+    {
+        "report_number": "38",
+        "report_date": "2 August 2026",
+        "province": "KP",
+        "operations": "44",
+        "rescued": "2865"
+    },
+    {
+        "report_number": "38",
+        "report_date": "2 August 2026",
+        "province": "GB",
+        "operations": "7",
+        "rescued": "788"
+    },
+    {
+        "report_number": "38",
+        "report_date": "2 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "39",
+        "report_date": "3 August 2026",
+        "province": "Punjab",
+        "operations": "12",
+        "rescued": "2"
+    },
+    {
+        "report_number": "39",
+        "report_date": "3 August 2026",
+        "province": "Sindh",
+        "operations": "2",
+        "rescued": "1"
+    },
+    {
+        "report_number": "39",
+        "report_date": "3 August 2026",
+        "province": "KP",
+        "operations": "44",
+        "rescued": "2865"
+    },
+    {
+        "report_number": "39",
+        "report_date": "3 August 2026",
+        "province": "GB",
+        "operations": "7",
+        "rescued": "788"
+    },
+    {
+        "report_number": "39",
+        "report_date": "3 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "40",
+        "report_date": "4 August 2026",
+        "province": "Punjab",
+        "operations": "4",
+        "rescued": "8"
+    },
+    {
+        "report_number": "40",
+        "report_date": "4 August 2026",
+        "province": "KP",
+        "operations": "1",
+        "rescued": "200"
+    },
+    {
+        "report_number": "40",
+        "report_date": "4 August 2026",
+        "province": "Sindh",
+        "operations": "2",
+        "rescued": "8"
+    },
+    {
+        "report_number": "40",
+        "report_date": "4 August 2026",
+        "province": "GB",
+        "operations": "7",
+        "rescued": "788"
+    },
+    {
+        "report_number": "40",
+        "report_date": "4 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "42",
+        "report_date": "6 August 2026",
+        "province": "Punjab",
+        "operations": "2",
+        "rescued": "5"
+    },
+    {
+        "report_number": "42",
+        "report_date": "6 August 2026",
+        "province": "KP",
+        "operations": "3",
+        "rescued": "5"
+    },
+    {
+        "report_number": "42",
+        "report_date": "6 August 2026",
+        "province": "GB",
+        "operations": "2",
+        "rescued": "5"
+    },
+    {
+        "report_number": "42",
+        "report_date": "6 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "42",
+        "report_date": "6 August 2026",
+        "province": "Sindh",
+        "operations": "6",
+        "rescued": "15"
+    },
+    {
+        "report_number": "43",
+        "report_date": "7 August 2026",
+        "province": "Punjab",
+        "operations": "2",
+        "rescued": "6"
+    },
+    {
+        "report_number": "43",
+        "report_date": "7 August 2026",
+        "province": "AJ&K",
+        "operations": "9",
+        "rescued": "45"
+    },
+    {
+        "report_number": "43",
+        "report_date": "7 August 2026",
+        "province": "KP",
+        "operations": "48",
+        "rescued": "3070"
+    },
+    {
+        "report_number": "43",
+        "report_date": "7 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "43",
+        "report_date": "7 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "43",
+        "report_date": "7 August 2026",
+        "province": "Sindh",
+        "operations": "6",
+        "rescued": "15"
+    },
+    {
+        "report_number": "44",
+        "report_date": "8 August 2026",
+        "province": "Punjab",
+        "operations": "3",
+        "rescued": "6"
+    },
+    {
+        "report_number": "44",
+        "report_date": "8 August 2026",
+        "province": "KP",
+        "operations": "48",
+        "rescued": "3070"
+    },
+    {
+        "report_number": "44",
+        "report_date": "8 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "44",
+        "report_date": "8 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "44",
+        "report_date": "8 August 2026",
+        "province": "Sindh",
+        "operations": "6",
+        "rescued": "15"
+    },
+    {
+        "report_number": "44",
+        "report_date": "8 August 2026",
+        "province": "AJ&K",
+        "operations": "9",
+        "rescued": "45"
+    },
+    {
+        "report_number": "45",
+        "report_date": "9 August 2026",
+        "province": "AJ&K",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "45",
+        "report_date": "9 August 2026",
+        "province": "KP",
+        "operations": "48",
+        "rescued": "3070"
+    },
+    {
+        "report_number": "45",
+        "report_date": "9 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "45",
+        "report_date": "9 August 2026",
+        "province": "Punjab",
+        "operations": "148",
+        "rescued": "528"
+    },
+    {
+        "report_number": "45",
+        "report_date": "9 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "45",
+        "report_date": "9 August 2026",
+        "province": "Sindh",
+        "operations": "6",
+        "rescued": "15"
+    },
+    {
+        "report_number": "46",
+        "report_date": "10 August 2026",
+        "province": "Punjab",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "46",
+        "report_date": "10 August 2026",
+        "province": "KP",
+        "operations": "48",
+        "rescued": "3070"
+    },
+    {
+        "report_number": "46",
+        "report_date": "10 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "46",
+        "report_date": "10 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "46",
+        "report_date": "10 August 2026",
+        "province": "Sindh",
+        "operations": "6",
+        "rescued": "15"
+    },
+    {
+        "report_number": "46",
+        "report_date": "10 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "47",
+        "report_date": "11 August 2026",
+        "province": "Punjab",
+        "operations": "1",
+        "rescued": "1"
+    },
+    {
+        "report_number": "47",
+        "report_date": "11 August 2026",
+        "province": "KP",
+        "operations": "48",
+        "rescued": "3070"
+    },
+    {
+        "report_number": "47",
+        "report_date": "11 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "47",
+        "report_date": "11 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "47",
+        "report_date": "11 August 2026",
+        "province": "Sindh",
+        "operations": "6",
+        "rescued": "15"
+    },
+    {
+        "report_number": "47",
+        "report_date": "11 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "48",
+        "report_date": "12 August 2026",
+        "province": "KP",
+        "operations": "48",
+        "rescued": "3070"
+    },
+    {
+        "report_number": "48",
+        "report_date": "12 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "48",
+        "report_date": "12 August 2026",
+        "province": "Punjab",
+        "operations": "150",
+        "rescued": "531"
+    },
+    {
+        "report_number": "48",
+        "report_date": "12 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "48",
+        "report_date": "12 August 2026",
+        "province": "Sindh",
+        "operations": "6",
+        "rescued": "15"
+    },
+    {
+        "report_number": "48",
+        "report_date": "12 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "49",
+        "report_date": "13 August 2026",
+        "province": "Punjab",
+        "operations": "7",
+        "rescued": "8"
+    },
+    {
+        "report_number": "49",
+        "report_date": "13 August 2026",
+        "province": "KP",
+        "operations": "880",
+        "rescued": "4234"
+    },
+    {
+        "report_number": "49",
+        "report_date": "13 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "49",
+        "report_date": "13 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "49",
+        "report_date": "13 August 2026",
+        "province": "Sindh",
+        "operations": "6",
+        "rescued": "15"
+    },
+    {
+        "report_number": "49",
+        "report_date": "13 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "50",
+        "report_date": "14 August 2026",
+        "province": "Sindh",
+        "operations": "1",
+        "rescued": "12"
+    },
+    {
+        "report_number": "50",
+        "report_date": "14 August 2026",
+        "province": "KP",
+        "operations": "928",
+        "rescued": "7304"
+    },
+    {
+        "report_number": "50",
+        "report_date": "14 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "50",
+        "report_date": "14 August 2026",
+        "province": "Punjab",
+        "operations": "157",
+        "rescued": "539"
+    },
+    {
+        "report_number": "50",
+        "report_date": "14 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "50",
+        "report_date": "14 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "51",
+        "report_date": "15 August 2026",
+        "province": "Punjab",
+        "operations": "1",
+        "rescued": "1"
+    },
+    {
+        "report_number": "51",
+        "report_date": "15 August 2026",
+        "province": "KP",
+        "operations": "928",
+        "rescued": "7304"
+    },
+    {
+        "report_number": "51",
+        "report_date": "15 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "51",
+        "report_date": "15 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "51",
+        "report_date": "15 August 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "51",
+        "report_date": "15 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "52",
+        "report_date": "16 August 2026",
+        "province": "Punjab",
+        "operations": "1",
+        "rescued": "1"
+    },
+    {
+        "report_number": "52",
+        "report_date": "16 August 2026",
+        "province": "KP",
+        "operations": "928",
+        "rescued": "7304"
+    },
+    {
+        "report_number": "52",
+        "report_date": "16 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "52",
+        "report_date": "16 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "52",
+        "report_date": "16 August 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "52",
+        "report_date": "16 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "53",
+        "report_date": "17 August 2026",
+        "province": "KP",
+        "operations": "928",
+        "rescued": "7304"
+    },
+    {
+        "report_number": "53",
+        "report_date": "17 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "53",
+        "report_date": "17 August 2026",
+        "province": "Punjab",
+        "operations": "159",
+        "rescued": "541"
+    },
+    {
+        "report_number": "53",
+        "report_date": "17 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "53",
+        "report_date": "17 August 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "53",
+        "report_date": "17 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "54",
+        "report_date": "18 August 2026",
+        "province": "KP",
+        "operations": "928",
+        "rescued": "7304"
+    },
+    {
+        "report_number": "54",
+        "report_date": "18 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "54",
+        "report_date": "18 August 2026",
+        "province": "Punjab",
+        "operations": "159",
+        "rescued": "541"
+    },
+    {
+        "report_number": "54",
+        "report_date": "18 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "54",
+        "report_date": "18 August 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "54",
+        "report_date": "18 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "55",
+        "report_date": "19 August 2026",
+        "province": "KP",
+        "operations": "928",
+        "rescued": "7304"
+    },
+    {
+        "report_number": "55",
+        "report_date": "19 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "55",
+        "report_date": "19 August 2026",
+        "province": "Punjab",
+        "operations": "159",
+        "rescued": "541"
+    },
+    {
+        "report_number": "55",
+        "report_date": "19 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "55",
+        "report_date": "19 August 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "55",
+        "report_date": "19 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "56",
+        "report_date": "20 August 2026",
+        "province": "Punjab",
+        "operations": "4",
+        "rescued": "6"
+    },
+    {
+        "report_number": "56",
+        "report_date": "20 August 2026",
+        "province": "KP",
+        "operations": "2",
+        "rescued": "302"
+    },
+    {
+        "report_number": "56",
+        "report_date": "20 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "56",
+        "report_date": "20 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "56",
+        "report_date": "20 August 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "56",
+        "report_date": "20 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "57",
+        "report_date": "21 August 2026",
+        "province": "Punjab",
+        "operations": "10",
+        "rescued": "12"
+    },
+    {
+        "report_number": "57",
+        "report_date": "21 August 2026",
+        "province": "KP",
+        "operations": "31",
+        "rescued": "401"
+    },
+    {
+        "report_number": "57",
+        "report_date": "21 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "57",
+        "report_date": "21 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "57",
+        "report_date": "21 August 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "57",
+        "report_date": "21 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "58",
+        "report_date": "22 August 2026",
+        "province": "KP",
+        "operations": "961",
+        "rescued": "8007"
+    },
+    {
+        "report_number": "58",
+        "report_date": "22 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "58",
+        "report_date": "22 August 2026",
+        "province": "Punjab",
+        "operations": "173",
+        "rescued": "559"
+    },
+    {
+        "report_number": "58",
+        "report_date": "22 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "58",
+        "report_date": "22 August 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "58",
+        "report_date": "22 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "59",
+        "report_date": "23 August 2026",
+        "province": "Punjab",
+        "operations": "1",
+        "rescued": "1"
+    },
+    {
+        "report_number": "59",
+        "report_date": "23 August 2026",
+        "province": "KP",
+        "operations": "1",
+        "rescued": "1"
+    },
+    {
+        "report_number": "59",
+        "report_date": "23 August 2026",
+        "province": "ICT",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "59",
+        "report_date": "23 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "59",
+        "report_date": "23 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "59",
+        "report_date": "23 August 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "59",
+        "report_date": "23 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "60",
+        "report_date": "24 August 2026",
+        "province": "KP",
+        "operations": "962",
+        "rescued": "8008"
+    },
+    {
+        "report_number": "60",
+        "report_date": "24 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "60",
+        "report_date": "24 August 2026",
+        "province": "Punjab",
+        "operations": "174",
+        "rescued": "560"
+    },
+    {
+        "report_number": "60",
+        "report_date": "24 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "60",
+        "report_date": "24 August 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "60",
+        "report_date": "24 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "60",
+        "report_date": "24 August 2026",
+        "province": "ICT",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "61",
+        "report_date": "25 August 2026",
+        "province": "KP",
+        "operations": "962",
+        "rescued": "8008"
+    },
+    {
+        "report_number": "61",
+        "report_date": "25 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "61",
+        "report_date": "25 August 2026",
+        "province": "Punjab",
+        "operations": "174",
+        "rescued": "560"
+    },
+    {
+        "report_number": "61",
+        "report_date": "25 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "61",
+        "report_date": "25 August 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "61",
+        "report_date": "25 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "61",
+        "report_date": "25 August 2026",
+        "province": "ICT",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "63",
+        "report_date": "27 August 2026",
+        "province": "KP",
+        "operations": "962",
+        "rescued": "8008"
+    },
+    {
+        "report_number": "63",
+        "report_date": "27 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "63",
+        "report_date": "27 August 2026",
+        "province": "Punjab",
+        "operations": "174",
+        "rescued": "560"
+    },
+    {
+        "report_number": "63",
+        "report_date": "27 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "63",
+        "report_date": "27 August 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "63",
+        "report_date": "27 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "63",
+        "report_date": "27 August 2026",
+        "province": "ICT",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "64",
+        "report_date": "28 August 2026",
+        "province": "KP",
+        "operations": "962",
+        "rescued": "8008"
+    },
+    {
+        "report_number": "64",
+        "report_date": "28 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "64",
+        "report_date": "28 August 2026",
+        "province": "Punjab",
+        "operations": "174",
+        "rescued": "560"
+    },
+    {
+        "report_number": "64",
+        "report_date": "28 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "64",
+        "report_date": "28 August 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "64",
+        "report_date": "28 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "64",
+        "report_date": "28 August 2026",
+        "province": "ICT",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "65",
+        "report_date": "29 August 2026",
+        "province": "KP",
+        "operations": "962",
+        "rescued": "8008"
+    },
+    {
+        "report_number": "65",
+        "report_date": "29 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "65",
+        "report_date": "29 August 2026",
+        "province": "Punjab",
+        "operations": "174",
+        "rescued": "560"
+    },
+    {
+        "report_number": "65",
+        "report_date": "29 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "65",
+        "report_date": "29 August 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "65",
+        "report_date": "29 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "65",
+        "report_date": "29 August 2026",
+        "province": "ICT",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "66",
+        "report_date": "30 August 2026",
+        "province": "KP",
+        "operations": "962",
+        "rescued": "8008"
+    },
+    {
+        "report_number": "66",
+        "report_date": "30 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "66",
+        "report_date": "30 August 2026",
+        "province": "Punjab",
+        "operations": "174",
+        "rescued": "560"
+    },
+    {
+        "report_number": "66",
+        "report_date": "30 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "66",
+        "report_date": "30 August 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "66",
+        "report_date": "30 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "66",
+        "report_date": "30 August 2026",
+        "province": "ICT",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "67",
+        "report_date": "31 August 2026",
+        "province": "KP",
+        "operations": "962",
+        "rescued": "8008"
+    },
+    {
+        "report_number": "67",
+        "report_date": "31 August 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "67",
+        "report_date": "31 August 2026",
+        "province": "Punjab",
+        "operations": "174",
+        "rescued": "560"
+    },
+    {
+        "report_number": "67",
+        "report_date": "31 August 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "67",
+        "report_date": "31 August 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "67",
+        "report_date": "31 August 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "67",
+        "report_date": "31 August 2026",
+        "province": "ICT",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "68",
+        "report_date": "1 September 2026",
+        "province": "KP",
+        "operations": "2",
+        "rescued": "1153"
+    },
+    {
+        "report_number": "68",
+        "report_date": "1 September 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "68",
+        "report_date": "1 September 2026",
+        "province": "Punjab",
+        "operations": "174",
+        "rescued": "560"
+    },
+    {
+        "report_number": "68",
+        "report_date": "1 September 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "68",
+        "report_date": "1 September 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "68",
+        "report_date": "1 September 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "68",
+        "report_date": "1 September 2026",
+        "province": "ICT",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "69",
+        "report_date": "2 September 2026",
+        "province": "Punjab",
+        "operations": "5",
+        "rescued": "57"
+    },
+    {
+        "report_number": "69",
+        "report_date": "2 September 2026",
+        "province": "KP",
+        "operations": "3",
+        "rescued": "4"
+    },
+    {
+        "report_number": "69",
+        "report_date": "2 September 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "69",
+        "report_date": "2 September 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "69",
+        "report_date": "2 September 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "69",
+        "report_date": "2 September 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "69",
+        "report_date": "2 September 2026",
+        "province": "ICT",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "70",
+        "report_date": "3 September 2026",
+        "province": "KP",
+        "operations": "967",
+        "rescued": "9165"
+    },
+    {
+        "report_number": "70",
+        "report_date": "3 September 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "70",
+        "report_date": "3 September 2026",
+        "province": "Punjab",
+        "operations": "179",
+        "rescued": "617"
+    },
+    {
+        "report_number": "70",
+        "report_date": "3 September 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "70",
+        "report_date": "3 September 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "70",
+        "report_date": "3 September 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "70",
+        "report_date": "3 September 2026",
+        "province": "ICT",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "71",
+        "report_date": "4 September 2026",
+        "province": "KP",
+        "operations": "968",
+        "rescued": "9166"
+    },
+    {
+        "report_number": "71",
+        "report_date": "4 September 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "71",
+        "report_date": "4 September 2026",
+        "province": "Punjab",
+        "operations": "179",
+        "rescued": "617"
+    },
+    {
+        "report_number": "71",
+        "report_date": "4 September 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "71",
+        "report_date": "4 September 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "71",
+        "report_date": "4 September 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "71",
+        "report_date": "4 September 2026",
+        "province": "ICT",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "72",
+        "report_date": "5 September 2026",
+        "province": "Punjab",
+        "operations": "3",
+        "rescued": "6"
+    },
+    {
+        "report_number": "72",
+        "report_date": "5 September 2026",
+        "province": "KP",
+        "operations": "968",
+        "rescued": "9166"
+    },
+    {
+        "report_number": "72",
+        "report_date": "5 September 2026",
+        "province": "GB",
+        "operations": "9",
+        "rescued": "793"
+    },
+    {
+        "report_number": "72",
+        "report_date": "5 September 2026",
+        "province": "Balochistan",
+        "operations": "1",
+        "rescued": "2"
+    },
+    {
+        "report_number": "72",
+        "report_date": "5 September 2026",
+        "province": "Sindh",
+        "operations": "7",
+        "rescued": "27"
+    },
+    {
+        "report_number": "72",
+        "report_date": "5 September 2026",
+        "province": "AJ&K",
+        "operations": "10",
+        "rescued": "47"
+    },
+    {
+        "report_number": "72",
+        "report_date": "5 September 2026",
+        "province": "ICT",
+        "operations": "1",
+        "rescued": "2"
     }
 ]

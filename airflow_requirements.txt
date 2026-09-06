@@ -24,3 +24,5 @@ pdfplumber
 camelot-py
 
 PyMuPDF
+
+pytest

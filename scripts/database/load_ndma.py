@@ -30,6 +30,15 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from config.database import engine
 
 # ==========================================================
+# DATA QUALITY (Phase 1 / Task 6, ADR-0001)
+# ==========================================================
+
+from pipeline.utils.quarantine import write_quarantine
+from config.data_quality import REJECTION_THRESHOLD
+
+PARSER_VERSION = "1.0.0"
+
+# ==========================================================
 # CONFIGURATION
 # ==========================================================
 
@@ -135,63 +144,89 @@ def load_casualties(json_file):
     report_number = report.get("report_number")
     report_date = parse_date(report.get("report_date"))
 
+    processed = 0
     inserted = 0
     skipped = 0
+    rejected = 0
 
-    with engine.begin() as conn:
+    for row in report.get("casualties", []):
 
-        for row in report.get("casualties", []):
+        processed += 1
 
-            exists = conn.execute(
-                text("""
-                    SELECT 1
-                    FROM ndma_casualties
-                    WHERE report_number=:report_number
-                    AND province=:province
-                    LIMIT 1
-                """),
-                {
-                    "report_number": report_number,
-                    "province": row.get("province"),
-                }
-            ).fetchone()
+        try:
 
-            if exists:
+            with engine.begin() as conn:
 
-                skipped += 1
-                continue
+                exists = conn.execute(
+                    text("""
+                        SELECT 1
+                        FROM ndma_casualties
+                        WHERE report_number=:report_number
+                        AND province=:province
+                        AND report_date IS NOT DISTINCT FROM :report_date
+                        LIMIT 1
+                    """),
+                    {
+                        "report_number": report_number,
+                        "province": row.get("province"),
+                        "report_date": report_date,
+                    }
+                ).fetchone()
 
-            conn.execute(
-                text("""
-                    INSERT INTO ndma_casualties
-                    (
-                        report_number,
-                        report_date,
-                        province,
-                        deaths,
-                        injured
-                    )
-                    VALUES
-                    (
-                        :report_number,
-                        :report_date,
-                        :province,
-                        :deaths,
-                        :injured
-                    )
-                """),
-                {
-                    "report_number": report_number,
-                    "report_date": report_date,
-                    "province": row.get("province"),
-                    "deaths": to_int(row.get("deaths")),
-                    "injured": to_int(row.get("injured")),
-                }
+                if exists:
+
+                    skipped += 1
+                    continue
+
+                conn.execute(
+                    text("""
+                        INSERT INTO ndma_casualties
+                        (
+                            report_number,
+                            report_date,
+                            province,
+                            deaths,
+                            injured
+                        )
+                        VALUES
+                        (
+                            :report_number,
+                            :report_date,
+                            :province,
+                            :deaths,
+                            :injured
+                        )
+                    """),
+                    {
+                        "report_number": report_number,
+                        "report_date": report_date,
+                        "province": row.get("province"),
+                        "deaths": to_int(row.get("deaths")),
+                        "injured": to_int(row.get("injured")),
+                    }
+                )
+
+                inserted += 1
+
+        except Exception as e:
+
+            rejected += 1
+
+            print(f"[CASUALTIES REJECTED] {json_file.name} | {row.get('province')} | {e}")
+
+            write_quarantine(
+                source="ndma",
+                domain="casualties",
+                source_document=json_file.name,
+                reason_code="load_exception",
+                message=str(e),
+                parser_version=PARSER_VERSION,
+                raw_payload=row,
             )
 
-            inserted += 1
+    print(f"[CASUALTIES] {json_file.name} | Inserted={inserted} Skipped={skipped} Rejected={rejected}")
 
-    print(f"[CASUALTIES] {json_file.name} | Inserted={inserted} Skipped={skipped}")
+    return processed, inserted, rejected
 
 
 # ==========================================================
@@ -207,69 +242,95 @@ def load_damage(json_file):
     report_number = report.get("report_number")
     report_date = parse_date(report.get("report_date"))
 
+    processed = 0
     inserted = 0
     skipped = 0
+    rejected = 0
 
-    with engine.begin() as conn:
+    for row in report.get("damage", []):
 
-        for row in report.get("damage", []):
+        processed += 1
 
-            exists = conn.execute(
-                text("""
-                    SELECT 1
-                    FROM ndma_damage
-                    WHERE report_number=:report_number
-                    AND province=:province
-                    LIMIT 1
-                """),
-                {
-                    "report_number": report_number,
-                    "province": row.get("province"),
-                }
-            ).fetchone()
+        try:
 
-            if exists:
+            with engine.begin() as conn:
 
-                skipped += 1
-                continue
+                exists = conn.execute(
+                    text("""
+                        SELECT 1
+                        FROM ndma_damage
+                        WHERE report_number=:report_number
+                        AND province=:province
+                        AND report_date IS NOT DISTINCT FROM :report_date
+                        LIMIT 1
+                    """),
+                    {
+                        "report_number": report_number,
+                        "province": row.get("province"),
+                        "report_date": report_date,
+                    }
+                ).fetchone()
 
-            conn.execute(
-                text("""
-                    INSERT INTO ndma_damage
-                    (
-                        report_number,
-                        report_date,
-                        province,
-                        roads_km,
-                        bridges,
-                        houses_total,
-                        livestock
-                    )
-                    VALUES
-                    (
-                        :report_number,
-                        :report_date,
-                        :province,
-                        :roads_km,
-                        :bridges,
-                        :houses_total,
-                        :livestock
-                    )
-                """),
-                {
-                    "report_number": report_number,
-                    "report_date": report_date,
-                    "province": row.get("province"),
-                    "roads_km": to_float(row.get("roads_km")),
-                    "bridges": to_int(row.get("bridges")),
-                    "houses_total": to_int(row.get("houses_damaged")),
-                    "livestock": to_int(row.get("livestock")),
-                }
+                if exists:
+
+                    skipped += 1
+                    continue
+
+                conn.execute(
+                    text("""
+                        INSERT INTO ndma_damage
+                        (
+                            report_number,
+                            report_date,
+                            province,
+                            roads_km,
+                            bridges,
+                            houses_total,
+                            livestock
+                        )
+                        VALUES
+                        (
+                            :report_number,
+                            :report_date,
+                            :province,
+                            :roads_km,
+                            :bridges,
+                            :houses_total,
+                            :livestock
+                        )
+                    """),
+                    {
+                        "report_number": report_number,
+                        "report_date": report_date,
+                        "province": row.get("province"),
+                        "roads_km": to_float(row.get("roads_km")),
+                        "bridges": to_int(row.get("bridges")),
+                        "houses_total": to_int(row.get("houses_damaged")),
+                        "livestock": to_int(row.get("livestock")),
+                    }
+                )
+
+                inserted += 1
+
+        except Exception as e:
+
+            rejected += 1
+
+            print(f"[DAMAGE REJECTED] {json_file.name} | {row.get('province')} | {e}")
+
+            write_quarantine(
+                source="ndma",
+                domain="damage",
+                source_document=json_file.name,
+                reason_code="load_exception",
+                message=str(e),
+                parser_version=PARSER_VERSION,
+                raw_payload=row,
             )
 
-            inserted += 1
+    print(f"[DAMAGE] {json_file.name} | Inserted={inserted} Skipped={skipped} Rejected={rejected}")
 
-    print(f"[DAMAGE] {json_file.name} | Inserted={inserted} Skipped={skipped}")
+    return processed, inserted, rejected
 
 # ==========================================================
 # LOAD RELIEF
@@ -284,67 +345,93 @@ def load_relief(json_file):
     report_number = report.get("report_number")
     report_date = parse_date(report.get("report_date"))
 
+    processed = 0
     inserted = 0
     skipped = 0
+    rejected = 0
 
-    with engine.begin() as conn:
+    for row in report.get("relief", []):
 
-        for row in report.get("relief", []):
+        processed += 1
 
-            exists = conn.execute(
-                text("""
-                    SELECT 1
-                    FROM ndma_relief
-                    WHERE report_number = :report_number
-                    AND province = :province
-                    AND item = :item
-                    LIMIT 1
-                """),
-                {
-                    "report_number": report_number,
-                    "province": row.get("province"),
-                    "item": row.get("item"),
-                },
-            ).fetchone()
+        try:
 
-            if exists:
+            with engine.begin() as conn:
 
-                skipped += 1
-                continue
+                exists = conn.execute(
+                    text("""
+                        SELECT 1
+                        FROM ndma_relief
+                        WHERE report_number = :report_number
+                        AND province = :province
+                        AND item = :item
+                        AND report_date IS NOT DISTINCT FROM :report_date
+                        LIMIT 1
+                    """),
+                    {
+                        "report_number": report_number,
+                        "province": row.get("province"),
+                        "item": row.get("item"),
+                        "report_date": report_date,
+                    },
+                ).fetchone()
 
-            conn.execute(
-                text("""
-                    INSERT INTO ndma_relief
-                    (
-                        report_number,
-                        report_date,
-                        province,
-                        item,
-                        quantity
-                    )
-                    VALUES
-                    (
-                        :report_number,
-                        :report_date,
-                        :province,
-                        :item,
-                        :quantity
-                    )
-                """),
-                {
-                    "report_number": report_number,
-                    "report_date": report_date,
-                    "province": row.get("province"),
-                    "item": row.get("item"),
-                    "quantity": to_int(row.get("quantity")),
-                },
+                if exists:
+
+                    skipped += 1
+                    continue
+
+                conn.execute(
+                    text("""
+                        INSERT INTO ndma_relief
+                        (
+                            report_number,
+                            report_date,
+                            province,
+                            item,
+                            quantity
+                        )
+                        VALUES
+                        (
+                            :report_number,
+                            :report_date,
+                            :province,
+                            :item,
+                            :quantity
+                        )
+                    """),
+                    {
+                        "report_number": report_number,
+                        "report_date": report_date,
+                        "province": row.get("province"),
+                        "item": row.get("item"),
+                        "quantity": to_int(row.get("quantity")),
+                    },
+                )
+
+                inserted += 1
+
+        except Exception as e:
+
+            rejected += 1
+
+            print(f"[RELIEF REJECTED] {json_file.name} | {row.get('province')} | {e}")
+
+            write_quarantine(
+                source="ndma",
+                domain="relief",
+                source_document=json_file.name,
+                reason_code="load_exception",
+                message=str(e),
+                parser_version=PARSER_VERSION,
+                raw_payload=row,
             )
 
-            inserted += 1
-
     print(
-        f"[RELIEF] {json_file.name} | Inserted={inserted} Skipped={skipped}"
+        f"[RELIEF] {json_file.name} | Inserted={inserted} Skipped={skipped} Rejected={rejected}"
     )
+
+    return processed, inserted, rejected
 
 
 # ==========================================================
@@ -360,65 +447,91 @@ def load_rescue(json_file):
     report_number = report.get("report_number")
     report_date = parse_date(report.get("report_date"))
 
+    processed = 0
     inserted = 0
     skipped = 0
+    rejected = 0
 
-    with engine.begin() as conn:
+    for row in report.get("rescue", []):
 
-        for row in report.get("rescue", []):
+        processed += 1
 
-            exists = conn.execute(
-                text("""
-                    SELECT 1
-                    FROM ndma_rescue
-                    WHERE report_number = :report_number
-                    AND province = :province
-                    LIMIT 1
-                """),
-                {
-                    "report_number": report_number,
-                    "province": row.get("province"),
-                },
-            ).fetchone()
+        try:
 
-            if exists:
+            with engine.begin() as conn:
 
-                skipped += 1
-                continue
+                exists = conn.execute(
+                    text("""
+                        SELECT 1
+                        FROM ndma_rescue
+                        WHERE report_number = :report_number
+                        AND province = :province
+                        AND report_date IS NOT DISTINCT FROM :report_date
+                        LIMIT 1
+                    """),
+                    {
+                        "report_number": report_number,
+                        "province": row.get("province"),
+                        "report_date": report_date,
+                    },
+                ).fetchone()
 
-            conn.execute(
-                text("""
-                    INSERT INTO ndma_rescue
-                    (
-                        report_number,
-                        report_date,
-                        province,
-                        rescue_operations,
-                        persons_rescued
-                    )
-                    VALUES
-                    (
-                        :report_number,
-                        :report_date,
-                        :province,
-                        :operations,
-                        :rescued
-                    )
-                """),
-                {
-                    "report_number": report_number,
-                    "report_date": report_date,
-                    "province": row.get("province"),
-                    "operations": to_int(row.get("operations")),
-                    "rescued": to_int(row.get("rescued")),
-                },
+                if exists:
+
+                    skipped += 1
+                    continue
+
+                conn.execute(
+                    text("""
+                        INSERT INTO ndma_rescue
+                        (
+                            report_number,
+                            report_date,
+                            province,
+                            rescue_operations,
+                            persons_rescued
+                        )
+                        VALUES
+                        (
+                            :report_number,
+                            :report_date,
+                            :province,
+                            :operations,
+                            :rescued
+                        )
+                    """),
+                    {
+                        "report_number": report_number,
+                        "report_date": report_date,
+                        "province": row.get("province"),
+                        "operations": to_int(row.get("operations")),
+                        "rescued": to_int(row.get("rescued")),
+                    },
+                )
+
+                inserted += 1
+
+        except Exception as e:
+
+            rejected += 1
+
+            print(f"[RESCUE REJECTED] {json_file.name} | {row.get('province')} | {e}")
+
+            write_quarantine(
+                source="ndma",
+                domain="rescue",
+                source_document=json_file.name,
+                reason_code="load_exception",
+                message=str(e),
+                parser_version=PARSER_VERSION,
+                raw_payload=row,
             )
 
-            inserted += 1
-
     print(
-        f"[RESCUE] {json_file.name} | Inserted={inserted} Skipped={skipped}"
+        f"[RESCUE] {json_file.name} | Inserted={inserted} Skipped={skipped} Rejected={rejected}"
     )
+
+    return processed, inserted, rejected
 
 # ==========================================================
 # MAIN
@@ -447,36 +560,26 @@ def main():
         return
 
     # ------------------------------------------------------
-    # Clear Tables
+    # NOTE (Phase 1 / Task 6, ADR-0001): the unconditional
+    # TRUNCATE that previously ran here has been removed. It
+    # erased all four NDMA tables on every run, so a parser
+    # regression didn't just fail to add data -- it destroyed
+    # previously-good data. Idempotency now comes from the
+    # per-row dedup check in each load_*() function below
+    # (report_number + province [+ item] + report_date), the
+    # same pattern already used by load_pdma.py / load_pmd.py.
     # ------------------------------------------------------
-
-    with engine.begin() as conn:
-
-        conn.execute(
-            text("""
-                TRUNCATE TABLE
-
-                    ndma_casualties,
-
-                    ndma_damage,
-
-                    ndma_relief,
-
-                    ndma_rescue
-
-                RESTART IDENTITY CASCADE;
-            """)
-        )
-
-    print("Database tables cleared.")
-    print()
 
     # ------------------------------------------------------
     # Process Files
     # ------------------------------------------------------
 
-    success = 0
-    failed = 0
+    file_success = 0
+    file_failed = 0
+
+    grand_processed = 0
+    grand_succeeded = 0
+    grand_rejected = 0
 
     for json_file in json_files:
 
@@ -484,25 +587,47 @@ def main():
         print(f"Processing : {json_file.name}")
         print("-" * 70)
 
-        try:
+        file_ok = True
 
-            load_casualties(json_file)
+        for loader, domain in (
+            (load_casualties, "casualties"),
+            (load_damage, "damage"),
+            (load_relief, "relief"),
+            (load_rescue, "rescue"),
+        ):
 
-            load_damage(json_file)
+            try:
 
-            load_relief(json_file)
+                processed, succeeded, rejected = loader(json_file)
 
-            load_rescue(json_file)
+                grand_processed += processed
+                grand_succeeded += succeeded
+                grand_rejected += rejected
 
-            success += 1
+            except Exception as e:
 
-        except Exception as e:
+                # An exception reaching here means the sub-loader itself
+                # raised outside its own per-row try/except (e.g. the
+                # JSON file could not be read) -- isolate it to this one
+                # sub-table so the other three still get their chance.
 
-            failed += 1
+                file_ok = False
 
-            print(f"[ERROR] {json_file.name}")
+                print(f"[ERROR] {json_file.name} | {domain} | {e}")
 
-            print(e)
+                write_quarantine(
+                    source="ndma",
+                    domain=domain,
+                    source_document=json_file.name,
+                    reason_code="load_exception",
+                    message=str(e),
+                    parser_version=PARSER_VERSION,
+                )
+
+        if file_ok:
+            file_success += 1
+        else:
+            file_failed += 1
 
     # ------------------------------------------------------
     # SUMMARY
@@ -515,15 +640,42 @@ def main():
 
     print(f"Parsed JSON Files : {len(json_files)}")
 
-    print(f"Loaded Successfully : {success}")
+    print(f"Files Fully Loaded : {file_success}")
 
-    print(f"Failed : {failed}")
+    print(f"Files With Errors  : {file_failed}")
+
+    print(f"Rows Processed     : {grand_processed}")
+
+    print(f"Rows Succeeded     : {grand_succeeded}")
+
+    print(f"Rows Rejected      : {grand_rejected}")
 
     print("=" * 70)
 
     print("NDMA DATA LOADED SUCCESSFULLY")
 
     print("=" * 70)
+
+    # ------------------------------------------------------
+    # DATA QUALITY GATE (Phase 1 / Task 6, ADR-0001, CLAUDE.md rule 5)
+    # ------------------------------------------------------
+
+    if grand_processed == 0:
+        return
+
+    rejection_ratio = grand_rejected / grand_processed
+
+    print(f"Rejection Ratio      : {round(rejection_ratio * 100, 2)}%")
+    print(f"Rejection Threshold  : {round(REJECTION_THRESHOLD * 100, 2)}%")
+
+    if rejection_ratio > REJECTION_THRESHOLD:
+
+        print("=" * 70)
+        print("DATA QUALITY GATE FAILED")
+        print(f"{grand_rejected}/{grand_processed} rows rejected — exceeds threshold")
+        print("=" * 70)
+
+        sys.exit(1)
 
 
 # ==========================================================

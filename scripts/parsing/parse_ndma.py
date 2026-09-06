@@ -1,7 +1,7 @@
 import sys
 from pathlib import Path
 from datetime import datetime
-from shutil import copy2
+from shutil import copyfile
 
 # ==========================================================
 # PROJECT ROOT
@@ -43,6 +43,15 @@ from common.ndma_information_extractor import (
     extract_dams,
     extract_weather_events,
 )
+
+# ==========================================================
+# DATA QUALITY (Phase 1 / Task 5, ADR-0001)
+# ==========================================================
+
+from pipeline.utils.quarantine import write_quarantine
+from config.data_quality import REJECTION_THRESHOLD
+
+PARSER_VERSION = "1.0.0"
 
 # ==========================================================
 # CONFIGURATION
@@ -104,12 +113,21 @@ def parse_pdf(pdf_file: Path):
             exist_ok=True,
         )
 
-        copy2(
+        copyfile(
             pdf_file,
             REJECTED_FOLDER / pdf_file.name,
         )
 
         print(f"Rejected -> {pdf_file.name}")
+
+        write_quarantine(
+            source="ndma",
+            domain="sitrep",
+            source_document=str(REJECTED_FOLDER / pdf_file.name),
+            reason_code="schema_invalid",
+            message="; ".join(errors) if errors else "Schema validation failed",
+            parser_version=PARSER_VERSION,
+        )
 
         return {
             "success": False,
@@ -225,12 +243,24 @@ def parse_pdf(pdf_file: Path):
             exist_ok=True,
         )
 
-        copy2(
+        copyfile(
             pdf_file,
             REJECTED_FOLDER / pdf_file.name,
         )
 
         print(f"Rejected -> {pdf_file.name}")
+
+        write_quarantine(
+            source="ndma",
+            domain="sitrep",
+            source_document=str(REJECTED_FOLDER / pdf_file.name),
+            reason_code="quality_below_threshold",
+            message=(
+                f"Quality score {quality['score']} below passing threshold "
+                f"({'; '.join(quality['errors']) if quality['errors'] else 'no detail'})"
+            ),
+            parser_version=PARSER_VERSION,
+        )
 
         return {
             "success": False
@@ -302,7 +332,29 @@ def main():
 
     for pdf in pdf_files:
 
-        result = parse_pdf(pdf)
+        try:
+
+            result = parse_pdf(pdf)
+
+        except Exception as e:
+
+            print("=" * 60)
+            print(f"UNHANDLED EXCEPTION parsing {pdf.name}")
+            print(e)
+            print("=" * 60)
+
+            write_quarantine(
+                source="ndma",
+                domain="sitrep",
+                source_document=pdf.name,
+                reason_code="unhandled_exception",
+                message=str(e),
+                parser_version=PARSER_VERSION,
+            )
+
+            rejected += 1
+
+            continue
 
         if result["success"]:
 
@@ -364,6 +416,23 @@ def main():
     print("NDMA PARSING COMPLETED")
     print("=" * 70)
 
+    # ------------------------------------------------------
+    # DATA QUALITY GATE (Phase 1 / Task 5, ADR-0001, CLAUDE.md rule 5)
+    # ------------------------------------------------------
+
+    rejection_ratio = rejected / len(pdf_files)
+
+    print(f"Rejection Ratio      : {round(rejection_ratio * 100, 2)}%")
+    print(f"Rejection Threshold  : {round(REJECTION_THRESHOLD * 100, 2)}%")
+
+    if rejection_ratio > REJECTION_THRESHOLD:
+
+        print("=" * 70)
+        print("DATA QUALITY GATE FAILED")
+        print(f"{rejected}/{len(pdf_files)} files rejected — exceeds threshold")
+        print("=" * 70)
+
+        sys.exit(1)
 
 
 # ==========================================================

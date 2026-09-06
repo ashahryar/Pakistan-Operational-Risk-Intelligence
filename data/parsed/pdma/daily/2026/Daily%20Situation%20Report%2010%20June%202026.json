@@ -77,7 +77,7 @@
     "source_file": "Daily%20Situation%20Report%2010%20June%202026.pdf",
     "report_type": "daily",
     "report_year": "2026",
-    "created_at": "2026-08-31T17:25:04.702450",
+    "created_at": "2026-09-06T11:03:18.562815",
     "validation": {
         "valid": true,
         "errors": [],
@@ -93,7 +93,7 @@
             "quality_score": 90.0,
             "score": 90.0,
             "status": "Excellent",
-            "validated_at": "2026-08-31T17:25:04.702527"
+            "validated_at": "2026-09-06T11:03:18.562887"
         }
     }
 }

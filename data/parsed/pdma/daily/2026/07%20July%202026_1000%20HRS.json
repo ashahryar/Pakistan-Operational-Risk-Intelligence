@@ -90,7 +90,7 @@
     "source_file": "07%20July%202026_1000%20HRS.pdf",
     "report_type": "daily",
     "report_year": "2026",
-    "created_at": "2026-08-31T17:22:58.323433",
+    "created_at": "2026-09-06T11:00:52.621009",
     "validation": {
         "valid": true,
         "errors": [],
@@ -106,7 +106,7 @@
             "quality_score": 90.0,
             "score": 90.0,
             "status": "Excellent",
-            "validated_at": "2026-08-31T17:22:58.323506"
+            "validated_at": "2026-09-06T11:00:52.621066"
         }
     }
 }

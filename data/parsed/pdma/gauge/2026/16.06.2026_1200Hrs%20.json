@@ -325,7 +325,7 @@
             "flow_status": "-"
         }
     ],
-    "created_at": "2026-08-31T17:29:58.324027",
+    "created_at": "2026-09-06T11:09:42.712847",
     "validation": {
         "valid": true,
         "errors": [],
@@ -341,7 +341,7 @@
             "quality_score": 100.0,
             "score": 100.0,
             "status": "Excellent",
-            "validated_at": "2026-08-31T17:29:58.324112"
+            "validated_at": "2026-09-06T11:09:42.712983"
         }
     }
 }

@@ -24,6 +24,15 @@ from parse_pdma_daily import parse_pdf as parse_daily
 from parse_rainfall import parse_rainfall_report as parse_rainfall
 from parse_gauge import parse_pdf as parse_gauge
 
+# ==========================================================
+# DATA QUALITY (Phase 1 / Task 5, ADR-0001)
+# ==========================================================
+
+from pipeline.utils.quarantine import write_quarantine
+from config.data_quality import REJECTION_THRESHOLD
+
+PARSER_VERSION = "1.0.0"
+
 
 # ==========================================================
 # PATHS
@@ -83,7 +92,7 @@ def process_report(report_name, parser):
 
         print(f"{report_dir} not found")
 
-        return
+        return 0, 0, 0
 
     total = 0
     saved = 0
@@ -150,6 +159,16 @@ def process_report(report_name, parser):
                     for err in errors:
                         print("   -", err)
 
+                    write_quarantine(
+                        source="pdma",
+                        domain=report_name.replace("_reports", ""),
+                        source_document=str(pdf),
+                        reason_code="schema_invalid",
+                        message="; ".join(errors) if errors else "Schema validation failed",
+                        parser_version=PARSER_VERSION,
+                        raw_payload=parsed,
+                    )
+
                     continue
 
                 output_file = output_dir / f"{pdf.stem}.json"
@@ -175,6 +194,15 @@ def process_report(report_name, parser):
 
                 print(e)
 
+                write_quarantine(
+                    source="pdma",
+                    domain=report_name.replace("_reports", ""),
+                    source_document=str(pdf),
+                    reason_code="unhandled_exception",
+                    message=str(e),
+                    parser_version=PARSER_VERSION,
+                )
+
     print()
     print("-" * 60)
     print(report_name)
@@ -183,6 +211,8 @@ def process_report(report_name, parser):
     print(f"Rejected  : {rejected}")
     print("-" * 60)
     print()
+
+    return total, saved, rejected
 
 
 # ==========================================================
@@ -195,16 +225,48 @@ def main():
     print("PDMA PARSING PIPELINE")
     print("=" * 70)
 
+    grand_total = 0
+    grand_saved = 0
+    grand_rejected = 0
+
     for report_name, parser in REPORTS.items():
 
-        process_report(
+        total, saved, rejected = process_report(
             report_name,
             parser,
         )
 
+        grand_total += total
+        grand_saved += saved
+        grand_rejected += rejected
+
     print("=" * 70)
     print("PDMA PARSING COMPLETED")
+    print(f"Total Processed : {grand_total}")
+    print(f"Total Saved     : {grand_saved}")
+    print(f"Total Rejected  : {grand_rejected}")
     print("=" * 70)
+
+    # ------------------------------------------------------
+    # DATA QUALITY GATE (Phase 1 / Task 5, ADR-0001, CLAUDE.md rule 5)
+    # ------------------------------------------------------
+
+    if grand_total == 0:
+        return
+
+    rejection_ratio = grand_rejected / grand_total
+
+    print(f"Rejection Ratio      : {round(rejection_ratio * 100, 2)}%")
+    print(f"Rejection Threshold  : {round(REJECTION_THRESHOLD * 100, 2)}%")
+
+    if rejection_ratio > REJECTION_THRESHOLD:
+
+        print("=" * 70)
+        print("DATA QUALITY GATE FAILED")
+        print(f"{grand_rejected}/{grand_total} files rejected — exceeds threshold")
+        print("=" * 70)
+
+        sys.exit(1)
 
 
 if __name__ == "__main__":
