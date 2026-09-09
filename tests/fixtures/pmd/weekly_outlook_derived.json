@@ -1,0 +1,25 @@
+{
+  "source": "PMD",
+  "category": "weekly_outlook",
+  "url": "https://nwfc.pmd.gov.pk/new/weekly-outlook.php",
+  "scraped_at": "2026-08-12T00:00:16.946277",
+  "forecast": "Forecasting Officer: Saeeda Saleh",
+  "_derived_note": "Derived from the real raw/pmd/reports/weekly_outlook/all/latest.json for Task 8 negative-path testing (row_too_short). Table 0 row 0 is the real, unmodified first row; row 1 is a deliberately-injected too-short row not present in the real source. Not fabricated new outlook data.",
+  "tables": [
+    {
+      "headers": [
+        "موسمی صورتحال",
+        "تاریخ"
+      ],
+      "rows": [
+        [
+          "ملک کے بیشترعلاقوں میں موسم گرم اور خشک رہنے کی توقع۔ تاہم کشمیر اور ملحقہ پہاڑی علاقوں میں تیز ہواؤں اور گرج چمک کے ساتھ چند مقامات پر بارش کا امکان۔",
+          "15 جون, 2026 پیر"
+        ],
+        [
+          "only_one_cell"
+        ]
+      ]
+    }
+  ]
+}
