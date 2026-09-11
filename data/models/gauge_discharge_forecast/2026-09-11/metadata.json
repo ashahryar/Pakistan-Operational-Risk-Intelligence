@@ -1,0 +1,140 @@
+{
+    "model_name": "gauge_discharge_forecast",
+    "model_version": "2026-09-11",
+    "target_variable": "discharge_cusecs",
+    "source_table": "pdma_gauge_readings",
+    "min_usable_readings": 50,
+    "min_date_span_days": 30,
+    "stations": [
+        "Aik",
+        "Balloki",
+        "Basanter",
+        "Bein",
+        "Bhimber",
+        "Chachar",
+        "Chashma",
+        "Deg",
+        "G.S. Wala",
+        "Islam",
+        "Jassar",
+        "Kaha",
+        "Kala-Bagga Khosra",
+        "Kalabagh",
+        "Kaura",
+        "Khanki",
+        "Mangla",
+        "Marala",
+        "Mithawan",
+        "Palkhu",
+        "Panjnad",
+        "Pitok",
+        "Qadirabad",
+        "Rasul",
+        "Sakhi Serwar",
+        "Sanghar",
+        "Shahdara",
+        "Sidhnai",
+        "Sori Janobi",
+        "Sori Lund",
+        "Sori Shumali",
+        "Suleimanki",
+        "Tarbela",
+        "Taunsa",
+        "Trimmu",
+        "Vehova",
+        "Vidore",
+        "Zangi"
+    ],
+    "feature_columns": [
+        "lag_1",
+        "lag_2",
+        "rolling_mean_3",
+        "station_Aik",
+        "station_Balloki",
+        "station_Basanter",
+        "station_Bein",
+        "station_Bhimber",
+        "station_Chachar",
+        "station_Chashma",
+        "station_Deg",
+        "station_G.S. Wala",
+        "station_Islam",
+        "station_Jassar",
+        "station_Kaha",
+        "station_Kala-Bagga Khosra",
+        "station_Kalabagh",
+        "station_Kaura",
+        "station_Khanki",
+        "station_Mangla",
+        "station_Marala",
+        "station_Mithawan",
+        "station_Palkhu",
+        "station_Panjnad",
+        "station_Pitok",
+        "station_Qadirabad",
+        "station_Rasul",
+        "station_Sakhi Serwar",
+        "station_Sanghar",
+        "station_Shahdara",
+        "station_Sidhnai",
+        "station_Sori Janobi",
+        "station_Sori Lund",
+        "station_Sori Shumali",
+        "station_Suleimanki",
+        "station_Tarbela",
+        "station_Taunsa",
+        "station_Trimmu",
+        "station_Vehova",
+        "station_Vidore",
+        "station_Zangi"
+    ],
+    "train_rows": 8206,
+    "val_rows": 1748,
+    "test_rows": 1728,
+    "train_range": [
+        "2026-06-17 02:00:00",
+        "2026-08-11 06:00:00"
+    ],
+    "val_range": [
+        "2026-08-11 12:00:00",
+        "2026-08-22 18:00:00"
+    ],
+    "test_range": [
+        "2026-08-23 00:00:00",
+        "2026-09-04 12:00:00"
+    ],
+    "metrics": {
+        "persistence": {
+            "train": {
+                "mae": 2195.1043139166463,
+                "rmse": 8645.718877772857
+            },
+            "val": {
+                "mae": 2148.0348970251716,
+                "rmse": 6398.241691790605
+            },
+            "test": {
+                "mae": 3408.7191550925927,
+                "rmse": 16056.177777734556
+            }
+        },
+        "linear_regression": {
+            "train": {
+                "mae": 2441.374868940279,
+                "rmse": 8302.388715967058
+            },
+            "val": {
+                "mae": 2467.3988918928458,
+                "rmse": 6610.591293576308
+            },
+            "test": {
+                "mae": 3699.7074940009547,
+                "rmse": 14820.125210374841
+            }
+        }
+    },
+    "skill_score_test": -0.08536588837881487,
+    "sklearn_version": "1.9.1",
+    "git_commit": null,
+    "generated_at": "2026-09-11T14:09:24.199623+00:00"
+}

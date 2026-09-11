@@ -1,0 +1,12 @@
+[
+    {"station": "Marala", "river": "CHENAB", "report_datetime": "2026-06-15T18:00:00", "discharge_cusecs": 27844},
+    {"station": "Marala", "river": "CHENAB", "report_datetime": "2026-06-16T12:00:00", "discharge_cusecs": 24764},
+    {"station": "Marala", "river": "CHENAB", "report_datetime": "2026-06-16T18:00:00", "discharge_cusecs": 27118},
+    {"station": "Marala", "river": "CHENAB", "report_datetime": "2026-06-17T02:00:00", "discharge_cusecs": 23847},
+    {"station": "Marala", "river": "CHENAB", "report_datetime": "2026-06-17T06:00:00", "discharge_cusecs": 25737},
+    {"station": "Marala", "river": "CHENAB", "report_datetime": "2026-06-17T12:00:00", "discharge_cusecs": 25904},
+    {"station": "Marala", "river": "CHENAB", "report_datetime": "2026-06-17T18:00:00", "discharge_cusecs": 25407},
+    {"station": "Marala", "river": "CHENAB", "report_datetime": "2026-06-18T01:00:00", "discharge_cusecs": 24453},
+    {"station": "Marala", "river": "CHENAB", "report_datetime": "2026-06-18T06:00:00", "discharge_cusecs": 30143},
+    {"station": "Marala", "river": "CHENAB", "report_datetime": "2026-06-18T12:00:00", "discharge_cusecs": 29659}
+]

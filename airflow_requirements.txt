@@ -26,3 +26,6 @@ camelot-py
 PyMuPDF
 
 pytest
+
+scikit-learn
+joblib

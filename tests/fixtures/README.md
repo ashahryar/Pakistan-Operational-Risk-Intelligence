@@ -35,6 +35,29 @@ correctly changes as a result, these fixtures must be regenerated
 the same way — by running the (new) parser and re-reviewing the
 output — not patched by hand to make a failing test pass.
 
+## `forecasting/` — real, live-queried gauge readings sample
+
+`forecasting/gauge_readings_sample.json` is **not synthetic** — it is 10
+real `(station, river, report_datetime, discharge_cusecs)` rows for the
+Marala / CHENAB gauge, read live (read-only `SELECT`) from
+`pdma_gauge_readings` on 2026-09-11 during Task 9 data profiling. It
+exists so `tests/forecasting/test_prediction_schema.py` can exercise
+`build_lag_features()` → `make_feature_matrix()` →
+`build_prediction_records()` end-to-end against real values, without a
+live database connection in the test itself and without fabricating
+any reading. It is deliberately small (one station, 10 rows) — large
+enough for `rolling_mean_3` to become defined (needs 4+ consecutive
+readings) and small enough to stay a fast, deterministic unit-test
+fixture, not a second copy of the golden-file/DB-completeness testing
+`test_ndma_golden.py`/`test_pdma_golden.py`/`test_pmd_golden.py` already
+do.
+
+`tests/forecasting/test_features.py`'s own fixtures, by contrast, are
+clearly-synthetic small integer sequences (e.g. `[10, 20, 30, 40, 50]`)
+used only to test the lag/rolling *transformation logic* in isolation
+— never presented as real observations and never fed into the actual
+trained model or reported metrics.
+
 ## `pmd/` — derived negative-path fixtures
 
 `pmd/daily_forecast_derived.json` and `pmd/weekly_outlook_derived.json`
