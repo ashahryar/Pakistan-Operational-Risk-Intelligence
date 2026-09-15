@@ -12,6 +12,7 @@ from dashboard.db import (
     get_rainfall,
     get_gauge,
     get_dashboard_summary,
+    get_geo_summary,
 )
 
 from dashboard.styles.theme import load_css
@@ -26,6 +27,7 @@ from dashboard.components.footer import render_footer
 from dashboard.sections.disaster import render_disaster_section
 from dashboard.sections.weather import render_weather_section
 from dashboard.sections.hydrology import render_hydrology_section
+from dashboard.sections.geo_intelligence import render_geo_intelligence_section
 
 
 # ==========================================================
@@ -70,6 +72,7 @@ casualties = get_casualties()
 weather = get_pmd_weather()
 rainfall = get_rainfall()
 gauge = get_gauge()
+geo_summary = get_geo_summary()
 
 
 # ==========================================================
@@ -147,6 +150,13 @@ if filters["show_pdma"]:
         filters["rainfall"],
         filters["gauge"],
     )
+
+
+# ==========================================================
+# 7B. GEOGRAPHIC OBSERVATION INTELLIGENCE (Task 10/11)
+# ==========================================================
+
+render_geo_intelligence_section(geo_summary)
 
 
 # ==========================================================

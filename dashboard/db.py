@@ -571,6 +571,39 @@ def get_river_summary() -> pd.DataFrame:
 
 
 # ==========================================================
+# GEO -- RESOLVED OBSERVATION COUNTS (Task 11 view)
+# ==========================================================
+
+@st.cache_data(ttl=60)
+def get_geo_summary() -> pd.DataFrame:
+    """
+    Return Task 11's geo.resolved_observation_counts view: real
+    observation-row counts per canonical admin unit per (source,
+    domain), for every raw geographic value Task 10's resolver
+    successfully resolved (status='resolved' only -- ambiguous/
+    unresolved values are already excluded by the view itself).
+
+    Read-only SELECT against a view -- no existing table is read or
+    written directly, no schema change. Columns: admin_unit_id, level,
+    admin_unit_name, source, domain, observation_count.
+    """
+
+    query = """
+    SELECT
+        admin_unit_id,
+        level,
+        admin_unit_name,
+        source,
+        domain,
+        observation_count
+    FROM geo.resolved_observation_counts
+    ORDER BY admin_unit_name, source, domain
+    """
+
+    return _read_sql(query)
+
+
+# ==========================================================
 # BACKWARD-COMPATIBLE ALIASES
 # ==========================================================
 # The dashboard pages currently import these exact names. Rather
