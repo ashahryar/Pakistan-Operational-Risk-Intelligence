@@ -1,6 +1,8 @@
 import argparse
 import json
+import sys
 from datetime import datetime
+from pathlib import Path
 from typing import Dict
 
 from bs4 import BeautifulSoup
@@ -12,6 +14,9 @@ from common.pmd_parser import (
     extract_forecast_text,
     extract_tables,
 )
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from scripts.acquisition.raw_store import write_verified_bytes  # noqa: E402
 
 logger = setup_logger("pmd")
 client = HTTPClient()
@@ -82,13 +87,14 @@ def scrape_report(report_key: str, config: Dict[str, str]) -> int:
 
         json_file = folder / "latest.json"
 
-        with open(json_file, "w", encoding="utf-8") as f:
-            json.dump(
-                output,
-                f,
-                indent=4,
-                ensure_ascii=False,
-            )
+        # Task 16A (Phase 1 / ADR-0001), Part A item 6: reuses Task 15's
+        # atomic, checksum-verified write (scripts/acquisition/raw_store.py)
+        # instead of a direct open(...,"w") -- a crash or the same
+        # Windows read-back timing issue Task 15 diagnosed could
+        # otherwise leave a truncated/corrupt latest.json silently
+        # treated as a successful scrape.
+        content = json.dumps(output, indent=4, ensure_ascii=False).encode("utf-8")
+        write_verified_bytes(json_file, content)
 
         logger.info("Saved %s", json_file)
 

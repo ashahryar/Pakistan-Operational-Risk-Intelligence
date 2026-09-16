@@ -1,5 +1,4 @@
 import json
-import re
 from pathlib import Path
 
 from scripts.parsing.pmd.utils import clean_text

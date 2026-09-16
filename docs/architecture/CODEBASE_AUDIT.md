@@ -7,6 +7,22 @@ Method: full read of every `.py` file in the repository (232 files inventoried),
 
 ---
 
+## Addendum — Task 16A (`fix: harden critical legacy pipeline paths`)
+
+Task 16A fixed 15 of the findings below and removed AWS Glue/Redshift
+entirely (11 files deleted: `aws/glue/*`, `aws/redshift/*`,
+`aws/lambda/*`, `pipeline/helpers/redshift_helper.py`,
+`pipeline/utils/aws_helpers.py`). The CSV (`codebase_audit.csv`) has
+been updated in place for every file Task 16A touched — updated rows
+carry a `Task 16A:` prefix in their `finding` column; removed files no
+longer have a row. This markdown's own per-section tables below
+reflect the **original Task 16 findings** (kept as the historical
+record of what was found) — cross-check the CSV for current status.
+See Task 16A's own final report for the complete list of fixes,
+real-data verification evidence, and honest before/after test counts.
+
+---
+
 ## Executive Summary
 
 The picture Tasks 1–15 built is uneven but not surprising for a project this size: **the code paths that are actually wired into the three active DAGs (`ndma_dag`, `pdma_dag`, `pmd_dag`) and their three loaders are, on inspection, genuinely correct** — Task 6's five loader guarantees (no `TRUNCATE`, per-row transaction isolation, accurate insert/skip counts, `write_quarantine` on failure, rejection-ratio gate) are confirmed present in `load_ndma.py`, `load_pdma.py`, and `load_pmd.py`, and nowhere else. Task 5's parser-level quarantine/rejection-ratio gate is confirmed present in `parse_ndma.py`, `parse_pdma.py`, and (partially — see PMD findings) `pmd/pipeline.py`. The Task 8 golden-file test suite (112 tests) was independently checked against the parser source it targets and found to genuinely reflect current behavior, not stale or tautological assertions.

@@ -26,7 +26,7 @@ from __future__ import annotations
 import hashlib
 import time
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import datetime
 from pathlib import Path
 
 from config.path import RAW_DATA
@@ -151,6 +151,28 @@ def save_raw_artifact(
         byte_size=target.stat().st_size,
         is_duplicate=False,
     )
+
+
+def write_verified_bytes(target: Path, content: bytes, max_attempts: int = 25) -> str:
+    """
+    Public, path-and-convention-agnostic entry point onto the same
+    write-then-verify-by-reading-back discipline `save_raw_artifact()`
+    uses internally -- for callers (e.g. the legacy
+    scripts/extraction/ extractors, Task 16A) that need atomic,
+    checksum-verified writes but use a different directory convention
+    than this module's own `data/raw/<organization>/<dataset>/<date>/`
+    layout, so `save_raw_artifact()` itself doesn't fit. Creates
+    `target`'s parent directory if needed. Raises OSError if the write
+    can never be confirmed readable within `max_attempts` -- the same
+    "never silently succeed on an unverifiable write" guarantee as the
+    rest of this module. Raises ValueError on zero-byte content, same
+    as save_raw_artifact() (CLAUDE.md rule 7 -- a zero-byte download is
+    always a failure, never a valid artifact).
+    """
+    if not content:
+        raise ValueError(f"refusing to write a zero-byte artifact: {target}")
+    target.parent.mkdir(parents=True, exist_ok=True)
+    return _write_and_read_back(target, content, max_attempts=max_attempts)
 
 
 def _write_and_read_back(target: Path, content: bytes, max_attempts: int = 25) -> str:

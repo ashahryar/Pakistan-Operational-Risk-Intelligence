@@ -1,6 +1,6 @@
 import argparse
 from datetime import datetime
-from typing import Dict,List
+from typing import Dict
 
 from bs4 import BeautifulSoup
 

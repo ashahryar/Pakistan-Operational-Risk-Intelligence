@@ -14,8 +14,6 @@ openpyxl
 psycopg2-binary
 sqlalchemy
 
-redshift_connector
-
 streamlit
 
 tabulate
@@ -29,3 +27,10 @@ pytest
 
 scikit-learn
 joblib
+
+fastapi
+uvicorn
+httpx
+
+pyyaml
+ruff

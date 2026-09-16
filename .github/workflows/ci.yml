@@ -1,0 +1,97 @@
+name: CI
+
+# Task 16A (Phase 1 / ADR-0001) -- practical DevOps foundation.
+#
+# push/pull request -> lint -> unit tests -> DAG integrity tests ->
+# parser regression tests -> architecture checks
+#
+# No deployment to any paid AWS resource happens here or anywhere in
+# this workflow. The dag-integrity job runs the project's own,
+# unmodified docker-compose.yml stack (Postgres + Airflow) on the
+# GitHub-hosted runner -- exactly the same containers a developer runs
+# locally -- and tears it down at the end of the job.
+
+on:
+  push:
+    branches: [main, project-redesign-baseline]
+  pull_request:
+    branches: [main, project-redesign-baseline]
+
+jobs:
+  lint-and-test:
+    name: Lint + unit/parser/architecture tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements/ci.txt
+
+      - name: Lint (Ruff)
+        run: ruff check .
+
+      - name: Unit / parser regression / architecture tests
+        # test_dag_integrity.py needs the real `airflow` package and
+        # /opt/airflow/dags mount -- covered by the dag-integrity job
+        # below instead, matching this project's own documented
+        # local-dev convention (see pytest.ini's comment).
+        #
+        # No live Postgres exists in this job -- tests requiring one
+        # (tests/dashboard/test_weather_summary_live.py,
+        # tests/acquisition/test_manifest_integrity.py) are already
+        # designed to skip gracefully when unreachable, not fail.
+        #
+        # databricks/tests/ skips gracefully when pyspark isn't
+        # installed (it isn't, deliberately -- see databricks/README.md).
+        run: |
+          pytest tests/ databricks/tests/ api/tests/ \
+            --ignore=tests/test_dag_integrity.py \
+            -v
+
+  dag-integrity:
+    name: DAG integrity (real Airflow, via docker-compose)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create a CI-only .env
+        # .env is gitignored (CLAUDE.md: never commit it) and
+        # docker-compose.yml bind-mounts it -- this creates a throwaway
+        # one for this job only, with placeholder (non-production,
+        # non-secret) values. Never committed, never used outside this
+        # ephemeral runner.
+        run: |
+          cat > .env <<'EOF'
+          DB_USER=airflow
+          DB_PASSWORD=airflow
+          DB_NAME=airflow
+          AIRFLOW__WEBSERVER__SECRET_KEY=ci-only-not-a-real-secret
+          EOF
+
+      - name: Build and start the Airflow stack
+        run: docker compose up -d --build postgres airflow-init airflow-webserver
+
+      - name: Wait for airflow-webserver to be healthy
+        run: |
+          for i in $(seq 1 30); do
+            if docker exec airflow_webserver airflow db check > /dev/null 2>&1; then
+              echo "Airflow DB reachable."
+              break
+            fi
+            echo "Waiting for Airflow ($i/30)..."
+            sleep 5
+          done
+
+      - name: Run DAG integrity tests inside the real Airflow container
+        run: |
+          docker exec -e PYTHONPATH=/opt/project airflow_webserver \
+            pytest tests/test_dag_integrity.py -v
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v

@@ -22,12 +22,11 @@ Reload PostgreSQL
       │
       ▼
 Upload S3
-      │
-      ▼
-Glue ETL
-      │
-      ▼
-Verify Redshift
+
+Task 16A (Phase 1 / ADR-0001): AWS Glue and Amazon Redshift were
+removed from the project architecture. S3 remains as raw/analytics
+object storage; the analytical/lakehouse platform is now Databricks
+(see databricks/README.md), not wired into this DAG.
 """
 
 import os
@@ -50,12 +49,7 @@ from pipeline.utils.task_callbacks import (
 
 from pipeline.helpers.aws_helper import (
     upload_all,
-    #start_multiple_glue_jobs,
 )
-
-# from pipeline.helpers.redshift_helper import (
-#     verify_tables,
-# )
 
 # ==========================================================
 # PROJECT
@@ -71,33 +65,6 @@ if str(PROJECT_ROOT) not in sys.path:
 # ==========================================================
 # CONFIG
 # ==========================================================
-
-GLUE_JOBS = [
-
-    "ndma-glue-job",
-
-    "pdma-glue-job",
-
-    "pmd-glue-job",
-
-]
-
-# REDSHIFT_TABLES = [
-
-#     "ndma_casualties",
-#     "ndma_damage",
-#     "ndma_relief",
-#     "ndma_rescue",
-
-#     "pdma_daily_reports",
-#     "pdma_rainfall",
-#     "pdma_river_gauge",
-
-#     "pmd_daily_forecast",
-#     "pmd_weekly_outlook",
-#     "pmd_weather_alerts",
-
-#]
 
 # ==========================================================
 # DEFAULT ARGS
@@ -239,27 +206,6 @@ def upload_all_s3():
 
 
 # ==========================================================
-# GLUE
-# ==========================================================
-
-# def glue_etl():
-
-#     start_multiple_glue_jobs(
-#         GLUE_JOBS
-#     )
-
-
-# ==========================================================
-# VERIFY REDSHIFT
-# ==========================================================
-
-# def verify_redshift():
-
-#     verify_tables(
-#         REDSHIFT_TABLES
-#     )
-
-# ==========================================================
 # DAG
 # ==========================================================
 
@@ -335,24 +281,6 @@ with DAG(
 
     )
 
-    # glue = PythonOperator(
-
-    #     task_id="glue_etl",
-
-    #     python_callable=glue_etl,
-
-    #     execution_timeout=timedelta(minutes=120),
-
-    # )
-
-    # verify = PythonOperator(
-
-    #     task_id="verify_redshift",
-
-    #     python_callable=verify_redshift,
-
-    # )
-
     # ======================================================
     # PIPELINE
     # ======================================================
@@ -360,7 +288,3 @@ with DAG(
     [ndma, pdma, pmd] >> postgres
 
     postgres >> s3
-
-    #s3 >> glue
-
-    #glue >> verify

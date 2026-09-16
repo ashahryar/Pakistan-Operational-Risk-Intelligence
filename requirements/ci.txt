@@ -1,0 +1,13 @@
+# requirements/ci.txt
+#
+# Task 16A (Phase 1 / ADR-0001) -- dependency set for GitHub Actions CI
+# (.github/workflows/ci.yml). Reuses airflow_requirements.txt (the
+# project's real, working dependency list, already UTF-8 and already
+# used to build the Airflow Docker image, and which already includes
+# ruff/pyyaml/fastapi/httpx) rather than duplicating it.
+#
+# NOT used for anything else -- the Docker image continues to install
+# directly from airflow_requirements.txt as before; this file exists
+# only so CI has one clear, versioned install target.
+
+-r ../airflow_requirements.txt

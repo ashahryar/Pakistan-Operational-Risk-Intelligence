@@ -1,4 +1,3 @@
-from pathlib import Path
 
 REQUIRED_TABLES = [
     "casualties",

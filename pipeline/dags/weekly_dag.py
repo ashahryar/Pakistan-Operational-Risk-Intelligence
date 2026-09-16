@@ -17,15 +17,12 @@ Amazon S3
 
 ↓
 
-AWS Glue
-
-↓
-
-Amazon Redshift
-
-↓
-
 Data Quality Audit
+
+Task 16A (Phase 1 / ADR-0001): AWS Glue and Amazon Redshift were
+removed from the project architecture. S3 remains as raw/parsed/
+analytics object storage; the analytical/lakehouse platform is now
+Databricks (see databricks/README.md), not wired into this DAG.
 """
 
 from datetime import timedelta
@@ -37,9 +34,6 @@ from airflow.utils.dates import days_ago
 
 from pipeline.helpers.script_runner import run_script
 from pipeline.helpers import aws_helper
-
-# Uncomment after implementing
-# from pipeline.helpers.redshift_helper import verify_tables
 
 logger = logging.getLogger(__name__)
 
@@ -175,30 +169,6 @@ def upload_all_s3():
 
 
 # ==========================================================
-# GLUE
-# ==========================================================
-
-
-def run_glue():
-
-    logger.info("=" * 70)
-    logger.info("STARTING AWS GLUE")
-    logger.info("=" * 70)
-
-    jobs = [
-        "etl_ndma",
-        "etl_pdma",
-        "etl_pmd",
-    ]
-
-    aws_helper.start_multiple_glue_jobs(jobs)
-
-    logger.info("=" * 70)
-    logger.info("GLUE COMPLETED")
-    logger.info("=" * 70)
-
-
-# ==========================================================
 # DATA QUALITY
 # ==========================================================
 
@@ -216,32 +186,6 @@ def audit():
     logger.info("=" * 70)
     logger.info("AUDIT COMPLETED")
     logger.info("=" * 70)
-
-
-# ==========================================================
-# REDSHIFT
-# ==========================================================
-
-# Uncomment after creating helper
-
-# def verify_redshift():
-#
-#     verify_tables([
-#
-#         "ndma_casualties",
-#         "ndma_damage",
-#         "ndma_relief",
-#         "ndma_rescue",
-#
-#         "pdma_daily_reports",
-#         "pdma_rainfall_readings",
-#         "pdma_gauge_readings",
-#
-#         "pmd_reports",
-#         "pmd_weather",
-#         "pmd_weekly_outlook",
-#
-#     ])
 
 
 # ==========================================================
@@ -304,28 +248,12 @@ with DAG(
 
     )
 
-    # glue = PythonOperator(
-
-    #     task_id="run_glue",
-
-    #     python_callable=run_glue,
-
-    # )
-
     # audit_task = PythonOperator(
 
     #     task_id="data_quality_audit",
 
     #     python_callable=audit,
 
-    # )
-
-    # verify = PythonOperator(
-    #
-    #     task_id="verify_redshift",
-    #
-    #     python_callable=verify_redshift,
-    #
     # )
 
     # Workflow
@@ -336,8 +264,4 @@ with DAG(
 
     postgres >> s3
 
-    #s3 >> glue
-
-    #glue >> audit_task
-
-    # audit_task >> verify
+    # s3 >> audit_task

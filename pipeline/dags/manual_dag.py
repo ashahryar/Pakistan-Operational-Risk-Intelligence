@@ -33,8 +33,6 @@ from pipeline.helpers.aws_helper import (
 
     upload_folder,
 
-    start_glue_job,
-
 )
 
 from pipeline.utils.task_callbacks import (
@@ -251,38 +249,6 @@ def manual_s3(**context):
     logger.info("S3 Upload Completed")
 
 # ==========================================================
-# GLUE
-# ==========================================================
-
-# def manual_glue(**context):
-
-#     source = get_source(**context)
-
-#     logger.info("=" * 80)
-#     logger.info("STARTING AWS GLUE")
-#     logger.info("=" * 80)
-
-#     if source in ("ndma", "all"):
-
-#         start_glue_job(
-#             "ndma-glue-job",
-#         )
-
-#     if source in ("pdma", "all"):
-
-#         start_glue_job(
-#             "pdma-glue-job",
-#         )
-
-#     if source in ("pmd", "all"):
-
-#         start_glue_job(
-#             "pmd-glue-job",
-#         )
-
-#     logger.info("Glue Completed")
-
-# ==========================================================
 # DAG
 # ==========================================================
 
@@ -352,16 +318,6 @@ with DAG(
 
     )
 
-    # glue = PythonOperator(
-
-    #     task_id="manual_glue",
-
-    #     python_callable=manual_glue,
-
-    #     execution_timeout=timedelta(minutes=120),
-
-    # )
-
     # ======================================================
     # PIPELINE FLOW
     # ======================================================
@@ -371,5 +327,4 @@ with DAG(
         >> parse
         >> postgres
         >> s3
-        #>> glue
     )

@@ -3,7 +3,6 @@ import sys
 from pathlib import Path
 
 import pandas as pd
-import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import streamlit as st
@@ -869,7 +868,7 @@ def style_rank_table(df_in: pd.DataFrame, rank_col: str, highlight_col: str, num
 
     def _highlight_top(row):
         if row.name == df_in.index[0]:
-            return [f"color:#ffb4ab; font-weight:700;" if col == highlight_col else "" for col in df_in.columns]
+            return ["color:#ffb4ab; font-weight:700;" if col == highlight_col else "" for col in df_in.columns]
         return ["" for _ in df_in.columns]
 
     styler = styler.apply(_highlight_top, axis=1)

@@ -1,0 +1,45 @@
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+# Task 16A (Phase 1 / ADR-0001): deliberately lenient starter config.
+# This project has ~180 pre-existing Python files never linted before
+# this task; enabling Ruff's full default rule set now would flag
+# thousands of pre-existing issues unrelated to this task and invite
+# a mass-reformat this task explicitly says not to do ("Do not mass-
+# format the entire repository unnecessarily"). Start narrow --
+# genuine correctness bugs (undefined names, unused imports) -- and
+# widen the rule set in a future, dedicated task once the baseline is
+# clean.
+exclude = [
+    "venv",
+    ".git",
+    "airflow/logs",
+    "__pycache__",
+]
+
+[tool.ruff.lint]
+# F = pyflakes (undefined names, unused imports, etc. -- real bugs)
+# E9 = syntax errors
+select = ["F", "E9"]
+ignore = []
+
+[tool.ruff.lint.per-file-ignores]
+# Test files commonly import fixtures/helpers that look "unused" to a
+# static linter but are used via pytest's fixture injection.
+"tests/**/*.py" = ["F401", "F811"]
+"databricks/tests/**/*.py" = ["F401", "F811"]
+"api/tests/**/*.py" = ["F401", "F811"]
+
+# Task 16A (Phase 1 / ADR-0001): known, pre-existing findings that need
+# an actual behavior review (not a mechanical unused-import removal)
+# before fixing -- documented here rather than silently fixed under a
+# "DevOps foundation" task, per this task's own instruction not to
+# redesign working components in passing. Each is a genuine, real
+# finding (confirmed by running `ruff check .`), not swept under the
+# rug -- just deliberately deferred to a task that can verify the fix
+# doesn't change behavior.
+"dashboard/sections/weather.py" = ["F841"]       # `coldest` computed but unused -- likely an incomplete feature, not a bug to silently remove
+"scripts/parsing/parse_gauge.py" = ["F841"]       # `second` unused -- needs a parser-behavior review before touching
+"scripts/parsing/parse_ndma.py" = ["F841"]        # `completeness` unused -- needs a parser-behavior review before touching
+"scripts/parsing/parse_pdma_daily.py" = ["F811"]  # extract_temperature/extract_rainfall each defined twice -- pre-existing duplicate-definition bug, same class as the validation/rules.py and validation/translator.py ones fixed elsewhere in this task, but not yet analyzed for which definition is live

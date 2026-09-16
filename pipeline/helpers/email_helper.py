@@ -145,7 +145,7 @@ def send_email(subject: str, body: str):
 
         return True
 
-    except Exception as e:
+    except Exception:
 
         logger.exception("EMAIL FAILED")
 

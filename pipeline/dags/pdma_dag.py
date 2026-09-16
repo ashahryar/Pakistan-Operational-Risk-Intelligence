@@ -18,12 +18,11 @@ Upload Raw S3
         │
         ▼
 Upload Parsed S3
-        │
-        ▼
-Glue ETL
-        │
-        ▼
-Verify Redshift
+
+Task 16A (Phase 1 / ADR-0001): AWS Glue and Amazon Redshift were
+removed from the project architecture. S3 remains as raw/parsed
+object storage; the analytical/lakehouse platform is now Databricks
+(see databricks/README.md), not wired into this DAG.
 """
 
 import os
@@ -44,15 +43,7 @@ from pipeline.helpers.aws_helper import (
 
     upload_folder,
 
-    #start_glue_job,
-
 )
-
-# from pipeline.helpers.redshift_helper import (
-
-#     verify_tables,
-
-#)
 
 from pipeline.utils.task_callbacks import (
 
@@ -85,20 +76,6 @@ PROJECT_ROOT = Path(
 RAW_FOLDER = PROJECT_ROOT / "data/raw/pdma"
 
 PARSED_FOLDER = PROJECT_ROOT / "data/parsed/pdma"
-
-# ==========================================================
-# AWS
-# ==========================================================
-
-# GLUE_JOB = "pdma-glue-job"
-
-# REDSHIFT_TABLES = [
-
-#     "pdma_rainfall",
-
-#     "pdma_river_gauges",
-
-# ]
 
 # ==========================================================
 # DEFAULT ARGS
@@ -200,33 +177,6 @@ def upload_parsed():
 
 
 # ==========================================================
-# TASK 6
-# START AWS GLUE ETL
-# ==========================================================
-
-def glue_etl():
-
-    start_glue_job(
-
-        GLUE_JOB,
-
-    )
-
-
-# ==========================================================
-# TASK 7
-# VERIFY REDSHIFT TABLES
-# ==========================================================
-
-# def verify_redshift():
-
-#     verify_tables(
-
-#         REDSHIFT_TABLES,
-
-#     )
-
-# ==========================================================
 # DAG
 # ==========================================================
 
@@ -306,22 +256,6 @@ with DAG(
 
     )
 
-    # glue = PythonOperator(
-
-    #     task_id="glue_etl",
-
-    #     python_callable=glue_etl,
-
-    # )
-
-    # verify = PythonOperator(
-
-    #     task_id="verify_redshift",
-
-    #     python_callable=verify_redshift,
-
-    # )
-
     # ======================================================
     # PIPELINE FLOW
     # ======================================================
@@ -332,6 +266,4 @@ with DAG(
         >> postgres
         >> raw
         >> parsed
-        #>> glue
-        #>> verify
     )

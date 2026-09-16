@@ -4,22 +4,24 @@ pipeline/helpers/aws_helper.py
 Reusable AWS Helper Functions
 
 Supports
+• Amazon S3 Upload (raw object storage)
 
-• Amazon S3 Upload
-• AWS Glue Jobs
-• Future Redshift Support
+Task 16A (Phase 1 / ADR-0001): AWS Glue and Amazon Redshift were
+removed from the project architecture. This file previously also
+contained Glue job start/wait/poll functions
+(wait_for_glue_job/start_glue_job/start_multiple_glue_jobs) -- those
+have been removed, along with the module-level Glue boto3 client and
+the GLUE_POLL_INTERVAL/TERMINAL_STATES constants that existed only to
+support them. Every S3 function below is unchanged. The analytical/
+lakehouse platform is now Databricks (see databricks/README.md),
+reading from the same S3 raw zone this module uploads to, via a
+Unity Catalog external location -- not via this module.
 """
 
 import os
-import time
 from pathlib import Path
 
 import boto3
-
-from botocore.exceptions import (
-    ClientError,
-    NoCredentialsError,
-)
 
 from dotenv import load_dotenv
 
@@ -68,38 +70,7 @@ s3 = boto3.client(
 
 )
 
-glue = boto3.client(
 
-    "glue",
-
-    region_name=AWS_REGION,
-
-    aws_access_key_id=AWS_ACCESS_KEY,
-
-    aws_secret_access_key=AWS_SECRET_KEY,
-
-)
-
-
-# ==========================================================
-# CONSTANTS
-# ==========================================================
-
-GLUE_POLL_INTERVAL = 20
-
-TERMINAL_STATES = {
-
-    "SUCCEEDED",
-
-    "FAILED",
-
-    "ERROR",
-
-    "TIMEOUT",
-
-    "STOPPED",
-
-}
 # ==========================================================
 # S3 HELPERS
 # ==========================================================
@@ -257,130 +228,6 @@ def upload_all():
 
     print("=" * 60)
     print("ALL S3 UPLOADS COMPLETED")
-    print("=" * 60)
-
-# ==========================================================
-# GLUE HELPERS
-# ==========================================================
-
-def wait_for_glue_job(job_name: str, run_id: str):
-    """
-    Wait until Glue Job finishes.
-    """
-
-    print("=" * 60)
-    print(f"Waiting for Glue Job : {job_name}")
-    print("=" * 60)
-
-    while True:
-
-        time.sleep(GLUE_POLL_INTERVAL)
-
-        try:
-
-            response = glue.get_job_run(
-
-                JobName=job_name,
-
-                RunId=run_id,
-
-            )
-
-        except ClientError as e:
-
-            raise RuntimeError(
-
-                f"Unable to fetch Glue status : {e}"
-
-            )
-
-        state = response["JobRun"]["JobRunState"]
-
-        print(f"{job_name} -> {state}")
-
-        if state == "SUCCEEDED":
-
-            print("=" * 60)
-            print("Glue Job Completed Successfully")
-            print("=" * 60)
-
-            return True
-
-        if state in TERMINAL_STATES:
-
-            raise RuntimeError(
-
-                f"{job_name} finished with state : {state}"
-
-            )
-
-
-# ==========================================================
-# START GLUE JOB
-# ==========================================================
-
-def start_glue_job(job_name: str):
-    """
-    Start Glue Job and wait for completion.
-    """
-
-    print("=" * 60)
-    print(f"Starting Glue Job : {job_name}")
-    print("=" * 60)
-
-    try:
-
-        response = glue.start_job_run(
-
-            JobName=job_name
-
-        )
-
-    except ClientError as e:
-
-        raise RuntimeError(
-
-            f"Glue Job Failed : {e}"
-
-        )
-
-    run_id = response["JobRunId"]
-
-    print(f"Run ID : {run_id}")
-
-    wait_for_glue_job(
-
-        job_name,
-
-        run_id,
-
-    )
-
-    return run_id
-
-# ==========================================================
-# START MULTIPLE GLUE JOBS
-# ==========================================================
-
-def start_multiple_glue_jobs(job_names):
-    """
-    Run multiple Glue jobs sequentially.
-    """
-
-    if not job_names:
-        print("No Glue jobs supplied.")
-        return
-
-    print("=" * 60)
-    print("STARTING MULTIPLE GLUE JOBS")
-    print("=" * 60)
-
-    for job in job_names:
-
-        start_glue_job(job)
-
-    print("=" * 60)
-    print("ALL GLUE JOBS COMPLETED")
     print("=" * 60)
 
 

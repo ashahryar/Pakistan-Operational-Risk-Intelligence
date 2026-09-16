@@ -1,21 +1,22 @@
-from validation.mappings import CITY_MAPPING
-
-
-def normalize_city(city: str):
-
-    city = (city or "").strip()
-
-    return CITY_MAPPING.get(
-        city,
-        {
-            "city": city,
-            "province": "Unknown",
-            "district": "Unknown",
-        },
-    )
-
 """
 validation/translator.py
+
+Task 16A (Phase 1 / ADR-0001): this file previously defined
+normalize_city TWICE. Python keeps only the second definition of a
+name in a module, so the first (dict-returning, None-safe, backed by
+validation/mappings.py's CITY_MAPPING) was silently dead -- confirmed
+unreachable by scripts/parsing/pmd/daily_parser.py (the only real
+caller, which imports and uses the str-returning second definition)
+and by tests/parsers/test_type_coercion.py, which already only
+exercises the second (live) definition -- including a test asserting
+the live version's current None-raising behavior
+(test_normalize_city_none_raises), which this change preserves
+exactly. The dead first definition and its now-unused
+`validation.mappings.CITY_MAPPING` import have been removed.
+validation/mappings.py itself is left in place (not deleted) since
+removing an entire file is outside this fix's scope -- it is now
+fully unreferenced (dead), which is unchanged from before this fix
+(it was already only reachable through the dead code just removed).
 """
 
 CITY_TRANSLATIONS = {

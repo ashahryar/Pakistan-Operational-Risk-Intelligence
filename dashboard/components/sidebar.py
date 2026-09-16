@@ -98,10 +98,10 @@ operational risk monitoring.
 
 **Technologies Used**
 - Python
-- PostgreSQL
+- PostgreSQL / PostGIS
 - Apache Airflow
 - Amazon S3
-- AWS Glue
+- Databricks / Spark / Delta Lake
 - Streamlit
 - Plotly
 

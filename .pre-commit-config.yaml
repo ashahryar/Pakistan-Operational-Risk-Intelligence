@@ -1,0 +1,36 @@
+# Task 16A (Phase 1 / ADR-0001) -- practical DevOps foundation.
+#
+# Deliberately small: Ruff (matching pyproject.toml's narrow, F/E9-only
+# rule set -- no mass reformat), basic whitespace/file hygiene, YAML
+# validation, and a lightweight secret-detection pass. No hook here
+# blocks a commit for pre-existing, unrelated issues (see
+# pyproject.toml's per-file-ignores for the known, documented
+# exceptions) -- the goal is catching *new* problems, not relitigating
+# every historical one on every commit.
+
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.8
+    hooks:
+      - id: ruff
+        args: [--fix]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: '\.json$'  # parsed/analytics JSON files are machine-written, not hand-edited
+      - id: end-of-file-fixer
+        exclude: '\.json$'
+      - id: check-yaml
+      - id: check-added-large-files
+        args: [--maxkb=5000]
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: '\.lock$|venv/|data/raw/|data/parsed/'

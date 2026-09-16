@@ -7,7 +7,8 @@ An automated data engineering platform for scraping, parsing, validating, storin
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791)
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.59-FF4B4B)
-![AWS](https://img.shields.io/badge/AWS-S3%20%7C%20Glue%20%7C%20Redshift-232F3E)
+![AWS](https://img.shields.io/badge/AWS-S3-232F3E)
+![Databricks](https://img.shields.io/badge/Databricks-Spark%20%7C%20Delta%20Lake-FF3621)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ---
@@ -18,9 +19,9 @@ Pakistan is regularly affected by floods, monsoon rainfall, and other disaster e
 
 This platform closes that gap. It scrapes those PDF reports and HTML pages on a scheduled basis, extracts structured data from them (tables inside PDFs, HTML tables, forecast text), validates it against domain-specific rules, loads it into PostgreSQL, and archives raw and parsed files to Amazon S3. A Streamlit dashboard then provides an operational view of casualties, infrastructure damage, weather forecasts and alerts, rainfall readings, and river gauge levels.
 
-The project is built as a learning-oriented, end-to-end data engineering exercise: scraping → parsing → validation → orchestration → storage → visualization, with an additional cloud data-warehouse layer (AWS Glue + Redshift) implemented in code as an optional extension.
+The project is built as a learning-oriented, end-to-end data engineering exercise: scraping → parsing → validation → orchestration → storage → visualization. As of Task 16A (Phase 1 / ADR-0001), the planned analytical/lakehouse layer is **Databricks** (Spark, Delta Lake, Unity Catalog) reading from the S3 raw zone — **AWS Glue and Amazon Redshift have been removed from the architecture and from this repository**, not merely left commented out.
 
-> **Current Status:** This is a **development-stage** project, not a production deployment. The scraping → parsing → validation → PostgreSQL → S3 path runs on a **live, scheduled Airflow pipeline**. The AWS Glue and Amazon Redshift steps are **fully implemented in code** but their Airflow tasks are **currently commented out** in every DAG — they are not part of the active scheduled pipeline. See [AWS Integration](#-aws-integration) and [Known Limitations](#-known-limitations--implementation-status) for details.
+> **Current Status:** This is a **development-stage** project, not a production deployment. The scraping → parsing → validation → PostgreSQL → S3 path runs on a **live, scheduled Airflow pipeline** (all DAGs currently paused). A `databricks/` scaffold exists for the future Spark/Delta lakehouse layer but is **not yet wired into the pipeline or connected to any live Databricks workspace**. See [Databricks / Lakehouse](#-databricks--lakehouse) and [Known Limitations](#-known-limitations--implementation-status) for details.
 
 ---
 
@@ -73,19 +74,19 @@ Streamlit Dashboard   (reads PostgreSQL directly)
 
 Apache Airflow orchestrates every step of this flow — scheduling, retries, and success/failure callbacks.
 
-### Cloud warehouse extension — implemented, not active
+### Lakehouse extension — scaffolded, not active
 
-The codebase also includes a complete second-stage cloud ETL layer:
+As of Task 16A (Phase 1 / ADR-0001), the planned second-stage analytical layer is Databricks, not AWS Glue/Redshift (removed from the architecture):
 
 ```
-Amazon S3
+Amazon S3 (raw zone)
         ↓
-AWS Glue (PySpark ETL)
+Unity Catalog external location
         ↓
-Amazon Redshift
+Delta Lake — Bronze → Silver → Gold
 ```
 
-> **Implemented in the codebase but currently not part of the active scheduled pipeline.** The Glue and Redshift-verification tasks exist in every domain DAG's source file, but are commented out of the task graph. PostgreSQL and S3 remain the actual system of record.
+> **Scaffolded, not active.** `databricks/` contains the directory structure, schema contracts, and documentation for this layer (see [Databricks / Lakehouse](#-databricks--lakehouse)) but is not yet wired into the pipeline, connected to a live Databricks workspace, or reading real data. PostgreSQL and S3 remain the actual, currently-running system of record.
 
 ---
 
@@ -124,8 +125,7 @@ All three sources are scraped directly, since none of them publish an official A
 
 ### Cloud Integration
 - Amazon S3 upload of raw and parsed files, idempotent via a `HEAD` check before upload (`aws/s3/upload.py`).
-- AWS Glue ETL job definitions and PySpark scripts that read from S3 and write into Amazon Redshift — implemented, not scheduled.
-- Amazon Redshift table DDL and an AWS Lambda function that would route new S3 objects to the matching Glue job — implemented, not scheduled.
+- A `databricks/` scaffold (directory structure, schema contracts, documentation) for the future Delta Lake bronze/silver/gold lakehouse layer — not yet wired to a live workspace or reading real data.
 
 ### Orchestration
 - Seven Apache Airflow DAGs (see [Airflow Orchestration](#-airflow-orchestration)), containerized with Docker Compose.
@@ -196,29 +196,9 @@ Every write-heavy table has a `UNIQUE` constraint on its natural key (report num
 | Component | Implementation | Status |
 |---|---|---|
 | **Amazon S3** | `aws/s3/upload.py` — idempotent upload of raw and parsed files, invoked from every DAG's `upload_raw` task | **Active** |
-| **AWS Glue** | `aws/glue/create_crawlers.py`, `create_jobs.py`, and PySpark job scripts `aws/glue/scripts/etl_ndma.py` / `etl_pdma.py` / `etl_pmd.py` that read from S3 and write to Redshift | Implemented, **not scheduled** |
-| **Amazon Redshift** | `aws/redshift/create_tables.py`, `setup.py` — table DDL and connection setup via `redshift_connector` | Implemented, **not scheduled** |
-| **AWS Lambda** | `aws/lambda/s3_trigger.py`, `deploy.py` — routes new S3 objects to the matching Glue job by key prefix | Implemented, **not scheduled** |
-| **Helper utilities** | `pipeline/helpers/aws_helper.py`, `redshift_helper.py` — `start_glue_job`, `wait_for_glue_job`, Redshift query/verify helpers, already imported by the DAGs | Implemented, **not scheduled** |
+| **Helper utilities** | `pipeline/helpers/aws_helper.py` — `upload_folder`, `upload_raw`, `upload_analytics`, `upload_all`, S3 bucket/folder verification | **Active** |
 
-In every domain DAG (`ndma_dag.py`, `pdma_dag.py`, `pmd_dag.py`, `weekly_dag.py`, `backfill_dag.py`, `manual_dag.py`), the Glue and Redshift-verification tasks exist in source but are commented out of the task graph, e.g.:
-
-```python
-# glue = PythonOperator(
-#     task_id="glue_etl",
-#     python_callable=glue_etl,
-# )
-# verify = PythonOperator(
-#     task_id="verify_redshift",
-#     python_callable=verify_redshift,
-# )
-...
-extract >> parse >> analytics >> postgres >> raw
-# >> glue
-# >> verify
-```
-
-**Implemented in the codebase but currently not part of the active scheduled pipeline.** PostgreSQL and S3 are the real, currently-running system of record.
+**Task 16A (Phase 1 / ADR-0001): AWS Glue and Amazon Redshift have been removed from this repository**, not merely left commented out — `aws/glue/`, `aws/redshift/`, `aws/lambda/`, and `pipeline/helpers/redshift_helper.py` no longer exist. The planned analytical/lakehouse layer is now Databricks (Spark, Delta Lake, Unity Catalog), scaffolded under `databricks/` — see [Databricks / Lakehouse](#-databricks--lakehouse). Amazon S3 remains the raw/analytics object-storage layer.
 
 ---
 
@@ -268,14 +248,15 @@ Supporting structure:
 │
 ├── pipeline/                 # Airflow project
 │   ├── dags/                    # 7 DAGs
-│   ├── helpers/                   # script_runner, aws_helper, redshift_helper, email_helper
+│   ├── helpers/                   # script_runner, aws_helper (S3 only), email_helper
 │   ├── sensors/                     # standalone HTTP "new PDF" checkers (not wired into DAGs)
 │   ├── utils/                        # callbacks, logging, data-quality, SNS alerting
 │   └── config/                        # DAG default args, Airflow setup helper
 │
 ├── validation/                # Per-source schema / completeness / score rules
 ├── config/                    # Shared settings, DB engine, AWS config, logging, paths
-├── aws/                       # S3 upload/download, Glue jobs+scripts, Redshift DDL, Lambda
+├── aws/                       # S3 upload/download only (Glue/Redshift/Lambda removed, Task 16A)
+├── databricks/                # Spark/Delta lakehouse scaffold (bronze/silver/gold) -- see below
 │
 ├── architecture.png            # Architecture diagram (referenced in this README)
 ├── Dockerfile                  # Airflow image (apache/airflow:2.9.3-python3.11)
@@ -297,7 +278,8 @@ Supporting structure:
 | **Database** | PostgreSQL 15 (SQLAlchemy 2.0, psycopg2) |
 | **Scraping** | `requests`, `BeautifulSoup4`, `lxml` |
 | **PDF Processing** | `pdfplumber`, `camelot-py`, `PyMuPDF`, `pypdfium2` |
-| **Cloud** | Amazon S3 (`boto3`), AWS Glue (PySpark), Amazon Redshift (`redshift_connector`) — Glue/Redshift implemented, not scheduled |
+| **Cloud storage** | Amazon S3 (`boto3`) — raw/analytics object storage |
+| **Lakehouse (scaffolded)** | Databricks, Apache Spark / PySpark, Delta Lake — see [Databricks / Lakehouse](#-databricks--lakehouse) |
 | **Dashboard** | Streamlit 1.59, Plotly, `streamlit-autorefresh` |
 | **Data Processing** | pandas, numpy, openpyxl |
 
@@ -308,7 +290,7 @@ Supporting structure:
 ### Prerequisites
 - Docker and Docker Compose
 - Python 3.11 (for running the dashboard and any script outside Docker)
-- An AWS account and credentials — only needed for S3 upload or if you choose to enable Glue/Redshift
+- An AWS account and credentials — only needed for S3 upload
 
 ### 1. Clone the repository
 ```bash
@@ -362,16 +344,11 @@ DB_NAME=your_db_name
 # Airflow (docker-compose.yml expects this in .env.docker)
 AIRFLOW__WEBSERVER__SECRET_KEY=your_secret_key
 
-# AWS (only required for S3 upload / Glue / Redshift)
+# AWS (only required for S3 upload)
 AWS_REGION=
 AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
 S3_BUCKET=
-
-# Redshift (only required if you re-enable the Glue/Redshift DAG tasks)
-REDSHIFT_HOST=
-REDSHIFT_PORT=5439
-REDSHIFT_DB=your_redshift_db
 ```
 
 `config/config/database.py` auto-detects whether it is running inside a Docker container (`/.dockerenv`) and switches between `postgres:5432` (in-container) and `localhost:5433` (host) automatically — no manual host/port toggling needed.
@@ -418,7 +395,7 @@ python aws/s3/upload.py raw
 
 ## ⚠️ Known Limitations / Implementation Status
 
-- **Glue and Redshift are implemented but inactive.** The Python/PySpark code, table DDL, and Airflow helper functions are complete, but the corresponding tasks are commented out in every DAG. PostgreSQL + S3 remain the actual, currently-running system of record.
+- **AWS Glue and Amazon Redshift were removed from the architecture (Task 16A, Phase 1 / ADR-0001).** The replacement analytical/lakehouse layer, Databricks + Spark + Delta Lake, is scaffolded under `databricks/` but not yet connected to a live workspace or wired into the pipeline. PostgreSQL + S3 remain the actual, currently-running system of record.
 - **The star-schema warehouse (`scripts/warehouse/`) is unused.** Its dimension/fact loaders exist but are not called by any DAG, script, or the dashboard.
 - **The risk engine (`scripts/risk_engine/risk_engine.py`) is not scheduled.** It computes and can write to `operational_risk`, but must currently be run manually.
 - **Sensors (`pipeline/sensors/`) are standalone scripts, not Airflow Sensor operators.** No DAG imports them; "new PDF" detection is not currently automatic.

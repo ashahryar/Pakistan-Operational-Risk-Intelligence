@@ -67,3 +67,62 @@ def test_every_dag_has_at_least_one_tag():
     ]
 
     assert not missing_tags, f"DAGs with no tags set: {missing_tags}"
+
+
+def test_no_dag_with_an_automatic_schedule_also_triggers_another_scheduled_dag():
+    """
+    Phase 1 / Task 16A (ADR-0001), Part J -- static regression guard
+    against the exact deadlock/collision class the audit found:
+    disaster_pipeline used to run on the SAME `0 */6 * * *` schedule as
+    pdma_pipeline/pmd_pipeline while also triggering them via
+    TriggerDagRunOperator(reset_dag_run=True, wait_for_completion=True)
+    -- two independent owners of "when does this DAG run" racing
+    against each other on every matching cron tick.
+
+    Generic check, not hardcoded to disaster_pipeline specifically: for
+    every DAG that has its own non-None schedule AND contains a
+    TriggerDagRunOperator targeting another DAG, the target DAG must
+    NOT also have its own non-None schedule -- exactly one of
+    {"the trigger", "the target's own schedule"} may be an active,
+    automatic owner of the target DAG's execution.
+    """
+    from airflow.operators.trigger_dagrun import TriggerDagRunOperator
+
+    dagbag = _load_dagbag()
+
+    violations = []
+
+    for dag_id, dag in dagbag.dags.items():
+        triggering_schedule = getattr(dag, "schedule_interval", None)
+        if triggering_schedule is None:
+            continue  # this DAG has no automatic schedule -- can't race anything
+
+        for task in dag.tasks:
+            if isinstance(task, TriggerDagRunOperator):
+                target_dag_id = task.trigger_dag_id
+                target_dag = dagbag.dags.get(target_dag_id)
+                if target_dag is None:
+                    continue
+                target_schedule = getattr(target_dag, "schedule_interval", None)
+                if target_schedule is not None:
+                    violations.append(
+                        f"{dag_id!r} (schedule={triggering_schedule!r}) triggers "
+                        f"{target_dag_id!r} (schedule={target_schedule!r}) via "
+                        f"TriggerDagRunOperator -- both have an automatic schedule, "
+                        f"a real collision/deadlock risk"
+                    )
+
+    assert not violations, "Overlapping schedule ownership found:\n" + "\n".join(violations)
+
+
+def test_disaster_pipeline_has_no_automatic_schedule():
+    """
+    Confirms the specific Task 16A fix: disaster_pipeline is
+    manual/on-demand trigger only, so it can never race against
+    ndma_pipeline/pdma_pipeline/pmd_pipeline's own native schedules.
+    """
+    dagbag = _load_dagbag()
+
+    dag = dagbag.dags.get("disaster_pipeline")
+    assert dag is not None, "disaster_pipeline DAG not found"
+    assert getattr(dag, "schedule_interval", "not-none") is None

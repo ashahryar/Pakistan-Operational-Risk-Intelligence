@@ -1,48 +1,19 @@
 """
 validation/rules.py
-"""
 
-import pandas as pd
+Field-level validators used by validation/validator.py to check
+individual PMD weather-record fields.
 
-
-def is_empty(value):
-    return pd.isna(value) or str(value).strip() == ""
-
-
-def valid_temperature(value):
-
-    try:
-        value = float(value)
-        return -10 <= value <= 60
-    except:
-        return False
-
-
-def valid_humidity(value):
-
-    try:
-        value = float(value)
-        return 0 <= value <= 100
-    except:
-        return False
-
-
-def valid_city(city):
-
-    return not is_empty(city)
-
-
-def valid_forecast(text):
-
-    return not is_empty(text)
-
-
-def has_duplicates(df, subset):
-
-    return df.duplicated(subset=subset).any()
-
-"""
-validation/rules.py
+Task 16A (Phase 1 / ADR-0001): this file previously defined
+valid_temperature/valid_humidity/valid_city/valid_forecast TWICE.
+Python keeps only the second definition of a name in a module, so the
+first (pandas-based, temperature range -10..60) was silently dead --
+confirmed unreachable by every caller and by
+tests/parsers/test_type_coercion.py, which already only exercised the
+second (live) definitions. The dead first block, plus its
+now-unreferenced `is_empty`/`has_duplicates` helpers (confirmed unused
+anywhere else in the repo), has been removed. Behavior is unchanged --
+only the second definitions were ever actually reachable.
 """
 
 

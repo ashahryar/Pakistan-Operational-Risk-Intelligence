@@ -10,11 +10,12 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
 
+from config.database import redact_credentials
+
 # ==========================================================
 # SETUP
 # ==========================================================
 
-from dotenv import load_dotenv
 from pathlib import Path
 
 load_dotenv(
@@ -45,20 +46,9 @@ def get_engine() -> Engine:
     user = os.getenv("DB_USER", "postgres")
     password = os.getenv("DB_PASSWORD", "")
 
-    print("HOST =", host)
-    print("PORT =", port)
-    print("DB =", name)
-    print("USER =", user)
-    print("PASS =", password)
-
     url = f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{name}"
 
-    logger.info(
-        "Creating SQLAlchemy engine for %s:%s/%s",
-        host,
-        port,
-        name,
-    )
+    logger.info("Creating SQLAlchemy engine for %s", redact_credentials(url))
 
     return create_engine(
         url,
@@ -68,6 +58,23 @@ def get_engine() -> Engine:
         pool_recycle=1800,
     )
 
+def _is_missing_relation_error(exc: Exception) -> bool:
+    """
+    True if `exc` is Postgres's UndefinedTable/UndefinedColumn error
+    (SQLSTATE 42P01 / 42703) -- i.e. the query referenced a table or
+    column that does not exist in the current schema. Two dashboard
+    queries are currently known to hit this (`pmd_weather`,
+    `pipeline_logs` -- see docs/architecture/CODEBASE_AUDIT.md); this
+    lets that specific, already-understood gap stay quiet while any
+    other failure (a bad connection, a permissions error, a real
+    syntax error) is logged loudly instead of being folded into the
+    same silent-empty-DataFrame path.
+    """
+    orig = getattr(exc, "orig", None)
+    pgcode = getattr(orig, "pgcode", None)
+    return pgcode in ("42P01", "42703")
+
+
 def _read_sql(
     query: str,
     params: Optional[dict] = None,
@@ -75,9 +82,17 @@ def _read_sql(
 ) -> pd.DataFrame:
     """
     Internal helper: execute a read-only SQL query and always return
-    a pandas DataFrame -- never a raw cursor, never an exception
-    that reaches Streamlit. On failure, logs the error and returns
-    an empty DataFrame so the dashboard keeps rendering.
+    a pandas DataFrame -- never a raw cursor, never an exception that
+    reaches Streamlit. On failure, returns an empty DataFrame so the
+    dashboard keeps rendering, but the two failure modes are logged
+    differently: a query against a table/column known not to exist
+    yet logs at WARNING (expected, already tracked); anything else
+    (connection failure, permissions, a genuine bug) logs at ERROR
+    with the full traceback, so it stays observable instead of being
+    silently indistinguishable from "no data". Credentials are never
+    included -- SQL text and exception messages don't carry them, but
+    both are redacted defensively in case a driver ever embeds a DSN
+    in an error message.
     """
 
     try:
@@ -97,7 +112,23 @@ def _read_sql(
 
     except Exception as exc:
 
-        logger.error("Query failed: %s\nSQL: %s", exc, query)
+        safe_query = redact_credentials(query)
+        safe_exc = redact_credentials(str(exc))
+
+        if _is_missing_relation_error(exc):
+            logger.warning(
+                "Query referenced a table/column that does not exist in the "
+                "current schema (known, tracked gap): %s\nSQL: %s",
+                safe_exc,
+                safe_query,
+            )
+        else:
+            logger.error(
+                "Unexpected query failure: %s\nSQL: %s",
+                safe_exc,
+                safe_query,
+                exc_info=True,
+            )
 
         return pd.DataFrame()
 
@@ -147,7 +178,12 @@ def execute_query(sql: str) -> bool:
 
     except Exception as exc:
 
-        logger.error("execute_query failed: %s\nSQL: %s", exc, sql)
+        logger.error(
+            "execute_query failed: %s\nSQL: %s",
+            redact_credentials(str(exc)),
+            redact_credentials(sql),
+            exc_info=True,
+        )
 
         return False
 
@@ -347,23 +383,29 @@ def get_latest_weather() -> pd.DataFrame:
     Return only the most recent reading per city (same shape as
     get_pmd_weather()), using SQL DISTINCT ON for efficiency instead
     of fetching everything and de-duplicating in pandas.
+
+    Reads from `pmd_daily_forecast` -- the real table (see
+    get_pmd_weather() above). An earlier version of this function
+    queried a `pmd_weather` table that exists in no DDL script
+    anywhere in the repository (docs/architecture/CODEBASE_AUDIT.md);
+    `pmd_daily_forecast` already carries its own `province` column,
+    so the previous geo_locations join (needed only because the old,
+    nonexistent table had no province of its own) is no longer
+    necessary.
     """
 
     query = """
     SELECT DISTINCT ON (w.city)
         w.city,
-        COALESCE(g.province, 'Unknown') AS province,
+        COALESCE(w.province, 'Unknown') AS province,
         w.category,
-        w.max_temperature,
+        w.temperature AS max_temperature,
         w.humidity,
-        w.day1_forecast,
-        w.day2_forecast,
-        w.day3_forecast,
+        w.forecast_day_1 AS day1_forecast,
+        w.forecast_day_2 AS day2_forecast,
+        w.forecast_day_3 AS day3_forecast,
         w.scraped_at
-    FROM pmd_weather w
-    LEFT JOIN geo_locations g
-        ON LOWER(TRIM(w.city)) = LOWER(TRIM(g.name))
-        OR LOWER(TRIM(w.city)) = LOWER(TRIM(g.name_alt))
+    FROM pmd_daily_forecast w
     ORDER BY w.city, w.scraped_at DESC
     """
 
@@ -377,21 +419,21 @@ def get_weather_summary() -> pd.DataFrame:
     from the latest reading per city: avg_temperature, avg_humidity,
     max_temperature, min_temperature, city_count, province_count.
 
-    Numeric casts happen in SQL (::numeric) since max_temperature /
-    humidity are stored as text.
+    Reads from `pmd_daily_forecast` (see get_latest_weather() above
+    for why). `temperature`/`humidity` are already REAL columns in
+    this table (unlike the old, nonexistent `pmd_weather` table this
+    query used to target, whose columns this query originally assumed
+    were text) -- no NULLIF/cast needed.
     """
 
     query = """
     WITH latest AS (
         SELECT DISTINCT ON (w.city)
             w.city,
-            COALESCE(g.province, 'Unknown') AS province,
-            NULLIF(w.max_temperature, '')::numeric AS max_temperature,
-            NULLIF(w.humidity, '')::numeric AS humidity
-        FROM pmd_weather w
-        LEFT JOIN geo_locations g
-            ON LOWER(TRIM(w.city)) = LOWER(TRIM(g.name))
-            OR LOWER(TRIM(w.city)) = LOWER(TRIM(g.name_alt))
+            COALESCE(w.province, 'Unknown') AS province,
+            w.temperature AS max_temperature,
+            w.humidity AS humidity
+        FROM pmd_daily_forecast w
         ORDER BY w.city, w.scraped_at DESC
     )
     SELECT
@@ -667,6 +709,13 @@ def get_dashboard_summary() -> dict:
     }
 
     # ---- last_update: most recent successful pipeline run ----
+    # `pipeline_logs` exists in no DDL script and nothing in the
+    # current pipeline writes to it (docs/architecture/CODEBASE_AUDIT.md).
+    # Not fabricated here -- _read_sql() recognizes the resulting
+    # UndefinedTable error as an expected, already-tracked gap (logs at
+    # WARNING, not ERROR) and returns an empty DataFrame, so last_update
+    # correctly stays None until a future task creates and populates
+    # that table.
 
     pipeline_df = _read_sql(
         "SELECT MAX(finished_at) AS last_update FROM pipeline_logs "
