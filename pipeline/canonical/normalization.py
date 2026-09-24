@@ -35,6 +35,12 @@ def normalize_timestamp(value: Any) -> str | None:
     text = normalize_string(value)
     if text is None:
         return None
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", text):
+        # A date-only source value stays date-only: fromisoformat would otherwise invent a 00:00:00 time.
+        try:
+            return datetime.strptime(text, "%Y-%m-%d").date().isoformat()
+        except ValueError:
+            return None
     try:
         return datetime.fromisoformat(text.replace("Z", "+00:00")).isoformat()
     except ValueError:

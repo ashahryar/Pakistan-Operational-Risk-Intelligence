@@ -38,6 +38,10 @@ def _provenance_struct():
         StructField("source_url_or_path", StringType(), True),
         StructField("parser_version", StringType(), True),
         StructField("normalization_version", StringType(), True),
+        # Task 19: Tier-1 raw-artifact provenance (see pipeline/canonical/tier1_adapters.py)
+        StructField("source_file", StringType(), True),
+        StructField("retrieved_at", StringType(), True),
+        StructField("sha256", StringType(), True),
     ])
 
 
@@ -142,7 +146,7 @@ def disaster_event_schema() -> "StructType":
 
 
 def hazard_alert_schema() -> "StructType":
-    from pyspark.sql.types import StringType, StructField, StructType
+    from pyspark.sql.types import BooleanType, IntegerType, StringType, StructField, StructType
 
     return StructType(_common_fields() + [
         StructField("hazard_type", StringType(), True),
@@ -154,13 +158,84 @@ def hazard_alert_schema() -> "StructType":
         StructField("title", StringType(), True),
         StructField("description", StringType(), True),
         StructField("source_document", StringType(), True),
+        # Task 19: SUPARCO campaign / FFC GLOF extras
+        StructField("glide_number", StringType(), True),
+        StructField("campaign_scope", StringType(), True),
+        StructField("is_live", BooleanType(), True),
+        StructField("resource_count", IntegerType(), True),
+        StructField("document_id", StringType(), True),
     ])
 
 
-# AQI remains contract-only (Task 17/18): no parsed AQI adapter exists
-# yet, so no schema is defined here for it -- adding one would invite
-# `spark.read` against a domain nothing ever produces.
+def air_quality_observation_schema() -> "StructType":
+    from pyspark.sql.types import DoubleType, StringType, StructField, StructType
+
+    return StructType(_common_fields() + [
+        StructField("observed_at", StringType(), True),
+        StructField("observed_at_basis", StringType(), True),
+        StructField("granularity", StringType(), True),
+        StructField("station_name", StringType(), True),
+        StructField("station_id", StringType(), True),
+        StructField("city", StringType(), True),
+        StructField("aqi", DoubleType(), True),
+        StructField("pm25", DoubleType(), True),
+        StructField("pm10", DoubleType(), True),
+        StructField("no2", DoubleType(), True),
+        StructField("so2", DoubleType(), True),
+        StructField("co", DoubleType(), True),
+        StructField("o3", DoubleType(), True),
+        StructField("category", StringType(), True),
+        StructField("dominant_pollutant", StringType(), True),
+        StructField("station_count", DoubleType(), True),
+        StructField("stations_reporting", StringType(), True),
+    ])
+
+
+def reservoir_observation_schema() -> "StructType":
+    from pyspark.sql.types import DoubleType, StringType, StructField, StructType
+
+    return StructType(_common_fields() + [
+        StructField("observed_at", StringType(), True),
+        StructField("reservoir_name", StringType(), True),
+        StructField("reservoir_name_original", StringType(), True),
+        StructField("water_level", DoubleType(), True),
+        StructField("unit", StringType(), True),
+        StructField("live_storage", DoubleType(), True),
+        StructField("storage_unit", StringType(), True),
+        StructField("combined_live_storage", DoubleType(), True),
+        StructField("source_document", StringType(), True),
+    ])
+
+
+def document_schema() -> "StructType":
+    from pyspark.sql.types import IntegerType, StringType, StructField, StructType
+
+    return StructType(_common_fields() + [
+        StructField("doc_type", StringType(), True),
+        StructField("title", StringType(), True),
+        StructField("title_basis", StringType(), True),
+        StructField("issuing_organization", StringType(), True),
+        StructField("hazard_topic", StringType(), True),
+        StructField("publication_date", StringType(), True),
+        StructField("report_date", StringType(), True),
+        StructField("issued_at", StringType(), True),
+        StructField("period_start", StringType(), True),
+        StructField("period_end", StringType(), True),
+        StructField("pdf_creation_date", StringType(), True),
+        StructField("page_count", IntegerType(), True),
+        StructField("script", StringType(), True),
+        StructField("text", StringType(), True),
+        StructField("text_char_count", IntegerType(), True),
+        StructField("text_quality_note", StringType(), True),
+        StructField("source_document", StringType(), True),
+    ])
+
+
+# One schema per canonical domain that currently has an adapter (Task 17-19).
 DOMAIN_SCHEMAS = {
+    "air_quality_observation": air_quality_observation_schema,
+    "reservoir_observation": reservoir_observation_schema,
+    "document": document_schema,
     "weather_observation": weather_observation_schema,
     "rainfall_observation": rainfall_observation_schema,
     "gauge_observation": gauge_observation_schema,

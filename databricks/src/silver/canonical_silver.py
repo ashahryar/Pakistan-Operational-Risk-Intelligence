@@ -41,6 +41,9 @@ _TIMESTAMP_COLUMNS = {
     "gauge_observation": ["observed_at"],
     "disaster_event": ["event_date"],
     "hazard_alert": ["issued_at", "valid_from", "valid_until"],
+    "air_quality_observation": ["observed_at"],
+    "reservoir_observation": ["observed_at"],
+    "document": ["publication_date", "report_date", "issued_at", "period_start", "period_end"],
 }
 
 _REQUIRED_NON_NULL_ANY = {
@@ -49,6 +52,9 @@ _REQUIRED_NON_NULL_ANY = {
     "gauge_observation": ["water_level", "discharge"],
     "disaster_event": ["deaths", "injured", "houses_damaged", "roads_damaged", "bridges_damaged", "rescued"],
     "hazard_alert": ["title", "description"],
+    "air_quality_observation": ["aqi", "pm25", "pm10", "no2", "so2", "co", "o3"],
+    "reservoir_observation": ["water_level", "live_storage"],
+    "document": ["text"],
 }
 
 
@@ -109,3 +115,15 @@ def to_silver_disaster_events(bronze_df: "DataFrame") -> "DataFrame":
 
 def to_silver_alerts(bronze_df: "DataFrame") -> "DataFrame":
     return to_silver(bronze_df, "hazard_alert")
+
+
+def to_silver_air_quality(bronze_df: "DataFrame") -> "DataFrame":
+    return to_silver(bronze_df, "air_quality_observation")
+
+
+def to_silver_reservoir(bronze_df: "DataFrame") -> "DataFrame":
+    return to_silver(bronze_df, "reservoir_observation")
+
+
+def to_silver_documents(bronze_df: "DataFrame") -> "DataFrame":
+    return to_silver(bronze_df, "document")

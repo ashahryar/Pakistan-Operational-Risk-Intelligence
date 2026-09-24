@@ -49,6 +49,6 @@ def test_contract_rejection_quarantines_and_output_is_idempotent(tmp_path: Path)
     bad = adapt_pdma_rainfall({"source_file": "rain.pdf", "created_at": INGESTED, "stations": [{"station": "Lahore", "rainfall_mm": "not numeric"}]}, quarantine=lambda **kwargs: calls.append(kwargs) or True)
     assert bad == [] and calls[0]["reason_code"] == "canonical_invalid"
     assert "missing_source" in validate_record({"domain": "rainfall_observation"})
-    records = adapt_pdma_rainfall({"source_file": "rain.pdf", "created_at": INGESTED, "stations": [{"station": "Lahore", "rainfall_mm": 1}]})
+    records = adapt_pdma_rainfall({"source_file": "rain.pdf", "created_at": INGESTED, "report_date": "02.07.2026", "stations": [{"station": "Lahore", "rainfall_mm": 1}]})
     target = tmp_path / "canonical" / "rainfall.jsonl"
     assert write_jsonl(records, target).read_bytes() == write_jsonl(records, target).read_bytes()
