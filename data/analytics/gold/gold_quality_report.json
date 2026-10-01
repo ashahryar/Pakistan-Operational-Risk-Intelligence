@@ -1,0 +1,82 @@
+{
+  "gold_air_quality": {
+    "duplicate_business_keys": 0,
+    "geography": {
+      "resolved": 352
+    },
+    "input_records": 371,
+    "missing_required_fields": {},
+    "output_records": 352
+  },
+  "gold_disaster_events": {
+    "duplicate_business_keys": 0,
+    "geography": {
+      "resolved": 1543
+    },
+    "input_records": 1565,
+    "missing_required_fields": {},
+    "output_records": 1543
+  },
+  "gold_documents": {
+    "duplicate_business_keys": 0,
+    "geography": "not_applicable",
+    "input_records": 11,
+    "missing_required_fields": {},
+    "output_records": 11
+  },
+  "gold_gauge_daily": {
+    "duplicate_business_keys": 0,
+    "geography": {
+      "resolved": 93,
+      "unresolved": 3593
+    },
+    "input_records": 14500,
+    "missing_required_fields": {},
+    "output_records": 3686
+  },
+  "gold_hazard_alerts": {
+    "duplicate_business_keys": 0,
+    "geography": {
+      "resolved": 36,
+      "unresolved": 2
+    },
+    "input_records": 38,
+    "missing_required_fields": {},
+    "output_records": 38
+  },
+  "gold_operational_risk_inputs": {
+    "duplicate_business_keys": 0,
+    "geography": "not_applicable",
+    "input_records": 17382,
+    "missing_required_fields": {},
+    "output_records": 1678
+  },
+  "gold_rainfall_daily": {
+    "duplicate_business_keys": 0,
+    "geography": {
+      "ambiguous": 61,
+      "resolved": 660,
+      "unresolved": 148
+    },
+    "input_records": 869,
+    "missing_required_fields": {},
+    "output_records": 869
+  },
+  "gold_reservoir_status": {
+    "duplicate_business_keys": 0,
+    "geography": "not_applicable",
+    "input_records": 6,
+    "missing_required_fields": {},
+    "output_records": 6
+  },
+  "gold_weather_daily": {
+    "duplicate_business_keys": 0,
+    "geography": {
+      "resolved": 27,
+      "unresolved": 12
+    },
+    "input_records": 39,
+    "missing_required_fields": {},
+    "output_records": 39
+  }
+}

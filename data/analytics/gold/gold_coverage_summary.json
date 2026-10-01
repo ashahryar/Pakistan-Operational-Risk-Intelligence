@@ -1,0 +1,14 @@
+{
+  "cells_with_any_signal": 1678,
+  "no_risk_score_computed": true,
+  "note": "coverage counts how many (admin_unit_id, date) cells have a value for each signal; a cell/signal absent from this count is NULL in gold_operational_risk_inputs, never zero",
+  "signal_coverage_counts": {
+    "air_quality_observation": 351,
+    "disaster_event": 560,
+    "gauge_observation": 93,
+    "hazard_alert": 15,
+    "rainfall_observation": 660,
+    "weather_observation": 27
+  },
+  "total_geography_date_cells": 1678
+}

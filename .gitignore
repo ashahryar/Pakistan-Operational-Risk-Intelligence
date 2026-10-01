@@ -44,6 +44,10 @@ logs/
 data/raw/
 data/parsed/
 data/processed/
+# Task 21: full per-row Gold datasets (thousands of rows for gauge/rainfall) -- the small
+# summary/coverage/quality JSON reports in data/analytics/gold/ itself are still tracked,
+# matching the existing data/analytics/* convention.
+data/analytics/gold/datasets/
 
 *.csv
 *.xlsx
