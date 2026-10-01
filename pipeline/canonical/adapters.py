@@ -95,9 +95,13 @@ def adapt_pmd_daily(records: list[dict], *, ingestion_timestamp: str, quarantine
     for i, row in enumerate(records):
         city = normalize_string(row.get("city")); record = _base("weather_observation", "pmd", f"daily:{i}:{city}", None, ingestion_timestamp, "daily_forecast")
         record.update(_geo(city, DISTRICTS, hierarchy_field="district", admin_unit_lookup=admin_unit_lookup))
+        # Task 20: real scripts/parsing/pmd/daily_parser.py output uses "temperature" (not
+        # "max_temperature") and has no "weather"/"day1" field -- verified against real parsed
+        # files in data/parsed/pmd/daily_forecast/latest.json. "max_temperature"/"day1" are kept
+        # as a fallback only for backward compatibility with any caller still using those keys.
         record.update({"observed_at": normalize_timestamp(row.get("scraped_at")), "location_name": city, "latitude": None, "longitude": None,
-            "temperature": normalize_number(row.get("max_temperature")), "humidity": normalize_number(row.get("humidity")), "pressure": None, "wind_speed": None, "wind_direction": None,
-            "precipitation": None, "weather_condition": normalize_string(row.get("weather") or row.get("day1")), "source_document": None}); output.append(record)
+            "temperature": normalize_number(row.get("temperature", row.get("max_temperature"))), "humidity": normalize_number(row.get("humidity")), "pressure": None, "wind_speed": None, "wind_direction": None,
+            "precipitation": None, "weather_condition": normalize_string(row.get("weather") or row.get("day1") or row.get("forecast_day_1")), "source_document": None}); output.append(record)
     return _finish(output, quarantine)
 
 

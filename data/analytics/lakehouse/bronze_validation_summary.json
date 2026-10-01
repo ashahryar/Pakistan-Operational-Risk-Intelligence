@@ -1,0 +1,150 @@
+{
+  "air_quality_observation": {
+    "bronze_contract": {
+      "invalid": [],
+      "total": 371,
+      "valid": 371
+    },
+    "bronze_unique_records": 371,
+    "duplicates_removed": 0,
+    "idempotency": {
+      "duplicate_injection_no_row_multiplication": true,
+      "same_input_twice_identical": true,
+      "unique_count": 371
+    },
+    "input_records": 371,
+    "sources": {
+      "tier1_epa_punjab_aqi": 371
+    }
+  },
+  "disaster_event": {
+    "bronze_contract": {
+      "invalid": [],
+      "total": 1543,
+      "valid": 1543
+    },
+    "bronze_unique_records": 1543,
+    "duplicates_removed": 22,
+    "idempotency": {
+      "duplicate_injection_no_row_multiplication": true,
+      "same_input_twice_identical": true,
+      "unique_count": 1543
+    },
+    "input_records": 1565,
+    "sources": {
+      "task17_ndma": 1565
+    }
+  },
+  "document": {
+    "bronze_contract": {
+      "invalid": [],
+      "total": 11,
+      "valid": 11
+    },
+    "bronze_unique_records": 11,
+    "duplicates_removed": 0,
+    "idempotency": {
+      "duplicate_injection_no_row_multiplication": true,
+      "same_input_twice_identical": true,
+      "unique_count": 11
+    },
+    "input_records": 11,
+    "sources": {
+      "tier1_ffc": 7,
+      "tier1_pmd_ndmc": 4
+    }
+  },
+  "gauge_observation": {
+    "bronze_contract": {
+      "invalid": [],
+      "total": 14500,
+      "valid": 14500
+    },
+    "bronze_unique_records": 14500,
+    "duplicates_removed": 0,
+    "idempotency": {
+      "duplicate_injection_no_row_multiplication": true,
+      "same_input_twice_identical": true,
+      "unique_count": 14500
+    },
+    "input_records": 14500,
+    "sources": {
+      "task17_pdma": 14500
+    }
+  },
+  "hazard_alert": {
+    "bronze_contract": {
+      "invalid": [],
+      "total": 38,
+      "valid": 38
+    },
+    "bronze_unique_records": 38,
+    "duplicates_removed": 0,
+    "idempotency": {
+      "duplicate_injection_no_row_multiplication": true,
+      "same_input_twice_identical": true,
+      "unique_count": 38
+    },
+    "input_records": 38,
+    "sources": {
+      "task17_pmd_alerts": 7,
+      "task17_pmd_weekly": 27,
+      "tier1_ffc": 2,
+      "tier1_suparco": 2
+    }
+  },
+  "rainfall_observation": {
+    "bronze_contract": {
+      "invalid": [],
+      "total": 869,
+      "valid": 869
+    },
+    "bronze_unique_records": 869,
+    "duplicates_removed": 0,
+    "idempotency": {
+      "duplicate_injection_no_row_multiplication": true,
+      "same_input_twice_identical": true,
+      "unique_count": 869
+    },
+    "input_records": 869,
+    "sources": {
+      "task17_pdma": 869
+    }
+  },
+  "reservoir_observation": {
+    "bronze_contract": {
+      "invalid": [],
+      "total": 6,
+      "valid": 6
+    },
+    "bronze_unique_records": 6,
+    "duplicates_removed": 0,
+    "idempotency": {
+      "duplicate_injection_no_row_multiplication": true,
+      "same_input_twice_identical": true,
+      "unique_count": 6
+    },
+    "input_records": 6,
+    "sources": {
+      "tier1_ffc": 6
+    }
+  },
+  "weather_observation": {
+    "bronze_contract": {
+      "invalid": [],
+      "total": 39,
+      "valid": 39
+    },
+    "bronze_unique_records": 39,
+    "duplicates_removed": 0,
+    "idempotency": {
+      "duplicate_injection_no_row_multiplication": true,
+      "same_input_twice_identical": true,
+      "unique_count": 39
+    },
+    "input_records": 39,
+    "sources": {
+      "task17_pmd": 39
+    }
+  }
+}

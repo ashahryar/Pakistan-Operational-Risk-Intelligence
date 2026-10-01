@@ -1,0 +1,143 @@
+{
+  "domain_registry_consistency": {
+    "mismatches": [],
+    "status": "ok"
+  },
+  "domains": {
+    "air_quality_observation": {
+      "geography": {
+        "resolved": 371
+      },
+      "geography_applicable": true,
+      "provenance": {
+        "normalization_version": 371,
+        "parser_version": 371,
+        "source_dataset": 371,
+        "source_organization": 371,
+        "total": 371
+      },
+      "sources": {
+        "tier1_epa_punjab_aqi": 371
+      }
+    },
+    "disaster_event": {
+      "geography": {
+        "resolved": 1565
+      },
+      "geography_applicable": true,
+      "provenance": {
+        "normalization_version": 1565,
+        "parser_version": 1565,
+        "source_dataset": 1565,
+        "source_organization": 1565,
+        "total": 1565
+      },
+      "sources": {
+        "task17_ndma": 1565
+      }
+    },
+    "document": {
+      "geography": "not_attempted_by_design",
+      "geography_applicable": false,
+      "provenance": {
+        "normalization_version": 11,
+        "parser_version": 11,
+        "source_dataset": 11,
+        "source_organization": 11,
+        "total": 11
+      },
+      "sources": {
+        "tier1_ffc": 7,
+        "tier1_pmd_ndmc": 4
+      }
+    },
+    "gauge_observation": {
+      "geography": {
+        "resolved": 357,
+        "unresolved": 14143
+      },
+      "geography_applicable": true,
+      "provenance": {
+        "normalization_version": 14500,
+        "parser_version": 14500,
+        "source_dataset": 14500,
+        "source_organization": 14500,
+        "total": 14500
+      },
+      "sources": {
+        "task17_pdma": 14500
+      }
+    },
+    "hazard_alert": {
+      "geography": {
+        "resolved": 36,
+        "unresolved": 2
+      },
+      "geography_applicable": true,
+      "provenance": {
+        "normalization_version": 38,
+        "parser_version": 38,
+        "source_dataset": 38,
+        "source_organization": 38,
+        "total": 38
+      },
+      "sources": {
+        "task17_pmd_alerts": 7,
+        "task17_pmd_weekly": 27,
+        "tier1_ffc": 2,
+        "tier1_suparco": 2
+      }
+    },
+    "rainfall_observation": {
+      "geography": {
+        "ambiguous": 61,
+        "resolved": 660,
+        "unresolved": 148
+      },
+      "geography_applicable": true,
+      "provenance": {
+        "normalization_version": 869,
+        "parser_version": 869,
+        "source_dataset": 869,
+        "source_organization": 869,
+        "total": 869
+      },
+      "sources": {
+        "task17_pdma": 869
+      }
+    },
+    "reservoir_observation": {
+      "geography": "not_attempted_by_design",
+      "geography_applicable": false,
+      "provenance": {
+        "normalization_version": 6,
+        "parser_version": 6,
+        "source_dataset": 6,
+        "source_organization": 6,
+        "total": 6
+      },
+      "sources": {
+        "tier1_ffc": 6
+      }
+    },
+    "weather_observation": {
+      "geography": {
+        "resolved": 27,
+        "unresolved": 12
+      },
+      "geography_applicable": true,
+      "provenance": {
+        "normalization_version": 39,
+        "parser_version": 39,
+        "source_dataset": 39,
+        "source_organization": 39,
+        "total": 39
+      },
+      "sources": {
+        "task17_pmd": 39
+      }
+    }
+  },
+  "generated_by": "scripts/lakehouse/validate_lakehouse.py",
+  "spark_execution_status": "NOT EXECUTED -- pyspark is not installed in this environment; this report was produced by databricks/src/common/local_validation.py, a pure-Python stand-in that reuses the real Spark modules' dedup/timestamp configuration (see docs/architecture/CANONICAL_BRONZE_SILVER_STATUS.md)"
+}
