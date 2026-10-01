@@ -1,0 +1,146 @@
+[
+  {
+    "station": "Balloki",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 35641.0,
+    "predicted_discharge_avg_linear_regression": 40425.7,
+    "model_version": "2026-10-01-task22-daily"
+  },
+  {
+    "station": "Chashma",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 201884.8,
+    "predicted_discharge_avg_linear_regression": 199718.1,
+    "model_version": "2026-10-01-task22-daily"
+  },
+  {
+    "station": "G.S. Wala",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 2986.5,
+    "predicted_discharge_avg_linear_regression": 2015.7,
+    "model_version": "2026-10-01-task22-daily"
+  },
+  {
+    "station": "Islam",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 2783.5,
+    "predicted_discharge_avg_linear_regression": 4190.1,
+    "model_version": "2026-10-01-task22-daily"
+  },
+  {
+    "station": "Jassar",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 3270.2,
+    "predicted_discharge_avg_linear_regression": 5035.1,
+    "model_version": "2026-10-01-task22-daily"
+  },
+  {
+    "station": "Kalabagh",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 197624.4,
+    "predicted_discharge_avg_linear_regression": 205824.7,
+    "model_version": "2026-10-01-task22-daily"
+  },
+  {
+    "station": "Khanki",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 38554.0,
+    "predicted_discharge_avg_linear_regression": 26907.8,
+    "model_version": "2026-10-01-task22-daily"
+  },
+  {
+    "station": "Mangla",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 19533.3,
+    "predicted_discharge_avg_linear_regression": 14300.1,
+    "model_version": "2026-10-01-task22-daily"
+  },
+  {
+    "station": "Marala",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 39012.3,
+    "predicted_discharge_avg_linear_regression": 45015.2,
+    "model_version": "2026-10-01-task22-daily"
+  },
+  {
+    "station": "Panjnad",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 18956.2,
+    "predicted_discharge_avg_linear_regression": 19561.2,
+    "model_version": "2026-10-01-task22-daily"
+  },
+  {
+    "station": "Qadirabad",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 28795.3,
+    "predicted_discharge_avg_linear_regression": 22998.4,
+    "model_version": "2026-10-01-task22-daily"
+  },
+  {
+    "station": "Rasul",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 25593.2,
+    "predicted_discharge_avg_linear_regression": 21066.4,
+    "model_version": "2026-10-01-task22-daily"
+  },
+  {
+    "station": "Shahdara",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 16691.8,
+    "predicted_discharge_avg_linear_regression": 15647.9,
+    "model_version": "2026-10-01-task22-daily"
+  },
+  {
+    "station": "Sidhnai",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 23087.9,
+    "predicted_discharge_avg_linear_regression": 22634.9,
+    "model_version": "2026-10-01-task22-daily"
+  },
+  {
+    "station": "Suleimanki",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 17193.0,
+    "predicted_discharge_avg_linear_regression": 18433.5,
+    "model_version": "2026-10-01-task22-daily"
+  },
+  {
+    "station": "Tarbela",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 118665.0,
+    "predicted_discharge_avg_linear_regression": 140478.1,
+    "model_version": "2026-10-01-task22-daily"
+  },
+  {
+    "station": "Taunsa",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 195727.3,
+    "predicted_discharge_avg_linear_regression": 176575.1,
+    "model_version": "2026-10-01-task22-daily"
+  },
+  {
+    "station": "Trimmu",
+    "based_on_date": "2026-09-15",
+    "forecast_for": "t_plus_1_day",
+    "predicted_discharge_avg_random_forest": 28145.6,
+    "predicted_discharge_avg_linear_regression": 27631.3,
+    "model_version": "2026-10-01-task22-daily"
+  }
+]

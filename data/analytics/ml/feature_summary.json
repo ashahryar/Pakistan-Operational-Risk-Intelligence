@@ -1,0 +1,22 @@
+{
+  "aqi": {
+    "daily_feature_rows": 350,
+    "input_records": 352,
+    "station_snapshot_count": 2
+  },
+  "gauge": {
+    "complete_rows_t_plus_1": 2929,
+    "feature_rows": 3686,
+    "input_records": 3686,
+    "stations": 41
+  },
+  "hazard_event": {
+    "as_of_dates": 155,
+    "feature_rows": 1085
+  },
+  "rainfall": {
+    "feature_rows": 869,
+    "input_records": 869,
+    "rows_with_lag_1": 708
+  }
+}

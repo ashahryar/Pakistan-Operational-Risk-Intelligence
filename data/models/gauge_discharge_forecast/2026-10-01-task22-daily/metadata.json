@@ -1,0 +1,289 @@
+{
+  "model_name": "gauge_discharge_forecast",
+  "model_version": "2026-10-01-task22-daily",
+  "training_date": "2026-10-01T14:16:42.372031+00:00",
+  "predecessor_version": "2026-09-11 (Task 9 -- untouched)",
+  "source_dataset": "data/analytics/gold/datasets/gold_gauge_daily.jsonl",
+  "target_variable": "target_t_plus_1",
+  "target_description": "next-calendar-day discharge_avg (t+1)",
+  "horizon": "t+1 day (modeled); t+3/t+7 persistence-only, see horizon_metrics",
+  "feature_columns": [
+    "lag_1",
+    "lag_2",
+    "lag_3",
+    "lag_7",
+    "lag_14",
+    "rolling_mean_3",
+    "rolling_mean_7",
+    "rolling_mean_14",
+    "rolling_min_7",
+    "rolling_max_7",
+    "discharge_change",
+    "discharge_pct_change",
+    "station_Balloki",
+    "station_Chashma",
+    "station_G.S. Wala",
+    "station_Islam",
+    "station_Jassar",
+    "station_Kalabagh",
+    "station_Khanki",
+    "station_Mangla",
+    "station_Marala",
+    "station_Panjnad",
+    "station_Qadirabad",
+    "station_Rasul",
+    "station_Shahdara",
+    "station_Sidhnai",
+    "station_Suleimanki",
+    "station_Tarbela",
+    "station_Taunsa",
+    "station_Trimmu"
+  ],
+  "numeric_feature_columns": [
+    "lag_1",
+    "lag_2",
+    "lag_3",
+    "lag_7",
+    "lag_14",
+    "rolling_mean_3",
+    "rolling_mean_7",
+    "rolling_mean_14",
+    "rolling_min_7",
+    "rolling_max_7",
+    "discharge_change",
+    "discharge_pct_change"
+  ],
+  "min_distinct_values_threshold": 10,
+  "all_stations": [
+    "Aik",
+    "Balloki",
+    "Basanter",
+    "Bein",
+    "Bhimber",
+    "Chachar",
+    "Chashma",
+    "Deg",
+    "G.S. Wala",
+    "Islam",
+    "Jassar",
+    "Kaha",
+    "Kala-Bagga Khosra",
+    "Kalabagh",
+    "Kaura",
+    "Khanki",
+    "Lai",
+    "Lai FD and DEO",
+    "Mangla",
+    "Marala",
+    "Mithawan",
+    "Palkhu",
+    "Panjnad",
+    "Pitok",
+    "Qadirabad",
+    "Rasul",
+    "SITE",
+    "Sakhi Serwar",
+    "Sanghar",
+    "Shahdara",
+    "Sidhnai",
+    "Sori Janobi",
+    "Sori Lund",
+    "Sori Shumali",
+    "Suleimanki",
+    "Tarbela",
+    "Taunsa",
+    "Trimmu",
+    "Vehova",
+    "Vidore",
+    "Zangi"
+  ],
+  "qualifying_stations": [
+    "Balloki",
+    "Chashma",
+    "G.S. Wala",
+    "Islam",
+    "Jassar",
+    "Kalabagh",
+    "Khanki",
+    "Mangla",
+    "Marala",
+    "Panjnad",
+    "Qadirabad",
+    "Rasul",
+    "Shahdara",
+    "Sidhnai",
+    "Suleimanki",
+    "Tarbela",
+    "Taunsa",
+    "Trimmu"
+  ],
+  "excluded_stations_near_constant_or_empty": [
+    "Aik",
+    "Basanter",
+    "Bein",
+    "Bhimber",
+    "Chachar",
+    "Deg",
+    "Kaha",
+    "Kala-Bagga Khosra",
+    "Kaura",
+    "Lai",
+    "Lai FD and DEO",
+    "Mithawan",
+    "Palkhu",
+    "Pitok",
+    "SITE",
+    "Sakhi Serwar",
+    "Sanghar",
+    "Sori Janobi",
+    "Sori Lund",
+    "Sori Shumali",
+    "Vehova",
+    "Vidore",
+    "Zangi"
+  ],
+  "train_rows": 990,
+  "val_rows": 216,
+  "test_rows": 198,
+  "train_range": [
+    "2026-06-29",
+    "2026-08-22"
+  ],
+  "val_range": [
+    "2026-08-23",
+    "2026-09-03"
+  ],
+  "test_range": [
+    "2026-09-04",
+    "2026-09-14"
+  ],
+  "metrics": {
+    "persistence": {
+      "train": {
+        "mae": 12638.473232323233,
+        "rmse": 24013.254999980538,
+        "r2": 0.9457747693388907
+      },
+      "val": {
+        "mae": 15314.748302469136,
+        "rmse": 30409.54757960577,
+        "r2": 0.9038641104289029
+      },
+      "test": {
+        "mae": 9552.915404040405,
+        "rmse": 19755.336985922662,
+        "r2": 0.9249614932913255
+      }
+    },
+    "linear_regression": {
+      "train": {
+        "mae": 12183.23560648531,
+        "rmse": 22155.110494701745,
+        "r2": 0.953841978691715
+      },
+      "val": {
+        "mae": 15374.167447258289,
+        "rmse": 29012.75593034616,
+        "r2": 0.9124928377432459
+      },
+      "test": {
+        "mae": 11055.098579801275,
+        "rmse": 19358.64617198579,
+        "r2": 0.9279448108656668
+      }
+    },
+    "random_forest": {
+      "train": {
+        "mae": 3902.71869678298,
+        "rmse": 6952.111169469693,
+        "r2": 0.9954550118105311
+      },
+      "val": {
+        "mae": 17057.374864436402,
+        "rmse": 32184.631639173735,
+        "r2": 0.8923131391383111
+      },
+      "test": {
+        "mae": 14218.468183998606,
+        "rmse": 23558.812261060975,
+        "r2": 0.8932858324376239
+      }
+    }
+  },
+  "skill_score_test": {
+    "linear_regression": -0.15724866307572682,
+    "random_forest": -0.48839046329091396
+  },
+  "horizon_metrics_test": {
+    "t_plus_1": {
+      "mae": 9552.915404040405,
+      "rmse": 19755.336985922662,
+      "r2": 0.9249614932913255
+    },
+    "t_plus_3": {
+      "mae": 15969.474794238686,
+      "rmse": 33294.46621003179,
+      "r2": 0.7306213160649606
+    },
+    "t_plus_7": {
+      "mae": 26619.309259259255,
+      "rmse": 48786.74057304415,
+      "r2": 0.3512954117425041
+    }
+  },
+  "top_numeric_feature_importances": [
+    [
+      "lag_1",
+      0.7542918750791081
+    ],
+    [
+      "rolling_mean_14",
+      0.11319211052475422
+    ],
+    [
+      "rolling_min_7",
+      0.07990065824711273
+    ],
+    [
+      "rolling_max_7",
+      0.011484273527698867
+    ],
+    [
+      "lag_2",
+      0.007115499515120796
+    ],
+    [
+      "lag_14",
+      0.006760511388443322
+    ],
+    [
+      "rolling_mean_7",
+      0.005161909004918883
+    ],
+    [
+      "rolling_mean_3",
+      0.005084135516799636
+    ],
+    [
+      "lag_7",
+      0.004360355688235723
+    ],
+    [
+      "discharge_pct_change",
+      0.003784912857315516
+    ],
+    [
+      "discharge_change",
+      0.003622072258692653
+    ],
+    [
+      "lag_3",
+      0.0025154879742240923
+    ]
+  ],
+  "feature_importance_caveat": "feature importance, NOT a causal claim",
+  "sklearn_version": "1.9.1",
+  "pandas_version": "3.0.5",
+  "git_commit": null,
+  "generated_at": "2026-10-01T14:16:42.378993+00:00"
+}

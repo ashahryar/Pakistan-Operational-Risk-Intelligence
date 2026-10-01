@@ -48,6 +48,12 @@ data/processed/
 # summary/coverage/quality JSON reports in data/analytics/gold/ itself are still tracked,
 # matching the existing data/analytics/* convention.
 data/analytics/gold/datasets/
+# Task 22: full per-row ML feature table (thousands of rows) -- summary/quality JSON stays tracked.
+data/analytics/ml/gauge_forecast_features.jsonl
+# Task 22: the RandomForest+LinearRegression joblib bundle is ~11MB (vs. Task 9's 4KB
+# LinearRegression-only artifact, which stays tracked) -- metadata/metrics/predictions JSON
+# (small, reviewable) stay tracked; the binary is reproducible via scripts/ml/train_gauge_forecast.py.
+data/models/gauge_discharge_forecast/*-task22*/model.joblib
 
 *.csv
 *.xlsx

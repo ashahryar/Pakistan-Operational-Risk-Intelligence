@@ -1,0 +1,18 @@
+{
+  "aqi": {
+    "station_snapshot_count": 2
+  },
+  "gauge": {
+    "fraction_complete_for_t_plus_1": 0.794628323385784,
+    "resolved_stations": 93,
+    "unresolved_stations_rows": 3593
+  },
+  "rainfall": {
+    "missing_rainfall_total_stays_null": 0,
+    "note": "a missing rainfall_total is never coerced to 0 anywhere in this pipeline"
+  },
+  "weather": {
+    "reason": "gold_weather_daily currently spans a single calendar date",
+    "temporal_features_possible": false
+  }
+}
