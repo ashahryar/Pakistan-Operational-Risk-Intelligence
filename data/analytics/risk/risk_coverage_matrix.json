@@ -1,0 +1,68 @@
+{
+  "air_quality": {
+    "date_max": "2026-09-16",
+    "date_min": "2025-10-01",
+    "distinct_dates": 351,
+    "distinct_geographies_resolved": 1,
+    "resolved_observations": 352,
+    "resolved_pct": 100.0,
+    "total_source_observations": 352,
+    "unresolved_observations": 0
+  },
+  "disaster_event": {
+    "date_max": "2026-09-16",
+    "date_min": "2026-06-27",
+    "distinct_dates": 80,
+    "distinct_geographies_resolved": 7,
+    "resolved_observations": 1543,
+    "resolved_pct": 100.0,
+    "total_source_observations": 1543,
+    "unresolved_observations": 0
+  },
+  "gauge": {
+    "date_max": "2026-09-15",
+    "date_min": "2026-06-15",
+    "distinct_dates": 93,
+    "distinct_geographies_resolved": 1,
+    "resolved_observations": 93,
+    "resolved_pct": 2.52,
+    "total_source_observations": 3686,
+    "unresolved_observations": 3593
+  },
+  "hazard_alert": {
+    "date_max": "2026-09-02",
+    "date_min": "2026-06-27",
+    "distinct_dates": 5,
+    "distinct_geographies_resolved": 7,
+    "resolved_observations": 36,
+    "resolved_pct": 94.74,
+    "total_source_observations": 38,
+    "unresolved_observations": 2
+  },
+  "rainfall": {
+    "date_max": "2026-07-14",
+    "date_min": "2025-03-03",
+    "distinct_dates": 78,
+    "distinct_geographies_resolved": 42,
+    "resolved_observations": 660,
+    "resolved_pct": 75.95,
+    "total_source_observations": 869,
+    "unresolved_observations": 209
+  },
+  "reservoir": {
+    "note": "not geographically attributable to an admin unit",
+    "resolved_observations": 0,
+    "total_source_observations": 6,
+    "unresolved_observations": 6
+  },
+  "weather": {
+    "date_max": "2026-08-12",
+    "date_min": "2026-08-12",
+    "distinct_dates": 1,
+    "distinct_geographies_resolved": 27,
+    "resolved_observations": 27,
+    "resolved_pct": 69.23,
+    "total_source_observations": 39,
+    "unresolved_observations": 12
+  }
+}

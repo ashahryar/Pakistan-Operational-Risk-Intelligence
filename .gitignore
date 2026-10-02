@@ -96,3 +96,8 @@ desktop.ini
 *.tmp
 *.temp
 *.bak
+# Task 23: full per-row risk outputs are regenerable (scripts/risk/run_risk_engine.py); the small
+# coverage matrix / run summary / validation report / reservoir context JSON stay tracked.
+data/analytics/risk/gold_operational_risk.jsonl
+data/analytics/risk/risk_explanations.jsonl
+data/analytics/risk/unresolved_signals.jsonl

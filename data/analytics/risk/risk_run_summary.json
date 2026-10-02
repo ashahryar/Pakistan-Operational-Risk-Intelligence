@@ -1,0 +1,68 @@
+{
+  "admin_unit_labels_from_db": true,
+  "calculation_version": "risk-engine-1.0.0",
+  "date_max": "2026-09-16",
+  "date_min": "2025-03-03",
+  "distinct_admin_units": 62,
+  "ml_unavailable_reasons": {
+    "geography_caveat_excludes_unit": 117,
+    "no_eligible_prediction": 1560
+  },
+  "risk_basis_distribution": {
+    "ALERT_DRIVEN": 7,
+    "MULTI_SIGNAL": 8,
+    "OBSERVED_SIGNAL_ONLY": 1312,
+    "THRESHOLD_BASED": 350
+  },
+  "risk_confidence_distribution": {
+    "INSUFFICIENT": 1312,
+    "MEDIUM": 365
+  },
+  "risk_rows": 1677,
+  "risk_status_distribution": {
+    "CRITICAL": 6,
+    "HIGH": 20,
+    "INSUFFICIENT_DATA": 1312,
+    "LOW": 318,
+    "MODERATE": 21
+  },
+  "rows_with_ml_forecast": 0,
+  "rows_with_risk_score": 0,
+  "signal_state_counts": {
+    "air_quality": {
+      "INSUFFICIENT_HISTORY": 14,
+      "MISSING": 1327,
+      "OBSERVED": 336
+    },
+    "disaster_event": {
+      "MISSING": 1117,
+      "OBSERVED_NO_BASELINE": 560
+    },
+    "gauge": {
+      "GEOGRAPHY_CAVEAT": 93,
+      "MISSING": 1584
+    },
+    "hazard_alert": {
+      "MISSING": 1662,
+      "OBSERVED": 15
+    },
+    "rainfall": {
+      "GEOGRAPHY_CAVEAT": 44,
+      "INSUFFICIENT_HISTORY": 164,
+      "MISSING": 1017,
+      "OBSERVED": 452
+    },
+    "weather": {
+      "INSUFFICIENT_HISTORY": 27,
+      "MISSING": 1650
+    }
+  },
+  "threshold_status": "PROVISIONAL",
+  "unresolved_by_domain": {
+    "gauge": 3406,
+    "hazard_alert": 2,
+    "rainfall": 209,
+    "weather": 12
+  },
+  "unresolved_signal_records": 3629
+}

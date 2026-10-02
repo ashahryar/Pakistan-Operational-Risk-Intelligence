@@ -1,0 +1,63 @@
+# Operational risk engine configuration (Task 23). Versioned: bump engine_version on ANY change here.
+#
+# PROVISIONAL means: chosen by the engine authors for relative, data-driven ranking only. These
+# are NOT authoritative government/NDMA/PMD thresholds and must never be presented as such.
+engine_version: "1.0.0"
+calculation_version: "risk-engine-1.0.0"
+threshold_status: PROVISIONAL
+
+# Domains that attach to an admin_unit_id x date cell. reservoir_status is deliberately absent:
+# reservoirs are not attributable to an admin unit (see reservoir_context output).
+enabled_domains:
+  rainfall: true
+  weather: true
+  gauge: true
+  air_quality: true
+  hazard_alert: true
+  disaster_event: true
+  documents: false      # RAG/context only; never creates numeric risk
+
+# Percentile-rank normalization against the SAME admin unit's own PRIOR history (strictly
+# earlier dates only -- the cell's own date is never part of its baseline).
+normalization:
+  method: percentile_rank_strict_prior
+  # A percentile over n prior points has resolution 1/n; a 0.98 cut point is meaningless for tiny n.
+  # Below this many prior observations the signal is still normalized and shown, but it may NOT
+  # drive a LOW/MODERATE/HIGH/CRITICAL status (the cell stays INSUFFICIENT_DATA).
+  min_history_for_status: 30
+  min_history_observations:
+    rainfall: 5          # rainfall history is sparse/event-driven: prior OBSERVED days only
+    weather: 14
+    gauge: 14
+    air_quality: 14
+
+# Percentile-rank cut points mapping a normalized signal to a status (relative to own history).
+provisional_status_cutpoints:
+  MODERATE: 0.75
+  HIGH: 0.90
+  CRITICAL: 0.98
+
+# Alert severity labels exactly as published by the source -> provisional status. A severity not
+# listed here (e.g. a campaign colour code, or None) is preserved but NOT mapped.
+provisional_alert_severity_map:
+  "very heavy": HIGH
+  "heavy": MODERATE
+
+# An alert without an explicit validity window is treated as active only on its issue date plus
+# this many additional days. (Task 21/22 treated such alerts as active forever, which is unsupported.)
+alert_default_extra_active_days: 0
+
+disaster_event:
+  trailing_window_days: 30     # counts event records dated in [T-29, T]
+  normalize: false             # routine sitrep rows; no defensible baseline -> observed-only
+
+# Numeric score: no evidence-based weights exist, so no score is produced.
+score:
+  enabled: false
+
+# Admin units with a documented geography caveat (scripts/geo/canonical_data.py) never drive status.
+exclude_caveated_geography: true
+
+confidence:
+  high:   {min_normalized_domains: 2, min_coverage_pct: 50.0}
+  medium: {min_normalized_domains: 1, min_coverage_pct: 15.0}

@@ -1,0 +1,56 @@
+[
+  {
+    "combined_live_storage": 10.927,
+    "geography": "not_attributable_to_an_admin_unit",
+    "live_storage": 0.197,
+    "observation_time_basis": "source_observed",
+    "observed_at": "2026-09-15T06:00:00",
+    "reservoir_name": "Chashma",
+    "water_level": 646.6
+  },
+  {
+    "combined_live_storage": 10.873,
+    "geography": "not_attributable_to_an_admin_unit",
+    "live_storage": 0.21,
+    "observation_time_basis": "source_observed",
+    "observed_at": "2026-09-16T06:00:00",
+    "reservoir_name": "Chashma",
+    "water_level": 647.1
+  },
+  {
+    "combined_live_storage": 10.927,
+    "geography": "not_attributable_to_an_admin_unit",
+    "live_storage": 5.554,
+    "observation_time_basis": "source_observed",
+    "observed_at": "2026-09-15T06:00:00",
+    "reservoir_name": "Mangla",
+    "water_level": 1219.6
+  },
+  {
+    "combined_live_storage": 10.873,
+    "geography": "not_attributable_to_an_admin_unit",
+    "live_storage": 5.534,
+    "observation_time_basis": "source_observed",
+    "observed_at": "2026-09-16T06:00:00",
+    "reservoir_name": "Mangla",
+    "water_level": 1219.3
+  },
+  {
+    "combined_live_storage": 10.927,
+    "geography": "not_attributable_to_an_admin_unit",
+    "live_storage": 5.176,
+    "observation_time_basis": "source_observed",
+    "observed_at": "2026-09-15T06:00:00",
+    "reservoir_name": "Tarbela",
+    "water_level": 1542.97
+  },
+  {
+    "combined_live_storage": 10.873,
+    "geography": "not_attributable_to_an_admin_unit",
+    "live_storage": 5.122,
+    "observation_time_basis": "source_observed",
+    "observed_at": "2026-09-16T06:00:00",
+    "reservoir_name": "Tarbela",
+    "water_level": 1542.04
+  }
+]
