@@ -23,11 +23,11 @@
     "date_max": "2026-09-15",
     "date_min": "2026-06-15",
     "distinct_dates": 93,
-    "distinct_geographies_resolved": 1,
-    "resolved_observations": 93,
-    "resolved_pct": 2.52,
+    "distinct_geographies_resolved": 0,
+    "resolved_observations": 0,
+    "resolved_pct": 0.0,
     "total_source_observations": 3686,
-    "unresolved_observations": 3593
+    "unresolved_observations": 3686
   },
   "hazard_alert": {
     "date_max": "2026-09-02",

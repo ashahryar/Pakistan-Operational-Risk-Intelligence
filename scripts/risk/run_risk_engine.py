@@ -64,6 +64,28 @@ def _caveated(info: dict[int, dict]) -> set[int]:
     return {uid for uid, i in info.items() if i["level"] == 2 and i["name"] in names}
 
 
+def _apply_gauge_geography(gold: dict, info: dict) -> dict:
+    """Task 24: gauge geography is decided ONLY by eligible station mappings (config/gauge_station_evidence.yaml).
+
+    Observations of unresolved/ambiguous/caveated/inferred stations stay in the data as unresolved (never dropped,
+    never force-mapped), and river/basin context is never turned into administrative geography.
+    """
+    from pipeline.geo.gauge_mapping import apply_to_gauge_rows, build_mapping
+    from pipeline.geo.gauge_station import build_inventory
+    from scripts.geo.run_gauge_geography import load_evidence
+    raw = gold.get("gauge", [])
+    inventory = build_inventory(raw)
+    by_name = {}
+    for uid, i in sorted(info.items()):
+        by_name.setdefault(i["name"], {"id": uid, "level": i["level"], "province": i["province"]})
+    caveated_names = {info[u]["name"] for u in _caveated(info)}
+    mapping = build_mapping(inventory, load_evidence(), by_name, caveated_names)
+    gold["gauge"] = apply_to_gauge_rows(raw, mapping, inventory)
+    return {"mapping_version": load_evidence()["mapping_version"], "stations": len(mapping),
+            "eligible_stations": sum(1 for m in mapping if m["eligible_for_admin_risk"]),
+            "mapping_status_counts": dict(sorted(Counter(m["mapping_status"] for m in mapping).items()))}
+
+
 def _write_jsonl(path: Path, rows: list[dict]) -> None:
     path.write_text("".join(json.dumps(r, sort_keys=True, ensure_ascii=False) + "\n" for r in rows), encoding="utf-8")
 
@@ -72,6 +94,7 @@ def main() -> dict:
     cfg = load_config()
     gold = {k: _read(v) for k, v in FILES.items()}
     info = _unit_info()
+    gauge_geo = _apply_gauge_geography(gold, info)
     predictions, qualifying = [], set()
     if (ML_VERSION_DIR / "predictions.json").exists():
         predictions = json.loads((ML_VERSION_DIR / "predictions.json").read_text(encoding="utf-8"))
@@ -102,6 +125,7 @@ def main() -> dict:
         "unresolved_signal_records": len(result["unresolved"]),
         "unresolved_by_domain": dict(Counter(u["domain"] for u in result["unresolved"])),
         "admin_unit_labels_from_db": bool(info),
+        "gauge_geography": gauge_geo,
     }
     (OUT / "risk_run_summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
     return summary

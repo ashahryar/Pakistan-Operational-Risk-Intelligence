@@ -1,0 +1,169 @@
+{
+  "admin_unit_labels_from_db": true,
+  "basin_context_status_counts": {
+    "unresolved": 41
+  },
+  "before_after": [
+    {
+      "after_task24": 41,
+      "before_task24": 41,
+      "change": 0,
+      "metric": "distinct_gauge_stations"
+    },
+    {
+      "after_task24": 5,
+      "before_task24": 1,
+      "change": 4,
+      "metric": "stations_with_candidate_admin_geography"
+    },
+    {
+      "after_task24": 0,
+      "before_task24": 0,
+      "change": 0,
+      "metric": "stations_eligible_for_admin_risk"
+    },
+    {
+      "after_task24": 41,
+      "before_task24": 41,
+      "change": 0,
+      "metric": "stations_unresolved_for_risk"
+    },
+    {
+      "after_task24": 465,
+      "before_task24": 93,
+      "change": 372,
+      "metric": "observations_with_candidate_admin_geography"
+    },
+    {
+      "after_task24": 0,
+      "before_task24": 0,
+      "change": 0,
+      "metric": "observations_attributable_for_risk"
+    },
+    {
+      "after_task24": 3686,
+      "before_task24": 3686,
+      "change": 0,
+      "metric": "observations_unresolved_for_risk"
+    },
+    {
+      "after_task24": 40,
+      "before_task24": 40,
+      "change": 0,
+      "metric": "stations_with_river_context"
+    },
+    {
+      "after_task24": 0,
+      "before_task24": 0,
+      "change": 0,
+      "metric": "stations_with_basin_context"
+    },
+    {
+      "after_task24": 1,
+      "before_task24": 1,
+      "change": 0,
+      "metric": "caveated_stations"
+    },
+    {
+      "after_task24": 1,
+      "before_task24": 0,
+      "change": 1,
+      "metric": "ambiguous_stations"
+    },
+    {
+      "after_task24": 4,
+      "before_task24": 0,
+      "change": 4,
+      "metric": "inferred_stations_not_eligible"
+    }
+  ],
+  "coordinate_based_mappings": 0,
+  "coordinate_note": "no authoritative station coordinates or boundary polygons exist in the project; no point-in-polygon mapping possible",
+  "distinct_stations": 41,
+  "mapping_date": "2026-10-02",
+  "mapping_status_counts": {
+    "ambiguous": 1,
+    "caveated": 1,
+    "resolved_inferred": 4,
+    "unresolved": 35
+  },
+  "mapping_version": "gauge-geo-1.0.0",
+  "river_context_status_counts": {
+    "source_reported": 40,
+    "unresolved": 1
+  },
+  "top_unresolved_by_observations": [
+    {
+      "mapping_status": "unresolved",
+      "observation_count": 93,
+      "river_name_reported": "NULLAHS",
+      "station_key": "pdma:aik",
+      "station_name": "Aik"
+    },
+    {
+      "mapping_status": "resolved_inferred",
+      "observation_count": 93,
+      "river_name_reported": "RAVI",
+      "station_key": "pdma:balloki",
+      "station_name": "Balloki"
+    },
+    {
+      "mapping_status": "unresolved",
+      "observation_count": 93,
+      "river_name_reported": "NULLAHS",
+      "station_key": "pdma:basanter",
+      "station_name": "Basanter"
+    },
+    {
+      "mapping_status": "unresolved",
+      "observation_count": 93,
+      "river_name_reported": "NULLAHS",
+      "station_key": "pdma:bein",
+      "station_name": "Bein"
+    },
+    {
+      "mapping_status": "unresolved",
+      "observation_count": 93,
+      "river_name_reported": "RAJANPUR HILL TORRENTS",
+      "station_key": "pdma:chachar",
+      "station_name": "Chachar"
+    },
+    {
+      "mapping_status": "unresolved",
+      "observation_count": 93,
+      "river_name_reported": "INDUS",
+      "station_key": "pdma:chashma",
+      "station_name": "Chashma"
+    },
+    {
+      "mapping_status": "unresolved",
+      "observation_count": 93,
+      "river_name_reported": "NULLAHS",
+      "station_key": "pdma:deg",
+      "station_name": "Deg"
+    },
+    {
+      "mapping_status": "unresolved",
+      "observation_count": 93,
+      "river_name_reported": "SUTLEJ",
+      "station_key": "pdma:gswala",
+      "station_name": "G.S. Wala"
+    },
+    {
+      "mapping_status": "unresolved",
+      "observation_count": 93,
+      "river_name_reported": "SUTLEJ",
+      "station_key": "pdma:islam",
+      "station_name": "Islam"
+    },
+    {
+      "mapping_status": "unresolved",
+      "observation_count": 93,
+      "river_name_reported": "RAVI",
+      "station_key": "pdma:jassar",
+      "station_name": "Jassar"
+    }
+  ],
+  "validation_errors": [],
+  "validation_status": "pending_manual_review"
+}

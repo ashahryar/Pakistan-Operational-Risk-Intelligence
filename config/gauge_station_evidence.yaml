@@ -1,0 +1,40 @@
+# Task 24 -- repository-managed station->admin-unit EVIDENCE for gauge geography.
+#
+# This file records evidence, never conclusions. gauge_mapping.py turns evidence into a mapping
+# status via a fixed hierarchy. Evidence classes:
+#   authoritative  explicit statement by the official owner of the station (WAPDA, FFD, IRSA, PMD,
+#                  a provincial irrigation department, ...) -- None has been located so far.
+#   secondary      a non-official reference (encyclopedia / news). NEVER sufficient for eligibility;
+#                  produces at most `resolved_inferred`.
+#   legacy         the pre-Task-24 name match against the Task 10 seed (kept so the Mangla caveat is explicit).
+# Coordinates: no authoritative station coordinates and no authoritative boundary polygons exist in
+# this project, so no coordinate-based (point-in-polygon) mapping is possible and none is made.
+mapping_version: "gauge-geo-1.0.0"
+mapping_date: "2026-10-02"
+validation_status: pending_manual_review
+
+stations:
+  Mangla:
+    - {class: legacy, admin_unit: Mangla, source: task10_geo_locations_seed,
+       record: "geo.admin_unit 'Mangla' (district-level seed row flagged caveat: not a real district)"}
+  Marala:
+    - {class: secondary, admin_unit: Sialkot, source: secondary_web_reference,
+       record: "web search 2026-10-02: 'Marala Headworks in District Sialkot' (results: en.wikipedia.org List_of_barrages_and_headworks_in_Pakistan; dunyanews.tv 905310); per-result attribution not verified"}
+  Khanki:
+    - {class: secondary, admin_unit: Gujranwala, source: secondary_web_reference,
+       record: "web search 2026-10-02: 'Head Khanki in District Gujranwala' (same result set; per-result attribution not verified)"}
+  Trimmu:
+    - {class: secondary, admin_unit: Jhang, source: secondary_web_reference,
+       record: "web search 2026-10-02: 'Trimmu Headworks in District Jhang' (same result set; per-result attribution not verified)"}
+  Balloki:
+    - {class: secondary, admin_unit: Kasur, source: secondary_web_reference,
+       record: "web search 2026-10-02: 'Balloki Headworks in District Kasur' (same result set; per-result attribution not verified)"}
+  Tarbela:
+    # the same search returned two different districts for the dam -> ambiguous, not picked.
+    - {class: secondary, admin_unit: Swabi, source: secondary_web_reference,
+       record: "web search 2026-10-02: 'Tarbela Dam ... District Swabi'"}
+    - {class: secondary, admin_unit: Haripur, source: secondary_web_reference,
+       record: "web search 2026-10-02: 'located in the Haripur and Swabi districts'"}
+# Stations with no entry (Chashma, Kalabagh, Taunsa, Panjnad, Qadirabad, ...) have no evidence in this
+# project and stay unresolved. Qadirabad was only described as "near Mandi Bahauddin" (proximity, not
+# containment) and is deliberately NOT recorded as evidence.
