@@ -38,6 +38,10 @@ Verbatim character slices of the document (1,200 chars, 150 overlap, cut on whit
 
 `pipeline/rag/retrieval.py`: BM25 over chunk text (`lexical_bm25_baseline`), filters for source, source type, province, admin unit, event type and date range applied before ranking; IDF is corpus-wide, results are deterministic. Documents without a date never match a date filter. This matches words that literally occur; it does not understand synonyms, stems or translations ("inundation" will not find "flood"). Read-only endpoints: `GET /api/v1/rag/documents`, `/documents/{document_id}`, `/search` (evidence, no generated answer). The retriever holds the corpus in memory (~2k chunks), rebuilt when the corpus changes.
 
+## Full local corpus vs Git-tracked CI corpus
+
+The numbers above (253 documents, 1,909 chunks) describe the **full local corpus**: every parsed artifact on the machine that runs the pipeline. `data/parsed/` is gitignored apart from a small set of files committed earlier, so a CI checkout sees a much smaller, intentionally unchanged **CI fixture corpus**: 81 documents / 401 chunks (15 NDMA sitreps, 58 PDMA daily reports, 1 PMD alert, 7 PMD outlook items; no FFC/NDMC documents because `data/parsed/canonical/` is not tracked). The corpus tests adapt to whichever corpus is present and live-database tests skip when no database exists, so CI exercises the logic on the fixture corpus while the exact full-corpus figures are asserted only locally. Parsed data is deliberately not added to git to make CI see 253.
+
 ## Limitations
 
 Keyword-only; PDMA text is column-interleaved and NDMA text includes table fragments; Urdu documents are searchable only by exact Urdu words; 26 documents are undated; only 11 documents (FFC/NDMC) have no geography; the in-memory retriever is a baseline that will not scale past tens of thousands of chunks; document text is not de-duplicated across consecutive daily reports.

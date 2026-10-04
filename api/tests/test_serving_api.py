@@ -22,6 +22,7 @@ import api.app.routers.geography as geo_router  # noqa: E402
 import api.app.routers.risk as risk_router  # noqa: E402
 from api.app.main import app  # noqa: E402
 from api.app.services.risk_serving import to_feature_collection  # noqa: E402
+from api.tests._readonly import assert_read_only, openapi_methods, write_methods_exposed  # noqa: E402
 
 client = TestClient(app)
 
@@ -118,13 +119,27 @@ def test_geojson_validator_rejects_a_bad_collection():
 
 
 def test_api_exposes_no_write_methods_for_geography_or_risk():
-    for route in app.routes:
-        path = getattr(route, "path", "")
-        if path.startswith("/api/v1/geography") or path.startswith("/api/v1/risk"):
-            assert getattr(route, "methods", set()) <= {"GET", "HEAD"}, path
-    assert client.post("/api/v1/risk", json={}).status_code == 405
-    assert client.delete("/api/v1/geography/boundaries").status_code == 405
-    assert client.put("/api/v1/risk/map", json={}).status_code == 405
+    # OpenAPI + real HTTP (app.routes is empty of APIRoute objects in this FastAPI version -- see api/tests/_readonly.py)
+    assert_read_only(app, client, ("/api/v1/geography", "/api/v1/risk"),
+                     {"/api/v1/geography", "/api/v1/geography/admin-units", "/api/v1/geography/boundaries", "/api/v1/risk",
+                      "/api/v1/risk/latest", "/api/v1/risk/map"})
+
+
+def test_the_read_only_check_is_not_vacuous():
+    """The checker must fail when a write endpoint exists (proves the test can fail), and see real routes."""
+    from fastapi import FastAPI
+
+    bad = FastAPI()
+
+    @bad.post("/api/v1/risk/evil")
+    def evil():
+        return {}
+
+    assert write_methods_exposed(bad, ("/api/v1/risk",)) == {"/api/v1/risk/evil": {"post"}}
+    with pytest.raises(AssertionError):
+        assert_read_only(bad, TestClient(bad), ("/api/v1/risk",), {"/api/v1/risk/evil"})
+    assert sum(1 for p in openapi_methods(app, ("/api/v1/",))) >= 9          # the real app exposes many paths
+    assert not [r for r in app.routes if type(r).__name__ == "APIRoute"]     # documents why app.routes cannot be used
 
 
 def test_openapi_lists_the_new_paths():

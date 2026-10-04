@@ -17,6 +17,7 @@ from fastapi.testclient import TestClient  # noqa: E402
 import api.app.db as api_db  # noqa: E402
 import api.app.routers.rag as rag_router  # noqa: E402
 from api.app.main import app  # noqa: E402
+from api.tests._readonly import assert_read_only  # noqa: E402
 
 client = TestClient(app)
 
@@ -121,12 +122,19 @@ def test_database_failure_is_503_not_an_empty_result(monkeypatch):
 
 
 def test_rag_api_is_read_only():
-    # app.routes wraps included routers in this FastAPI version, so the OpenAPI document is the reliable source of truth
-    paths = {p: set(m) for p, m in client.get("/openapi.json").json()["paths"].items() if p.startswith("/api/v1/rag")}
-    assert set(paths) == {"/api/v1/rag/documents", "/api/v1/rag/documents/{document_id}", "/api/v1/rag/search"}
-    assert all(m == {"get"} for m in paths.values())
-    for verb in (client.post, client.put, client.patch, client.delete):
-        assert verb("/api/v1/rag/search").status_code == 405 and verb("/api/v1/rag/documents").status_code == 405
+    # OpenAPI + real HTTP (app.routes is empty of APIRoute objects in this FastAPI version -- see api/tests/_readonly.py)
+    assert_read_only(app, client, ("/api/v1/rag",), {"/api/v1/rag/documents", "/api/v1/rag/documents/{document_id}", "/api/v1/rag/search"})
+
+
+def test_rag_write_requests_are_rejected_with_405_and_do_not_reach_the_service(monkeypatch):
+    called = []
+    for name in ("list_documents", "get_document", "search_evidence"):
+        monkeypatch.setattr(rag_router, name, lambda *a, _n=name, **k: called.append(_n))
+    for verb in ("post", "put", "patch", "delete"):
+        for url in ("/api/v1/rag/search?q=flood", "/api/v1/rag/documents", "/api/v1/rag/documents/ndma:sitrep:abc"):
+            r = client.request(verb.upper(), url, json={"x": 1})
+            assert r.status_code == 405 and "GET" in r.headers["allow"], (verb, url)
+    assert called == []
 
 
 def test_existing_endpoints_are_still_registered():
