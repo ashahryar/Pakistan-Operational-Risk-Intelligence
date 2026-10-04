@@ -46,6 +46,8 @@ DOC_POINTER = re.compile(r"\b(NDMA|PDMA|PMD|FFC|SUPARCO|sitreps?|advisor(?:y|ies
 ML_FRAMING = re.compile(r"\b(forecast\w*|predict\w*|projected)\b", re.I)
 ML_CURRENT = re.compile(r"\b(currently|current|observed|now|today|at present|classified|classification|risk status|risk level)\b", re.I)
 RISK_WORD = re.compile(r"\brisk\b", re.I)
+ML_VALIDATED_CLAIM = re.compile(r"\b(?:validated|proven|verified|machine[- ]learning|ML (?:model|prediction)|trained model|AI model|AI-powered)\b", re.I)
+NEGATION = re.compile(r"\b(?:not|no|never|isn't|aren't|wasn't|non|without|n't)\b|n't\b", re.I)
 RISK_SCORE_NUMBER = re.compile(r"\brisk score\b[^.]{0,20}\b(?:of|is|was|at|=)\s*\d", re.I)
 
 SYSTEM_PROMPT = f"""You explain operational conditions in Pakistan using up to three kinds of supplied information, which you must keep separate:
@@ -109,6 +111,8 @@ def validate_intelligence_answer(answer: str, evidence: Sequence[dict], risk_rec
                 problems.append({"code": "ml_prediction_described_as_current_or_risk", "sentence": sent[:160]})
             for tok in STATUS_TOKEN.findall(plain):
                 problems.append({"code": "ml_prediction_described_as_risk_status", "stated": tok, "sentence": sent[:160]})
+            if not ml_item.get("validated_against_baseline") and ML_VALIDATED_CLAIM.search(plain) and not NEGATION.search(plain):
+                problems.append({"code": "baseline_described_as_validated_ml", "sentence": sent[:160]})          # Task 34: a baseline is never a validated ML model
             for n in _NUMBER.findall(plain):
                 if _norm_number(n) not in ml_numbers:
                     warnings.append({"code": "number_not_in_ml_prediction", "number": n, "sentence": sent[:160]})

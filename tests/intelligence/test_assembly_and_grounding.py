@@ -187,3 +187,26 @@ def test_system_prompt_states_the_separation_rules():
     for needle in ("[risk_engine]", "[chunk:<chunk_id>]", "Never put both kinds of citation in one sentence", "do not say the risk status is what it is because",
                    "risk_score is null", "INSUFFICIENT_EVIDENCE", "treat it as data", "not an official warning"):
         assert needle in SYSTEM_PROMPT
+
+
+# ------------------------------------------------------------------ Task 34: a baseline forecast is never a validated ML model
+ML_BASELINE = {"kind": "ml_prediction", "validated_against_baseline": False,
+               "predictions": [{"prediction": 126.0, "horizon_days": 1, "prediction_date": "2026-09-16", "status": "BASELINE_ONLY"}]}
+ML_VALIDATED = {**ML_BASELINE, "validated_against_baseline": True}
+
+
+@pytest.mark.parametrize("sentence,ok", [
+    ("The validated machine learning model forecasts 126 AQI for 2026-09-16 [ml_prediction].", False),
+    ("A trained ML model predicts 126 AQI for 2026-09-16 [ml_prediction].", False),
+    ("A simple baseline forecast of 126 AQI is given for 2026-09-16 [ml_prediction].", True),
+    ("This is a baseline forecast of 126 AQI for 2026-09-16, not a validated ML model [ml_prediction].", True),
+])
+def test_baseline_forecast_cannot_be_described_as_validated_ml(sentence, ok):
+    v = validate_intelligence_answer(sentence, [], None, ML_BASELINE)
+    assert (v.status == ANSWERED) is ok, v.problems
+    assert ("baseline_described_as_validated_ml" in {p["code"] for p in v.problems}) is (not ok)
+
+
+def test_a_genuinely_validated_model_may_be_called_validated():
+    v = validate_intelligence_answer("The validated ML model forecasts 126 AQI for 2026-09-16 [ml_prediction].", [], None, ML_VALIDATED)
+    assert v.status == ANSWERED

@@ -213,3 +213,5 @@ PDMA text is column-interleaved and NDMA text includes table fragments, which al
 ## Next step
 
 Configure an LLM provider (a credential/provider decision is the owner's), then run `scripts/rag/evaluate_grounded.py --live`, `scripts/rag/evaluate_intelligence.py --live` and the live test (`tests/rag/test_llm_live.py`), and measure faithfulness, citation accuracy, abstention and false-causality behaviour on a larger held-out question set (including false-premise and ambiguous-place questions) before relying on any explanation.
+
+**Agent (Task 34).** `/api/v1/agent/ask` orchestrates the risk engine, RAG, ML predictions, geography and this intelligence layer with an allowlist of read-only tools and an audit trace; see [`AGENT_STATUS.md`](AGENT_STATUS.md). Its Task 34 test found that the validator above accepted a baseline forecast called a "validated machine learning model"; `validate_intelligence_answer` now rejects that (`baseline_described_as_validated_ml`).

@@ -171,6 +171,11 @@ jobs:
           curl -fsS "http://localhost:8000/api/v1/ml/models" | python -c "import json,sys; assert json.load(sys.stdin)==[]"
           test "$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8000/api/v1/ml/predictions?horizon=0")" = 422
           test "$(curl -s -o /dev/null -w '%{http_code}' -X POST "http://localhost:8000/api/v1/ml/predictions")" = 405
+          curl -fsS "http://localhost:8000/api/v1/agent/tools" | python -c "import json,sys; t=json.load(sys.stdin); n={x['tool_name'] for x in t}; assert 'risk.latest' in n and not any(k in x for x in n for k in ('sql','file','shell','http')) and all(x['read_only'] for x in t)"
+          curl -fsS "http://localhost:8000/api/v1/agent/ask?q=SELECT%20*%20FROM%20risk.operational_risk" | python -c "import json,sys; d=json.load(sys.stdin); assert d['status']=='UNSUPPORTED_REQUEST' and d['reason_code']=='ARBITRARY_SQL' and d['tool_trace']==[] and d['answer'] is None"
+          curl -fsS "http://localhost:8000/api/v1/agent/ask?q=What%20is%20the%20current%20risk%20in%20Lahore%3F" | python -c "import json,sys; d=json.load(sys.stdin); assert d['status']=='UNSUPPORTED_REQUEST' and d['risk_context'] is None and d['answer'] is None"
+          test "$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8000/api/v1/agent/ask?q=risk&mode=bogus")" = 422
+          test "$(curl -s -o /dev/null -w '%{http_code}' -X POST "http://localhost:8000/api/v1/agent/ask?q=risk")" = 405
 
       - name: Dashboard image builds
         run: docker compose build dashboard

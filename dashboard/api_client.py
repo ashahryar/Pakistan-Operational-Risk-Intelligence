@@ -78,7 +78,7 @@ class RiskApiClient:
         except ValueError:
             pass
         msg = _MESSAGES[kind] + (f" ({detail})" if detail and kind in ("not_found",) else "")
-        if kind == "unavailable" and detail and path.startswith(("/api/v1/rag/", "/api/v1/intelligence/")):
+        if kind == "unavailable" and detail and path.startswith(("/api/v1/rag/", "/api/v1/intelligence/", "/api/v1/agent/")):
             msg = f"This feature is unavailable: {detail}"
         return ApiResult(False, error_kind=kind, message=msg, status_code=code)
 
@@ -123,3 +123,8 @@ class RiskApiClient:
                        include_insufficient: bool = True) -> ApiResult:
         return self._get("/api/v1/ml/predictions", {"admin_unit_id": admin_unit_id, "horizon": horizon, "date": date,
                                                     "include_insufficient": str(bool(include_insufficient)).lower()})
+
+    # -- read-only operational intelligence agent (Task 34)
+    def agent(self, q: str, mode: str = "hybrid", admin_unit_id: Optional[int] = None, date: Optional[str] = None, routing: str = "auto", top_k: int = 5) -> ApiResult:
+        """Structured agent result. A 503 carrying a body (no LLM provider: LLM_UNAVAILABLE) comes back as ok=False with data = the full body."""
+        return self._get("/api/v1/agent/ask", {"q": q, "mode": mode, "admin_unit_id": admin_unit_id, "date": date, "routing": routing, "top_k": top_k}, timeout=90.0)
