@@ -222,7 +222,7 @@ Supporting structure:
 - `dashboard/sections/` + `dashboard/charts/` — reusable disaster/weather/hydrology sections and their Plotly chart builders.
 - `dashboard/styles/` — the `style.css` design system and `theme.py` loader.
 
-> The dashboard is **not** included as a service in `docker-compose.yml`; it is run separately with `streamlit run` (see [Getting Started](#-getting-started)).
+> The dashboard can run on the host with `streamlit run` (see [Getting Started](#-getting-started)) or, since Task 28, as the optional `dashboard` Compose service together with the `api` service — see [`docs/architecture/SERVING_STACK.md`](docs/architecture/SERVING_STACK.md).
 
 ---
 

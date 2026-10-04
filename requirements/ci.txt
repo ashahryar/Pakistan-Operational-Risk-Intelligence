@@ -11,3 +11,7 @@
 # only so CI has one clear, versioned install target.
 
 -r ../airflow_requirements.txt
+
+# Task 28: the dashboard map page (tests/dashboard/test_risk_map_page.py) imports these; they are not in the Airflow image.
+plotly
+streamlit-autorefresh

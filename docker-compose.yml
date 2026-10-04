@@ -169,6 +169,85 @@ services:
 
 ############################################################
 
+  # ----------------------------------------------------------
+  # Task 28 -- serving layer: PostgreSQL -> FastAPI -> Streamlit
+  # Start only these (leaves the Airflow services untouched):
+  #   docker compose up -d --build api dashboard
+  # ----------------------------------------------------------
+
+  api:
+
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+
+    container_name: pori_api
+
+    restart: unless-stopped
+
+    # DB_HOST=postgres / DB_PORT=5432 / DB_NAME / DB_USER / DB_PASSWORD (same non-secret values the Airflow stack uses)
+    env_file:
+      - .env.docker
+
+    ports:
+      - "${API_PORT:-8000}:8000"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    # Healthy only when /health answers 200 AND reports the database reachable (status "ok"), not merely when the process exists.
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import json,sys,urllib.request; r=json.load(urllib.request.urlopen('http://localhost:8000/health', timeout=4)); sys.exit(0 if r.get('status')=='ok' and r.get('database') else 1)"
+      interval: 15s
+      timeout: 6s
+      retries: 5
+      start_period: 10s
+
+############################################################
+
+  dashboard:
+
+    build:
+      context: .
+      dockerfile: dashboard/Dockerfile
+
+    container_name: pori_dashboard
+
+    restart: unless-stopped
+
+    env_file:
+      - .env.docker
+
+    environment:
+      # Compose-network address of the API service. A dashboard run on the host keeps using PORI_API_URL / its localhost default.
+      PORI_API_URL: http://api:8000
+
+    # host port is configurable so it does not clash with a dashboard already running on the host (streamlit run)
+    ports:
+      - "${DASHBOARD_PORT:-8501}:8501"
+
+    depends_on:
+      api:
+        condition: service_healthy
+
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://localhost:8501/_stcore/health', timeout=4)"
+      interval: 15s
+      timeout: 6s
+      retries: 5
+      start_period: 20s
+
+############################################################
+
 volumes:
 
   postgres-db-volume:

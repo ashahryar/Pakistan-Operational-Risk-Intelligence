@@ -95,3 +95,66 @@ jobs:
       - name: Tear down
         if: always()
         run: docker compose down -v
+
+  serving-stack:
+    name: Serving stack (PostgreSQL -> FastAPI container, empty serving layer)
+    # Task 28. Builds the FastAPI image, starts it through the project's own docker-compose.yml together with the existing
+    # postgres service (Airflow is NOT started), builds the geo/serving schema on that empty database and smoke-tests the
+    # endpoint contracts. No AWS, no PostGIS, no live data sources, no boundary/risk data (those files are gitignored): the
+    # serving tables are empty, so the endpoints must answer 200 with empty results rather than fail.
+    runs-on: ubuntu-latest
+    needs: lint-and-test
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements/ci.txt
+
+      - name: Create a CI-only .env
+        # same throwaway, non-secret values as the dag-integrity job; used by the host-side schema scripts below
+        run: |
+          cat > .env <<'EOF'
+          DB_USER=airflow
+          DB_PASSWORD=airflow
+          DB_NAME=airflow
+          EOF
+
+      - name: Validate the Compose file
+        run: docker compose config -q
+
+      - name: Build and start PostgreSQL + API (waits for both health checks)
+        run: docker compose up -d --build --wait postgres api
+
+      - name: Build the geo schema and serving layer on the empty database
+        # hand-run DDL scripts + migration, exactly as documented (CLAUDE.md: no live DB here, a throwaway CI database)
+        run: |
+          python scripts/database/create_geo_schema_tables.py
+          python scripts/geo/seed_admin_units.py
+          python scripts/database/apply_serving_migration.py up
+
+      - name: Smoke-test the API contract
+        run: |
+          curl -fsS http://localhost:8000/health | tee /dev/stderr | grep -q '"status":"ok"'
+          curl -fsS http://localhost:8000/api/v1/geography/admin-units | python -c "import json,sys; d=json.load(sys.stdin); assert d and not any(u['has_geometry'] for u in d)"
+          curl -fsS http://localhost:8000/api/v1/risk/latest | python -c "import json,sys; assert json.load(sys.stdin)==[]"
+          curl -fsS "http://localhost:8000/api/v1/risk?limit=5" | python -c "import json,sys; assert json.load(sys.stdin)==[]"
+          curl -fsS http://localhost:8000/api/v1/risk/map | python -c "import json,sys; d=json.load(sys.stdin); assert d['type']=='FeatureCollection' and d['features']==[]"
+          curl -fsS http://localhost:8000/api/v1/geography/boundaries | python -c "import json,sys; assert json.load(sys.stdin)==[]"
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8000/api/v1/risk?risk_status=BAD)" = 422
+          test "$(curl -s -o /dev/null -w '%{http_code}' -X POST http://localhost:8000/api/v1/risk)" = 405
+
+      - name: Dashboard image builds
+        run: docker compose build dashboard
+
+      - name: Show API logs on failure
+        if: failure()
+        run: docker compose logs api
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v

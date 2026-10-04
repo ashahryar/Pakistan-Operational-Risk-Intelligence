@@ -78,8 +78,8 @@ def _fail(result, fn=None):
     if fn is not None:
         fn.clear()
     st.error(f"Could not load data: {result.message}")
-    st.caption("The map reads from the PORI API. Start it with: uvicorn api.app.main:app --port 8000 "
-               "(override the address with PORI_API_URL).")
+    st.caption("The map reads from the PORI API. Start it with: docker compose up -d --build api "
+               "(or: uvicorn api.app.main:app --port 8000). Override the address with PORI_API_URL.")
     st.stop()
 
 

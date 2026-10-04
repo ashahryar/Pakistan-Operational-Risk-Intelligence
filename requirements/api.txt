@@ -1,0 +1,8 @@
+# requirements/api.txt -- Task 28: the FastAPI serving container's complete dependency set (nothing else is installed).
+# Pins match the versions the API test suite runs against.
+fastapi==0.141.1
+uvicorn==0.50.2
+pydantic==2.13.5
+SQLAlchemy==2.0.51
+psycopg2-binary==2.9.12
+python-dotenv==1.2.2
