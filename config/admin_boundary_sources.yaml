@@ -1,0 +1,49 @@
+# Task 25 -- administrative boundary sources, provenance and policy.
+# A boundary dataset is a GEOGRAPHIC TOOL. It is not a government-certified classification, and the
+# project never presents a coordinate-derived result as "authoritative source reported".
+active_source: hdx_cod_ab_pak
+
+sources:
+  hdx_cod_ab_pak:
+    publisher: "OCHA Field Information Services Section (FISS), via the Humanitarian Data Exchange (HDX)"
+    original_source: "World Food Programme SDI (as stated in the HDX dataset record)"
+    dataset: "Pakistan - Subnational Administrative Boundaries (COD-AB)"
+    dataset_url: "https://data.humdata.org/dataset/cod-ab-pak"
+    resource_url: "https://data.humdata.org/dataset/a64d1ff2-7158-48c7-887d-6af69ce21906/resource/c6521e04-75e1-41be-8e02-0554a424d9f4/download/pak_admin_boundaries.geojson.zip"
+    version: "v01 (feature attribute 'version'); valid_on 2022-09-09; HDX record last modified 2026-08-14"
+    license: "Creative Commons Attribution for Intergovernmental Organisations (CC BY-IGO)"
+    retrieved: "2026-10-04"
+    archive_sha256: "dc56da20dc578b01617f219f13a37e3be3beea78018adc902a6dee9d08dee45c"
+    local_dir: "data/raw/boundaries/hdx_cod_ab_pak"      # raw, gitignored; re-download via resource_url
+    files: {0: "pak_admin0.geojson", 1: "pak_admin1.geojson", 2: "pak_admin2.geojson"}
+    crs: "CRS84"                                          # GeoJSON lon/lat, equivalent to WGS84 (EPSG:4326)
+    levels: {0: "country", 1: "province/region", 2: "district"}
+    id_field: {1: "adm1_pcode", 2: "adm2_pcode"}
+    name_field: {1: "adm1_name", 2: "adm2_name"}
+    parent_id_field: {2: "adm1_pcode"}
+    government_certified: false
+    accepted_for_coordinate_mapping: true                 # explicit project policy (see policy below)
+    limitations:
+      - "Third-party humanitarian compilation, not a government-certified boundary file."
+      - "Vintage 2022-09-09: districts created later (e.g. Kot Addu, Murree, Taunsa, Talagang) are absent or merged."
+      - "Includes Gilgit-Baltistan and Azad Kashmir as administered units; makes no statement on disputed areas."
+      - "Polygon quality was checked structurally only (closed rings, ranges, plausibility, sample overlap test), not for full topological validity."
+      - "Names differ from geo.admin_unit; all matching goes through the explicit crosswalk."
+
+# Declared spelling aliases used by the crosswalk (boundary name -> canonical PORI name). Nothing is fuzzy-matched.
+crosswalk_aliases:
+  "D. I. Khan": "Dera Ismail Khan"
+  "Leiah": "Layyah"
+
+policy:
+  # Eligibility is decided here, not in code.
+  eligible_evidence_statuses: [authoritative]       # official source explicitly reports the station location
+  official_secondary_eligible: false
+  secondary_eligible: false
+  # Coordinate-derived geography is eligible ONLY when the coordinates themselves are authoritative AND the
+  # boundary dataset is marked accepted_for_coordinate_mapping above AND the polygon hit is unambiguous AND the
+  # boundary unit has an exact/alias/manual_verified crosswalk to a non-caveated PORI unit.
+  allow_coordinate_derived_eligibility: true
+  coordinate_derived_label: "coordinate_based"       # never 'authoritative_source_reported'
+  pakistan_bbox: {lat_min: 23.5, lat_max: 37.2, lon_min: 60.8, lon_max: 77.9}
+  min_coordinate_decimals: 3

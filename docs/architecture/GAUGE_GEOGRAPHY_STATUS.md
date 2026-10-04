@@ -1,5 +1,7 @@
 # Gauge geography and hydrographic context — status (Task 24)
 
+> Superseded in part by Task 25 (`GAUGE_EVIDENCE_AND_BOUNDARY_STATUS.md`): the evidence registry schema, eligibility policy (now in config) and boundary/crosswalk foundation changed; the Task 24 results below are the historical baseline.
+
 A repository-managed, evidence-tiered mapping layer between PDMA gauge stations and canonical geography. **It does not make the gauge data geographically usable yet: after Task 24, 0 of 41 stations are eligible for administrative risk. That is the honest result of the evidence available, not a defect.**
 
 ## What exists

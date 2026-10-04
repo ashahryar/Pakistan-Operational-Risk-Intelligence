@@ -1,32 +1,36 @@
-"""Station -> admin-unit mapping with explicit evidence tiers and an eligibility policy.
+"""Station -> admin-unit mapping with explicit evidence tiers and a CONFIG-DRIVEN eligibility policy.
 
-Hierarchy (highest evidence first):
-  1 authoritative explicit station->admin-unit  -> resolved_authoritative   (eligible)
-  2 authoritative coordinates + authoritative boundary polygons -> resolved_coordinate (eligible)
-        NOT available in this project (no boundary dataset) -> never produced here
-  3 source-reported admin unit                  -> resolved_source_reported (eligible)
-  4 secondary / inferred evidence               -> resolved_inferred        (NOT eligible)
-  conflicting candidates                        -> ambiguous                (NOT eligible)
-  candidate is a caveated seed unit             -> caveated                 (NOT eligible)
-  nothing                                       -> unresolved               (NOT eligible)
+Evidence (config/gauge_station_evidence.yaml) -> mapping status:
+  authoritative district statement                -> resolved_authoritative
+  authoritative coordinates + accepted boundary    -> resolved_coordinate   (derivation = coordinate_based)
+  official_secondary                               -> resolved_source_reported (derivation = source_reported)
+  secondary                                        -> resolved_inferred        (derivation = inferred)
+  conflicting candidates                           -> ambiguous
+  candidate is a caveated seed unit                -> caveated
+  nothing usable                                   -> unresolved
+A status is only ELIGIBLE for admin risk when config policy (config/admin_boundary_sources.yaml `policy:`) allows
+that evidence status. By default only `authoritative` evidence is eligible; secondary, official_secondary,
+inferred, ambiguous, caveated and unresolved never are. A coordinate-derived result is always labelled
+`coordinate_based`, never `authoritative_source_reported`.
 
 River/basin context is carried separately (pipeline.geo.hydrography) and never becomes an admin unit.
-Station geography is treated as static: one mapping applies to all dates; no relocation evidence exists in
-the source and no effective dates are invented. A mapping is only consumed when `eligible_for_admin_risk`.
+Station geography is treated as static: no relocation evidence exists and no effective dates are invented.
 """
 
 from __future__ import annotations
 
 from typing import Any, Optional
 
+from pipeline.geo.boundaries import BoundaryIndex, locate_station, validate_coordinate
 from pipeline.geo.gauge_station import match_key
 
 ELIGIBLE_STATUSES = {"resolved_authoritative", "resolved_coordinate", "resolved_source_reported"}
 STATUSES = ELIGIBLE_STATUSES | {"resolved_inferred", "ambiguous", "caveated", "unresolved"}
-_CLASS_TO_STATUS = {"authoritative": "resolved_authoritative", "source_reported": "resolved_source_reported",
-                    "secondary": "resolved_inferred"}
-_CLASS_TO_BASIS = {"authoritative": "authoritative_source", "source_reported": "source_reported", "secondary": "inferred"}
-_CONF = {"authoritative": "high", "source_reported": "medium", "secondary": "low"}
+EVIDENCE_STATUSES = {"authoritative", "official_secondary", "secondary", "conflicting", "unresolved"}
+_RANK = {"authoritative": 3, "official_secondary": 2, "secondary": 1}
+_DEFAULT_POLICY = {"eligible_evidence_statuses": ["authoritative"], "official_secondary_eligible": False,
+                   "secondary_eligible": False, "allow_coordinate_derived_eligibility": False,
+                   "min_coordinate_decimals": 3}
 
 
 def _blank(station: dict, evidence_cfg: dict) -> dict:
@@ -36,67 +40,127 @@ def _blank(station: dict, evidence_cfg: dict) -> dict:
         "admin_unit_id": None, "admin_unit_name": None, "admin_level": None, "province": None,
         "mapping_status": "unresolved", "mapping_basis": "none", "mapping_confidence": None,
         "mapping_source": None, "mapping_source_record": None, "caveat": None,
+        "geography_derivation": "none",
         "eligible_for_admin_risk": False, "ineligibility_reason": "no_evidence",
+        "evidence": [], "coordinate_validation": None,
+        "boundary_source": None, "boundary_version": None, "boundary_level": None, "boundary_unit_name": None,
+        "boundary_pcode": None, "boundary_match_basis": None, "boundary_confidence": None,
         "mapping_version": evidence_cfg["mapping_version"], "mapping_date": evidence_cfg["mapping_date"],
         "validation_status": evidence_cfg.get("validation_status", "pending_manual_review"),
         "temporal_assumption": "station geography treated as static; no relocation evidence; no effective dates",
     }
 
 
-def build_mapping(inventory: list[dict], evidence_cfg: dict, units_by_name: dict[str, dict],
-                  caveated_names: set[str]) -> list[dict]:
+def _compact(e: dict) -> dict:
+    keys = ("station_name", "source", "source_type", "source_url", "source_record", "station_id", "latitude",
+            "longitude", "district", "tehsil", "river", "basin", "evidence_status", "evidence_strength", "notes", "retrieved")
+    return {k: e.get(k) for k in keys}
+
+
+def _eligible_by_policy(evidence_status: str, derivation: str, policy: dict, boundary_ok: bool) -> bool:
+    if evidence_status == "official_secondary":
+        return bool(policy.get("official_secondary_eligible"))
+    if evidence_status == "secondary":
+        return bool(policy.get("secondary_eligible"))
+    if evidence_status not in policy.get("eligible_evidence_statuses", []):
+        return False
+    if derivation == "coordinate_based":
+        return bool(policy.get("allow_coordinate_derived_eligibility")) and boundary_ok
+    return True
+
+
+def build_mapping(inventory: list[dict], evidence_cfg: dict, units_by_name: dict[str, dict], caveated_names: set[str],
+                  boundary: Optional[BoundaryIndex] = None, crosswalk: Optional[dict] = None,
+                  policy: Optional[dict] = None, bbox: Optional[dict] = None) -> list[dict]:
     """units_by_name: {admin unit name: {"id", "level", "province"}} from geo.admin_unit (read-only)."""
-    evidence = {match_key(k): v for k, v in (evidence_cfg.get("stations") or {}).items()}
+    policy = {**_DEFAULT_POLICY, **(policy or {})}
+    boundary_ok = bool(boundary and boundary.source.get("accepted_for_coordinate_mapping"))
+    by_station: dict[str, list[dict]] = {}
+    for e in evidence_cfg.get("evidence") or []:
+        by_station.setdefault(match_key(e["station_name"]), []).append(e)
     out = []
     for st in inventory:
         m = _blank(st, evidence_cfg)
-        ev = evidence.get(st["match_key"], [])
-        if not ev:
+        entries = by_station.get(st["match_key"], [])
+        if not entries:
             out.append(m)
             continue
-        names = sorted({e["admin_unit"] for e in ev})
-        recs = "; ".join(f"{e['source']}: {e['record']}" for e in ev)
-        m["mapping_source"] = "; ".join(sorted({e["source"] for e in ev}))
-        m["mapping_source_record"] = recs
-        legacy = [e for e in ev if e["class"] == "legacy"]
-        if any(n in caveated_names for n in names) or (legacy and legacy[0]["admin_unit"] in caveated_names):
-            cav_name = next(n for n in names if n in caveated_names)
-            u = units_by_name.get(cav_name) or {}
-            others = [e for e in ev if e["admin_unit"] != cav_name]
+        m["evidence"] = [_compact(e) for e in entries]
+        m["mapping_source"] = "; ".join(sorted({e["source"] for e in entries}))
+        m["mapping_source_record"] = "; ".join(f"{e['source']}: {e['source_record']}" for e in entries)
+        notes: list[str] = []
+        cands: list[dict] = []          # {unit, evidence_status, derivation}
+        for e in entries:
+            es = e.get("evidence_status", "unresolved")
+            if e.get("latitude") is not None and e.get("longitude") is not None:
+                v = validate_coordinate(e["latitude"], e["longitude"], bbox, policy.get("min_coordinate_decimals", 3))
+                m["coordinate_validation"] = v
+                if not v["valid"]:
+                    notes.append(f"coordinates rejected ({', '.join(v['flags'])}); not used")
+                elif boundary is None:
+                    notes.append("coordinates valid but no boundary dataset loaded; not mapped")
+                else:
+                    loc = locate_station(boundary, crosswalk or {}, float(e["latitude"]), float(e["longitude"]))
+                    m.update({k: loc[k] for k in ("boundary_source", "boundary_version", "boundary_level", "boundary_unit_name",
+                                                  "boundary_pcode", "boundary_match_basis", "boundary_confidence")})
+                    if loc["polygon_status"] != "inside":
+                        notes.append(f"coordinate polygon result {loc['polygon_status']}; no district assigned")
+                    elif loc["pori_admin_unit_name"] is None:
+                        notes.append(f"coordinate falls in boundary district {loc['boundary_unit_name']!r} which has no "
+                                     f"canonical match (crosswalk {loc['crosswalk_status']})")
+                    else:
+                        cands.append({"unit": loc["pori_admin_unit_name"], "evidence_status": es, "derivation": "coordinate_based"})
+            if e.get("district"):
+                deriv = "source_reported" if es in ("authoritative", "official_secondary") else "inferred"
+                cands.append({"unit": e["district"], "evidence_status": es, "derivation": deriv})
+        names = sorted({c["unit"] for c in cands})
+        if any(n in caveated_names for n in names):
+            cav = next(n for n in names if n in caveated_names)
+            u = units_by_name.get(cav) or {}
+            others = [n for n in names if n != cav]
             m.update(mapping_status="caveated", mapping_basis="name_match_legacy", mapping_confidence="low",
-                     admin_unit_id=u.get("id"), admin_unit_name=cav_name, admin_level=u.get("level"),
-                     province=u.get("province"),
-                     caveat=(f"{cav_name!r} is a caveated Task 10 seed row (not a real district); the name match is not an "
-                             "authoritative station location. " + ("A secondary reference places the station in "
-                             f"{others[0]['admin_unit']}, which is not adopted (not authoritative). " if others else "")
+                     geography_derivation="inferred", admin_unit_id=u.get("id"), admin_unit_name=cav,
+                     admin_level=u.get("level"), province=u.get("province"),
+                     caveat=(f"{cav!r} is a caveated Task 10 seed row (not a real district); the name match is not an "
+                             "authoritative station location. "
+                             + (f"Secondary references place the station in {others}, which is not adopted (not authoritative). " if others else "")
                              + "Hydrographic location is its primary representation."),
                      ineligibility_reason="caveated_geography")
-            out.append(m)
-            continue
-        if len(names) > 1:
+        elif len(names) > 1 or any(e.get("evidence_status") == "conflicting" for e in entries):
             m.update(mapping_status="ambiguous", mapping_basis="conflicting_evidence", mapping_confidence="low",
-                     caveat=f"conflicting candidate admin units {names}; none selected",
+                     caveat=f"conflicting candidate admin units {names}; none selected (all evidence records preserved)",
                      ineligibility_reason="ambiguous_mapping")
-            out.append(m)
-            continue
-        name = names[0]
-        unit = units_by_name.get(name)
-        e = ev[0]
-        cls = e["class"]
-        if unit is None:
-            m.update(mapping_basis="evidence_without_canonical_unit", ineligibility_reason="admin_unit_not_in_canonical_geography",
-                     caveat=f"evidence names {name!r} but geo.admin_unit has no such unit")
-            out.append(m)
-            continue
-        status = _CLASS_TO_STATUS.get(cls, "resolved_inferred")
-        m.update(mapping_status=status, mapping_basis=_CLASS_TO_BASIS.get(cls, "inferred"),
-                 mapping_confidence=_CONF.get(cls, "low"), admin_unit_id=unit["id"], admin_unit_name=name,
-                 admin_level=unit["level"], province=unit.get("province"))
-        if status in ELIGIBLE_STATUSES:
-            m.update(eligible_for_admin_risk=True, ineligibility_reason=None)
+        elif not names:
+            m.update(mapping_basis="no_usable_evidence", ineligibility_reason="no_usable_evidence",
+                     caveat="; ".join(notes) or "evidence present but names no admin unit")
         else:
-            m.update(ineligibility_reason="inferred_mapping_not_authoritative",
-                     caveat="secondary/inferred evidence only; pending manual review; not used for risk")
+            name = names[0]
+            best = max(cands, key=lambda c: _RANK.get(c["evidence_status"], 0))
+            unit = units_by_name.get(name)
+            if unit is None:
+                m.update(mapping_basis="evidence_without_canonical_unit", ineligibility_reason="admin_unit_not_in_canonical_geography",
+                         caveat=f"evidence names {name!r} but geo.admin_unit has no such unit")
+            else:
+                es, deriv = best["evidence_status"], best["derivation"]
+                if es == "authoritative":
+                    status = "resolved_coordinate" if deriv == "coordinate_based" else "resolved_authoritative"
+                    basis = "coordinate_point_in_polygon" if deriv == "coordinate_based" else "authoritative_source"
+                    conf = "high" if deriv != "coordinate_based" else "medium"
+                elif es == "official_secondary":
+                    status, basis, conf = "resolved_source_reported", "official_secondary_source", "medium"
+                else:
+                    status, basis, conf = "resolved_inferred", "inferred", "low"
+                m.update(mapping_status=status, mapping_basis=basis, mapping_confidence=conf, geography_derivation=deriv,
+                         admin_unit_id=unit["id"], admin_unit_name=name, admin_level=unit["level"], province=unit.get("province"))
+                if _eligible_by_policy(es, deriv, policy, boundary_ok):
+                    m.update(eligible_for_admin_risk=True, ineligibility_reason=None)
+                else:
+                    m.update(ineligibility_reason=f"{es}_evidence_not_eligible_by_policy",
+                             caveat="evidence class is not eligible under the configured policy; pending manual review; not used for risk")
+        if notes and not m["caveat"]:
+            m["caveat"] = "; ".join(notes)
+        elif notes:
+            m["caveat"] += " | " + "; ".join(notes)
         out.append(m)
     keys = [x["station_key"] for x in out]
     assert len(keys) == len(set(keys))
@@ -128,7 +192,7 @@ def apply_to_gauge_rows(gauge_rows: list[dict], mapping: list[dict], inventory: 
         nr = dict(r)
         if m and m["eligible_for_admin_risk"]:
             nr.update(admin_unit_id=m["admin_unit_id"], resolution_status="resolved", station_key=key,
-                      geography_mapping_status=m["mapping_status"])
+                      geography_mapping_status=m["mapping_status"], geography_derivation=m["geography_derivation"])
         else:
             nr.update(admin_unit_id=None, resolution_status="unresolved", station_key=key,
                       geography_mapping_status=(m or {}).get("mapping_status", "unresolved"),

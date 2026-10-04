@@ -70,20 +70,17 @@ def _apply_gauge_geography(gold: dict, info: dict) -> dict:
     Observations of unresolved/ambiguous/caveated/inferred stations stay in the data as unresolved (never dropped,
     never force-mapped), and river/basin context is never turned into administrative geography.
     """
-    from pipeline.geo.gauge_mapping import apply_to_gauge_rows, build_mapping
-    from pipeline.geo.gauge_station import build_inventory
-    from scripts.geo.run_gauge_geography import load_evidence
+    from pipeline.geo.gauge_mapping import apply_to_gauge_rows
+    from scripts.geo.run_gauge_geography import compute_mapping
     raw = gold.get("gauge", [])
-    inventory = build_inventory(raw)
-    by_name = {}
-    for uid, i in sorted(info.items()):
-        by_name.setdefault(i["name"], {"id": uid, "level": i["level"], "province": i["province"]})
-    caveated_names = {info[u]["name"] for u in _caveated(info)}
-    mapping = build_mapping(inventory, load_evidence(), by_name, caveated_names)
-    gold["gauge"] = apply_to_gauge_rows(raw, mapping, inventory)
-    return {"mapping_version": load_evidence()["mapping_version"], "stations": len(mapping),
+    c = compute_mapping(raw)
+    mapping = c["mapping"]
+    gold["gauge"] = apply_to_gauge_rows(raw, mapping, c["inventory"])
+    return {"mapping_version": c["cfg"]["mapping_version"], "stations": len(mapping),
             "eligible_stations": sum(1 for m in mapping if m["eligible_for_admin_risk"]),
-            "mapping_status_counts": dict(sorted(Counter(m["mapping_status"] for m in mapping).items()))}
+            "boundary_available": bool(c["index"]),
+            "mapping_status_counts": dict(sorted(Counter(m["mapping_status"] for m in mapping).items())),
+            "geography_derivation_counts": dict(sorted(Counter(m["geography_derivation"] for m in mapping).items()))}
 
 
 def _write_jsonl(path: Path, rows: list[dict]) -> None:

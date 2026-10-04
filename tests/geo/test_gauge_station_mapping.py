@@ -25,11 +25,15 @@ def row(station, river="CHENAB", date="2026-07-01", value=100.0, admin=None, sta
 
 
 def cfg(stations):
-    return {"mapping_version": "t-1", "mapping_date": "2026-01-01", "validation_status": "pending_manual_review", "stations": stations}
+    """stations: {station_name: [ev(...), ...]} -> evidence registry config."""
+    evidence = [{"station_name": name, **e} for name, es in stations.items() for e in es]
+    return {"mapping_version": "t-1", "mapping_date": "2026-01-01", "validation_status": "pending_manual_review", "evidence": evidence}
 
 
 def ev(admin, cls="secondary", source="s", record="r"):
-    return {"class": cls, "admin_unit": admin, "source": source, "record": record}
+    status = "authoritative" if cls == "authoritative" else "secondary"
+    return {"district": admin, "evidence_status": status, "source": source, "source_record": record,
+            "source_type": {"authoritative": "official", "legacy": "legacy_seed"}.get(cls, "secondary"), "evidence_strength": "x"}
 
 
 def build(rows, stations):
@@ -198,9 +202,14 @@ def test_validate_flags_eligible_without_evidence_and_fabricated_coordinates():
 def test_real_evidence_file_is_versioned_and_never_marks_secondary_evidence_authoritative():
     c = load_evidence()
     assert c["mapping_version"] and c["mapping_date"] and c["validation_status"] == "pending_manual_review"
-    for station, entries in c["stations"].items():
-        assert all(e["source"] and e["record"] and e["class"] in {"authoritative", "secondary", "legacy", "source_reported"} for e in entries), station
-    assert not any(e["class"] == "authoritative" for es in c["stations"].values() for e in es)   # none located so far
+    for e in c["evidence"]:
+        assert e["source"] and e["source_record"] and e["station_name"], e
+        assert e["evidence_status"] in {"authoritative", "official_secondary", "secondary", "conflicting", "unresolved"}
+        if e["source_type"] in {"secondary", "legacy_seed"}:
+            assert e["evidence_status"] != "authoritative", e
+        assert e.get("latitude") is None and e.get("longitude") is None       # no coordinates were ever sourced
+    assert not any(e["evidence_status"] == "authoritative" for e in c["evidence"])   # none located so far
+    assert c["investigation_log"] and all(i["outcome"] and i["checked"] for i in c["investigation_log"])
 
 
 GOLD = REPO / "data" / "analytics" / "gold" / "datasets" / "gold_gauge_daily.jsonl"
@@ -215,4 +224,4 @@ def test_real_data_run_is_valid_and_idempotent(tmp_path):
     assert first["validation_errors"] == [] and first == second and first_files == second_files
     inv = json.loads(first_files["gauge_station_inventory.json"])
     assert len({s["station_key"] for s in inv}) == len(inv) == first["distinct_stations"]
-    assert first["coordinate_based_mappings"] == 0
+    assert first["coordinate_derived_mappings"] == 0

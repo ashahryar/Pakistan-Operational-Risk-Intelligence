@@ -5,14 +5,19 @@
   "date_min": "2025-03-03",
   "distinct_admin_units": 62,
   "gauge_geography": {
+    "boundary_available": true,
     "eligible_stations": 0,
+    "geography_derivation_counts": {
+      "inferred": 5,
+      "none": 36
+    },
     "mapping_status_counts": {
-      "ambiguous": 1,
+      "ambiguous": 2,
       "caveated": 1,
       "resolved_inferred": 4,
-      "unresolved": 35
+      "unresolved": 34
     },
-    "mapping_version": "gauge-geo-1.0.0",
+    "mapping_version": "gauge-geo-2.0.0",
     "stations": 41
   },
   "ml_unavailable_reasons": {

@@ -1,40 +1,83 @@
-# Task 24 -- repository-managed station->admin-unit EVIDENCE for gauge geography.
+# Task 24/25 -- repository-managed station evidence REGISTRY for gauge geography.
 #
-# This file records evidence, never conclusions. gauge_mapping.py turns evidence into a mapping
-# status via a fixed hierarchy. Evidence classes:
-#   authoritative  explicit statement by the official owner of the station (WAPDA, FFD, IRSA, PMD,
-#                  a provincial irrigation department, ...) -- None has been located so far.
-#   secondary      a non-official reference (encyclopedia / news). NEVER sufficient for eligibility;
-#                  produces at most `resolved_inferred`.
-#   legacy         the pre-Task-24 name match against the Task 10 seed (kept so the Mangla caveat is explicit).
-# Coordinates: no authoritative station coordinates and no authoritative boundary polygons exist in
-# this project, so no coordinate-based (point-in-polygon) mapping is possible and none is made.
-mapping_version: "gauge-geo-1.0.0"
-mapping_date: "2026-10-02"
+# Records evidence, never conclusions. gauge_mapping.py turns evidence into a mapping status; the
+# eligibility POLICY lives in config/admin_boundary_sources.yaml (policy:), not in code.
+#
+# evidence_status:
+#   authoritative      the OFFICIAL OWNER of the station explicitly states the district / coordinates.
+#   official_secondary an official document that merely mentions another agency's station.
+#   secondary          non-official reference (encyclopedia / news). Never eligible.
+#   conflicting        sources disagree (also derived automatically when entries name different districts).
+#   unresolved         source seen, nothing usable.
+# A government-looking website is NOT automatically authoritative: the source must state the fact.
+#
+# Coordinates: only populate latitude/longitude from an authoritative source; they are validated
+# (range, Pakistan plausibility, reversal, precision, duplicates) and run through the boundary dataset.
+mapping_version: "gauge-geo-2.0.0"
+mapping_date: "2026-10-04"
 validation_status: pending_manual_review
 
-stations:
-  Mangla:
-    - {class: legacy, admin_unit: Mangla, source: task10_geo_locations_seed,
-       record: "geo.admin_unit 'Mangla' (district-level seed row flagged caveat: not a real district)"}
-  Marala:
-    - {class: secondary, admin_unit: Sialkot, source: secondary_web_reference,
-       record: "web search 2026-10-02: 'Marala Headworks in District Sialkot' (results: en.wikipedia.org List_of_barrages_and_headworks_in_Pakistan; dunyanews.tv 905310); per-result attribution not verified"}
-  Khanki:
-    - {class: secondary, admin_unit: Gujranwala, source: secondary_web_reference,
-       record: "web search 2026-10-02: 'Head Khanki in District Gujranwala' (same result set; per-result attribution not verified)"}
-  Trimmu:
-    - {class: secondary, admin_unit: Jhang, source: secondary_web_reference,
-       record: "web search 2026-10-02: 'Trimmu Headworks in District Jhang' (same result set; per-result attribution not verified)"}
-  Balloki:
-    - {class: secondary, admin_unit: Kasur, source: secondary_web_reference,
-       record: "web search 2026-10-02: 'Balloki Headworks in District Kasur' (same result set; per-result attribution not verified)"}
-  Tarbela:
-    # the same search returned two different districts for the dam -> ambiguous, not picked.
-    - {class: secondary, admin_unit: Swabi, source: secondary_web_reference,
-       record: "web search 2026-10-02: 'Tarbela Dam ... District Swabi'"}
-    - {class: secondary, admin_unit: Haripur, source: secondary_web_reference,
-       record: "web search 2026-10-02: 'located in the Haripur and Swabi districts'"}
-# Stations with no entry (Chashma, Kalabagh, Taunsa, Panjnad, Qadirabad, ...) have no evidence in this
-# project and stay unresolved. Qadirabad was only described as "near Mandi Bahauddin" (proximity, not
-# containment) and is deliberately NOT recorded as evidence.
+# What was actually checked (time-boxed). A missing authoritative source is a valid engineering finding.
+investigation_log:
+  - {source: "IRSA (pakirsa.gov.pk)", source_type: official, url: "https://pakirsa.gov.pk",
+     outcome: "not reachable from the build environment (connection refused); web search surfaced no telemetry site list with locations. The project's source inventory only records a 'Telemetry Sites Locations' item (no content).",
+     result: no_evidence, checked: "2026-10-04"}
+  - {source: "Federal Flood Commission (ffc.gov.pk) -- 'Flood Fighting/Contingency Plan 2026' index", source_type: official,
+     url: "https://ffc.gov.pk/?p=21112",
+     outcome: "index lists NDMA, Punjab zone-wise (.rar), PDMA KP and a Mangla reservoir manual; it does not list per-headworks plans and gives no station locations.",
+     result: no_evidence, checked: "2026-10-04"}
+  - {source: "FFC per-headworks flood fighting plans (docx, 2025)", source_type: official,
+     url: "https://ffc.gov.pk/wp-content/uploads/2025/04/Isam-Headworks-updated-flood-fighting-plan-2025.docx",
+     outcome: "URLs found by web search returned HTTP 404 via fetch; one download was saved but the operating system denied read access to it, so its content could not be verified. Not used.",
+     result: unverifiable, checked: "2026-10-04"}
+  - {source: "FFC / WAPDA 'Flood Management Manual for Mangla Reservoir 2026' (PDF)", source_type: official,
+     url: "https://ffc.gov.pk/wp-content/uploads/2026/06/FMC-Notification-1.pdf",
+     outcome: "2-page scanned image PDF with no text layer; no OCR available in the environment, so its content could not be read. Not used as evidence.",
+     result: unverifiable, checked: "2026-10-04"}
+  - {source: "WAPDA Tarbela project page", source_type: official, url: "https://wapda.gov.pk/tarbela-dam-project/",
+     outcome: "page not found (HTTP 404).", result: no_evidence, checked: "2026-10-04"}
+  - {source: "Punjab Irrigation Department", source_type: official, url: "https://irrigation.punjab.gov.pk",
+     outcome: "official site content not retrieved; web search returned only secondary references (Wikipedia, news) and a Punjab P&D annual PDF whose station locations were not verified.",
+     result: secondary_only, checked: "2026-10-04"}
+
+evidence:
+  - {station_name: Mangla, source: task10_geo_locations_seed, source_type: legacy_seed, source_url: null,
+     source_record: "geo.admin_unit 'Mangla' (district-level seed row flagged caveat: not a real district)",
+     district: Mangla, evidence_status: secondary, evidence_strength: low,
+     notes: "pre-Task-24 name match against a seed row the seed itself marks as not a real district", retrieved: "2026-10-04"}
+  - {station_name: Mangla, source: secondary_web_reference, source_type: secondary, source_url: "https://en.wikipedia.org/wiki/Mangla_Dam",
+     source_record: "web search 2026-10-02: 'Mangla Dam ... in the Mirpur District of Azad Kashmir'",
+     district: Mirpur, evidence_status: secondary, evidence_strength: low,
+     notes: "secondary; not adopted. Mirpur exists in geo.admin_unit and in the boundary dataset.", retrieved: "2026-10-02"}
+  - {station_name: Marala, source: secondary_web_reference, source_type: secondary, source_url: "https://en.wikipedia.org/wiki/List_of_barrages_and_headworks_in_Pakistan",
+     source_record: "web search 2026-10-02: 'Marala Headworks in District Sialkot' (per-result attribution not verified)",
+     district: Sialkot, evidence_status: secondary, evidence_strength: low, retrieved: "2026-10-02"}
+  - {station_name: Khanki, source: secondary_web_reference, source_type: secondary, source_url: "https://en.wikipedia.org/wiki/Khanki_Headworks",
+     source_record: "web searches 2026-10-02/04: 'Khanki Headworks ... Gujranwala District'",
+     district: Gujranwala, evidence_status: secondary, evidence_strength: low, retrieved: "2026-10-04"}
+  - {station_name: Trimmu, source: secondary_web_reference, source_type: secondary, source_url: "https://en.wikipedia.org/wiki/List_of_barrages_and_headworks_in_Pakistan",
+     source_record: "web search 2026-10-02: 'Trimmu Headworks in District Jhang' (per-result attribution not verified)",
+     district: Jhang, evidence_status: secondary, evidence_strength: low, retrieved: "2026-10-02"}
+  - {station_name: Balloki, source: secondary_web_reference, source_type: secondary, source_url: "https://en.wikipedia.org/wiki/Balloki_Headworks",
+     source_record: "web searches 2026-10-02/04: 'Balloki Headworks ... Kasur District'",
+     district: Kasur, evidence_status: secondary, evidence_strength: low, retrieved: "2026-10-04"}
+  - {station_name: Panjnad, source: secondary_web_reference, source_type: secondary, source_url: "https://en.wikipedia.org/wiki/Panjnad_Headworks",
+     source_record: "web search 2026-10-04: 'south-eastern part of Muzaffargarh District, just below the confluence of Sutlej and Chenab'",
+     district: Muzaffargarh, evidence_status: secondary, evidence_strength: low,
+     notes: "the same results say the barrage supplies Bahawalpur and Rahim Yar Khan; location wording is descriptive", retrieved: "2026-10-04"}
+  - {station_name: Tarbela, source: secondary_web_reference, source_type: secondary, source_url: null,
+     source_record: "web search 2026-10-02: 'Tarbela Dam ... District Swabi'",
+     district: Swabi, evidence_status: secondary, evidence_strength: low, retrieved: "2026-10-02"}
+  - {station_name: Tarbela, source: secondary_web_reference, source_type: secondary, source_url: null,
+     source_record: "web search 2026-10-02: 'located in the Haripur and Swabi districts'",
+     district: Haripur, evidence_status: secondary, evidence_strength: low, retrieved: "2026-10-02"}
+  - {station_name: Rasul, source: secondary_web_reference, source_type: secondary, source_url: null,
+     source_record: "web search 2026-10-04: 'Rasul Barrage ... between Jhelum District and Mandi Bahauddin District'",
+     district: Jhelum, evidence_status: secondary, evidence_strength: low, retrieved: "2026-10-04"}
+  - {station_name: Rasul, source: secondary_web_reference, source_type: secondary, source_url: null,
+     source_record: "web search 2026-10-04: same sentence names Mandi Bahauddin District",
+     district: Mandi Bahauddin, evidence_status: secondary, evidence_strength: low, retrieved: "2026-10-04"}
+# Deliberately NOT recorded: Qadirabad ("near Mandi Bahauddin" is proximity, not containment); Taunsa
+# ("Taunsa district of Dera Ghazi Khan Division" is not a district statement); Chashma, Kalabagh and every
+# other station have no evidence in the project. No coordinates are recorded for any station: no
+# authoritative coordinate source was located, and none are invented.

@@ -1,0 +1,330 @@
+{
+  "authoritative_evidence_records": 0,
+  "evidence_status_counts": {
+    "secondary": 11
+  },
+  "investigation_log": [
+    {
+      "checked": "2026-10-04",
+      "outcome": "not reachable from the build environment (connection refused); web search surfaced no telemetry site list with locations. The project's source inventory only records a 'Telemetry Sites Locations' item (no content).",
+      "result": "no_evidence",
+      "source": "IRSA (pakirsa.gov.pk)",
+      "source_type": "official",
+      "url": "https://pakirsa.gov.pk"
+    },
+    {
+      "checked": "2026-10-04",
+      "outcome": "index lists NDMA, Punjab zone-wise (.rar), PDMA KP and a Mangla reservoir manual; it does not list per-headworks plans and gives no station locations.",
+      "result": "no_evidence",
+      "source": "Federal Flood Commission (ffc.gov.pk) -- 'Flood Fighting/Contingency Plan 2026' index",
+      "source_type": "official",
+      "url": "https://ffc.gov.pk/?p=21112"
+    },
+    {
+      "checked": "2026-10-04",
+      "outcome": "URLs found by web search returned HTTP 404 via fetch; one download was saved but the operating system denied read access to it, so its content could not be verified. Not used.",
+      "result": "unverifiable",
+      "source": "FFC per-headworks flood fighting plans (docx, 2025)",
+      "source_type": "official",
+      "url": "https://ffc.gov.pk/wp-content/uploads/2025/04/Isam-Headworks-updated-flood-fighting-plan-2025.docx"
+    },
+    {
+      "checked": "2026-10-04",
+      "outcome": "2-page scanned image PDF with no text layer; no OCR available in the environment, so its content could not be read. Not used as evidence.",
+      "result": "unverifiable",
+      "source": "FFC / WAPDA 'Flood Management Manual for Mangla Reservoir 2026' (PDF)",
+      "source_type": "official",
+      "url": "https://ffc.gov.pk/wp-content/uploads/2026/06/FMC-Notification-1.pdf"
+    },
+    {
+      "checked": "2026-10-04",
+      "outcome": "page not found (HTTP 404).",
+      "result": "no_evidence",
+      "source": "WAPDA Tarbela project page",
+      "source_type": "official",
+      "url": "https://wapda.gov.pk/tarbela-dam-project/"
+    },
+    {
+      "checked": "2026-10-04",
+      "outcome": "official site content not retrieved; web search returned only secondary references (Wikipedia, news) and a Punjab P&D annual PDF whose station locations were not verified.",
+      "result": "secondary_only",
+      "source": "Punjab Irrigation Department",
+      "source_type": "official",
+      "url": "https://irrigation.punjab.gov.pk"
+    }
+  ],
+  "mapping_date": "2026-10-04",
+  "mapping_version": "gauge-geo-2.0.0",
+  "policy": {
+    "allow_coordinate_derived_eligibility": true,
+    "coordinate_derived_label": "coordinate_based",
+    "eligible_evidence_statuses": [
+      "authoritative"
+    ],
+    "min_coordinate_decimals": 3,
+    "official_secondary_eligible": false,
+    "pakistan_bbox": {
+      "lat_max": 37.2,
+      "lat_min": 23.5,
+      "lon_max": 77.9,
+      "lon_min": 60.8
+    },
+    "secondary_eligible": false
+  },
+  "stations": [
+    {
+      "eligible_for_admin_risk": false,
+      "evidence": [
+        {
+          "basin": null,
+          "district": "Kasur",
+          "evidence_status": "secondary",
+          "evidence_strength": "low",
+          "latitude": null,
+          "longitude": null,
+          "notes": null,
+          "retrieved": "2026-10-04",
+          "river": null,
+          "source": "secondary_web_reference",
+          "source_record": "web searches 2026-10-02/04: 'Balloki Headworks ... Kasur District'",
+          "source_type": "secondary",
+          "source_url": "https://en.wikipedia.org/wiki/Balloki_Headworks",
+          "station_id": null,
+          "station_name": "Balloki",
+          "tehsil": null
+        }
+      ],
+      "mapping_status": "resolved_inferred",
+      "station_key": "pdma:balloki"
+    },
+    {
+      "eligible_for_admin_risk": false,
+      "evidence": [
+        {
+          "basin": null,
+          "district": "Gujranwala",
+          "evidence_status": "secondary",
+          "evidence_strength": "low",
+          "latitude": null,
+          "longitude": null,
+          "notes": null,
+          "retrieved": "2026-10-04",
+          "river": null,
+          "source": "secondary_web_reference",
+          "source_record": "web searches 2026-10-02/04: 'Khanki Headworks ... Gujranwala District'",
+          "source_type": "secondary",
+          "source_url": "https://en.wikipedia.org/wiki/Khanki_Headworks",
+          "station_id": null,
+          "station_name": "Khanki",
+          "tehsil": null
+        }
+      ],
+      "mapping_status": "resolved_inferred",
+      "station_key": "pdma:khanki"
+    },
+    {
+      "eligible_for_admin_risk": false,
+      "evidence": [
+        {
+          "basin": null,
+          "district": "Mangla",
+          "evidence_status": "secondary",
+          "evidence_strength": "low",
+          "latitude": null,
+          "longitude": null,
+          "notes": "pre-Task-24 name match against a seed row the seed itself marks as not a real district",
+          "retrieved": "2026-10-04",
+          "river": null,
+          "source": "task10_geo_locations_seed",
+          "source_record": "geo.admin_unit 'Mangla' (district-level seed row flagged caveat: not a real district)",
+          "source_type": "legacy_seed",
+          "source_url": null,
+          "station_id": null,
+          "station_name": "Mangla",
+          "tehsil": null
+        },
+        {
+          "basin": null,
+          "district": "Mirpur",
+          "evidence_status": "secondary",
+          "evidence_strength": "low",
+          "latitude": null,
+          "longitude": null,
+          "notes": "secondary; not adopted. Mirpur exists in geo.admin_unit and in the boundary dataset.",
+          "retrieved": "2026-10-02",
+          "river": null,
+          "source": "secondary_web_reference",
+          "source_record": "web search 2026-10-02: 'Mangla Dam ... in the Mirpur District of Azad Kashmir'",
+          "source_type": "secondary",
+          "source_url": "https://en.wikipedia.org/wiki/Mangla_Dam",
+          "station_id": null,
+          "station_name": "Mangla",
+          "tehsil": null
+        }
+      ],
+      "mapping_status": "caveated",
+      "station_key": "pdma:mangla"
+    },
+    {
+      "eligible_for_admin_risk": false,
+      "evidence": [
+        {
+          "basin": null,
+          "district": "Sialkot",
+          "evidence_status": "secondary",
+          "evidence_strength": "low",
+          "latitude": null,
+          "longitude": null,
+          "notes": null,
+          "retrieved": "2026-10-02",
+          "river": null,
+          "source": "secondary_web_reference",
+          "source_record": "web search 2026-10-02: 'Marala Headworks in District Sialkot' (per-result attribution not verified)",
+          "source_type": "secondary",
+          "source_url": "https://en.wikipedia.org/wiki/List_of_barrages_and_headworks_in_Pakistan",
+          "station_id": null,
+          "station_name": "Marala",
+          "tehsil": null
+        }
+      ],
+      "mapping_status": "resolved_inferred",
+      "station_key": "pdma:marala"
+    },
+    {
+      "eligible_for_admin_risk": false,
+      "evidence": [
+        {
+          "basin": null,
+          "district": "Muzaffargarh",
+          "evidence_status": "secondary",
+          "evidence_strength": "low",
+          "latitude": null,
+          "longitude": null,
+          "notes": "the same results say the barrage supplies Bahawalpur and Rahim Yar Khan; location wording is descriptive",
+          "retrieved": "2026-10-04",
+          "river": null,
+          "source": "secondary_web_reference",
+          "source_record": "web search 2026-10-04: 'south-eastern part of Muzaffargarh District, just below the confluence of Sutlej and Chenab'",
+          "source_type": "secondary",
+          "source_url": "https://en.wikipedia.org/wiki/Panjnad_Headworks",
+          "station_id": null,
+          "station_name": "Panjnad",
+          "tehsil": null
+        }
+      ],
+      "mapping_status": "unresolved",
+      "station_key": "pdma:panjnad"
+    },
+    {
+      "eligible_for_admin_risk": false,
+      "evidence": [
+        {
+          "basin": null,
+          "district": "Jhelum",
+          "evidence_status": "secondary",
+          "evidence_strength": "low",
+          "latitude": null,
+          "longitude": null,
+          "notes": null,
+          "retrieved": "2026-10-04",
+          "river": null,
+          "source": "secondary_web_reference",
+          "source_record": "web search 2026-10-04: 'Rasul Barrage ... between Jhelum District and Mandi Bahauddin District'",
+          "source_type": "secondary",
+          "source_url": null,
+          "station_id": null,
+          "station_name": "Rasul",
+          "tehsil": null
+        },
+        {
+          "basin": null,
+          "district": "Mandi Bahauddin",
+          "evidence_status": "secondary",
+          "evidence_strength": "low",
+          "latitude": null,
+          "longitude": null,
+          "notes": null,
+          "retrieved": "2026-10-04",
+          "river": null,
+          "source": "secondary_web_reference",
+          "source_record": "web search 2026-10-04: same sentence names Mandi Bahauddin District",
+          "source_type": "secondary",
+          "source_url": null,
+          "station_id": null,
+          "station_name": "Rasul",
+          "tehsil": null
+        }
+      ],
+      "mapping_status": "ambiguous",
+      "station_key": "pdma:rasul"
+    },
+    {
+      "eligible_for_admin_risk": false,
+      "evidence": [
+        {
+          "basin": null,
+          "district": "Swabi",
+          "evidence_status": "secondary",
+          "evidence_strength": "low",
+          "latitude": null,
+          "longitude": null,
+          "notes": null,
+          "retrieved": "2026-10-02",
+          "river": null,
+          "source": "secondary_web_reference",
+          "source_record": "web search 2026-10-02: 'Tarbela Dam ... District Swabi'",
+          "source_type": "secondary",
+          "source_url": null,
+          "station_id": null,
+          "station_name": "Tarbela",
+          "tehsil": null
+        },
+        {
+          "basin": null,
+          "district": "Haripur",
+          "evidence_status": "secondary",
+          "evidence_strength": "low",
+          "latitude": null,
+          "longitude": null,
+          "notes": null,
+          "retrieved": "2026-10-02",
+          "river": null,
+          "source": "secondary_web_reference",
+          "source_record": "web search 2026-10-02: 'located in the Haripur and Swabi districts'",
+          "source_type": "secondary",
+          "source_url": null,
+          "station_id": null,
+          "station_name": "Tarbela",
+          "tehsil": null
+        }
+      ],
+      "mapping_status": "ambiguous",
+      "station_key": "pdma:tarbela"
+    },
+    {
+      "eligible_for_admin_risk": false,
+      "evidence": [
+        {
+          "basin": null,
+          "district": "Jhang",
+          "evidence_status": "secondary",
+          "evidence_strength": "low",
+          "latitude": null,
+          "longitude": null,
+          "notes": null,
+          "retrieved": "2026-10-02",
+          "river": null,
+          "source": "secondary_web_reference",
+          "source_record": "web search 2026-10-02: 'Trimmu Headworks in District Jhang' (per-result attribution not verified)",
+          "source_type": "secondary",
+          "source_url": "https://en.wikipedia.org/wiki/List_of_barrages_and_headworks_in_Pakistan",
+          "station_id": null,
+          "station_name": "Trimmu",
+          "tehsil": null
+        }
+      ],
+      "mapping_status": "resolved_inferred",
+      "station_key": "pdma:trimmu"
+    }
+  ]
+}
