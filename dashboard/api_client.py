@@ -52,9 +52,9 @@ class RiskApiClient:
         self.timeout = timeout
         self._session = session or requests.Session()
 
-    def _get(self, path: str, params: Optional[dict] = None) -> ApiResult:
+    def _get(self, path: str, params: Optional[dict] = None, timeout: Optional[float] = None) -> ApiResult:
         try:
-            resp = self._session.get(f"{self.base_url}{path}", params=_clean(params), timeout=self.timeout)
+            resp = self._session.get(f"{self.base_url}{path}", params=_clean(params), timeout=timeout or self.timeout)
         except requests.Timeout:
             return ApiResult(False, error_kind="timeout", message=_MESSAGES["timeout"])
         except requests.ConnectionError:
@@ -71,11 +71,15 @@ class RiskApiClient:
         detail = None
         try:
             body = resp.json()
+            if kind == "unavailable" and isinstance(body, dict) and "answer_status" in body:      # /rag/ask: the evidence is still useful
+                return ApiResult(False, data=body, error_kind=kind, message=_MESSAGES[kind], status_code=code)
             d = body.get("detail") if isinstance(body, dict) else None
             detail = d if isinstance(d, str) else None
         except ValueError:
             pass
         msg = _MESSAGES[kind] + (f" ({detail})" if detail and kind in ("not_found",) else "")
+        if kind == "unavailable" and detail and path.startswith("/api/v1/rag/"):
+            msg = f"This feature is unavailable: {detail}"
         return ApiResult(False, error_kind=kind, message=msg, status_code=code)
 
     # -- geography
@@ -101,3 +105,8 @@ class RiskApiClient:
         return self._get("/api/v1/risk/map", {"level": level, "province": province, "risk_status": risk_status,
                                               "only_with_risk": str(bool(only_with_risk)).lower(),
                                               "include_geometry": str(bool(include_geometry)).lower()})
+
+    # -- rag (Task 31)
+    def ask(self, q: str, mode: str = "hybrid", source: Optional[str] = None, province: Optional[str] = None, top_k: int = 5) -> ApiResult:
+        """Grounded answer. A 503 whose body carries an answer_status (no LLM configured) comes back as ok=False with data = that body."""
+        return self._get("/api/v1/rag/ask", {"q": q, "mode": mode, "source": source, "province": province, "top_k": top_k}, timeout=90.0)

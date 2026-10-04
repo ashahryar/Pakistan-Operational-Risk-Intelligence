@@ -1,0 +1,23 @@
+# Task 31 -- DEVELOPMENT evaluation of the grounded-answer pipeline (retrieval gate + evidence + citation validation).
+# Frozen before it was run. It is small (10 supported + 5 unsupported questions), uses a substring judge for evidence coverage and has
+# one author: it supports development decisions, not claims of factual accuracy. NO real LLM was available, so by default it measures
+# only what does not need a model (see scripts/rag/evaluate_grounded.py); `--live` adds model behaviour when PORI_LLM_* is configured.
+version: 1
+top_k: 5
+supported:
+  - {id: injured_ndma, question: "How many people were injured according to NDMA?", filters: {source: ndma}, expect_terms: ["injured"]}
+  - {id: landslides, question: "What landslide events were reported?", expect_terms: ["landslide"]}
+  - {id: chitral_situation, question: "What is the situation in Chitral?", expect_terms: ["chitral"]}
+  - {id: swat_districts, question: "What was reported about Swat?", expect_terms: ["swat"]}
+  - {id: pdma_precautions, question: "What precautions does PDMA advise during heavy rain?", filters: {source: pdma}, expect_terms: ["precaution", "advis"]}
+  - {id: house_damage, question: "What damage to houses was reported?", expect_terms: ["house"]}
+  - {id: monsoon_forecast, question: "What is the monsoon forecast?", expect_terms: ["monsoon"]}
+  - {id: bridges, question: "Were bridges damaged?", expect_terms: ["bridge"]}
+  - {id: dengue, question: "What was reported about dengue?", expect_terms: ["dengue"]}
+  - {id: balochistan_flood, question: "What is the flood situation in Balochistan?", filters: {province: Balochistan}, expect_terms: ["flood"]}
+unsupported:
+  - {id: u_bitcoin, question: "What is the price of bitcoin today?"}
+  - {id: u_football, question: "Who won the football world cup?"}
+  - {id: u_cake, question: "How do I bake a cake?"}
+  - {id: u_gdp, question: "What is the GDP of Japan?"}
+  - {id: u_hurricane, question: "hurricane damage in Florida"}

@@ -1,0 +1,584 @@
+{
+  "summary": {
+    "evidence_coverage_at_k": {
+      "hybrid": 10,
+      "lexical": 9,
+      "semantic": 9
+    },
+    "live_model": false,
+    "supported_questions": 10,
+    "top_k": 5,
+    "unsupported_evidence_chunks_returned": {
+      "hybrid": 13,
+      "lexical": 25,
+      "semantic": 5
+    },
+    "unsupported_questions": 5,
+    "unsupported_with_empty_retrieval": {
+      "hybrid": 2,
+      "lexical": 0,
+      "semantic": 4
+    },
+    "validator_probes_as_expected": {
+      "hybrid": "10/10",
+      "lexical": "10/10",
+      "semantic": "10/10"
+    }
+  },
+  "supported": [
+    {
+      "id": "injured_ndma",
+      "modes": {
+        "hybrid": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "lexical": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "semantic": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        }
+      },
+      "question": "How many people were injured according to NDMA?"
+    },
+    {
+      "id": "landslides",
+      "modes": {
+        "hybrid": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "lexical": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 3,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "semantic": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        }
+      },
+      "question": "What landslide events were reported?"
+    },
+    {
+      "id": "chitral_situation",
+      "modes": {
+        "hybrid": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "lexical": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "semantic": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        }
+      },
+      "question": "What is the situation in Chitral?"
+    },
+    {
+      "id": "swat_districts",
+      "modes": {
+        "hybrid": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "lexical": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "semantic": {
+          "covered": false,
+          "evidence": 2,
+          "first_covering_rank": null,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        }
+      },
+      "question": "What was reported about Swat?"
+    },
+    {
+      "id": "pdma_precautions",
+      "modes": {
+        "hybrid": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "lexical": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "semantic": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        }
+      },
+      "question": "What precautions does PDMA advise during heavy rain?"
+    },
+    {
+      "id": "house_damage",
+      "modes": {
+        "hybrid": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "lexical": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "semantic": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        }
+      },
+      "question": "What damage to houses was reported?"
+    },
+    {
+      "id": "monsoon_forecast",
+      "modes": {
+        "hybrid": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "lexical": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "semantic": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        }
+      },
+      "question": "What is the monsoon forecast?"
+    },
+    {
+      "id": "bridges",
+      "modes": {
+        "hybrid": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "lexical": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "semantic": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        }
+      },
+      "question": "Were bridges damaged?"
+    },
+    {
+      "id": "dengue",
+      "modes": {
+        "hybrid": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "lexical": {
+          "covered": false,
+          "evidence": 5,
+          "first_covering_rank": null,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "semantic": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        }
+      },
+      "question": "What was reported about dengue?"
+    },
+    {
+      "id": "balochistan_flood",
+      "modes": {
+        "hybrid": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "lexical": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 2,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        },
+        "semantic": {
+          "covered": true,
+          "evidence": 5,
+          "first_covering_rank": 1,
+          "validator_probes": {
+            "abstention": "INSUFFICIENT_EVIDENCE",
+            "no_citation": "INVALID_ANSWER",
+            "unknown_citation": "INVALID_ANSWER",
+            "valid_citation": "ANSWERED"
+          },
+          "validator_probes_as_expected": true
+        }
+      },
+      "question": "What is the flood situation in Balochistan?"
+    }
+  ],
+  "unsupported": [
+    {
+      "id": "u_bitcoin",
+      "modes": {
+        "hybrid": {
+          "evidence": 5,
+          "retrieval_empty": false,
+          "top": [
+            "325.000 598.872 08-10-1955 IS,076 3,075 Normal 175,000 • Islam 300,000 492,581 11-10-1955",
+            "1.90 0.311 0.274 o.061 19.61 'yO 1242.00 1050.00 1185.30 11 77.30 I1 63.15 7.277 2.957"
+          ]
+        },
+        "lexical": {
+          "evidence": 5,
+          "retrieval_empty": false,
+          "top": [
+            "325.000 598.872 08-10-1955 IS,076 3,075 Normal 175,000 • Islam 300,000 492,581 11-10-1955",
+            "1.90 0.311 0.274 o.061 19.61 'yO 1242.00 1050.00 1185.30 11 77.30 I1 63.15 7.277 2.957"
+          ]
+        },
+        "semantic": {
+          "evidence": 0,
+          "retrieval_empty": true,
+          "top": []
+        }
+      },
+      "question": "What is the price of bitcoin today?"
+    },
+    {
+      "id": "u_football",
+      "modes": {
+        "hybrid": {
+          "evidence": 0,
+          "retrieval_empty": true,
+          "top": []
+        },
+        "lexical": {
+          "evidence": 5,
+          "retrieval_empty": false,
+          "top": [
+            "Government of Balochistan, Quetta 36 Director General, Gilgit Baltistan Disaster",
+            "WHO Struct IIra experienced tbdate Capacity Classification s Inflow Outflow Flood 1 2 4 5"
+          ]
+        },
+        "semantic": {
+          "evidence": 0,
+          "retrieval_empty": true,
+          "top": []
+        }
+      },
+      "question": "Who won the football world cup?"
+    },
+    {
+      "id": "u_cake",
+      "modes": {
+        "hybrid": {
+          "evidence": 0,
+          "retrieval_empty": true,
+          "top": []
+        },
+        "lexical": {
+          "evidence": 5,
+          "retrieval_empty": false,
+          "top": [
+            "325.000 598.872 08-10-1955 IS,076 3,075 Normal 175,000 • Islam 300,000 492,581 11-10-1955",
+            "A= S1A4 Disposal Haji Pura = 24, CATCHMENTS RESERVOIRS - WEEKLY STATUS UPDATES Current"
+          ]
+        },
+        "semantic": {
+          "evidence": 0,
+          "retrieval_empty": true,
+          "top": []
+        }
+      },
+      "question": "How do I bake a cake?"
+    },
+    {
+      "id": "u_gdp",
+      "modes": {
+        "hybrid": {
+          "evidence": 3,
+          "retrieval_empty": false,
+          "top": [
+            "6 B Khyber Pakhtunkh\\va 5. Malam Jabba 16 6. Darashoot & Japan Bridge 13 each 7. D.I.",
+            "river islands/belas Medium Flood: Ri\\n partly inund8ting dyer islands/Was High Flag: Rivu"
+          ]
+        },
+        "lexical": {
+          "evidence": 5,
+          "retrieval_empty": false,
+          "top": [
+            "6 B Khyber Pakhtunkh\\va 5. Malam Jabba 16 6. Darashoot & Japan Bridge 13 each 7. D.I.",
+            "river islands/belas Medium Flood: Ri\\n partly inund8ting dyer islands/Was High Flag: Rivu"
+          ]
+        },
+        "semantic": {
+          "evidence": 0,
+          "retrieval_empty": true,
+          "top": []
+        }
+      },
+      "question": "What is the GDP of Japan?"
+    },
+    {
+      "id": "u_hurricane",
+      "modes": {
+        "hybrid": {
+          "evidence": 5,
+          "retrieval_empty": false,
+          "top": [
+            "67 141 183 105 146 434 2. Damage to Infrastructure & Private Property (Last 24 Hours)",
+            "70 32 32 32 96 Sindh 5 2 10 17 8 3 7 18 Balochistan 1 2 5 8 0 2 13 15 GB 1 0 0 1 0 0 0 0"
+          ]
+        },
+        "lexical": {
+          "evidence": 5,
+          "retrieval_empty": false,
+          "top": [
+            "House Collapse Lightning Flash Flood Solar Panel Drowning Tree fall Electrocution .",
+            "1 0 Total 8 1 9 4 GB Astore 66 0 66 2 Total 66 0 66 2 AJ&K Bagh 7 4 11 4 Total 7 4 11 4"
+          ]
+        },
+        "semantic": {
+          "evidence": 5,
+          "retrieval_empty": false,
+          "top": [
+            "Lightning Flash Flood Solar Panel Drowning Tree fall Electrocution . Boulder fall Heavy",
+            "and orchards; farmers are advised to take Heavy rains, Windstorm & lightning may damage"
+          ]
+        }
+      },
+      "question": "hurricane damage in Florida"
+    }
+  ]
+}

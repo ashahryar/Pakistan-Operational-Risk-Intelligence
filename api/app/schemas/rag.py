@@ -95,7 +95,12 @@ class Relevance(BaseModel):
     method: str
     matched_terms: list[str]
     relevance_type: Optional[str] = None       # lexical_bm25_baseline | semantic_vector
-    model_version: Optional[str] = None        # embedding model revision (semantic results only)
+    model_version: Optional[str] = None        # embedding model revision (semantic / hybrid results only)
+    lexical_rank: Optional[int] = None         # hybrid only: 1-based rank in the BM25 list (null = not retrieved lexically)
+    semantic_rank: Optional[int] = None        # hybrid only: 1-based rank in the semantic list (null = below the cosine floor)
+    fused_rank: Optional[int] = None
+    lexical_score: Optional[float] = None
+    semantic_score: Optional[float] = None
 
 
 class SourceReference(BaseModel):
@@ -130,3 +135,53 @@ class SearchResponse(BaseModel):
     results: list[Evidence]
     embedding_model: Optional[dict[str, Any]] = None
     min_score: Optional[float] = None
+
+
+class Citation(BaseModel):
+    chunk_id: str
+    document_id: str
+    title: Optional[str]
+    source: str
+    document_date: Optional[str]
+    source_reference: SourceReference
+
+
+class AskRetrieval(BaseModel):
+    mode: str
+    method: str
+    evidence_count: int
+    top_k: int
+    filters: dict[str, Any]
+    min_score: Optional[float] = None
+    embedding_model: Optional[dict[str, Any]] = None
+    note: str
+
+
+class AskModel(BaseModel):
+    provider: Optional[str] = None
+    model: Optional[str] = None
+    configured: bool
+    error: Optional[str] = None
+
+
+class AskGroundedness(BaseModel):
+    citations_valid: Optional[bool] = None          # null when no answer was produced
+    all_sentences_cited: Optional[bool] = None
+    evidence_supplied: int
+    evidence_cited: int
+    problems: list[dict[str, Any]] = []
+    warnings: list[dict[str, Any]] = []
+    rejected_answer_text: Optional[str] = None      # model output withheld because validation failed (kept for audit only)
+    validation_note: str
+
+
+class AskResponse(BaseModel):
+    query: str
+    answer: Optional[str]
+    answer_status: str                              # ANSWERED | INSUFFICIENT_EVIDENCE | INVALID_ANSWER | LLM_UNAVAILABLE | RETRIEVAL_EMPTY
+    citations: list[Citation]
+    evidence: list[Evidence]
+    retrieval: AskRetrieval
+    model: AskModel
+    groundedness: AskGroundedness
+    disclaimer: str

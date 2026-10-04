@@ -36,3 +36,49 @@ cases:
   - {id: empty_finance, category: empty, query: "quarterly corporate earnings per share", relevant_terms: []}
   - {id: empty_sport, category: empty, query: "football world cup final score", relevant_terms: []}
   - {id: empty_recipe, category: empty, query: "how to bake a chocolate cake", relevant_terms: []}
+
+  # =====================================================================================================================
+  # Task 31 additions (the 16 cases above are unchanged). Written and frozen BEFORE hybrid retrieval was run on them: only the
+  # corpus vocabulary was checked (that each name/term occurs in at least a few chunks, so a case can have relevant results at all).
+  # No threshold, constant or query was changed after seeing results. Still a small HEURISTIC evaluation: relevance is a substring
+  # judge, there is one judge and one run, cases are not independent samples.
+  # =====================================================================================================================
+  # ---- exact Pakistani place names (towns / valleys)
+  - {id: place_skardu, category: exact_place, query: "Skardu", relevant_terms: ["skardu"]}
+  - {id: place_peshawar, category: exact_place, query: "Peshawar", relevant_terms: ["peshawar"]}
+  - {id: place_quetta, category: exact_place, query: "flood situation in Quetta", relevant_terms: ["quetta"]}
+  - {id: place_neelum, category: exact_place, query: "Neelum valley", relevant_terms: ["neelum"]}
+  - {id: place_diamer, category: exact_place, query: "Diamer", relevant_terms: ["diamer"]}
+  # ---- district names
+  - {id: district_rajanpur, category: district, query: "Rajanpur", relevant_terms: ["rajanpur"]}
+  - {id: district_buner, category: district, query: "Buner district", relevant_terms: ["buner"]}
+  - {id: district_kohistan, category: district, query: "Kohistan", relevant_terms: ["kohistan"]}
+  # ---- province names
+  - {id: province_balochistan, category: province, query: "Balochistan", relevant_terms: ["balochistan"]}
+  - {id: province_gb, category: province, query: "Gilgit-Baltistan", relevant_terms: ["gilgit"]}
+  - {id: province_kp, category: province, query: "Khyber Pakhtunkhwa", relevant_terms: ["khyber"]}
+  # ---- disaster terms (the report's own wording)
+  - {id: term_landslide, category: disaster_term, query: "landslide", relevant_terms: ["landslide"]}
+  - {id: term_flash_flood, category: disaster_term, query: "flash flood", relevant_terms: ["flash flood"]}
+  - {id: term_hailstorm, category: disaster_term, query: "hailstorm", relevant_terms: ["hailstorm"]}
+  - {id: term_dengue, category: disaster_term, query: "dengue", relevant_terms: ["dengue"]}
+  # ---- paraphrased disaster statements
+  - {id: para_livestock, category: paraphrase, query: "animals that perished in the disaster", relevant_terms: ["livestock", "cattle", "animal"]}
+  - {id: para_crops, category: paraphrase, query: "farmland and harvest destroyed", relevant_terms: ["crop", "agricultur"]}
+  - {id: para_evacuation, category: paraphrase, query: "residents moved to safer places", relevant_terms: ["evacuat", "rescued", "relief camp", "shelter"]}
+  - {id: para_bridges, category: paraphrase, query: "washed out river crossings", relevant_terms: ["bridge"]}
+  # ---- advisory language
+  - {id: adv_precautions, category: advisory_lang, query: "authorities urge people to take precautions", relevant_terms: ["precaution", "advisory", "alert"]}
+  - {id: adv_monsoon, category: advisory_lang, query: "forecast of monsoon rains next week", relevant_terms: ["monsoon", "forecast", "expected"]}
+  # ---- casualty language
+  - {id: cas_injured, category: casualty, query: "number of people hurt", relevant_terms: ["injured", "injur"]}
+  - {id: cas_fatalities, category: casualty, query: "fatalities caused by floods", relevant_terms: ["death", "died", "fatalit", "killed"]}
+  # ---- infrastructure damage
+  - {id: infra_roads, category: infrastructure, query: "roads damaged and blocked", relevant_terms: ["road"]}
+  - {id: infra_homes, category: infrastructure, query: "homes partially or fully damaged", relevant_terms: ["house", "damaged"]}
+  - {id: infra_power, category: infrastructure, query: "power supply disrupted", relevant_terms: ["electricity", "power"]}
+  # ---- unsupported questions (no relevant chunk can exist; any result is junk)
+  - {id: empty_crypto, category: empty, query: "bitcoin price prediction", relevant_terms: []}
+  - {id: empty_movies, category: empty, query: "best actor oscar winners", relevant_terms: []}
+  - {id: empty_programming, category: empty, query: "python list comprehension syntax", relevant_terms: []}
+  - {id: empty_hurricane, category: empty, query: "hurricane damage in Florida", relevant_terms: []}

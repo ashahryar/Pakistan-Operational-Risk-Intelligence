@@ -157,6 +157,11 @@ jobs:
           test "$(curl -s -o /dev/null -w '%{http_code}' -X POST http://localhost:8000/api/v1/rag/search)" = 405
           test "$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8000/api/v1/rag/search?q=flood&mode=semantic")" = 503
           test "$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8000/api/v1/rag/search?q=flood&mode=bogus")" = 422
+          test "$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8000/api/v1/rag/search?q=flood&mode=hybrid")" = 503
+          curl -fsS "http://localhost:8000/api/v1/rag/ask?q=flood&mode=lexical" | python -c "import json,sys; d=json.load(sys.stdin); assert d['answer_status']=='RETRIEVAL_EMPTY' and d['answer'] is None and d['evidence']==[]"
+          test "$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8000/api/v1/rag/ask?q=flood")" = 503
+          test "$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8000/api/v1/rag/ask?q=flood&mode=bogus")" = 422
+          test "$(curl -s -o /dev/null -w '%{http_code}' -X POST "http://localhost:8000/api/v1/rag/ask?q=flood")" = 405
 
       - name: Dashboard image builds
         run: docker compose build dashboard

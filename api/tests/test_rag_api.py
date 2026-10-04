@@ -123,7 +123,7 @@ def test_database_failure_is_503_not_an_empty_result(monkeypatch):
 
 def test_rag_api_is_read_only():
     # OpenAPI + real HTTP (app.routes is empty of APIRoute objects in this FastAPI version -- see api/tests/_readonly.py)
-    assert_read_only(app, client, ("/api/v1/rag",), {"/api/v1/rag/documents", "/api/v1/rag/documents/{document_id}", "/api/v1/rag/search"})
+    assert_read_only(app, client, ("/api/v1/rag",), {"/api/v1/rag/documents", "/api/v1/rag/documents/{document_id}", "/api/v1/rag/search", "/api/v1/rag/ask"})
 
 
 def test_rag_write_requests_are_rejected_with_405_and_do_not_reach_the_service(monkeypatch):

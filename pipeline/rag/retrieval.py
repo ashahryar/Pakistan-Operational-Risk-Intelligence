@@ -41,7 +41,12 @@ class Hit:
     score: float
     method: str
     matched_terms: tuple[str, ...]
-    model_version: Optional[str] = None        # set only by semantic retrieval
+    model_version: Optional[str] = None        # set only by semantic (and hybrid) retrieval
+    lexical_rank: Optional[int] = None         # hybrid only: 1-based rank in the BM25 list (None = not retrieved lexically)
+    semantic_rank: Optional[int] = None        # hybrid only: 1-based rank in the semantic list (None = below the floor / not retrieved)
+    lexical_score: Optional[float] = None
+    semantic_score: Optional[float] = None
+    fused_rank: Optional[int] = None           # hybrid only: 1-based position in the fused list
 
 
 class Retriever(Protocol):

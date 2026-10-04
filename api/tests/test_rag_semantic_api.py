@@ -80,7 +80,7 @@ def test_semantic_unavailable_is_a_graceful_503_not_a_500(monkeypatch):
 
 
 def test_read_only_contract_is_unchanged_with_the_semantic_mode():
-    assert_read_only(app, client, ("/api/v1/rag",), {"/api/v1/rag/documents", "/api/v1/rag/documents/{document_id}", "/api/v1/rag/search"})
+    assert_read_only(app, client, ("/api/v1/rag",), {"/api/v1/rag/documents", "/api/v1/rag/documents/{document_id}", "/api/v1/rag/search", "/api/v1/rag/ask"})
     assert client.post("/api/v1/rag/search?q=flood&mode=semantic").status_code == 405
 
 

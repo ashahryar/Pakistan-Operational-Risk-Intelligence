@@ -173,3 +173,124 @@ def get_document(document_id: str) -> Optional[dict]:
     doc["chunks"] = fetch_all("SELECT chunk_id, chunk_index, char_start, char_end, chunk_sha256 FROM rag.document_chunks "
                               "WHERE document_id = :id AND is_current ORDER BY chunk_index", {"id": document_id})
     return doc
+
+
+# ---------------------------------------------------------------------------------------------------- Task 31: hybrid + grounded answers
+_hyb_cache: dict = {"key": None, "retriever": None}
+_llm_provider = None
+
+DISCLAIMER = ("Generated from retrieved source reports only; not an official warning and not a risk assessment. "
+              "Check the cited source chunks. Risk levels come from the risk engine, not from this answer.")
+
+HYBRID_NOTE = ("Hybrid retrieval: BM25 keyword ranks and semantic cosine ranks are combined by reciprocal rank fusion "
+               "(1/(60+rank) per list). Exact names and paraphrases can both match. Results are source evidence; no answer is generated.")
+
+
+def set_llm_provider(provider) -> None:
+    """Inject the answer provider (tests / alternative deployments). None restores configuration from the environment."""
+    global _llm_provider
+    _llm_provider = provider
+
+
+def get_llm_provider():
+    if _llm_provider is not None:
+        return _llm_provider
+    from pipeline.rag.llm import provider_from_env
+    return provider_from_env()                                  # raises LLMUnavailable when not configured
+
+
+def get_hybrid_retriever():
+    sem, lexical = get_semantic_retriever()                      # first: raises SemanticUnavailable before numpy is imported (lexical-only image)
+    from pipeline.rag.hybrid import HybridRetriever
+    with _lock:
+        key = (id(sem), id(lexical))
+        if _hyb_cache["key"] != key or _hyb_cache["retriever"] is None:
+            _hyb_cache.update(key=key, retriever=HybridRetriever(lexical, sem))
+        return _hyb_cache["retriever"], lexical
+
+
+def _embedding_info(retriever) -> dict:
+    info = retriever.embedder.info
+    return {"name": info.name, "version": info.version, "dimension": info.dimension}
+
+
+def search_hybrid_evidence(q: str, filters: SearchFilters, limit: int, min_score: Optional[float] = None) -> dict:
+    """Hybrid (BM25 + semantic, reciprocal rank fusion) retrieval returning the usual evidence records. 503 if semantic is unavailable."""
+    from fastapi import HTTPException
+
+    from pipeline.rag.embeddings import EmbeddingUnavailable
+    try:
+        retriever, lexical = get_hybrid_retriever()
+        hits = retriever.search(q, filters, limit, min_score)
+    except (SemanticUnavailable, EmbeddingUnavailable) as exc:
+        raise HTTPException(status_code=503, detail=f"Hybrid retrieval is unavailable (it needs semantic retrieval): {exc}") from exc
+    chunk_by_id = {c["chunk_id"]: c for c in lexical.chunks}
+    results = [build_evidence(h, lexical.docs[h.document_id], chunk_by_id[h.chunk_id]) for h in hits]
+    return {"query": q, "mode": "hybrid", "retrieval_method": retriever.method, "retrieval_note": HYBRID_NOTE,
+            "embedding_model": _embedding_info(retriever), "min_score": retriever.min_score if min_score is None else min_score,
+            "filters": {k: v for k, v in filters.__dict__.items() if v is not None}, "count": len(results), "results": results}
+
+
+def _retrieve_for_ask(q: str, filters: SearchFilters, limit: int, mode: str, min_score: Optional[float]):
+    """-> (hits, retriever, lexical, details). Raises SemanticUnavailable / EmbeddingUnavailable for semantic and hybrid."""
+    if mode == "lexical":
+        lexical = get_retriever()
+        return lexical.search(q, filters, limit), lexical, lexical, {"min_score": None, "embedding_model": None}
+    if mode == "semantic":
+        sem, lexical = get_semantic_retriever()
+        ms = sem.min_score if min_score is None else min_score
+        return sem.search(q, filters, limit, min_score), sem, lexical, {"min_score": ms, "embedding_model": _embedding_info(sem)}
+    hyb, lexical = get_hybrid_retriever()
+    ms = hyb.min_score if min_score is None else min_score
+    return hyb.search(q, filters, limit, min_score), hyb, lexical, {"min_score": ms, "embedding_model": _embedding_info(hyb)}
+
+
+def ask_question(q: str, filters: SearchFilters, mode: str, top_k: int, min_score: Optional[float] = None) -> tuple[dict, int]:
+    """Retrieve evidence, ask the configured LLM to answer from it only, validate the citations. -> (response body, HTTP status).
+    Evidence is always returned. Status 503 (answer_status LLM_UNAVAILABLE) when no provider is configured or it fails."""
+    from fastapi import HTTPException
+
+    from pipeline.rag import grounding as g
+    from pipeline.rag.embeddings import EmbeddingUnavailable
+    from pipeline.rag.llm import LLMUnavailable, constraints_from_env
+    try:
+        hits, retriever, lexical, details = _retrieve_for_ask(q, filters, top_k * 3, mode, min_score)
+    except (SemanticUnavailable, EmbeddingUnavailable) as exc:
+        raise HTTPException(status_code=503, detail=f"{mode.capitalize()} retrieval is unavailable: {exc}") from exc
+    chunk_by_id = {c["chunk_id"]: c for c in lexical.chunks}
+    selected = g.select_evidence(hits, chunk_by_id, top_k)
+    records = [build_evidence(h, lexical.docs[h.document_id], chunk_by_id[h.chunk_id]) for h in selected]
+    items = g.pack_evidence(records, chunk_by_id)
+    retrieval = {"mode": mode, "method": retriever.method, "evidence_count": len(records), "top_k": top_k,
+                 "filters": {k: v for k, v in filters.__dict__.items() if v is not None}, "min_score": details["min_score"],
+                 "embedding_model": details["embedding_model"],
+                 "note": "Evidence is the top-ranked distinct chunks (duplicate boilerplate chunks are skipped)."}
+    note = "Deterministic provenance check: cited ids must be among the supplied evidence and each sentence must cite. It is not fact checking."
+
+    def body(status, answer, outcome=None, model=None, cited=()):
+        v = outcome.validation if outcome else None
+        judged = v is not None and status in (g.ANSWERED, g.INVALID)
+        return {"query": q, "answer": answer, "answer_status": status,
+                "citations": [{"chunk_id": e["chunk_id"], "document_id": e["document_id"], "title": e["title"], "source": e["source"],
+                               "document_date": e["document_date"], "source_reference": e["source_reference"]}
+                              for e in records if e["chunk_id"] in cited],
+                "evidence": records, "retrieval": retrieval, "model": model or {"provider": None, "model": None, "configured": False},
+                "groundedness": {"citations_valid": (not any(p["code"] in ("unknown_citation", "no_citations") for p in v.problems)) if judged else None,
+                                 "all_sentences_cited": (not v.uncited_sentences) if judged else None,
+                                 "evidence_supplied": len(records), "evidence_cited": len(cited), "problems": v.problems if v else [],
+                                 "warnings": v.warnings if v else [],
+                                 "rejected_answer_text": outcome.raw_answer if outcome and status == g.INVALID else None, "validation_note": note},
+                "disclaimer": DISCLAIMER}
+
+    if not records:
+        return body(g.RETRIEVAL_EMPTY, None), 200
+    try:
+        provider = get_llm_provider()
+    except LLMUnavailable as exc:
+        return body(g.LLM_UNAVAILABLE, None, model={"provider": None, "model": None, "configured": False, "error": str(exc)}), 503
+    outcome = g.answer_question(q, items, provider, constraints_from_env())
+    model = {"provider": outcome.provider or getattr(provider, "name", None), "model": outcome.model or getattr(provider, "model", None),
+             "configured": True, "error": outcome.llm_error}
+    if outcome.status == g.LLM_UNAVAILABLE:
+        return body(g.LLM_UNAVAILABLE, None, outcome, model), 503
+    return body(outcome.status, outcome.answer, outcome, model, outcome.validation.citations if outcome.status == g.ANSWERED else ()), 200

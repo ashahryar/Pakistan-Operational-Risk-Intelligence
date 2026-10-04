@@ -25,7 +25,7 @@ def snippet_span(chunk: dict, terms: tuple[str, ...], size: int = SNIPPET_CHARS)
 
 
 def build_evidence(hit: Hit, doc: dict, chunk: dict) -> dict:
-    if hit.method.startswith("semantic"):                # no term anchor: the whole chunk is the evidence (still a verbatim slice)
+    if hit.method.startswith(("semantic", "hybrid")):    # no single term anchor: the whole chunk is the evidence (still a verbatim slice)
         s, e = 0, len(chunk["chunk_text"])
     else:
         s, e = snippet_span(chunk, hit.matched_terms)
@@ -36,7 +36,9 @@ def build_evidence(hit: Hit, doc: dict, chunk: dict) -> dict:
                       "provinces": doc.get("provinces") or [], "status": doc.get("geography_status"), "basis": doc.get("geography_basis")},
         "event": {"event_type": doc.get("event_type"), "event_types": doc.get("event_types") or []},
         "relevance": {"score": hit.score, "method": hit.method, "relevance_type": hit.method, "matched_terms": list(hit.matched_terms),
-                      "model_version": hit.model_version},
+                      "model_version": hit.model_version,
+                      **({"lexical_rank": hit.lexical_rank, "semantic_rank": hit.semantic_rank, "fused_rank": hit.fused_rank,
+                          "lexical_score": hit.lexical_score, "semantic_score": hit.semantic_score} if hit.method.startswith("hybrid") else {})},
         "snippet": chunk["chunk_text"][s:e], "snippet_document_char_start": chunk["char_start"] + s,
         "snippet_document_char_end": chunk["char_start"] + e,
         "source_reference": {"url": doc.get("url"), "file_path": doc.get("file_path"), "content_sha256": doc.get("content_sha256")},

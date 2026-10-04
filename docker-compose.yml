@@ -192,6 +192,15 @@ services:
     env_file:
       - .env.docker
 
+    # Task 31: optional answer-generation provider, passed through from the host environment (empty = not configured -> /rag/ask answers 503).
+    # The key is never written to a file or an image.
+    environment:
+      PORI_LLM_PROVIDER: ${PORI_LLM_PROVIDER:-}
+      PORI_LLM_MODEL: ${PORI_LLM_MODEL:-}
+      PORI_LLM_API_KEY: ${PORI_LLM_API_KEY:-}
+      PORI_LLM_BASE_URL: ${PORI_LLM_BASE_URL:-}
+      PORI_LLM_TIMEOUT: ${PORI_LLM_TIMEOUT:-30}
+
     ports:
       - "${API_PORT:-8000}:8000"
 
