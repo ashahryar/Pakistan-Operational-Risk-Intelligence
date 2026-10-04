@@ -72,8 +72,28 @@ class LLMProvider(Protocol):
 
 def render_user_message(question: str, evidence: Sequence[dict]) -> str:
     """The evidence block + question sent to the model. Each item is addressed by its citation id."""
-    parts = ["EVIDENCE (the only information you may use):"]
+    parts = ["SUPPLIED INFORMATION (the only information you may use):" if any(e.get("kind") for e in evidence)
+             else "EVIDENCE (the only information you may use):"]
     for e in evidence:
+        if e.get("kind") == "risk_engine":                       # Task 32: computed context, a different provenance from the document chunks
+            r = e["record"]
+            lk = e.get("lookup") or {}
+            sig = ", ".join(f"{k}={v}" for k, v in (r.get("signals") or {}).items())
+            parts.append("\n".join([
+                "--- [risk_engine] --- COMPUTED BY THE RISK ENGINE (provenance RISK_ENGINE; not a document, cite as [risk_engine])",
+                f"area: {r.get('admin_unit_name')} (admin_unit_id {r.get('admin_unit_id')}, level {r.get('admin_level')}), province: {r.get('province')}",
+                f"risk_date: {r.get('risk_date')} (lookup: {lk.get('basis')})",
+                f"risk_status: {r.get('risk_status')}",
+                f"risk_basis: {r.get('risk_basis')}",
+                f"risk_confidence: {r.get('risk_confidence')}",
+                f"risk_score: {r.get('risk_score')} (null = not computed)",
+                f"signals (0-1): {sig}",
+                f"top_risk_domain: {r.get('top_risk_domain')}",
+                f"data_coverage_pct: {r.get('data_coverage_pct')}",
+                f"active/observed/missing signals: {r.get('active_signal_count')}/{r.get('observed_signal_count')}/{r.get('missing_signal_count')}",
+                f"calculation_version: {r.get('calculation_version')}",
+                f"threshold_status: {r.get('threshold_status')}"]))
+            continue
         g = e.get("geography") or {}
         ev = e.get("event") or {}
         parts.append(

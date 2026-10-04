@@ -1,0 +1,30 @@
+# Task 32 -- DEVELOPMENT evaluation of the evidence-grounded intelligence layer (risk context + documentary evidence + provenance checks).
+# Frozen before it was run. Small (19 questions), one author, substring judge for "documents contain direct evidence": it supports development
+# decisions, not claims of accuracy. NO real LLM was available: model explanations, hallucination and causal-claim behaviour of a real model
+# are NOT measured (see scripts/rag/evaluate_intelligence.py; --live runs the configured provider when PORI_LLM_* is set).
+version: 1
+top_k: 5
+cases:
+  # ---- risk explanation: a risk-engine row should be selected (checked against an independent SQL read)
+  - {id: risk_sialkot, kind: risk, question: "Why is Sialkot currently classified as MODERATE?", expect_unit: Sialkot}
+  - {id: risk_lahore_false_premise, kind: risk, question: "Why is Lahore currently classified as MODERATE?", expect_unit: Lahore}
+  - {id: risk_narowal, kind: risk, question: "What is the operational risk status in Narowal?", expect_unit: Narowal}
+  - {id: risk_punjab, kind: risk, question: "What is the current operational risk in Punjab?", expect_unit: Punjab}
+  - {id: risk_ambiguous_islamabad, kind: risk, question: "Why is Islamabad classified as HIGH risk?", expect_unit: null, expect_status: NO_RISK_CONTEXT}
+  - {id: risk_dated_sialkot, kind: risk, question: "What was the risk in Sialkot on 11 July 2026?", expect_unit: Sialkot, expect_risk_date: "2026-07-11"}
+  - {id: risk_missing_date, kind: risk, question: "What was the risk in Lahore on 1 January 2020?", expect_unit: Lahore, expect_risk_date: "2020-01-01", expect_no_record: true}
+  # ---- documentary evidence: retrieved chunks should contain the expected term
+  - {id: doc_swat_flash_floods, kind: documentary, question: "What flash floods were reported in Swat?", expect_terms: ["swat"]}
+  - {id: doc_landslides, kind: documentary, question: "What landslide events were reported?", expect_terms: ["landslide"]}
+  - {id: doc_pdma_heavy_rain, kind: documentary, question: "What did PDMA advise about heavy rain?", source: pdma, expect_terms: ["rain"]}
+  - {id: doc_dengue, kind: documentary, question: "What was reported about dengue?", expect_terms: ["dengue"]}
+  - {id: doc_house_damage_punjab, kind: documentary, question: "What damage to houses was reported in Punjab?", expect_terms: ["house"]}
+  # ---- mixed: both a risk record and documents are expected
+  - {id: mixed_sialkot, kind: mixed, question: "What documented flooding affected Sialkot and why is its operational risk MODERATE?", expect_unit: Sialkot, expect_terms: ["sialkot"]}
+  - {id: mixed_punjab, kind: mixed, question: "What official evidence supports the operational risk conditions in Punjab?", expect_unit: Punjab, expect_terms: ["punjab"]}
+  - {id: mixed_lahore, kind: mixed, question: "What hazards were documented in Lahore and what is its current operational risk?", expect_unit: Lahore, expect_terms: ["lahore"]}
+  # ---- unsupported: no area, no risk context and no documentary evidence can exist
+  - {id: unsupported_hurricane, kind: unsupported, question: "hurricane damage in Florida"}
+  - {id: unsupported_bitcoin, kind: unsupported, question: "What is the price of bitcoin today?"}
+  - {id: unsupported_cake, kind: unsupported, question: "How do I bake a cake?"}
+  - {id: unsupported_gdp, kind: unsupported, question: "What is the GDP of Japan?"}

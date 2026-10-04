@@ -71,14 +71,14 @@ class RiskApiClient:
         detail = None
         try:
             body = resp.json()
-            if kind == "unavailable" and isinstance(body, dict) and "answer_status" in body:      # /rag/ask: the evidence is still useful
+            if kind == "unavailable" and isinstance(body, dict) and ("answer_status" in body or "risk_context" in body):      # /rag/ask and /intelligence/ask: the evidence is still useful
                 return ApiResult(False, data=body, error_kind=kind, message=_MESSAGES[kind], status_code=code)
             d = body.get("detail") if isinstance(body, dict) else None
             detail = d if isinstance(d, str) else None
         except ValueError:
             pass
         msg = _MESSAGES[kind] + (f" ({detail})" if detail and kind in ("not_found",) else "")
-        if kind == "unavailable" and detail and path.startswith("/api/v1/rag/"):
+        if kind == "unavailable" and detail and path.startswith(("/api/v1/rag/", "/api/v1/intelligence/")):
             msg = f"This feature is unavailable: {detail}"
         return ApiResult(False, error_kind=kind, message=msg, status_code=code)
 
@@ -110,3 +110,10 @@ class RiskApiClient:
     def ask(self, q: str, mode: str = "hybrid", source: Optional[str] = None, province: Optional[str] = None, top_k: int = 5) -> ApiResult:
         """Grounded answer. A 503 whose body carries an answer_status (no LLM configured) comes back as ok=False with data = that body."""
         return self._get("/api/v1/rag/ask", {"q": q, "mode": mode, "source": source, "province": province, "top_k": top_k}, timeout=90.0)
+
+    # -- intelligence (Task 32)
+    def intelligence(self, q: str, mode: str = "hybrid", admin_unit_id: Optional[int] = None, province: Optional[str] = None,
+                     date: Optional[str] = None, top_k: int = 5) -> ApiResult:
+        """Risk context + documentary evidence (+ optional grounded explanation). A 503 carrying a body (no LLM) comes back as ok=False with data = body."""
+        return self._get("/api/v1/intelligence/ask", {"q": q, "mode": mode, "admin_unit_id": admin_unit_id, "province": province, "date": date,
+                                                       "top_k": top_k}, timeout=90.0)

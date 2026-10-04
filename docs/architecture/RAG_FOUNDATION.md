@@ -1,6 +1,7 @@
 # RAG Foundation — Design Document (Task 16A, ADR-0001)
 
-> **Update (Tasks 29-31):** hybrid retrieval and a grounded, citation-validated answer endpoint now exist (no LLM has been run yet; see the status page).
+> **Update (Task 32):** the risk engine and the RAG layer are now combined by `/api/v1/intelligence/ask` (computed context and documents kept separate; see the status page).
+> **Earlier update (Tasks 29-31):** hybrid retrieval and a grounded, citation-validated answer endpoint now exist (no LLM has been run yet; see the status page).
 > **Earlier update (Tasks 29-30):** the document/chunk/provenance store, a lexical retriever, real embeddings
 > (local ONNX model, vectors in PostgreSQL `REAL[]`, no pgvector) and an optional semantic search mode now exist — see
 > [`DOCUMENT_INTELLIGENCE_STATUS.md`](DOCUMENT_INTELLIGENCE_STATUS.md). LLM generation is still **not**

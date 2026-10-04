@@ -1,8 +1,9 @@
-# Document intelligence & RAG — status (Tasks 29, 30 and 31)
+# Document intelligence & RAG — status (Tasks 29, 30, 31 and 32)
 
 **Task 29 (implemented):** a traceable document/chunk store with provenance, a deterministic keyword (BM25) retriever and a read-only evidence API.
 **Task 30 (implemented):** real text embeddings of every chunk, vector storage in PostgreSQL, and an optional semantic retrieval mode.
 **Task 31 (implemented, NOT exercised against a real language model):** hybrid retrieval (BM25 + semantic, rank fusion) and a grounded-answer endpoint `GET /api/v1/rag/ask` that gives only retrieved chunks to an LLM, requires `[chunk:<id>]` citations, validates them deterministically and abstains rather than guessing. **No LLM credential exists in this environment**, so no real model has produced an answer in any test or evaluation here: the provider layer is covered by mocked-transport and scripted-provider tests, and the real endpoint answers 503 `LLM_UNAVAILABLE` (with the evidence) until `PORI_LLM_*` is configured.
+**Task 32 (implemented, NOT exercised against a real language model):** `GET /api/v1/intelligence/ask` serves the existing risk-engine context and retrieved documentary evidence side by side, kept separate and labelled, with an optional validated explanation; it works (503 `LLM_UNAVAILABLE`, full context returned) without a provider.
 **Not implemented:** autonomous agents, risk calculation inside RAG, re-ranking, query expansion, any claim of production-grade hallucination prevention. This is an evidence-grounded question-answering *pipeline*, not an authoritative assistant.
 
 ## Sources (existing parsed artifacts only; nothing scraped or copied)
@@ -75,6 +76,31 @@ Pipeline: question -> retrieval (`mode`, default `hybrid`; `source`, `province`,
 The RAG layer computes no risk score and does not interpret `HIGH` / `CRITICAL` / `MODERATE` / `LOW` / `INSUFFICIENT_DATA`; the risk engine stays the authority and the answer text only quotes what evidence states.
 
 The Streamlit page `dashboard/pages/7_RAG_Ask.py` calls `/ask` through `dashboard/api_client.py` and shows the answer, status, citations and retrieved evidence separately; API failures become a friendly message.
+
+## Operational intelligence (Task 32): `GET /api/v1/intelligence/ask`
+
+Connects the **existing** risk engine and the RAG evidence layer without letting either pretend to be the other. It calculates no risk score, changes no threshold and does not touch the risk engine; it reads the same risk tables/columns as `/api/v1/risk` and the same retrieval as `/rag/ask`.
+
+```text
+question -> context extraction (place, date, event; deterministic, no LLM)
+         -> risk context lookup (RISK_ENGINE)      +   documentary retrieval (lexical | semantic | hybrid, unchanged)
+         -> evidence package: risk_context | documentary_evidence | retrieval | provenance   (kept separate)
+         -> optional LLM explanation -> deterministic provenance validation
+```
+
+**Question context** (`pipeline/intelligence/context.py`): places are matched against the canonical geography names and aliases (`scripts/geo/canonical_data.py`, normalised with the existing resolver's `normalize_name`) and only exact / alias / normalised matches are accepted; fuzzy matching is never used on free text, and gauge-station mappings are not used. A name that matches more than one unit (for example `Islamabad`: an alias of the Islamabad Capital Territory province *and* a district) is **ambiguous** and no area is chosen; several different places give `multiple`; caveated seed units (Fort Munro, Kamra, ...) stay unresolved text; an unrecognised name is simply not a place. Explicit `admin_unit_id` / `province` parameters override names in the text (an unresolvable `province` text is preserved and used only as a document filter). Dates: ISO, day-first numeric (`12.07.2026` = 12 July), `5th July 2026`, `July 5, 2026`, `July 2026` (a month window); impossible dates are ignored. Event types come from fixed phrases (`flash flood`, `flood`, `landslide`, `heatwave`, ...) and filter only when exactly one is found. Relative dates such as "last week" are not interpreted.
+
+**Risk context.** `risk_context = {status AVAILABLE | NO_RISK_CONTEXT, provenance RISK_ENGINE, record, reason, lookup}`. The record is the engine row exactly as `/api/v1/risk` serves it (status, basis, confidence, `risk_score` = null, signals, top domain, coverage, calculation version, threshold status, date). Lookup: the unit's latest row by default; an exact `date` (parameter or in the question) gives exactly that day; a month window gives the latest row inside it. **A different date is never substituted** and a record is never invented: if none exists the block says `NO_RISK_CONTEXT` and why (no unit, ambiguous place, no row for that date). Province rows are looked up as province rows; nothing is aggregated from districts.
+
+**Documentary evidence.** Same retrieval and evidence records as `/rag/ask` (`documentary_evidence[]`). Filters come from the question/parameters (district id or province, single event type, date window, `source`). To avoid evidence loss, only *inferred* narrowing filters are relaxed, in this order and only when the stricter search returns nothing: event type, then district -> its province, then date. The geography (at least the province) and `source` are never dropped. `retrieval.filters_requested / filters_applied / filters_relaxed` report exactly what happened.
+
+**Status.** `ANSWERED`, `INSUFFICIENT_EVIDENCE` (model abstained), `INVALID_ANSWER` (withheld), `LLM_UNAVAILABLE` (503, body still has risk context and evidence), `NO_RISK_CONTEXT` (200: the question is about a risk classification/status and no engine record exists; the model is not called, retrieved documents are still returned), `RETRIEVAL_EMPTY` (200: no risk record and no documents). A question that is not about a classification (for example "what flash floods affected Swat?") is explained from the documents alone even when no risk record exists.
+
+**No provider.** Without `PORI_LLM_*` the endpoint answers 503 `LLM_UNAVAILABLE` with `answer = null`, the complete `risk_context`, the documentary evidence and the provenance: useful and testable without credentials, and no natural-language answer is fabricated.
+
+**Grounding contract** (`pipeline/intelligence/grounding.py`, extending the Task 31 rules): the model receives the engine block labelled `RISK_ENGINE` (not a document, no chunk id) and the chunks. Sentences about the computed context must restate the supplied values and end with `[risk_engine]`; documentary sentences cite `[chunk:<id>]`; never both in one sentence; no numeric risk score; if the question assumes a different status than the engine reports, the engine's value is stated. The deterministic validator additionally rejects: a `[risk_engine]` citation with no record; a sentence mixing both provenances; an engine sentence naming a status other than the engine's; a chunk-cited sentence naming a risk status that the cited text does not contain, or talking about a risk status/level/score/classification; an engine sentence that points at an agency/report as the reason (false causality: "MODERATE because NDMA reported flooding"); an invented numeric risk score; plus the Task 31 checks (unknown citation, no citation, uncited sentence). These are **wording heuristics, not proof of faithfulness**: a model can still misread a chunk, and a paraphrased causal claim can slip through.
+
+The Streamlit page `dashboard/pages/8_Intelligence.py` shows *Operational Risk Context* (status, confidence, coverage, top domain, signals), *Documentary Evidence* (source, title, date, snippet, chunk id) and an *AI Explanation* section **only** when a real model answer passed validation; with no provider it says the evidence was retrieved but AI generation is unavailable.
 
 ## Embeddings (Task 30)
 
@@ -152,6 +178,20 @@ What this shows, plainly:
 
 The probes are deterministic answers built from the real retrieved chunks (a one-claim excerpt with a correct citation must be `ANSWERED`; with an unknown id or no citation it must be `INVALID_ANSWER`; `INSUFFICIENT_EVIDENCE` is recognised): they test our checks on real chunk ids, not a model. Where retrieval does return junk for an unsupported question, only the model's abstention can prevent an answer, and that was not tested.
 
+## Evaluation 4 (Task 32): intelligence layer, development evaluation (`config/rag_intelligence_eval.yaml`, `scripts/rag/evaluate_intelligence.py`, report `data/analytics/rag/intelligence_eval_report.json`)
+
+19 questions (7 risk, 5 documentary, 3 mixed, 4 unsupported), frozen before running; one author; a substring judge. **No LLM was available: no model explanation was produced, so explanation quality, citation behaviour of a model and false-causality behaviour of a model are NOT measured.** Measured against the real local data (hybrid retrieval, real embedding model):
+
+| Measure | Result |
+|---|---|
+| risk-context selection equals an independent SQL read of the risk tables (10 risk/mixed questions, including an ambiguous place, a false-premise status, a dated lookup and a date with no row) | 10/10 |
+| documentary evidence contains an expected term (8 documentary/mixed questions) | 8/8 |
+| unsupported questions give no risk context | 4/4 |
+| junk chunks still retrieved for the unsupported questions (hurricane / bitcoin / cake / GDP) | 5 / 5 / 0 / 3 |
+| provenance probes behave as designed (9 cases x 6 probes) | 9/9 |
+
+The probes are deterministic answers built from the real returned record and chunks (a correctly separated answer must pass; a fabricated causal link, a wrong status, a mixed-provenance sentence, an unknown citation and a document-claims-a-risk-status sentence must be rejected): they test our validator, not a model. The first run scored 9/10 on risk selection because the evaluation case for a missing date compared the wrong date; the case was corrected in the evaluation (service behaviour unchanged). Notable behaviour: "Why is Lahore currently classified as MODERATE?" returns the engine's actual LOW (2026-09-15); "Why is Islamabad classified as HIGH risk?" returns `NO_RISK_CONTEXT` (ambiguous); the freshest Sialkot/Narowal rows are from 2026-07-11, so "current" risk can be weeks old and the record date is always shown. Hybrid retrieval still returns keyword junk for some unsupported questions (a model would have to abstain).
+
 ## Tests (three tiers)
 
 Unit (no model; a *test-only* stand-in embedder, proves logic not quality): `tests/rag/test_embeddings_unit.py`, `api/tests/test_rag_semantic_api.py`. Database/integration (real PostgreSQL, scratch copy for rollback/idempotency): `tests/db/test_rag_embeddings.py`. Real-model (marker `real_model`; the actual model and stored embeddings, skipped when unavailable): `tests/rag/test_embeddings_real.py`. CI installs no model, so it runs the first tier plus the lexical-only API image, where `mode=semantic` must answer 503; the full tiers run locally.
@@ -166,8 +206,8 @@ The numbers above (253 documents, 1,909 chunks) describe the **full local corpus
 
 ## Limitations
 
-PDMA text is column-interleaved and NDMA text includes table fragments, which also limits embedding quality; Urdu documents are only lexically searchable; 26 documents are undated; the retrievers hold the corpus in memory; consecutive daily reports are not de-duplicated (the `/ask` evidence selector skips identical chunk text only). Retrieval quality was measured on small heuristic sets (46 and 15 cases) with a substring judge. **No real LLM has been run:** answer quality, citation behaviour of an actual model, abstention and hallucination rates are unmeasured, and the strict per-sentence citation rule may reject good answers. Citation validation proves provenance, not truth; the number check is a warning, not a gate. Hybrid retrieval passes BM25 junk on some unsupported queries. Evidence text comes from scraped documents and is passed to a model with an instruction to treat it as data; this reduces but does not eliminate prompt-injection risk. Do not present answers as official warnings.
+PDMA text is column-interleaved and NDMA text includes table fragments, which also limits embedding quality; Urdu documents are only lexically searchable; 26 documents are undated; the retrievers hold the corpus in memory; consecutive daily reports are not de-duplicated (the evidence selector skips identical chunk text only). Retrieval quality was measured on small heuristic sets (46, 15 and 19 cases) with a substring judge. **No real LLM has been run:** answer quality, citation behaviour of an actual model, abstention, hallucination and false-causality rates are unmeasured, and the strict per-sentence citation rule may reject good answers. Citation validation proves provenance, not truth; number checks are warnings, not gates; the causal-claim checks are wording heuristics. Hybrid retrieval passes BM25 junk on some unsupported queries. Place detection only knows canonical provinces/districts and their listed aliases (no fuzzy matching, no relative dates, no tehsils, no rivers/gauges); an ambiguous name needs an explicit `admin_unit_id`. Risk context is one engine row per unit (provisional thresholds; `risk_score` is null; the latest row can be old); documents are never risk-engine inputs, so a document and a status describing the same place can disagree without either being wrong. Evidence text comes from scraped documents and is passed to a model with an instruction to treat it as data; this reduces but does not eliminate prompt-injection risk. Do not present answers as official warnings.
 
 ## Next step
 
-Configure an LLM provider (a credential/provider decision is the owner's), run `scripts/rag/evaluate_grounded.py --live` and the live test, and measure faithfulness, citation accuracy and abstention on a larger held-out question set before relying on answers. Then consider a lexical relevance floor or tuned fusion evaluated on that held-out set, pgvector (still a proposal needing approval, below) only if the corpus grows, and per-claim citation checking.
+Configure an LLM provider (a credential/provider decision is the owner's), then run `scripts/rag/evaluate_grounded.py --live`, `scripts/rag/evaluate_intelligence.py --live` and the live test (`tests/rag/test_llm_live.py`), and measure faithfulness, citation accuracy, abstention and false-causality behaviour on a larger held-out question set (including false-premise and ambiguous-place questions) before relying on any explanation.

@@ -1,0 +1,526 @@
+{
+  "cases": [
+    {
+      "evidence": 5,
+      "filters_applied": {
+        "admin_unit_id": 46
+      },
+      "filters_relaxed": [],
+      "geography_status": "resolved",
+      "id": "risk_sialkot",
+      "kind": "risk",
+      "provenance_probes": {
+        "as_expected": true,
+        "statuses": {
+          "causal_link_fabricated": "INVALID_ANSWER",
+          "document_claims_risk_status": "INVALID_ANSWER",
+          "mixed_provenance": "INVALID_ANSWER",
+          "separated_answer": "ANSWERED",
+          "unknown_citation": "INVALID_ANSWER",
+          "wrong_status": "INVALID_ANSWER"
+        }
+      },
+      "question": "Why is Sialkot currently classified as MODERATE?",
+      "risk_context_correct": true,
+      "risk_date": "2026-07-11",
+      "risk_reason": null,
+      "risk_status": "MODERATE",
+      "status": "LLM_UNAVAILABLE",
+      "top_evidence": [
+        "Monday Ø Chakwal = 06 Ø Hot and dry weather is expected in most districts of Ø Mangla = 05 Punjab wh",
+        "08 AM (22.06.2026) till 08 AM (23.07.2026) Thursday ➢ Sialkot ➢ Widespread rain-windstorm/thundersho"
+      ],
+      "unit": "Sialkot"
+    },
+    {
+      "evidence": 5,
+      "filters_applied": {
+        "admin_unit_id": 30
+      },
+      "filters_relaxed": [],
+      "geography_status": "resolved",
+      "id": "risk_lahore_false_premise",
+      "kind": "risk",
+      "provenance_probes": {
+        "as_expected": true,
+        "statuses": {
+          "causal_link_fabricated": "INVALID_ANSWER",
+          "document_claims_risk_status": "INVALID_ANSWER",
+          "mixed_provenance": "INVALID_ANSWER",
+          "separated_answer": "ANSWERED",
+          "unknown_citation": "INVALID_ANSWER",
+          "wrong_status": "INVALID_ANSWER"
+        }
+      },
+      "question": "Why is Lahore currently classified as MODERATE?",
+      "risk_context_correct": true,
+      "risk_date": "2026-09-15",
+      "risk_reason": null,
+      "risk_status": "LOW",
+      "status": "LLM_UNAVAILABLE",
+      "top_evidence": [
+        "Monday Ø Rain-windstorm/thunderstorm is expected at isolated Ø Khanewal = 30 places in Rawalpindi, M",
+        "Thursday Ø Partly cloudy weather is expected in most districts of the Ø Sargodha = 58 province with "
+      ],
+      "unit": "Lahore"
+    },
+    {
+      "evidence": 5,
+      "filters_applied": {
+        "admin_unit_id": 37
+      },
+      "filters_relaxed": [],
+      "geography_status": "resolved",
+      "id": "risk_narowal",
+      "kind": "risk",
+      "provenance_probes": {
+        "as_expected": true,
+        "statuses": {
+          "causal_link_fabricated": "INVALID_ANSWER",
+          "document_claims_risk_status": "INVALID_ANSWER",
+          "mixed_provenance": "INVALID_ANSWER",
+          "separated_answer": "ANSWERED",
+          "unknown_citation": "INVALID_ANSWER",
+          "wrong_status": "INVALID_ANSWER"
+        }
+      },
+      "question": "What is the operational risk status in Narowal?",
+      "risk_context_correct": true,
+      "risk_date": "2026-07-11",
+      "risk_reason": null,
+      "risk_status": "LOW",
+      "status": "LLM_UNAVAILABLE",
+      "top_evidence": [
+        "Monday Ø Hot and humid weather is expected in most districts of Ø Okara = 29 the province. Ø Narowal",
+        "Thursday Ø Narowal = 48 Ø Hot and dry weather is likely in most parts of the Ø Gujrat = 46 Ø Sialkot"
+      ],
+      "unit": "Narowal"
+    },
+    {
+      "evidence": 5,
+      "filters_applied": {
+        "province": "Punjab"
+      },
+      "filters_relaxed": [],
+      "geography_status": "resolved",
+      "id": "risk_punjab",
+      "kind": "risk",
+      "provenance_probes": {
+        "as_expected": true,
+        "statuses": {
+          "causal_link_fabricated": "INVALID_ANSWER",
+          "document_claims_risk_status": "INVALID_ANSWER",
+          "mixed_provenance": "INVALID_ANSWER",
+          "separated_answer": "ANSWERED",
+          "unknown_citation": "INVALID_ANSWER",
+          "wrong_status": "INVALID_ANSWER"
+        }
+      },
+      "question": "What is the current operational risk in Punjab?",
+      "risk_context_correct": true,
+      "risk_date": "2026-09-16",
+      "risk_reason": null,
+      "risk_status": "INSUFFICIENT_DATA",
+      "status": "LLM_UNAVAILABLE",
+      "top_evidence": [
+        "Pur Thal, 10 Current Chakwal MCL* Current RIVERS DAMS Filled (Feet) Status Status ➢ Lahore Airport =",
+        "= Trace, MCL* Current Current Samanabad, Hdyara Defense Road = Trace, RIVERS DAMS (Feet) Filled Stat"
+      ],
+      "unit": "Punjab"
+    },
+    {
+      "evidence": 5,
+      "filters_applied": {},
+      "filters_relaxed": [],
+      "geography_status": "ambiguous",
+      "id": "risk_ambiguous_islamabad",
+      "kind": "risk",
+      "question": "Why is Islamabad classified as HIGH risk?",
+      "risk_context_correct": true,
+      "risk_date": null,
+      "risk_reason": "the place name in the question is ambiguous, so no area was chosen",
+      "risk_status": null,
+      "status": "NO_RISK_CONTEXT",
+      "top_evidence": [
+        "river islands/belas Medium Flood: Ri\\n partly inund8ting dyer islands/Was High Flag: Rivu almost ful",
+        "particularly over southern regions, may increase vector-borne disease risk like and take care of the"
+      ],
+      "unit": null
+    },
+    {
+      "evidence": 1,
+      "filters_applied": {
+        "admin_unit_id": 46,
+        "date_from": "2026-07-11",
+        "date_to": "2026-07-11"
+      },
+      "filters_relaxed": [],
+      "geography_status": "resolved",
+      "id": "risk_dated_sialkot",
+      "kind": "risk",
+      "provenance_probes": {
+        "as_expected": true,
+        "statuses": {
+          "causal_link_fabricated": "INVALID_ANSWER",
+          "document_claims_risk_status": "INVALID_ANSWER",
+          "mixed_provenance": "INVALID_ANSWER",
+          "separated_answer": "ANSWERED",
+          "unknown_citation": "INVALID_ANSWER",
+          "wrong_status": "INVALID_ANSWER"
+        }
+      },
+      "question": "What was the risk in Sialkot on 11 July 2026?",
+      "risk_context_correct": true,
+      "risk_date": "2026-07-11",
+      "risk_reason": null,
+      "risk_status": "MODERATE",
+      "status": "LLM_UNAVAILABLE",
+      "top_evidence": [
+        "Saturday Ø Scattered rain-windstorm/thundershower (with isolated Ø Narowal = 51 heavy falls) is expe"
+      ],
+      "unit": "Sialkot"
+    },
+    {
+      "evidence": 5,
+      "filters_applied": {
+        "province": "Punjab"
+      },
+      "filters_relaxed": [
+        "district_to_province",
+        "date"
+      ],
+      "geography_status": "resolved",
+      "id": "risk_missing_date",
+      "kind": "risk",
+      "question": "What was the risk in Lahore on 1 January 2020?",
+      "risk_context_correct": true,
+      "risk_date": null,
+      "risk_reason": "no risk record exists for Lahore on 2020-01-01",
+      "risk_status": null,
+      "status": "NO_RISK_CONTEXT",
+      "top_evidence": [
+        "while Lahore and Faisalabad from 1st to 4th July. slightly above-normal rainfall may further exacerb",
+        "timely irrigation management is advised to minimize potential losses. Heavy rains may cause Urban/fl"
+      ],
+      "unit": "Lahore"
+    },
+    {
+      "evidence": 5,
+      "evidence_has_expected_term": true,
+      "filters_applied": {
+        "province": "Khyber Pakhtunkhwa"
+      },
+      "filters_relaxed": [
+        "event_type",
+        "district_to_province"
+      ],
+      "geography_status": "resolved",
+      "id": "doc_swat_flash_floods",
+      "kind": "documentary",
+      "question": "What flash floods were reported in Swat?",
+      "risk_date": null,
+      "risk_reason": "no risk record exists for Swat",
+      "risk_status": null,
+      "status": "LLM_UNAVAILABLE",
+      "top_evidence": [
+        "damaged (02 vehicles and 02 motorcycles) KP, Upper Chitral: As per initial reports, on 01-­07-­2026,",
+        "rising waters trapped behind blocked concrete culverts. The operation focused heavily on preemptive "
+      ],
+      "unit": "Swat"
+    },
+    {
+      "evidence": 5,
+      "evidence_has_expected_term": true,
+      "filters_applied": {
+        "event_type": "landslide"
+      },
+      "filters_relaxed": [],
+      "geography_status": "not_stated",
+      "id": "doc_landslides",
+      "kind": "documentary",
+      "question": "What landslide events were reported?",
+      "risk_date": null,
+      "risk_reason": "no province or district was identified (pass admin_unit_id or name one in the question)",
+      "risk_status": null,
+      "status": "LLM_UNAVAILABLE",
+      "top_evidence": [
+        "A landslide near Alpuri Bazaar on N-90 temporarily obstructed traffic. Debris removal was carried ou",
+        "on AVR which were cleared last night. KP, Mansehra: On 20-­07-­2026, the following roads were blocke"
+      ],
+      "unit": null
+    },
+    {
+      "evidence": 5,
+      "evidence_has_expected_term": true,
+      "filters_applied": {
+        "source": "pdma"
+      },
+      "filters_relaxed": [
+        "event_type"
+      ],
+      "geography_status": "not_stated",
+      "id": "doc_pdma_heavy_rain",
+      "kind": "documentary",
+      "question": "What did PDMA advise about heavy rain?",
+      "risk_date": null,
+      "risk_reason": "no province or district was identified (pass admin_unit_id or name one in the question)",
+      "risk_status": null,
+      "status": "LLM_UNAVAILABLE",
+      "top_evidence": [
+        "MONDAY (NIGHT) Mainly dry weather is expected in most districts of the province, while hot in plain ",
+        "situation, increasing the risk of flash floods and Faisalabad. landslides in mountainous and flood-p"
+      ],
+      "unit": null
+    },
+    {
+      "evidence": 5,
+      "evidence_has_expected_term": true,
+      "filters_applied": {},
+      "filters_relaxed": [],
+      "geography_status": "not_stated",
+      "id": "doc_dengue",
+      "kind": "documentary",
+      "question": "What was reported about dengue?",
+      "risk_date": null,
+      "risk_reason": "no province or district was identified (pass admin_unit_id or name one in the question)",
+      "risk_status": null,
+      "status": "LLM_UNAVAILABLE",
+      "top_evidence": [
+        "to Met Department; to take precautionary measures to protect standing crops. Dengue outbreaks are po",
+        "crops, vegetables, and orchards; farmers are advised According to Met Department; to take precaution"
+      ],
+      "unit": null
+    },
+    {
+      "evidence": 5,
+      "evidence_has_expected_term": true,
+      "filters_applied": {
+        "province": "Punjab"
+      },
+      "filters_relaxed": [],
+      "geography_status": "resolved",
+      "id": "doc_house_damage_punjab",
+      "kind": "documentary",
+      "provenance_probes": {
+        "as_expected": true,
+        "statuses": {
+          "causal_link_fabricated": "INVALID_ANSWER",
+          "document_claims_risk_status": "INVALID_ANSWER",
+          "mixed_provenance": "INVALID_ANSWER",
+          "separated_answer": "ANSWERED",
+          "unknown_citation": "INVALID_ANSWER",
+          "wrong_status": "INVALID_ANSWER"
+        }
+      },
+      "question": "What damage to houses was reported in Punjab?",
+      "risk_date": "2026-09-16",
+      "risk_reason": null,
+      "risk_status": "INSUFFICIENT_DATA",
+      "status": "LLM_UNAVAILABLE",
+      "top_evidence": [
+        "68 38 88 194 223 143 182 548 2. Damage to Infrastructure & Private Property (Last 24 Hours) Houses D",
+        "Causes of Death House Collapse Lightning Flash Flood Solar Panel Drowning Tree fall Electrocution . "
+      ],
+      "unit": "Punjab"
+    },
+    {
+      "evidence": 5,
+      "evidence_has_expected_term": true,
+      "filters_applied": {
+        "admin_unit_id": 46
+      },
+      "filters_relaxed": [
+        "event_type"
+      ],
+      "geography_status": "resolved",
+      "id": "mixed_sialkot",
+      "kind": "mixed",
+      "provenance_probes": {
+        "as_expected": true,
+        "statuses": {
+          "causal_link_fabricated": "INVALID_ANSWER",
+          "document_claims_risk_status": "INVALID_ANSWER",
+          "mixed_provenance": "INVALID_ANSWER",
+          "separated_answer": "ANSWERED",
+          "unknown_citation": "INVALID_ANSWER",
+          "wrong_status": "INVALID_ANSWER"
+        }
+      },
+      "question": "What documented flooding affected Sialkot and why is its operational risk MODERATE?",
+      "risk_context_correct": true,
+      "risk_date": "2026-07-11",
+      "risk_reason": null,
+      "risk_status": "MODERATE",
+      "status": "LLM_UNAVAILABLE",
+      "top_evidence": [
+        "Sialkot, Lahore and above-normal rainfall may further exacerbate the situation, increasing the risk ",
+        "timely irrigation management is advised to minimize potential losses. Heavy rains may cause Urban/fl"
+      ],
+      "unit": "Sialkot"
+    },
+    {
+      "evidence": 5,
+      "evidence_has_expected_term": true,
+      "filters_applied": {
+        "province": "Punjab"
+      },
+      "filters_relaxed": [],
+      "geography_status": "resolved",
+      "id": "mixed_punjab",
+      "kind": "mixed",
+      "provenance_probes": {
+        "as_expected": true,
+        "statuses": {
+          "causal_link_fabricated": "INVALID_ANSWER",
+          "document_claims_risk_status": "INVALID_ANSWER",
+          "mixed_provenance": "INVALID_ANSWER",
+          "separated_answer": "ANSWERED",
+          "unknown_citation": "INVALID_ANSWER",
+          "wrong_status": "INVALID_ANSWER"
+        }
+      },
+      "question": "What official evidence supports the operational risk conditions in Punjab?",
+      "risk_context_correct": true,
+      "risk_date": "2026-09-16",
+      "risk_reason": null,
+      "risk_status": "INSUFFICIENT_DATA",
+      "status": "LLM_UNAVAILABLE",
+      "top_evidence": [
+        "advised to be extra cautious. especially over the plain areas of Punjab; despite the expected above-",
+        "Bahawalnagar, R Y Khan and Khan Pur from Ø The likelihood of warmerthan-normal conditions is particu"
+      ],
+      "unit": "Punjab"
+    },
+    {
+      "evidence": 5,
+      "evidence_has_expected_term": true,
+      "filters_applied": {
+        "admin_unit_id": 30
+      },
+      "filters_relaxed": [],
+      "geography_status": "resolved",
+      "id": "mixed_lahore",
+      "kind": "mixed",
+      "provenance_probes": {
+        "as_expected": true,
+        "statuses": {
+          "causal_link_fabricated": "INVALID_ANSWER",
+          "document_claims_risk_status": "INVALID_ANSWER",
+          "mixed_provenance": "INVALID_ANSWER",
+          "separated_answer": "ANSWERED",
+          "unknown_citation": "INVALID_ANSWER",
+          "wrong_status": "INVALID_ANSWER"
+        }
+      },
+      "question": "What hazards were documented in Lahore and what is its current operational risk?",
+      "risk_context_correct": true,
+      "risk_date": "2026-09-15",
+      "risk_reason": null,
+      "risk_status": "LOW",
+      "status": "LLM_UNAVAILABLE",
+      "top_evidence": [
+        "Monday Ø Rain-windstorm/thunderstorm is expected at isolated Ø Khanewal = 30 places in Rawalpindi, M",
+        "Wednesday Ø Lahore Ø Hot and humid weather is expected in most districts of Saggian = 40, Shahi Qila"
+      ],
+      "unit": "Lahore"
+    },
+    {
+      "evidence": 5,
+      "filters_applied": {},
+      "filters_relaxed": [],
+      "geography_status": "not_stated",
+      "id": "unsupported_hurricane",
+      "junk_chunks_returned": 5,
+      "kind": "unsupported",
+      "question": "hurricane damage in Florida",
+      "risk_date": null,
+      "risk_reason": "no province or district was identified (pass admin_unit_id or name one in the question)",
+      "risk_status": null,
+      "status": "LLM_UNAVAILABLE",
+      "top_evidence": [
+        "67 141 183 105 146 434 2. Damage to Infrastructure & Private Property (Last 24 Hours) Deceased & Inj",
+        "70 32 32 32 96 Sindh 5 2 10 17 8 3 7 18 Balochistan 1 2 5 8 0 2 13 15 GB 1 0 0 1 0 0 0 0 AJ&K 5 3 5 "
+      ],
+      "unit": null,
+      "unsupported_handled": true
+    },
+    {
+      "evidence": 5,
+      "filters_applied": {},
+      "filters_relaxed": [],
+      "geography_status": "not_stated",
+      "id": "unsupported_bitcoin",
+      "junk_chunks_returned": 5,
+      "kind": "unsupported",
+      "question": "What is the price of bitcoin today?",
+      "risk_date": null,
+      "risk_reason": "no province or district was identified (pass admin_unit_id or name one in the question)",
+      "risk_status": null,
+      "status": "LLM_UNAVAILABLE",
+      "top_evidence": [
+        "325.000 598.872 08-10-1955 IS,076 3,075 Normal 175,000 • Islam 300,000 492,581 11-10-1955 1,500 NIL ",
+        "1.90 0.311 0.274 o.061 19.61 'yO 1242.00 1050.00 1185.30 11 77.30 I1 63.15 7.277 2.957 2.257 31,02 9"
+      ],
+      "unit": null,
+      "unsupported_handled": true
+    },
+    {
+      "evidence": 0,
+      "filters_applied": {},
+      "filters_relaxed": [],
+      "geography_status": "not_stated",
+      "id": "unsupported_cake",
+      "junk_chunks_returned": 0,
+      "kind": "unsupported",
+      "question": "How do I bake a cake?",
+      "risk_date": null,
+      "risk_reason": "no province or district was identified (pass admin_unit_id or name one in the question)",
+      "risk_status": null,
+      "status": "RETRIEVAL_EMPTY",
+      "top_evidence": [],
+      "unit": null,
+      "unsupported_handled": true
+    },
+    {
+      "evidence": 3,
+      "filters_applied": {},
+      "filters_relaxed": [],
+      "geography_status": "not_stated",
+      "id": "unsupported_gdp",
+      "junk_chunks_returned": 3,
+      "kind": "unsupported",
+      "question": "What is the GDP of Japan?",
+      "risk_date": null,
+      "risk_reason": "no province or district was identified (pass admin_unit_id or name one in the question)",
+      "risk_status": null,
+      "status": "LLM_UNAVAILABLE",
+      "top_evidence": [
+        "6 B Khyber Pakhtunkh\\va 5. Malam Jabba 16 6. Darashoot & Japan Bridge 13 each 7. D.I. Khan 5 C Baloc",
+        "river islands/belas Medium Flood: Ri\\n partly inund8ting dyer islands/Was High Flag: Rivu almost ful"
+      ],
+      "unit": null,
+      "unsupported_handled": true
+    }
+  ],
+  "summary": {
+    "cases": 19,
+    "documentary_evidence_has_expected_term": "8/8",
+    "live_model": false,
+    "note": "No language model was run: explanation quality, citation behaviour and causal-claim behaviour of a real model are not measured.",
+    "provenance_probe_cases": 9,
+    "provenance_probes_as_expected": "9/9",
+    "risk_context_selection_correct": "10/10",
+    "status_counts": {
+      "LLM_UNAVAILABLE": 16,
+      "NO_RISK_CONTEXT": 2,
+      "RETRIEVAL_EMPTY": 1
+    },
+    "unsupported_junk_chunks_returned": {
+      "unsupported_bitcoin": 5,
+      "unsupported_cake": 0,
+      "unsupported_gdp": 3,
+      "unsupported_hurricane": 5
+    },
+    "unsupported_without_risk_context": "4/4"
+  }
+}

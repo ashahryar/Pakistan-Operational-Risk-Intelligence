@@ -294,3 +294,21 @@ def ask_question(q: str, filters: SearchFilters, mode: str, top_k: int, min_scor
     if outcome.status == g.LLM_UNAVAILABLE:
         return body(g.LLM_UNAVAILABLE, None, outcome, model), 503
     return body(outcome.status, outcome.answer, outcome, model, outcome.validation.citations if outcome.status == g.ANSWERED else ()), 200
+
+
+def retrieve_evidence(q: str, filters: SearchFilters, mode: str, top_k: int, min_score: Optional[float] = None) -> dict:
+    """Evidence selection shared with other layers (Task 32): retrieve with the given mode, skip duplicate chunk text, return the evidence
+    records, the items packed for a language model and the retrieval description. 503 when the mode needs an unavailable embedding runtime."""
+    from fastapi import HTTPException
+
+    from pipeline.rag import grounding as g
+    from pipeline.rag.embeddings import EmbeddingUnavailable
+    try:
+        hits, retriever, lexical, details = _retrieve_for_ask(q, filters, top_k * 3, mode, min_score)
+    except (SemanticUnavailable, EmbeddingUnavailable) as exc:
+        raise HTTPException(status_code=503, detail=f"{mode.capitalize()} retrieval is unavailable: {exc}") from exc
+    chunk_by_id = {c["chunk_id"]: c for c in lexical.chunks}
+    selected = g.select_evidence(hits, chunk_by_id, top_k)
+    records = [build_evidence(h, lexical.docs[h.document_id], chunk_by_id[h.chunk_id]) for h in selected]
+    return {"records": records, "items": g.pack_evidence(records, chunk_by_id),
+            "retrieval": {"mode": mode, "method": retriever.method, "min_score": details["min_score"], "embedding_model": details["embedding_model"]}}
