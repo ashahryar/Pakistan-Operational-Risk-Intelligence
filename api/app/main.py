@@ -25,7 +25,7 @@ from __future__ import annotations
 from fastapi import FastAPI
 
 from api.app.config import API_DESCRIPTION, API_TITLE, API_VERSION
-from api.app.routers import disasters, geography, health, risk, weather
+from api.app.routers import disasters, geography, health, rag, risk, weather
 
 app = FastAPI(title=API_TITLE, version=API_VERSION, description=API_DESCRIPTION)
 
@@ -34,3 +34,4 @@ app.include_router(geography.router)
 app.include_router(weather.router)
 app.include_router(disasters.router)
 app.include_router(risk.router)
+app.include_router(rag.router)

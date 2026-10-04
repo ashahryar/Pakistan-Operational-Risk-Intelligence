@@ -1,0 +1,65 @@
+{
+  "chunk_overlap": 150,
+  "chunk_size": 1200,
+  "chunks": 1909,
+  "chunks_by_source": {
+    "ffc": 66,
+    "ndma": 1329,
+    "pdma": 459,
+    "pmd": 14,
+    "pmd_ndmc": 41
+  },
+  "discovered_by_reader": {
+    "canonical_documents": 11,
+    "ndma_sitreps": 96,
+    "pdma_daily": 138,
+    "pmd_weather_alert": 1,
+    "pmd_weekly_outlook": 7
+  },
+  "documents": 253,
+  "documents_by_geography_status": {
+    "not_stated": 11,
+    "partial": 97,
+    "resolved": 42,
+    "resolved_multi": 103
+  },
+  "documents_by_source_type": {
+    "ffc/dfsr": 6,
+    "ffc/glof_alert": 1,
+    "ndma/sitrep": 96,
+    "pdma/daily_report": 138,
+    "pmd/weather_alert": 1,
+    "pmd/weekly_outlook": 7,
+    "pmd_ndmc/ndmc_bulletin": 4
+  },
+  "documents_with_event_type": 108,
+  "documents_without_date": 26,
+  "non_document_artifacts": [
+    {
+      "artifact": "data/parsed/pmd/daily_forecast/latest.json",
+      "reason": "structured per-city forecast rows (no narrative text)",
+      "records": 39
+    },
+    {
+      "artifact": "data/parsed/tier1/suparco/campaigns.jsonl",
+      "reason": "short campaign metadata (name/description), not a report document",
+      "records": 2
+    },
+    {
+      "artifact": "data/parsed/tier1/ffc/reservoir_levels.jsonl",
+      "reason": "structured reservoir level observations",
+      "records": 6
+    },
+    {
+      "artifact": "data/parsed/tier1/epa_punjab_aqi/aqi_observations.jsonl",
+      "reason": "structured AQI observations",
+      "records": 371
+    },
+    {
+      "artifact": "data/parsed/tier1/ffc/dfsr_glof.jsonl",
+      "reason": "per-province rows derived from a GLOF alert document that is already ingested as a document",
+      "records": 2
+    }
+  ],
+  "skipped": []
+}
