@@ -50,11 +50,85 @@ def get_retriever() -> LexicalRetriever:
         return _cache["retriever"]
 
 
+class SemanticUnavailable(Exception):
+    """Semantic retrieval cannot run in this deployment (runtime/weights missing, or no stored embeddings)."""
+
+
+_embedder = None
+_sem_cache: dict = {"token": None, "retriever": None}
+
+
+def set_embedder(embedder) -> None:
+    """Inject the query embedder (tests / alternative deployments). Must be the model that produced the stored vectors."""
+    global _embedder
+    _embedder = embedder
+    _sem_cache.update(token=None, retriever=None)
+
+
+def get_embedder():
+    global _embedder
+    if _embedder is None:
+        from pipeline.rag.embeddings import FastEmbedEmbedder, runtime_available
+        if not runtime_available():
+            raise SemanticUnavailable("the embedding runtime is not installed in this deployment (see requirements/embeddings.txt)")
+        _embedder = FastEmbedEmbedder()
+    return _embedder
+
+
+def get_semantic_retriever():
+    from pipeline.rag.embeddings import EmbeddingUnavailable
+    embedder = get_embedder()                       # raises SemanticUnavailable first when the runtime is not installed
+    from pipeline.rag.semantic import DEFAULT_MIN_SCORE, IncompatibleEmbeddings, SemanticRetriever
+    info = embedder.info
+    stats = fetch_all("SELECT count(*) AS n, max(created_at) AS t FROM rag.chunk_embeddings WHERE model_name = :m AND model_version = :v",
+                      {"m": info.name, "v": info.version})[0]
+    if not stats["n"]:
+        raise SemanticUnavailable(f"no embeddings are stored for {info.name}@{info.version} (run scripts/rag/embed_chunks.py)")
+    lexical = get_retriever()
+    token = (corpus_token(), stats["n"], str(stats["t"]), info.name, info.version)
+    with _lock:
+        if _sem_cache["token"] != token or _sem_cache["retriever"] is None:
+            rows = fetch_all("SELECT e.chunk_id, e.model_name, e.model_version, e.embedding_dimension, e.embedding "
+                             "FROM rag.chunk_embeddings e JOIN rag.document_chunks c USING (chunk_id) JOIN rag.documents d USING (document_id) "
+                             "WHERE e.model_name = :m AND e.model_version = :v AND c.is_current AND d.is_current "
+                             "AND e.chunk_sha256 = c.chunk_sha256 ORDER BY e.chunk_id", {"m": info.name, "v": info.version})
+            if not rows:
+                raise SemanticUnavailable(f"stored embeddings for {info.name}@{info.version} do not match the current chunks")
+            try:
+                retriever = SemanticRetriever(list(lexical.docs.values()), lexical.chunks, rows, embedder, DEFAULT_MIN_SCORE)
+            except (IncompatibleEmbeddings, EmbeddingUnavailable) as exc:
+                raise SemanticUnavailable(str(exc)) from exc
+            _sem_cache.update(token=token, retriever=retriever)
+        return _sem_cache["retriever"], lexical
+
+
+def search_semantic_evidence(q: str, filters: SearchFilters, limit: int, min_score: Optional[float] = None) -> dict:
+    """Semantic (embedding) retrieval returning the same evidence records as the lexical search. 503 if unavailable."""
+    from fastapi import HTTPException
+
+    from pipeline.rag.embeddings import EmbeddingUnavailable
+    try:
+        retriever, lexical = get_semantic_retriever()
+        hits = retriever.search(q, filters, limit, min_score)
+    except (SemanticUnavailable, EmbeddingUnavailable) as exc:
+        raise HTTPException(status_code=503, detail=f"Semantic retrieval is unavailable: {exc}") from exc
+    chunk_by_id = {c["chunk_id"]: c for c in lexical.chunks}
+    results = [build_evidence(h, lexical.docs[h.document_id], chunk_by_id[h.chunk_id]) for h in hits]
+    info = retriever.embedder.info
+    return {"query": q, "mode": "semantic", "retrieval_method": retriever.method,
+            "retrieval_note": "Semantic vector retrieval: cosine similarity between the query embedding and stored chunk embeddings "
+                              "from the same model. Finds text with similar meaning, not only identical words. Results are source "
+                              "evidence; no answer is generated.",
+            "embedding_model": {"name": info.name, "version": info.version, "dimension": info.dimension},
+            "min_score": retriever.min_score if min_score is None else min_score,
+            "filters": {k: v for k, v in filters.__dict__.items() if v is not None}, "count": len(results), "results": results}
+
+
 def search_evidence(q: str, filters: SearchFilters, limit: int) -> dict:
     retriever = get_retriever()
     chunk_by_id = {c["chunk_id"]: c for c in retriever.chunks}
     results = [build_evidence(h, retriever.docs[h.document_id], chunk_by_id[h.chunk_id]) for h in retriever.search(q, filters, limit)]
-    return {"query": q, "retrieval_method": RETRIEVAL_METHOD,
+    return {"query": q, "mode": "lexical", "retrieval_method": RETRIEVAL_METHOD,
             "retrieval_note": "Lexical keyword baseline: matches words that literally occur in the text. Not semantic/vector search; "
                               "no answer is generated -- these are source evidence records.",
             "filters": {k: v for k, v in filters.__dict__.items() if v is not None}, "count": len(results), "results": results}

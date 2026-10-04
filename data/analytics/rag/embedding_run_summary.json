@@ -1,0 +1,23 @@
+{
+  "already_embedded": 0,
+  "chunks_current": 1909,
+  "dry_run": false,
+  "embedded_now": 1909,
+  "embedding_dimension": 384,
+  "embedding_metadata": {
+    "hf_repo": "Qdrant/bge-small-en-v1.5-onnx-Q",
+    "hf_revision": "aa8f8b060edb00e03bfdd08813a2949946c8ba55",
+    "library": "fastembed",
+    "library_version": "0.8.1",
+    "onnxruntime_version": "1.30.0",
+    "quantized": true,
+    "query_instruction": "none (bge-small-en-v1.5 retrieval without instruction)",
+    "weights_file": "model_optimized.onnx",
+    "weights_sha256": "51f1bd0addd6e859e42c2c8021a5e5461385bb676a649f4b269aa445449f2431"
+  },
+  "failed": [],
+  "model_name": "BAAI/bge-small-en-v1.5",
+  "model_version": "hf:Qdrant/bge-small-en-v1.5-onnx-Q@aa8f8b060edb00e03bfdd08813a2949946c8ba55",
+  "stored_for_model": 1909,
+  "to_embed": 1909
+}

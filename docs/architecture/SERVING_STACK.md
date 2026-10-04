@@ -29,6 +29,8 @@ The API health check (`/health`) passes only if the API answers **and** reports 
 
 ## Images
 
+**Embedding runtime (Task 30).** `api/Dockerfile` has a build argument `INSTALL_EMBEDDINGS` (Compose: `API_EMBEDDINGS`, default `true`) that adds the ONNX embedding runtime (`requirements/embeddings.txt`) and bakes in the pinned embedding model (~70 MB) so `GET /api/v1/rag/search?mode=semantic` can embed queries without network access at runtime. `API_EMBEDDINGS=false docker compose build api` gives the small lexical-only image, where `mode=semantic` answers 503 (CI uses this to avoid model downloads). Embeddings are *generated* by `scripts/rag/embed_chunks.py`, never by the API.
+
 `api/Dockerfile` (python:3.11-slim, non-root, `requirements/api.txt`: fastapi, uvicorn, pydantic, SQLAlchemy, psycopg2-binary, python-dotenv) contains only `api/app` and `config/database.py`. `dashboard/Dockerfile` uses `requirements/dashboard.txt`. No Airflow, Spark, PostGIS or database server is installed in either image. The PostgreSQL image is still `postgres:15` (no PostGIS).
 
 ## Tests

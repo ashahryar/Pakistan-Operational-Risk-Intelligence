@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 from datetime import date
-from typing import Optional
+from typing import Literal, Optional
 
 from fastapi import APIRouter, HTTPException, Query
 
 from api.app.schemas.rag import DocumentDetail, DocumentSummary, SearchResponse
 from api.app.services.geography import admin_unit_exists
-from api.app.services.rag import get_document, list_documents, search_evidence
+from api.app.services.rag import get_document, list_documents, search_evidence, search_semantic_evidence
 from pipeline.rag.retrieval import SearchFilters
 
 router = APIRouter(prefix="/api/v1/rag", tags=["rag"])
@@ -43,10 +43,16 @@ def get_document_detail(document_id: str):
 def search(q: str = Query(..., min_length=2, max_length=200, description="keywords; lexical match, not semantic"),
            source: Optional[str] = None, source_type: Optional[str] = None, province: Optional[str] = None,
            admin_unit_id: Optional[int] = Query(None, ge=1), event_type: Optional[str] = None,
-           date_from: Optional[date] = None, date_to: Optional[date] = None, limit: int = Query(10, ge=1, le=50)):
+           date_from: Optional[date] = None, date_to: Optional[date] = None, limit: int = Query(10, ge=1, le=50),
+           mode: Literal["lexical", "semantic"] = Query("lexical", description="lexical = BM25 keyword baseline (default); semantic = embedding similarity"),
+           min_score: Optional[float] = Query(None, ge=0, le=1, description="semantic mode only: minimum cosine similarity")):
     """Evidence search: returns source chunks with provenance. It does not generate an answer."""
     _check(admin_unit_id, date_from, date_to)
+    if min_score is not None and mode != "semantic":
+        raise HTTPException(status_code=422, detail="min_score applies to mode=semantic only")
     filters = SearchFilters(source=source, source_type=source_type, province=province, admin_unit_id=admin_unit_id,
                             event_type=event_type, date_from=date_from.isoformat() if date_from else None,
                             date_to=date_to.isoformat() if date_to else None)
+    if mode == "semantic":
+        return search_semantic_evidence(q, filters, limit, min_score)
     return search_evidence(q, filters, limit)

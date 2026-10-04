@@ -1,7 +1,7 @@
 """Task 29 -- database tests for the rag.* storage layer.
 
 Static SQL checks always run. Live checks run against the loaded local tables. The rollback / idempotency test runs against
-the scratch database `pori_t29_restore_check` (a restored copy of the pre-Task-29 backup) so the live database is never
+the scratch database `pori_t30_restore_check` (a restored copy of a pre-Task-30 backup) so the live database is never
 rolled back; it is skipped if that scratch database is absent."""
 
 from __future__ import annotations
@@ -19,7 +19,7 @@ from scripts.database.apply_serving_migration import engine_for
 REPO = Path(__file__).resolve().parents[2]
 UP = (REPO / "db" / "migrations" / "0029_rag_foundation.up.sql").read_text(encoding="utf-8")
 DOWN = (REPO / "db" / "migrations" / "0029_rag_foundation.down.sql").read_text(encoding="utf-8")
-SCRATCH = "pori_t29_restore_check"
+SCRATCH = "pori_t30_restore_check"
 
 
 # ------------------------------------------------------------------ static
@@ -105,6 +105,12 @@ def test_existing_data_is_untouched(conn):
 
 
 # ------------------------------------------------------------------ scratch: rollback + idempotency
+def t29(database=None) -> dict:
+    """Only Task 29's tables (tables_present also reports Task 30's rag.chunk_embeddings)."""
+    t = tables_present(database)
+    return {k: t[k] for k in ("rag.documents", "rag.document_chunks")}
+
+
 def _scratch_ok() -> bool:
     try:
         with engine_for(SCRATCH).connect() as c:
@@ -124,16 +130,19 @@ def test_migration_is_idempotent_and_reversible_on_the_scratch_copy():
             return c.execute(text("SELECT md5(string_agg(id || name, ',' ORDER BY id)) FROM geo.admin_unit")).scalar_one()
 
     before = admin_hash()
+    apply("down", SCRATCH, embeddings=True)                        # Task 30's table references the chunks: roll it back first
+    apply("down", SCRATCH)
     apply("up", SCRATCH)
     apply("up", SCRATCH)                                           # rerun = no-op
-    assert all(tables_present(SCRATCH).values())
+    assert all(t29(SCRATCH).values())
     corpus = build_corpus(REPO, unit_lookup(SCRATCH))
     first, second = load(corpus, SCRATCH), load(corpus, SCRATCH)
     assert first == second == {"documents_current": len(corpus["documents"]), "chunks_current": len(corpus["chunks"])}      # no duplicates
     with eng.connect() as c:
         assert c.execute(text("SELECT count(*) FROM rag.document_chunks")).scalar_one() == len(corpus["chunks"])
     apply("down", SCRATCH)
-    assert not any(tables_present(SCRATCH).values()) and admin_hash() == before
+    assert not any(t29(SCRATCH).values()) and admin_hash() == before
     apply("up", SCRATCH)
     load(corpus, SCRATCH)
-    assert all(tables_present(SCRATCH).values()) and admin_hash() == before
+    apply("up", SCRATCH, embeddings=True)                          # leave the scratch copy in its fully migrated state
+    assert all(t29(SCRATCH).values()) and admin_hash() == before

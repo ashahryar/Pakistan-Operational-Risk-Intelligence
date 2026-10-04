@@ -41,6 +41,7 @@ class Hit:
     score: float
     method: str
     matched_terms: tuple[str, ...]
+    model_version: Optional[str] = None        # set only by semantic retrieval
 
 
 class Retriever(Protocol):

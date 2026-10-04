@@ -1,8 +1,9 @@
 # RAG Foundation — Design Document (Task 16A, ADR-0001)
 
-> **Update (Task 29):** the document/chunk/provenance store and a lexical retriever now exist — see
-> [`DOCUMENT_INTELLIGENCE_STATUS.md`](DOCUMENT_INTELLIGENCE_STATUS.md). Embeddings, vector search and LLM
-> generation are still **not** implemented; the design below remains the target.
+> **Update (Tasks 29-30):** the document/chunk/provenance store, a lexical retriever, real embeddings
+> (local ONNX model, vectors in PostgreSQL `REAL[]`, no pgvector) and an optional semantic search mode now exist — see
+> [`DOCUMENT_INTELLIGENCE_STATUS.md`](DOCUMENT_INTELLIGENCE_STATUS.md). LLM generation is still **not**
+> implemented; the design below remains the target.
 
 **Status: DOCUMENTED ONLY. No code, no embeddings, no vector store,
 no LLM integration exists yet.** This document exists so a future task

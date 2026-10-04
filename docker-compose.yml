@@ -180,6 +180,9 @@ services:
     build:
       context: .
       dockerfile: api/Dockerfile
+      args:
+        # false = lexical-only API image (no ONNX runtime / model); CI uses this to avoid model downloads
+        INSTALL_EMBEDDINGS: ${API_EMBEDDINGS:-true}
 
     container_name: pori_api
 

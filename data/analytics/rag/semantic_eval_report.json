@@ -1,0 +1,930 @@
+{
+  "cases": [
+    {
+      "category": "event_paraphrase",
+      "filters": {},
+      "id": "slope_collapse",
+      "lexical": {
+        "filters_respected": true,
+        "precision_at_k": 0.6,
+        "relevant": 3,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "ffc:glof_alert:Glof-Alert.pdf#c0001",
+            "relevant": true,
+            "score": 16.745666,
+            "text": "expansion of glacial lakes can destabilize their natural ice or moraine dams, potentially triggering GLOF incidents.  The thawing of permafrost, combined with excess sur"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6aa929db73894#c0006",
+            "relevant": true,
+            "score": 8.328237,
+            "text": "Injured Male Female Children Total Male Female Children Total Punjab 24 12 28 64 165 92 111 368 KP 22 17 35 74 34 35 35 104 Sindh 5 2 10 17 8 3 7 18 Balochistan 1 2 5 8 0"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a64b05f90469#c0008",
+            "relevant": true,
+            "score": 8.310389,
+            "text": "Full Livestock Perished 5 4 3 2 1 0 5 3 0 0 0 0 0 Punjab KP Sindh Balochistan GB AJ&K ICT Province District House Damage Livestock Partial Full Total Swat 5 1 6 0 Total 1"
+          }
+        ]
+      },
+      "query": "mountain slope collapse blocking highways",
+      "query_words_absent_from_corpus": [],
+      "semantic": {
+        "filters_respected": true,
+        "precision_at_k": 0.4,
+        "relevant": 2,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "ffc:glof_alert:Glof-Alert.pdf#c0001",
+            "relevant": true,
+            "score": 0.688977,
+            "text": "expansion of glacial lakes can destabilize their natural ice or moraine dams, potentially triggering GLOF incidents.  The thawing of permafrost, combined with excess sur"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a634ecbc87a0#c0009",
+            "relevant": false,
+            "score": 0.676466,
+            "text": "Situation: Lower Kohistan: On 23­07­2026, due to heavy rainfall, the water level in the Ranolia and Dubain nullas/Khwars level risen significally, Resultanting in the blo"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a64b05f90469#c0009",
+            "relevant": false,
+            "score": 0.669926,
+            "text": "locations within Madaklasht Valley have been damaged. The machinery of the C&W Department is actively engaged in clearance and restoration operations Shangla: Sue to land"
+          }
+        ]
+      }
+    },
+    {
+      "category": "event_paraphrase",
+      "filters": {},
+      "id": "rivers_bursting",
+      "lexical": {
+        "filters_respected": true,
+        "precision_at_k": 0.8,
+        "relevant": 4,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "ffc:dfsr:DFSR-03-07-2026.pdf#c0008",
+            "relevant": true,
+            "score": 7.884005,
+            "text": "river islands/belas Medium Flood: Ri\\n partly inund8ting dyer islands/Was High Flag: Rivu almost fully submer8ing islands/bclas and flowing upto high banks/bUIldS but wit"
+          },
+          {
+            "chunk_id": "ffc:dfsr:DFSR-01-07-2026.pdf#c0009",
+            "relevant": true,
+            "score": 7.801032,
+            "text": "325.000 598.872 08-10-1955 IS,076 3,075 Normal 175,000 • Islam 300,000 492,581 11-10-1955 1,500 NIL Normal 175,000 Present Storage (c!/oage of total storage) 10 19,91 o/o"
+          },
+          {
+            "chunk_id": "pdma:daily_report:20-July-2026_1000-HRS#c0000",
+            "relevant": false,
+            "score": 5.996891,
+            "text": "Monday Ø Mainly hot and very humid weather is expected to Ø Murree prevail over most districts of the province. City = 105, Sunny Bank = 59, Ø However, rain-windstorm/thu"
+          }
+        ]
+      },
+      "query": "rivers bursting their banks",
+      "query_words_absent_from_corpus": [
+        "bursting"
+      ],
+      "semantic": {
+        "filters_respected": true,
+        "precision_at_k": 0.8,
+        "relevant": 4,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "ffc:dfsr:DFSR-03-07-2026.pdf#c0008",
+            "relevant": true,
+            "score": 0.708506,
+            "text": "river islands/belas Medium Flood: Ri\\n partly inund8ting dyer islands/Was High Flag: Rivu almost fully submer8ing islands/bclas and flowing upto high banks/bUIldS but wit"
+          },
+          {
+            "chunk_id": "pdma:daily_report:31-May-2026_1000-HRS#c0004",
+            "relevant": true,
+            "score": 0.686226,
+            "text": "and flood-prone areas. PST) and remain hydrated. Additionally, this could also raise the likelihood of localized urban flooding in major cities, especially in Electricity"
+          },
+          {
+            "chunk_id": "pdma:daily_report:16-September-2026_1000HRS#c0001",
+            "relevant": false,
+            "score": 0.683033,
+            "text": "= 17, Gawalmandi = 11, INDUS Tarbela Dam 1550.00 1542.04 91% JHELUM Mangla Dam 1242.00 1219.30 76% Pirwidahi = 10, Katcheri, New Kattarian = 08, SUTLEJ Bhakra Dam 1680.00"
+          }
+        ]
+      }
+    },
+    {
+      "category": "event_paraphrase",
+      "filters": {},
+      "id": "scorching_heat",
+      "lexical": {
+        "filters_respected": true,
+        "precision_at_k": 0.2,
+        "relevant": 1,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "pmd_ndmc:ndmc_bulletin:10.pdf#c0010",
+            "relevant": false,
+            "score": 12.484261,
+            "text": "alleviate the severity to some extent. The rest of the country received ample rainfall during the monsoon season, and major reservoirs are adequately filled, therefore, o"
+          },
+          {
+            "chunk_id": "pmd_ndmc:ndmc_bulletin:1.pdf#c0001",
+            "relevant": false,
+            "score": 10.259819,
+            "text": "Figure 3 presents the fortnightly deviation of mean temperature from the climatic normal (1991-2020), indicating values ranging from -8°C to 4°C. During this period, most"
+          },
+          {
+            "chunk_id": "pmd_ndmc:ndmc_bulletin:1.pdf#c0002",
+            "relevant": false,
+            "score": 9.69711,
+            "text": "of the country typically receive average rainfall of 5 mm to 50 mm. In contrast, parts of Balochistan, southern Punjab and Sindh, generally remain predominantly dry. Figu"
+          }
+        ]
+      },
+      "query": "scorching temperatures across the plains",
+      "query_words_absent_from_corpus": [
+        "scorching"
+      ],
+      "semantic": {
+        "filters_respected": true,
+        "precision_at_k": 0.6,
+        "relevant": 3,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "pdma:daily_report:02-July-2026_1000-HRS#c0004",
+            "relevant": true,
+            "score": 0.777933,
+            "text": "major cities, particularly in poorly drained and low-lying areas. Farmers are advised to manage their crop activities keeping in view the weather conditions Spatial tempe"
+          },
+          {
+            "chunk_id": "pdma:daily_report:24-June-2026_1000-HRS#c0001",
+            "relevant": false,
+            "score": 0.771907,
+            "text": "temperatures may cause heat stress on newly sown and early-stage Kharif crops; timely irrigation management is advised to minimize potential losses. Elevated temperatures"
+          },
+          {
+            "chunk_id": "pdma:daily_report:29-June-2026_1000-HRS#c0001",
+            "relevant": false,
+            "score": 0.763449,
+            "text": "Above-normal temperatures may cause heat stress on newly sown and early-stage Kharif crops; timely irrigation management is advised to minimize potential losses. Elevated"
+          }
+        ]
+      }
+    },
+    {
+      "category": "event_paraphrase",
+      "filters": {},
+      "id": "lives_lost",
+      "lexical": {
+        "filters_respected": true,
+        "precision_at_k": 0.0,
+        "relevant": 0,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "ndma:sitrep:6a8843d3667ad#c0015",
+            "relevant": false,
+            "score": 7.337476,
+            "text": "10 12 KP 31 401 Grand Total 41 413 KP, Chitral: No of Operations and No of people Rescue figure has been updated after receiving data from Rescue 1122 Govt. of KP. Cumula"
+          },
+          {
+            "chunk_id": "ffc:dfsr:DFSR-02-07-2026.pdf#c0006",
+            "relevant": false,
+            "score": 6.639492,
+            "text": "Government of Balochistan, Quetta 36 Director General, Gilgit Baltistan Disaster Management Authority, Gilgit. 37. Director General, State Disaster Management Authority, "
+          },
+          {
+            "chunk_id": "pdma:daily_report:Daily-Situation-Report-13-June-2026#c0000",
+            "relevant": false,
+            "score": 5.715579,
+            "text": "Saturday Ø Rain-windstorm/thunderstorm is expected at isolated Ø Joharabad = 72 places in Rawalpindi, Murree, Galliyat, Attock, Chakwal, Ø Hafizabad = 44 Jhelum, Mandi Ba"
+          }
+        ]
+      },
+      "query": "people who lost their lives",
+      "query_words_absent_from_corpus": [
+        "lost",
+        "lives"
+      ],
+      "semantic": {
+        "filters_respected": true,
+        "precision_at_k": 1.0,
+        "relevant": 5,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "ndma:sitrep:6a75c341c9b82#c0006",
+            "relevant": true,
+            "score": 0.710666,
+            "text": "was swept away and drowned. Search and rescue operations are currently underway; however, the victim remains missing. Rescue teams continue efforts to locate the missing "
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a64b05f90469#c0006",
+            "relevant": true,
+            "score": 0.700422,
+            "text": "2 2 3 7 KP Chitral Lower 1 0 0 1 Lightning - Total 1 0 0 1 Deceased & Injured 20 15 10 5 0 7 1 2 0 1 0 0 20 3 2 0 0 0 0 Punjab KP Sindh Balochistan GB AJ&K ICT Deceased I"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6aa295151d1d2#c0006",
+            "relevant": true,
+            "score": 0.697498,
+            "text": "Injured Male Female Children Total Male Female Children Total Punjab 24 11 27 62 165 92 111 368 KP 22 17 35 74 34 35 35 104 Sindh 5 2 10 17 8 3 7 18 Balochistan 1 2 5 8 0"
+          }
+        ]
+      }
+    },
+    {
+      "category": "event_paraphrase",
+      "filters": {},
+      "id": "destroyed_dwellings",
+      "lexical": {
+        "filters_respected": true,
+        "precision_at_k": 0.0,
+        "relevant": 0,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "pdma:daily_report:18-June-2026_1000-HRS#c0003",
+            "relevant": false,
+            "score": 1.210702,
+            "text": "Sialkot, Lahore and above-normal rainfall may further exacerbate the situation, increasing the risk of flash floods and Faisalabad. landslides in mountainous and flood-pr"
+          },
+          {
+            "chunk_id": "pdma:daily_report:17-June-2026_1000-HRS#c0003",
+            "relevant": false,
+            "score": 1.208344,
+            "text": "in Rawalpindi, Gujranwala, Sialkot, Lahore and above-normal rainfall may further exacerbate the situation, increasing the risk of flash floods and Faisalabad. landslides "
+          },
+          {
+            "chunk_id": "pdma:daily_report:03-July-2026_1000-HRS#c0003",
+            "relevant": false,
+            "score": 1.205606,
+            "text": "while Lahore and Faisalabad from 1st to 4th July. slightly above-normal rainfall may further exacerbate the situation, increasing the risk of flash floods and landslides "
+          }
+        ]
+      },
+      "query": "destroyed dwellings and residences",
+      "query_words_absent_from_corpus": [
+        "destroyed",
+        "dwellings",
+        "residences"
+      ],
+      "semantic": {
+        "filters_respected": true,
+        "precision_at_k": 1.0,
+        "relevant": 5,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "ndma:sitrep:6a4f713cb4544#c0007",
+            "relevant": true,
+            "score": 0.718512,
+            "text": "& Private Properties - (From 26 June 2026 to 9 July 2026) Causes of Death House Collapse Lightning Flash Flood Solar Panel Drowning Tree fall House Damaged 2 1.5 1 0.5 0 "
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a8c2c5119ae2#c0007",
+            "relevant": true,
+            "score": 0.711206,
+            "text": "70 32 32 32 96 Sindh 5 2 10 17 8 3 7 18 Balochistan 1 2 5 8 0 2 13 15 GB 1 0 0 1 0 0 0 0 AJ&K 5 3 5 13 4 2 1 7 ICT 1 1 0 2 1 1 0 2 Grand Total 55 34 77 166 208 130 162 50"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a65f0ef37119#c0006",
+            "relevant": true,
+            "score": 0.707765,
+            "text": "0 2 2 House Collapse - Sialkot 1 0 0 1 Electrocution - Total 2 2 3 7 KP Shangla 0 0 1 1 House Collapse - Hangu 2 0 0 2 House Collapse - Total 2 0 1 3 GB N/A 0 0 0 0 . - T"
+          }
+        ]
+      }
+    },
+    {
+      "category": "event_paraphrase",
+      "filters": {},
+      "id": "glacier_lake",
+      "lexical": {
+        "filters_respected": true,
+        "precision_at_k": 0.4,
+        "relevant": 2,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "ffc:glof_alert:Glof-Alert.pdf#c0001",
+            "relevant": true,
+            "score": 13.384634,
+            "text": "expansion of glacial lakes can destabilize their natural ice or moraine dams, potentially triggering GLOF incidents.  The thawing of permafrost, combined with excess sur"
+          },
+          {
+            "chunk_id": "ffc:glof_alert:Glof-Alert.pdf#c0000",
+            "relevant": true,
+            "score": 9.258419,
+            "text": "Government of Pakistan Ministry of Water Resources 27th June, 2026 Office of Chief Engineering Advisor & 09:00 Hours Chairman, Federal Flood Commission 6-Attaturk Avenue,"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a5f582fc461a#c0015",
+            "relevant": false,
+            "score": 7.701091,
+            "text": "KP, Mansehra: Jheel Saif Ul Malook Road at Naran was blocked, with one section washed away due to a flash flood, leaving approximately 500 tourist jeeps stranded on the u"
+          }
+        ]
+      },
+      "query": "melting ice lake burst threatening villages",
+      "query_words_absent_from_corpus": [],
+      "semantic": {
+        "filters_respected": true,
+        "precision_at_k": 0.6,
+        "relevant": 3,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "ffc:glof_alert:Glof-Alert.pdf#c0001",
+            "relevant": true,
+            "score": 0.711722,
+            "text": "expansion of glacial lakes can destabilize their natural ice or moraine dams, potentially triggering GLOF incidents.  The thawing of permafrost, combined with excess sur"
+          },
+          {
+            "chunk_id": "ffc:glof_alert:Glof-Alert.pdf#c0000",
+            "relevant": true,
+            "score": 0.687093,
+            "text": "Government of Pakistan Ministry of Water Resources 27th June, 2026 Office of Chief Engineering Advisor & 09:00 Hours Chairman, Federal Flood Commission 6-Attaturk Avenue,"
+          },
+          {
+            "chunk_id": "pdma:daily_report:Daily-Situation-Report-05-June-2026#c0003",
+            "relevant": false,
+            "score": 0.683156,
+            "text": "poles, irrigation management is advised to minimize potential losses. bill boards etc.) during the period. Elevated temperatures over northern areas pf country are likely"
+          }
+        ]
+      }
+    },
+    {
+      "category": "event_paraphrase",
+      "filters": {},
+      "id": "sudden_downpour",
+      "lexical": {
+        "filters_respected": true,
+        "precision_at_k": 0.0,
+        "relevant": 0,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "pmd_ndmc:ndmc_bulletin:10-12.pdf#c0002",
+            "relevant": false,
+            "score": 17.722045,
+            "text": "12 References ............................................................................................................................................................"
+          },
+          {
+            "chunk_id": "pmd_ndmc:ndmc_bulletin:10-12.pdf#c0006",
+            "relevant": false,
+            "score": 11.35853,
+            "text": "et al 2004). Pakistan has experienced several significant drought episodes across its provinces. The Punjab province faced severe droughts in 1899, 1920, and 1935, while "
+          },
+          {
+            "chunk_id": "pmd_ndmc:ndmc_bulletin:10-12.pdf#c0007",
+            "relevant": false,
+            "score": 11.258897,
+            "text": "Pakistan experienced below-normal precipitation, with a countrywide rainfall departure of -20% from the long-term average. Regionally, Azad Jammu and Kashmir (AJK) record"
+          }
+        ]
+      },
+      "query": "sudden intense rainfall in a small area",
+      "query_words_absent_from_corpus": [],
+      "semantic": {
+        "filters_respected": true,
+        "precision_at_k": 0.4,
+        "relevant": 2,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "pdma:daily_report:17-June-2026_1000-HRS#c0003",
+            "relevant": false,
+            "score": 0.762999,
+            "text": "in Rawalpindi, Gujranwala, Sialkot, Lahore and above-normal rainfall may further exacerbate the situation, increasing the risk of flash floods and Faisalabad. landslides "
+          },
+          {
+            "chunk_id": "pdma:daily_report:21-May-2026_1000-HRS#c0003",
+            "relevant": true,
+            "score": 0.762417,
+            "text": "may Farmers are advised to manage their crop activities in accordance with the dust storm and rain still experience heat-like conditions between rainfall spells. The risi"
+          },
+          {
+            "chunk_id": "pdma:daily_report:18-July-2026_1000-HRS#c0002",
+            "relevant": true,
+            "score": 0.760299,
+            "text": "rainfall is likely to reduce water availability, increasing reliance on stored water and groundwater for agriculture. The reduced rainfall may fail to fulfill irrigation "
+          }
+        ]
+      }
+    },
+    {
+      "category": "advisory",
+      "filters": {},
+      "id": "advance_notice",
+      "lexical": {
+        "filters_respected": true,
+        "precision_at_k": 0.2,
+        "relevant": 1,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "pmd_ndmc:ndmc_bulletin:10-12.pdf#c0006",
+            "relevant": false,
+            "score": 7.160391,
+            "text": "et al 2004). Pakistan has experienced several significant drought episodes across its provinces. The Punjab province faced severe droughts in 1899, 1920, and 1935, while "
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a4797a5934ff#c0007",
+            "relevant": false,
+            "score": 6.701009,
+            "text": "Partial Full Total KP Shangla 1 0 1 0 Total 1 0 1 0 Balochistan Harnai 0 1 1 0 Zhob 0 1 1 0 Total 0 2 2 0 GB Ghizer 8 11 19 0 Total 8 11 19 0 Grand Total 9 13 22 0 KP, Sh"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a561b7681dc5#c0012",
+            "relevant": false,
+            "score": 5.817097,
+            "text": "Rescue Operation No. of Person Rescued Punjab 4 7 KP 3 9 GB 1 150 Grand Total 8 166 GB. Hunza: Through the coordinated efforts of the local community, volunteers, and dis"
+          }
+        ]
+      },
+      "query": "advance notice of severe downpour",
+      "query_words_absent_from_corpus": [
+        "advance",
+        "notice"
+      ],
+      "semantic": {
+        "filters_respected": true,
+        "precision_at_k": 0.0,
+        "relevant": 0,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "pdma:daily_report:01-July-2026_1000-HRS#c0003",
+            "relevant": false,
+            "score": 0.750749,
+            "text": "4th July. slightly above-normal rainfall may further exacerbate the situation, increasing the risk of flash floods and landslides in mountainous and flood-prone areas. To"
+          },
+          {
+            "chunk_id": "pdma:daily_report:06-July-2026_1000-HRS#c0003",
+            "relevant": false,
+            "score": 0.750749,
+            "text": "4th July. slightly above-normal rainfall may further exacerbate the situation, increasing the risk of flash floods and landslides in mountainous and flood-prone areas. To"
+          },
+          {
+            "chunk_id": "pdma:daily_report:03-July-2026_1000-HRS#c0003",
+            "relevant": false,
+            "score": 0.733142,
+            "text": "while Lahore and Faisalabad from 1st to 4th July. slightly above-normal rainfall may further exacerbate the situation, increasing the risk of flash floods and landslides "
+          }
+        ]
+      }
+    },
+    {
+      "category": "geographic",
+      "filters": {},
+      "id": "geo_swat",
+      "lexical": {
+        "filters_respected": true,
+        "precision_at_k": 1.0,
+        "relevant": 5,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "pmd:weather_alert:308feba61160192c#c0000",
+            "relevant": true,
+            "score": 6.208534,
+            "text": "Khyber-Pakhtunkhwa: Rain-wind/thundershowers (with scattered heavy falls at times very heavy) is expected in (Dir, Chitral, Swat, Kohistan, Malakand, Nowshera, Charsadda,"
+          },
+          {
+            "chunk_id": "pmd:weather_alert:308feba61160192c#c0001",
+            "relevant": true,
+            "score": 6.196824,
+            "text": "Hafizabad, Wazirabad, Sialkot, Narowal, Lahore, Okara, Kasur, Sheikhupura, Nankana Sahib, Faisalabad, Jhang, Toba Tek Singh, Chiniot, Khushab, Mianwali, Layyah, Bhakkar, "
+          },
+          {
+            "chunk_id": "pmd:weather_alert:308feba61160192c#c0002",
+            "relevant": true,
+            "score": 6.137738,
+            "text": "Buner, Kohat, Kurram, D.I Khan, Bannu, Waziristan, Bajaur, Mohmand, Khyber, Orakzai, Mansehra, Abbottabad, Haripur, Peshawar, Mardan, Hangu from 31st July to 01st August "
+          }
+        ]
+      },
+      "query": "what happened in Swat",
+      "query_words_absent_from_corpus": [
+        "what",
+        "happened"
+      ],
+      "semantic": {
+        "filters_respected": true,
+        "precision_at_k": 0.0,
+        "relevant": 0,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "ndma:sitrep:6a4c7a5f60bd5#c0007",
+            "relevant": false,
+            "score": 0.617381,
+            "text": "- Shangla 0 0 1 1 - Mansehra 4 0 0 4 - Total 11 1 11 23 Deceased & Injured 25 20 15 10 5 0 4 9 0 2 0 0 0 7 23 0 3 0 0 0 Punjab KP Sindh Balochistan GB AJ&K ICT Deceased I"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6aa7d222c3cfa#c0013",
+            "relevant": false,
+            "score": 0.615837,
+            "text": "in Heatwave Camps GB 6 230 0 0 0 0 Punjab 75 574 66 0 333 2203 Balochistan 12 0 0 0 0 0 KP 0 0 0 0 192 1298 Sindh 0 0 0 0 1130 2442 Grand Total 93 804 66 0 1655 5943 5. R"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a4c7a5f60bd5#c0006",
+            "relevant": false,
+            "score": 0.613189,
+            "text": "Injuries (Last 24 Hours) Deceased Province District Deceased Cause of Death Remarks Male Female Children Total Punjab Attock 0 1 2 3 House Collapse - Khushab 1 0 0 1 Ligh"
+          }
+        ]
+      }
+    },
+    {
+      "category": "geographic",
+      "filters": {},
+      "id": "geo_chitral",
+      "lexical": {
+        "filters_respected": true,
+        "precision_at_k": 1.0,
+        "relevant": 5,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "ndma:sitrep:6a803b3876295#c0007",
+            "relevant": true,
+            "score": 7.935932,
+            "text": "House Collapse Lightning Flash Flood Solar Panel Drowning Tree fall Electrocution . Boulder fall Heavy Rain 8/15/26, 2:54 PM Monsoon Sitrep - Sitreps https://sitreps.ndma"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a44f8af3eb58#c0007",
+            "relevant": true,
+            "score": 7.630064,
+            "text": "damaged (02 vehicles and 02 motorcycles) KP, Upper Chitral: As per initial reports, on 01-­07-­2026, due to short spell of heavy rain, a flash flood occurred in the villa"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a64b05f90469#c0008",
+            "relevant": true,
+            "score": 6.760662,
+            "text": "Full Livestock Perished 5 4 3 2 1 0 5 3 0 0 0 0 0 Punjab KP Sindh Balochistan GB AJ&K ICT Province District House Damage Livestock Partial Full Total Swat 5 1 6 0 Total 1"
+          }
+        ]
+      },
+      "query": "Chitral situation report",
+      "query_words_absent_from_corpus": [],
+      "semantic": {
+        "filters_respected": true,
+        "precision_at_k": 1.0,
+        "relevant": 5,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "ndma:sitrep:6a44f8af3eb58#c0007",
+            "relevant": true,
+            "score": 0.723373,
+            "text": "damaged (02 vehicles and 02 motorcycles) KP, Upper Chitral: As per initial reports, on 01-­07-­2026, due to short spell of heavy rain, a flash flood occurred in the villa"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a8843d3667ad#c0015",
+            "relevant": true,
+            "score": 0.718298,
+            "text": "10 12 KP 31 401 Grand Total 41 413 KP, Chitral: No of Operations and No of people Rescue figure has been updated after receiving data from Rescue 1122 Govt. of KP. Cumula"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a44f8af3eb58#c0006",
+            "relevant": true,
+            "score": 0.718131,
+            "text": "(Last 24 Hours) Deceased NTR Injured NTR Cumulative Casualties And Injuries - (From 26 June 2026 to 1 July 2026) Province Deceased Injured Male Female Children Total Male"
+          }
+        ]
+      }
+    },
+    {
+      "category": "source",
+      "filters": {
+        "source": "ndma"
+      },
+      "id": "source_ndma",
+      "lexical": {
+        "filters_respected": true,
+        "precision_at_k": 1.0,
+        "relevant": 5,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "ndma:sitrep:6a425789a110e#c0008",
+            "relevant": true,
+            "score": 1.651845,
+            "text": "0.3 1 23 13 36 0 3. Flood Relief Activities (Last 24 Hours) Flood Items GB Total Tents 15 15 Ration Bags 25 25 Blankets 50 50 Sand Bags - 0 Quilts / Sleeping Bags 50 50 G"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a4e28ea0fb75#c0008",
+            "relevant": true,
+            "score": 1.637836,
+            "text": "- - 5 2 7 0 Punjab - - 0 9 9 0 Grand Total 4.83 0 37 73 110 163 3. Flood Relief Activities (Last 24 Hours) Provincial Relief Support (Last 24 Hours) Flood Items GB Total "
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a6dd62a5dcb4#c0009",
+            "relevant": true,
+            "score": 1.634638,
+            "text": "1 104 89 193 6 AJ&K - - 37 146 183 6 Sindh - - 0 1 1 37 Grand Total 25.36 37 351 763 1114 468 3. Flood Relief Activities (Last 24 Hours) Provincial Relief Support (Last 2"
+          }
+        ]
+      },
+      "query": "flood",
+      "query_words_absent_from_corpus": [],
+      "semantic": {
+        "filters_respected": true,
+        "precision_at_k": 1.0,
+        "relevant": 5,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "ndma:sitrep:6a44f8af3eb58#c0007",
+            "relevant": true,
+            "score": 0.642808,
+            "text": "damaged (02 vehicles and 02 motorcycles) KP, Upper Chitral: As per initial reports, on 01-­07-­2026, due to short spell of heavy rain, a flash flood occurred in the villa"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a6203621114b#c0006",
+            "relevant": true,
+            "score": 0.642153,
+            "text": "1 Drowning - North Waziristan 2 0 0 2 Flash Flood - Bajaur 0 0 1 1 House Collapse - Buner 1 0 0 1 Flash Flood - Total 3 0 3 6 Balochistan Zhob 0 0 1 1 House Collapse - To"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a747c8d1f9fa#c0006",
+            "relevant": true,
+            "score": 0.639265,
+            "text": "Flood - Abbottabad 0 1 0 1 House Collapse - Total 0 1 3 4 Grand Total 0 1 3 4 KP: NDMA Sitrep No 42 Dated 6-8-2026 reflects data of PDMA KP Sitrep No. PDMA/PEOC/DSR/2026/"
+          }
+        ]
+      }
+    },
+    {
+      "category": "source",
+      "filters": {
+        "source": "pdma"
+      },
+      "id": "source_pdma",
+      "lexical": {
+        "filters_respected": true,
+        "precision_at_k": 0.8,
+        "relevant": 4,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "pdma:daily_report:PDMA-Daily-Situation-Report-02-June-2025_2030-HRS#c0000",
+            "relevant": true,
+            "score": 11.207494,
+            "text": "MONDAY (NIGHT) Mainly dry weather is expected in most districts of the province, while hot in plain areas. Ensure sufficient staffing round-the-clock in DEOCs for effecti"
+          },
+          {
+            "chunk_id": "pdma:daily_report:08-July-2026_1000-HRS#c0000",
+            "relevant": true,
+            "score": 9.576399,
+            "text": "Wednesday Ø Lahore Ø Hot and humid weather is expected in most districts of Saggian = 40, Shahi Qila = 39, the province. Isolated rain-wind/thundershower is Chowk Nakhuda"
+          },
+          {
+            "chunk_id": "pdma:daily_report:13-July-2026_1000-HRS#c0000",
+            "relevant": true,
+            "score": 9.473249,
+            "text": "Monday Ø Hot and humid weather is expected in most districts of Ø Okara = 29 the province. Ø Narowal = 23 Ø However, rain-wind/thundershowers is expected at Ø Sahiwal = 1"
+          }
+        ]
+      },
+      "query": "rain expected in districts",
+      "query_words_absent_from_corpus": [],
+      "semantic": {
+        "filters_respected": true,
+        "precision_at_k": 1.0,
+        "relevant": 5,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "pdma:daily_report:PDMA-Daily-Situation-Report-02-June-2025_2030-HRS#c0000",
+            "relevant": true,
+            "score": 0.767779,
+            "text": "MONDAY (NIGHT) Mainly dry weather is expected in most districts of the province, while hot in plain areas. Ensure sufficient staffing round-the-clock in DEOCs for effecti"
+          },
+          {
+            "chunk_id": "pdma:daily_report:27-September-2026_1000HRS#c0000",
+            "relevant": true,
+            "score": 0.753406,
+            "text": "Sunday Ø Dry weather is expected in most plain districts of the province, while hot during daytime. Ø However, rain-windstorm/thunderstorm is expected in Murree, Galliyat"
+          },
+          {
+            "chunk_id": "pdma:daily_report:01-June-2026_1000-HRS#c0000",
+            "relevant": true,
+            "score": 0.753269,
+            "text": "Monday Ø Hot and dry weather is likely over most districts of the province, while partly cloudy weather with rain wind/thunderstorm may occur at isolated places in Murree"
+          }
+        ]
+      }
+    },
+    {
+      "category": "date",
+      "filters": {
+        "date_from": "2026-07-01",
+        "date_to": "2026-07-31"
+      },
+      "id": "date_july",
+      "lexical": {
+        "filters_respected": true,
+        "precision_at_k": 1.0,
+        "relevant": 5,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "ffc:dfsr:DFSR-01-07-2026.pdf#c0000",
+            "relevant": true,
+            "score": 1.867876,
+            "text": "Government of Pakistan Ministry of Water Resources Office of Chief Engineering Advisor & Chairman, Federal Flood Commission 6-Attaturk Avenue, G-5/1, Islamabad Fax No. 05"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a4e28ea0fb75#c0008",
+            "relevant": true,
+            "score": 1.637836,
+            "text": "- - 5 2 7 0 Punjab - - 0 9 9 0 Grand Total 4.83 0 37 73 110 163 3. Flood Relief Activities (Last 24 Hours) Provincial Relief Support (Last 24 Hours) Flood Items GB Total "
+          },
+          {
+            "chunk_id": "ffc:dfsr:DFSR-01-07-2026.pdf#c0009",
+            "relevant": true,
+            "score": 1.631452,
+            "text": "325.000 598.872 08-10-1955 IS,076 3,075 Normal 175,000 • Islam 300,000 492,581 11-10-1955 1,500 NIL Normal 175,000 Present Storage (c!/oage of total storage) 10 19,91 o/o"
+          }
+        ]
+      },
+      "query": "flood",
+      "query_words_absent_from_corpus": [],
+      "semantic": {
+        "filters_respected": true,
+        "precision_at_k": 1.0,
+        "relevant": 5,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "ndma:sitrep:6a44f8af3eb58#c0007",
+            "relevant": true,
+            "score": 0.642808,
+            "text": "damaged (02 vehicles and 02 motorcycles) KP, Upper Chitral: As per initial reports, on 01-­07-­2026, due to short spell of heavy rain, a flash flood occurred in the villa"
+          },
+          {
+            "chunk_id": "ndma:sitrep:6a6203621114b#c0006",
+            "relevant": true,
+            "score": 0.642153,
+            "text": "1 Drowning - North Waziristan 2 0 0 2 Flash Flood - Bajaur 0 0 1 1 House Collapse - Buner 1 0 0 1 Flash Flood - Total 3 0 3 6 Balochistan Zhob 0 0 1 1 House Collapse - To"
+          },
+          {
+            "chunk_id": "pdma:daily_report:30-July-2026_1000HRS#c0001",
+            "relevant": true,
+            "score": 0.638209,
+            "text": "1 SUTLEJ Bhakra Dam 1680.00 1588.74 33% ➢ ➢ Gujranwala = 21 BEAS Pong Dam 1390.00 1326.57 32% ➢ RAVI Thein Dam 1732.00 1656.00 35% ➢ Toba Tek Singh = 15 ➢ MCL* = Maximum "
+          }
+        ]
+      }
+    },
+    {
+      "category": "empty",
+      "filters": {},
+      "id": "empty_finance",
+      "lexical": {
+        "filters_respected": true,
+        "precision_at_k": null,
+        "relevant": 0,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "pdma:daily_report:PDMA-Daily-Situation-Report-02-June-2025_2030-HRS#c0000",
+            "relevant": null,
+            "score": 9.502469,
+            "text": "MONDAY (NIGHT) Mainly dry weather is expected in most districts of the province, while hot in plain areas. Ensure sufficient staffing round-the-clock in DEOCs for effecti"
+          },
+          {
+            "chunk_id": "pdma:daily_report:PDMA-Daily-Situation-Report-02-June-2025_2030-HRS#c0001",
+            "relevant": null,
+            "score": 8.914699,
+            "text": "with rain- wind/thunderstorm is likely in Murree, Galiyat, Rawalpindi, announcements to ensure timely dissemination of weather forecasts, advisories, and alerts to Attock"
+          },
+          {
+            "chunk_id": "pmd_ndmc:ndmc_bulletin:10-12.pdf#c0013",
+            "relevant": null,
+            "score": 6.622068,
+            "text": "droughts in Pakistan. • Pakistan dam’s water storage capacity is much less than the normal rainfall of the region especially in the southern parts of the country. There i"
+          }
+        ]
+      },
+      "query": "quarterly corporate earnings per share",
+      "query_words_absent_from_corpus": [
+        "corporate",
+        "earnings"
+      ],
+      "semantic": {
+        "filters_respected": true,
+        "precision_at_k": null,
+        "relevant": 0,
+        "returned": 0,
+        "top": []
+      }
+    },
+    {
+      "category": "empty",
+      "filters": {},
+      "id": "empty_sport",
+      "lexical": {
+        "filters_respected": true,
+        "precision_at_k": null,
+        "relevant": 0,
+        "returned": 0,
+        "top": []
+      },
+      "query": "football world cup final score",
+      "query_words_absent_from_corpus": [
+        "football",
+        "world",
+        "cup",
+        "final",
+        "score"
+      ],
+      "semantic": {
+        "filters_respected": true,
+        "precision_at_k": null,
+        "relevant": 0,
+        "returned": 0,
+        "top": []
+      }
+    },
+    {
+      "category": "empty",
+      "filters": {},
+      "id": "empty_recipe",
+      "lexical": {
+        "filters_respected": true,
+        "precision_at_k": null,
+        "relevant": 0,
+        "returned": 5,
+        "top": [
+          {
+            "chunk_id": "pdma:daily_report:PDMA-Daily-Situation-Report-01-November-2025_0900-HRS#c0000",
+            "relevant": null,
+            "score": 3.87408,
+            "text": "Saturday Dry weather is expected in most districts of the province. Dry weather is likely in Murree, Galiyat and surrounding areas while, cold during morning and night ho"
+          },
+          {
+            "chunk_id": "pdma:daily_report:31-May-2026_1000-HRS#c0001",
+            "relevant": null,
+            "score": 3.782945,
+            "text": "Tarbela Dam 1550.00 1450.95 Normal Ø Ø Sialkot (City = 08 & Airport = 05) Ø Ø Mangla = 07 JHELUM Mangla Dam 1242.00 1167.80 Normal Ø Ø MB Din = 06 SUTLEJ Bhakra Dam 1680."
+          },
+          {
+            "chunk_id": "pdma:daily_report:27-May-2026_1000-HRS#c0000",
+            "relevant": null,
+            "score": 3.747628,
+            "text": "Wednesday Ø Very hot and dry weather is expected over most districts of province. Ø Windstorm/gusty winds are expected in northeast NO RAINFALL HAS BEEN REPORTED IN THE P"
+          }
+        ]
+      },
+      "query": "how to bake a chocolate cake",
+      "query_words_absent_from_corpus": [
+        "how",
+        "bake",
+        "chocolate",
+        "cake"
+      ],
+      "semantic": {
+        "filters_respected": true,
+        "precision_at_k": null,
+        "relevant": 0,
+        "returned": 0,
+        "top": []
+      }
+    }
+  ],
+  "summary": {
+    "chunks": 1909,
+    "embedded_chunks": 1909,
+    "empty_cases_with_semantic_results": [],
+    "filters_respected_everywhere": true,
+    "k": 5,
+    "min_score": 0.6,
+    "model": {
+      "dimension": 384,
+      "name": "BAAI/bge-small-en-v1.5",
+      "version": "hf:Qdrant/bge-small-en-v1.5-onnx-Q@aa8f8b060edb00e03bfdd08813a2949946c8ba55"
+    },
+    "paraphrase_cases": 8,
+    "paraphrase_cases_lexical_better": 2,
+    "paraphrase_cases_semantic_better": 5,
+    "paraphrase_mean_precision_at_k": {
+      "lexical": 0.275,
+      "semantic": 0.6
+    }
+  }
+}

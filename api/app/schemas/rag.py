@@ -94,6 +94,8 @@ class Relevance(BaseModel):
     score: float
     method: str
     matched_terms: list[str]
+    relevance_type: Optional[str] = None       # lexical_bm25_baseline | semantic_vector
+    model_version: Optional[str] = None        # embedding model revision (semantic results only)
 
 
 class SourceReference(BaseModel):
@@ -120,8 +122,11 @@ class Evidence(BaseModel):
 
 class SearchResponse(BaseModel):
     query: str
+    mode: str = "lexical"
     retrieval_method: str
     retrieval_note: str
     filters: dict[str, Any]
     count: int
     results: list[Evidence]
+    embedding_model: Optional[dict[str, Any]] = None
+    min_score: Optional[float] = None

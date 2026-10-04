@@ -1,0 +1,7 @@
+# requirements/embeddings.txt -- Task 30: runtime for REAL text embeddings (ONNX Runtime; no PyTorch).
+# Used by the embedding-generation job and, optionally, by the API image for query embedding (see api/Dockerfile).
+fastembed==0.8.1
+onnxruntime==1.30.0
+tokenizers==0.23.2
+huggingface_hub==1.33.0
+numpy==2.4.6

@@ -128,6 +128,9 @@ jobs:
         run: docker compose config -q
 
       - name: Build and start PostgreSQL + API (waits for both health checks)
+        # lexical-only API image: no embedding runtime/model download in CI (mode=semantic must answer 503, checked below)
+        env:
+          API_EMBEDDINGS: "false"
         run: docker compose up -d --build --wait postgres api
 
       - name: Build the geo schema and serving layer on the empty database
@@ -152,6 +155,8 @@ jobs:
           curl -fsS "http://localhost:8000/api/v1/rag/search?q=flood" | python -c "import json,sys; d=json.load(sys.stdin); assert d['count']==0 and d['retrieval_method']=='lexical_bm25_baseline'"
           test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8000/api/v1/rag/documents/none:none:none)" = 404
           test "$(curl -s -o /dev/null -w '%{http_code}' -X POST http://localhost:8000/api/v1/rag/search)" = 405
+          test "$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8000/api/v1/rag/search?q=flood&mode=semantic")" = 503
+          test "$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8000/api/v1/rag/search?q=flood&mode=bogus")" = 422
 
       - name: Dashboard image builds
         run: docker compose build dashboard

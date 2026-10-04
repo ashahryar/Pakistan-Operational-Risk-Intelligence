@@ -59,7 +59,8 @@ def test_api_image_contains_only_what_the_api_needs():
     assert not any(c.split()[1] in {".", "data", "pipeline", "scripts", "aws"} for c in copies)
     pipeline_files = {f for c in copies for f in c.split()[1:-1] if f.startswith("pipeline/")}
     assert pipeline_files == {"pipeline/__init__.py", "pipeline/rag/__init__.py", "pipeline/rag/contracts.py",
-                              "pipeline/rag/retrieval.py", "pipeline/rag/evidence.py"}       # only the pure RAG runtime modules
+                              "pipeline/rag/retrieval.py", "pipeline/rag/evidence.py", "pipeline/rag/embeddings.py",
+                              "pipeline/rag/semantic.py"}       # only the pure RAG runtime modules
     assert "USER app" in DASH_DOCKERFILE and "streamlit" in DASH_DOCKERFILE
 
 

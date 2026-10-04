@@ -105,3 +105,6 @@ data/analytics/risk/unresolved_signals.jsonl
 # Task 29: full RAG documents/chunks (regenerable via scripts/rag/build_rag_corpus.py); the summary JSON stays tracked.
 data/analytics/rag/documents.jsonl
 data/analytics/rag/chunks.jsonl
+
+# Task 30: downloaded embedding model weights (pinned HF revision, re-fetched by pipeline.rag.embeddings.ensure_model).
+data/models/embedding_cache/

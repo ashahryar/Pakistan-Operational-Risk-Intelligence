@@ -1,0 +1,38 @@
+# Task 30 -- evaluation set for semantic vs lexical retrieval over the REAL local corpus (253 documents / 1,909 chunks).
+# A chunk counts as RELEVANT to a case when its verbatim text contains at least one of `relevant_terms` (case-insensitive
+# substring). The terms describe the concept the query paraphrases; they were chosen from the project's own report vocabulary
+# (e.g. NDMA/PDMA wording), and the top results of every case are printed to the evaluation report so a human can verify them.
+# The paraphrase queries were fixed BEFORE any semantic result was seen and are not tuned to the model.
+# `no_query_word_in_corpus` is computed, not asserted: it lists the query words that never occur in the corpus.
+version: 1
+k: 5
+cases:
+  # ---- event queries phrased differently from the report wording
+  - {id: slope_collapse, category: event_paraphrase, query: "mountain slope collapse blocking highways",
+     relevant_terms: ["landslide", "road blocked", "traffic suspended", "slide"]}
+  - {id: rivers_bursting, category: event_paraphrase, query: "rivers bursting their banks",
+     relevant_terms: ["flood", "overflow", "flooding"]}
+  - {id: scorching_heat, category: event_paraphrase, query: "scorching temperatures across the plains",
+     relevant_terms: ["heatwave", "heat wave", "hot"]}
+  - {id: lives_lost, category: event_paraphrase, query: "people who lost their lives",
+     relevant_terms: ["deaths", "died", "death", "fatalit", "killed"]}
+  - {id: destroyed_dwellings, category: event_paraphrase, query: "destroyed dwellings and residences",
+     relevant_terms: ["houses", "house", "damaged"]}
+  - {id: glacier_lake, category: event_paraphrase, query: "melting ice lake burst threatening villages",
+     relevant_terms: ["glof", "glacial", "glacier"]}
+  - {id: sudden_downpour, category: event_paraphrase, query: "sudden intense rainfall in a small area",
+     relevant_terms: ["cloudburst", "heavy rain", "heavy falls", "very heavy"]}
+  # ---- warning / advisory
+  - {id: advance_notice, category: advisory, query: "advance notice of severe downpour",
+     relevant_terms: ["advisory", "alert", "warning", "expected"]}
+  # ---- geography
+  - {id: geo_swat, category: geographic, query: "what happened in Swat", relevant_terms: ["swat"]}
+  - {id: geo_chitral, category: geographic, query: "Chitral situation report", relevant_terms: ["chitral"]}
+  # ---- filters (compliance is checked on every returned result)
+  - {id: source_ndma, category: source, query: "flood", filters: {source: ndma}, relevant_terms: ["flood"]}
+  - {id: source_pdma, category: source, query: "rain expected in districts", filters: {source: pdma}, relevant_terms: ["rain"]}
+  - {id: date_july, category: date, query: "flood", filters: {date_from: "2026-07-01", date_to: "2026-07-31"}, relevant_terms: ["flood"]}
+  # ---- unsupported topics: a calibrated threshold should leave these without results
+  - {id: empty_finance, category: empty, query: "quarterly corporate earnings per share", relevant_terms: []}
+  - {id: empty_sport, category: empty, query: "football world cup final score", relevant_terms: []}
+  - {id: empty_recipe, category: empty, query: "how to bake a chocolate cake", relevant_terms: []}
