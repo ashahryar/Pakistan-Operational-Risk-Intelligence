@@ -18,8 +18,8 @@ sources:
     files: {0: "pak_admin0.geojson", 1: "pak_admin1.geojson", 2: "pak_admin2.geojson"}
     crs: "CRS84"                                          # GeoJSON lon/lat, equivalent to WGS84 (EPSG:4326)
     levels: {0: "country", 1: "province/region", 2: "district"}
-    id_field: {1: "adm1_pcode", 2: "adm2_pcode"}
-    name_field: {1: "adm1_name", 2: "adm2_name"}
+    id_field: {0: "adm0_pcode", 1: "adm1_pcode", 2: "adm2_pcode"}
+    name_field: {0: "adm0_name", 1: "adm1_name", 2: "adm2_name"}
     parent_id_field: {2: "adm1_pcode"}
     government_certified: false
     accepted_for_coordinate_mapping: true                 # explicit project policy (see policy below)

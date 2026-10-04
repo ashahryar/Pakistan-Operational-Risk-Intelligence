@@ -158,23 +158,57 @@ def load_geojson_units(path: Path, level: int, id_field: str, name_field: str, p
     units = []
     for f in collection["features"]:
         p = f.get("properties") or {}
-        polys = _polygons(f["geometry"])
+        geom = f.get("geometry")
+        polys: list = []
+        problem = None
+        if geom is None:
+            problem = "null geometry"
+        else:
+            try:
+                polys = _polygons(geom)
+            except (ValueError, KeyError) as exc:
+                problem = f"unsupported geometry: {exc}"
+            if not problem and not polys:
+                problem = "empty geometry"
         units.append({"level": level, "pcode": p.get(id_field), "name": p.get(name_field),
                       "parent_pcode": p.get(parent_field) if parent_field else None,
-                      "polygons": polys, "bbox": _bbox(polys), "multipart": len(polys) > 1,
-                      "version": p.get("version"), "valid_on": p.get("valid_on")})
+                      "polygons": polys, "bbox": _bbox(polys) if polys else (0.0, 0.0, 0.0, 0.0),
+                      "multipart": len(polys) > 1, "version": p.get("version"), "valid_on": p.get("valid_on"),
+                      "geometry": geom, "properties": p, "geometry_problem": problem})
     return units, crs
 
 
-def load_index(cfg: dict, root: Path) -> BoundaryIndex:
+def load_index(cfg: dict, root: Path, levels: tuple = (1, 2)) -> BoundaryIndex:
     src = cfg["sources"][cfg["active_source"]]
     base = root / src["local_dir"]
     units, crs = [], None
-    for level in (1, 2):
+    for level in levels:
         u, crs = load_geojson_units(base / src["files"][level], level, src["id_field"][level], src["name_field"][level],
                                     (src.get("parent_id_field") or {}).get(level))
         units += u
     return BoundaryIndex(units, src, crs)
+
+
+def unit_validity(unit: dict, bbox: Optional[dict] = None) -> tuple[bool, list[str]]:
+    """Per-feature structural validity. Reports problems; never repairs geometry."""
+    bbox = bbox or DEFAULT_BBOX
+    notes: list[str] = []
+    if unit.get("geometry_problem"):
+        return False, [unit["geometry_problem"]]
+    for i, poly in enumerate(unit["polygons"]):
+        for j, ring in enumerate(poly):
+            if len(ring) < 4:
+                notes.append(f"polygon {i} ring {j}: fewer than 4 points")
+            elif ring[0] != ring[-1]:
+                notes.append(f"polygon {i} ring {j}: not closed")
+            elif not all(math.isfinite(c) for pt in ring for c in pt[:2]):
+                notes.append(f"polygon {i} ring {j}: non-finite coordinate")
+            elif _ring_area(ring) <= 0:
+                notes.append(f"polygon {i} ring {j}: zero area")
+    x0, y0, x1, y1 = unit["bbox"]
+    if not (bbox["lon_min"] <= x0 and x1 <= bbox["lon_max"] and bbox["lat_min"] <= y0 and y1 <= bbox["lat_max"]):
+        notes.append("outside the Pakistan plausible extent")
+    return not notes, notes
 
 
 def _interior_point(unit: dict) -> Optional[tuple[float, float]]:
@@ -214,7 +248,17 @@ def validate_index(index: BoundaryIndex, bbox: Optional[dict] = None) -> dict:
         if rep[f"level{level}_missing_ids"]:
             problems.append(f"level {level} units without identifier")
     bad_ring = out_of_country = 0
+    null_or_empty = [u["pcode"] for u in index.units if u.get("geometry_problem")]
+    rep["null_or_empty_geometries"] = null_or_empty
+    if null_or_empty:
+        problems.append(f"{len(null_or_empty)} null/empty geometries")
+    ids = [(u["level"], u["pcode"]) for u in index.units if u["pcode"]]
+    rep["duplicate_feature_ids"] = sorted({str(i) for i in ids if ids.count(i) > 1})
+    if rep["duplicate_feature_ids"]:
+        problems.append("duplicate feature ids")
     for u in index.units:
+        if u.get("geometry_problem"):
+            continue
         for poly in u["polygons"]:
             for ring in poly:
                 finite = all(math.isfinite(c) for p in ring for c in p[:2])
@@ -235,6 +279,8 @@ def validate_index(index: BoundaryIndex, bbox: Optional[dict] = None) -> dict:
         problems.append("districts with unknown parent province")
     overlaps, no_point = [], []
     for u in index.level(2):
+        if u.get("geometry_problem"):
+            continue
         pt = _interior_point(u)
         if pt is None:
             no_point.append(u["pcode"])

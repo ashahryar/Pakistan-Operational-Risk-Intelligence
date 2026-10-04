@@ -112,11 +112,9 @@ def test_disasters_endpoint_returns_real_shaped_rows(monkeypatch):
 
 
 def test_risk_endpoint_returns_empty_list_honestly(monkeypatch):
-    """The real, current behavior: operational_risk has no working
-    loader (see api/app/services/risk.py), so an empty list is the
-    correct response -- this test locks in that this is a genuinely
-    empty *result*, not a broken endpoint (200, not 500/503)."""
-    monkeypatch.setattr(risk_router, "list_risk_records", lambda limit=200: [])
+    """Since Task 26 /api/v1/risk serves risk.operational_risk (the Task 23 engine output). An empty result is a
+    200 with an empty list, never a 500/503."""
+    monkeypatch.setattr(risk_router, "list_risk", lambda *a, **k: [])
 
     response = client.get("/api/v1/risk")
 
