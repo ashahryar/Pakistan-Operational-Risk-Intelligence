@@ -75,6 +75,17 @@ def render_user_message(question: str, evidence: Sequence[dict]) -> str:
     parts = ["SUPPLIED INFORMATION (the only information you may use):" if any(e.get("kind") for e in evidence)
              else "EVIDENCE (the only information you may use):"]
     for e in evidence:
+        if e.get("kind") == "ml_prediction":                     # Task 33: a forecast, a third provenance (never a current risk status)
+            lines = ["--- [ml_prediction] --- FORECAST FROM THE ML PREDICTION LAYER (provenance ML_MODEL; a forecast of an observed quantity at a future "
+                     "date, NOT a current risk status, NOT a risk score; cite as [ml_prediction])"]
+            for p in e["predictions"]:
+                lines.append(f"forecast: {p.get('target')} = {p.get('prediction')} {p.get('unit') or ''} for {p.get('prediction_date')} (horizon {p.get('horizon_days')} "
+                             f"day(s); model {p.get('model_name')} {p.get('model_version')}, type {p.get('model_type')}; features through {p.get('feature_cutoff')}, "
+                             f"training cutoff {p.get('training_cutoff')}; status {p.get('status')})")
+            lines.append(f"validated_against_baseline: {e.get('validated_against_baseline')} (false = the ML model did not beat a simple baseline; the value is the baseline's)")
+            lines.append("no calibrated probability or uncertainty interval is available")
+            parts.append("\n".join(lines))
+            continue
         if e.get("kind") == "risk_engine":                       # Task 32: computed context, a different provenance from the document chunks
             r = e["record"]
             lk = e.get("lookup") or {}

@@ -140,6 +140,7 @@ jobs:
           python scripts/geo/seed_admin_units.py
           python scripts/database/apply_serving_migration.py up
           python scripts/database/apply_rag_migration.py up
+          python scripts/database/apply_ml_migration.py up
 
       - name: Smoke-test the API contract
         run: |
@@ -166,6 +167,10 @@ jobs:
           test "$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8000/api/v1/intelligence/ask?q=flood")" = 503
           test "$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8000/api/v1/intelligence/ask?q=flood&mode=bogus")" = 422
           test "$(curl -s -o /dev/null -w '%{http_code}' -X POST "http://localhost:8000/api/v1/intelligence/ask?q=flood")" = 405
+          curl -fsS "http://localhost:8000/api/v1/ml/predictions" | python -c "import json,sys; d=json.load(sys.stdin); assert d['count']==0 and d['predictions']==[] and 'invented' in d['note']"
+          curl -fsS "http://localhost:8000/api/v1/ml/models" | python -c "import json,sys; assert json.load(sys.stdin)==[]"
+          test "$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8000/api/v1/ml/predictions?horizon=0")" = 422
+          test "$(curl -s -o /dev/null -w '%{http_code}' -X POST "http://localhost:8000/api/v1/ml/predictions")" = 405
 
       - name: Dashboard image builds
         run: docker compose build dashboard

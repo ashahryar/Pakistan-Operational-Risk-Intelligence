@@ -1,0 +1,135 @@
+{
+  "as_of": "2026-09-15",
+  "data_fingerprint": "d3da7bfa53ccf1d97a515c1c6017531e1274aef90b7c0957783a6aa7b5bee0a1",
+  "domain": "air_quality",
+  "entity_ids": [
+    "30"
+  ],
+  "feature_cutoff": "2026-09-15",
+  "horizon_days": 7,
+  "metrics": {
+    "baselines": {
+      "persistence": {
+        "test": {
+          "mae": 20.1395,
+          "n": 43,
+          "r2": -1.1808,
+          "rmse": 25.0878
+        },
+        "validation": {
+          "mae": 31.0233,
+          "n": 43,
+          "r2": -0.1253,
+          "rmse": 37.6279
+        }
+      },
+      "rolling_mean_7": {
+        "test": {
+          "mae": 15.9535,
+          "n": 43,
+          "r2": -0.2866,
+          "rmse": 19.2701
+        },
+        "validation": {
+          "mae": 26.9468,
+          "n": 43,
+          "r2": 0.1411,
+          "rmse": 32.8735
+        }
+      }
+    },
+    "best_baseline": "rolling_mean_7",
+    "candidates_validation": {
+      "hist_gradient_boosting": {
+        "mae": 36.4857,
+        "n": 43,
+        "r2": -0.7302,
+        "rmse": 46.6564
+      },
+      "random_forest": {
+        "mae": 33.232,
+        "n": 43,
+        "r2": -0.2728,
+        "rmse": 40.018
+      },
+      "ridge": {
+        "mae": 34.8249,
+        "n": 43,
+        "r2": -0.3134,
+        "rmse": 40.6507
+      }
+    },
+    "metric_note": "MAE is the decision metric; R2 is relative to the evaluated period's own mean and can be negative under a level shift",
+    "model_beats_best_baseline": {
+      "test": false,
+      "validation": false
+    },
+    "selected_model": "random_forest",
+    "selected_model_test": {
+      "mae": 21.0153,
+      "n": 43,
+      "r2": -1.5858,
+      "rmse": 27.3185
+    },
+    "selected_model_validation": {
+      "mae": 33.232,
+      "n": 43,
+      "r2": -0.2728,
+      "rmse": 40.018
+    },
+    "skill_vs_best_baseline": {
+      "test": -0.3173,
+      "validation": -0.2332
+    }
+  },
+  "missing_data": {
+    "candidate_rows": 350,
+    "dropped_by_reason": {
+      "missing_or_insufficient_history": 13,
+      "target_not_observed": 7
+    },
+    "dropped_rows": 20,
+    "dropped_share": 0.0571,
+    "usable_rows": 330
+  },
+  "ml_prediction_version": "1.0.0",
+  "model_name": "rolling_mean_7",
+  "model_run_id": "air_quality_index-h7-d3da7bfa53",
+  "model_type": "baseline",
+  "model_version": "1.0.0+d3da7bfa53",
+  "n_test": 43,
+  "n_train": 230,
+  "n_validation": 43,
+  "no_model_reason": null,
+  "per_entity": {
+    "30": {
+      "baseline_mae": 15.9535,
+      "model_mae": 21.0153,
+      "test_rows": 43
+    }
+  },
+  "purged_rows": 14,
+  "requirements": {
+    "max_staleness_days": 3,
+    "min_eval_rows": 20,
+    "min_observed_days": 180,
+    "min_train_rows": 100
+  },
+  "status": "BASELINE_ONLY",
+  "target": "air_quality_index",
+  "test_period": [
+    "2026-08-04",
+    "2026-09-15"
+  ],
+  "train_period": [
+    "2025-10-21",
+    "2026-06-07"
+  ],
+  "training_cutoff": "2026-07-27",
+  "unit": "AQI",
+  "validated_against_baseline": false,
+  "validation_period": [
+    "2026-06-15",
+    "2026-07-27"
+  ]
+}

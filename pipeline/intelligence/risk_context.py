@@ -41,3 +41,25 @@ def engine_values_text(record: dict) -> str:
         else:
             parts.append(f"{k}={v}")
     return " ".join(parts)
+
+
+# ---------------------------------------------------------------------------------------------- ML prediction (Task 33): a third, separate provenance
+ML_CITATION_TAG = "[ml_prediction]"
+ML_PROVENANCE = "ML_MODEL"
+ML_NOTE = ("A forecast of an observed quantity at a future date from the ML prediction layer. It is not a current risk classification, "
+           "not a risk status and not a risk score, and it is not an input to the risk engine.")
+
+
+def ml_prediction_block(predictions: list) -> Optional[dict]:
+    """The `ml_prediction` block of the intelligence response, or None when no valid (non-INSUFFICIENT_DATA) prediction exists. Never merged into risk_context."""
+    valid = [p for p in predictions if p.get("status") in ("PREDICTED", "BASELINE_ONLY") and p.get("prediction") is not None]
+    if not valid:
+        return None
+    return {"provenance": ML_PROVENANCE, "kind": "forecast_of_observed_quantity", "predictions": valid,
+            "validated_against_baseline": all(p["provenance"].get("validated_against_baseline") for p in valid), "note": ML_NOTE}
+
+
+def ml_prompt_item(block: Optional[dict]) -> Optional[dict]:
+    if not block:
+        return None
+    return {"kind": "ml_prediction", "predictions": block["predictions"], "validated_against_baseline": block["validated_against_baseline"]}

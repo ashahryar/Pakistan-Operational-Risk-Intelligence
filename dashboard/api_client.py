@@ -117,3 +117,9 @@ class RiskApiClient:
         """Risk context + documentary evidence (+ optional grounded explanation). A 503 carrying a body (no LLM) comes back as ok=False with data = body."""
         return self._get("/api/v1/intelligence/ask", {"q": q, "mode": mode, "admin_unit_id": admin_unit_id, "province": province, "date": date,
                                                        "top_k": top_k}, timeout=90.0)
+
+    # -- ML predictions (Task 33)
+    def ml_predictions(self, admin_unit_id: Optional[int] = None, horizon: Optional[int] = None, date: Optional[str] = None,
+                       include_insufficient: bool = True) -> ApiResult:
+        return self._get("/api/v1/ml/predictions", {"admin_unit_id": admin_unit_id, "horizon": horizon, "date": date,
+                                                    "include_insufficient": str(bool(include_insufficient)).lower()})

@@ -17,7 +17,7 @@ import streamlit as st
 
 from dashboard.api_client import RiskApiClient
 from dashboard.styles.theme import load_css
-from dashboard.utils.intelligence_helpers import area_options, risk_metrics, signal_summary, status_banner
+from dashboard.utils.intelligence_helpers import area_options, ml_caption, ml_table, risk_metrics, signal_summary, status_banner
 from dashboard.utils.rag_helpers import MODES, evidence_caption
 
 st.set_page_config(page_title="Operational Intelligence", page_icon="🧭", layout="wide")
@@ -94,6 +94,21 @@ if submitted:
         st.dataframe(sig, hide_index=True, use_container_width=True)
     else:
         st.info(f"NO_RISK_CONTEXT - {rcx.get('reason')}")
+
+    # ---------------------------------------------------------------- ML forecast (a separate provenance; never a current risk status)
+    st.subheader("ML Forecast (not a current risk status)")
+    ml = body.get("ml_prediction")
+    if ml:
+        st.caption("Provenance: ML_MODEL. A forecast of an observed quantity at a future date; it does not change the risk classification above.")
+        st.dataframe(ml_table(ml["predictions"]), hide_index=True, use_container_width=True)
+        st.caption(ml_caption(ml) + " No calibrated probability or confidence interval is available.")
+    else:
+        reason = None
+        if unit:
+            res_ml = _client().ml_predictions(admin_unit_id=unit["id"])
+            if res_ml.ok and res_ml.data and res_ml.data.get("predictions"):
+                reason = res_ml.data["predictions"][0].get("reason")
+        st.info("INSUFFICIENT_DATA - no valid ML forecast exists for this area." + (f" {reason}" if reason else ""))
 
     # ---------------------------------------------------------------- documents
     st.subheader("Documentary Evidence")

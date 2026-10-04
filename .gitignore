@@ -108,3 +108,6 @@ data/analytics/rag/chunks.jsonl
 
 # Task 30: downloaded embedding model weights (pinned HF revision, re-fetched by pipeline.rag.embeddings.ensure_model).
 data/models/embedding_cache/
+
+# Task 33: fitted ML prediction estimators (reproducible via scripts/ml/run_prediction_pipeline.py); metadata/metrics/predictions stay tracked.
+data/models/risk_prediction/*/model.joblib

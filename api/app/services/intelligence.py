@@ -13,6 +13,7 @@ from typing import Optional
 from fastapi import HTTPException
 
 from api.app.db import fetch_all
+from api.app.services.ml import unit_predictions
 from api.app.services.rag import DISCLAIMER, get_llm_provider, retrieve_evidence
 from api.app.services.risk_serving import _COLS, _shape
 from pipeline.intelligence import risk_context as rc
@@ -107,6 +108,9 @@ def ask_intelligence(q: str, admin_unit_id: Optional[int], province: Optional[st
                                      None if r_date else (date_to.isoformat() if date_to else qctx.date_to))
     block = rc.risk_context_block(record, None if record else _no_risk_reason(lookup, unit, qctx.geography_status), lookup)
 
+    # ---- ML forecast (a separate provenance: never merged into risk_context; null unless a valid prediction exists for the area)
+    ml_block = rc.ml_prediction_block(unit_predictions(unit["id"])) if unit else None
+
     # ---- documentary evidence (existing RAG retrieval; filters relaxed only for inferred, narrowing ones)
     attempts = plan_filters(unit=unit, province=prov, province_text=province if basis == "explicit_province_unresolved" else None,
                             event_types=qctx.event_types, date_from=d_from, date_to=d_to, source=source)
@@ -121,7 +125,7 @@ def ask_intelligence(q: str, admin_unit_id: Optional[int], province: Optional[st
                  "filters_requested": attempts[0]["filters"], "filters_applied": used["filters"], "filters_relaxed": used["relaxed"],
                  "min_score": result["retrieval"]["min_score"], "embedding_model": result["retrieval"]["embedding_model"],
                  "note": DOC_NOTE + (" Inferred filters were relaxed because the stricter search found nothing." if used["relaxed"] else "")}
-    ctx = IntelligenceContext(q, qd, block, records, retrieval)
+    ctx = IntelligenceContext(q, qd, block, records, retrieval, ml_block)
 
     def body(status, answer=None, outcome=None, model=None, cites=()):
         v = outcome.validation if outcome else None
@@ -131,11 +135,13 @@ def ask_intelligence(q: str, admin_unit_id: Optional[int], province: Optional[st
         if status == g.ANSWERED and answer and rc.CITATION_TAG in answer and record:
             citations.append({"kind": "risk_engine", "admin_unit_id": record["admin_unit_id"], "risk_date": record["risk_date"],
                               "calculation_version": record["calculation_version"]})
+        if status == g.ANSWERED and answer and rc.ML_CITATION_TAG in answer and ml_block:
+            citations.append({"kind": "ml_prediction", "model_run_ids": sorted({p["model_run_id"] for p in ml_block["predictions"]})})
         d = ctx.to_dict()
         return {**d, "status": status, "answer": answer, "citations": citations,
                 "model": model or {"provider": None, "model": None, "configured": False},
                 "groundedness": {"citations_valid": (not any(p["code"] in ("unknown_citation", "no_citations", "mixed_provenance_sentence",
-                                                                           "engine_citation_without_risk_context") for p in v.problems)) if judged else None,
+                                                                           "engine_citation_without_risk_context", "ml_citation_without_prediction") for p in v.problems)) if judged else None,
                                  "risk_context_supplied": block["status"] == rc.AVAILABLE, "evidence_supplied": len(records),
                                  "evidence_cited": len([c for c in citations if c["kind"] == "documentary"]),
                                  "problems": v.problems if v else [], "warnings": v.warnings if v else [],
@@ -143,14 +149,15 @@ def ask_intelligence(q: str, admin_unit_id: Optional[int], province: Optional[st
                                  "validation_note": VALIDATION_NOTE},
                 "disclaimer": DISCLAIMER + " Computed risk context and documentary evidence are separate; documents are not risk-engine inputs."}
 
-    terminal = status_before_generation(risk_available=block["status"] == rc.AVAILABLE, risk_intent=qctx.risk_intent, evidence_count=len(records))
+    terminal = status_before_generation(risk_available=block["status"] == rc.AVAILABLE, risk_intent=qctx.risk_intent, evidence_count=len(records),
+                                       ml_available=ml_block is not None)
     if terminal:
         return body(terminal), 200
     try:
         provider = get_llm_provider()
     except LLMUnavailable as exc:
         return body(g.LLM_UNAVAILABLE, model={"provider": None, "model": None, "configured": False, "error": str(exc)}), 503
-    outcome = answer_intelligence(q, rc.risk_prompt_item(block), items, provider, constraints_from_env())
+    outcome = answer_intelligence(q, rc.risk_prompt_item(block), items, provider, constraints_from_env(), rc.ml_prompt_item(ml_block))
     model = {"provider": outcome.provider or getattr(provider, "name", None), "model": outcome.model or getattr(provider, "model", None),
              "configured": True, "error": outcome.llm_error}
     if outcome.status == g.LLM_UNAVAILABLE:

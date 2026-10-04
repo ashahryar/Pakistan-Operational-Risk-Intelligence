@@ -17,6 +17,7 @@ if str(PROJECT_ROOT) not in sys.path:
 from fastapi.testclient import TestClient  # noqa: E402
 
 import api.app.services.intelligence as intel  # noqa: E402
+import api.app.services.ml as ml_service  # noqa: E402
 import api.app.services.rag as rag_service  # noqa: E402
 from api.app.main import app  # noqa: E402
 from api.tests._readonly import assert_read_only  # noqa: E402
@@ -52,11 +53,14 @@ class Db(FakeDb):
     def __init__(self, embedder):
         super().__init__(embedder)
         self.risk_sql = []
+        self.ml_rows = []
 
     def __call__(self, sql, params=None):
         s = " ".join(sql.split())
         if "FROM geo.admin_unit u LEFT JOIN geo.admin_unit p" in s:
             return [dict(u) for u in UNITS]
+        if "FROM ml.predictions" in s:
+            return [dict(r) for r in self.ml_rows if r["admin_unit_id"] == params["u"] and r["status"] != "INSUFFICIENT_DATA"]
         if "FROM risk.latest_operational_risk" in s:
             self.risk_sql.append(s)
             rows = sorted((r for r in RISK if r["admin_unit_id"] == params["u"]), key=lambda r: r["risk_date"], reverse=True)
@@ -85,6 +89,14 @@ class Provider:
         return LLMResult(self.fn(evidence), self.name, self.model)
 
 
+def ml_row(uid, status="BASELINE_ONLY", horizon=1, prediction=126.0, validated=False):
+    return {"model_run_id": f"air_quality_index-h{horizon}-abc", "entity_type": "admin_unit", "entity_id": str(uid), "admin_unit_id": uid, "horizon_days": horizon,
+            "prediction_date": date(2026, 9, 16), "feature_cutoff": date(2026, 9, 15), "target": "air_quality_index", "unit": "AQI", "prediction": prediction,
+            "status": status, "reason": None, "model_name": "persistence", "model_version": "1.0.0+abc", "model_type": "baseline" if status == "BASELINE_ONLY" else "ml",
+            "training_cutoff": date(2026, 7, 26),
+            "provenance": {"provenance": "ML_MODEL", "validated_against_baseline": validated, "note": "forecast"}}
+
+
 def engine_and_doc(evidence):
     risk = next((e for e in evidence if e.get("kind") == "risk_engine"), None)
     chunks = [e for e in evidence if e.get("kind") != "risk_engine"]
@@ -102,6 +114,7 @@ def env(monkeypatch):
     db = Db(emb)
     monkeypatch.setattr(rag_service, "fetch_all", db)
     monkeypatch.setattr(intel, "fetch_all", db)
+    monkeypatch.setattr(ml_service, "fetch_all", db)
     rag_service._cache.update(token=None, retriever=None)
     rag_service._sem_cache.update(token=None, retriever=None)
     rag_service._hyb_cache.update(key=None, retriever=None)
@@ -310,3 +323,59 @@ def test_the_intelligence_api_is_read_only(env):
 def test_existing_endpoints_are_unaffected(env):
     assert client.get("/api/v1/rag/search", params={"q": "inundation"}).json()["mode"] == "lexical"
     assert client.get("/api/v1/rag/ask", params={"q": "inundation", "min_score": 0.5}).status_code in (200, 503)
+
+
+# ------------------------------------------------------------------ Task 33: the ML forecast is a separate, optional block
+def test_ml_prediction_is_null_when_no_valid_forecast_exists(env):
+    rag_service.set_llm_provider(Provider(engine_and_doc))
+    b = ask(q="Why is Sialkot classified as MODERATE? inundation").json()
+    assert b["ml_prediction"] is None and b["provenance"]["ml_prediction"] == {"source": "ML_MODEL", "available": False, "model_run_ids": []}
+    env.ml_rows = [ml_row(46, status="INSUFFICIENT_DATA", prediction=None)]
+    assert ask(q="Why is Sialkot classified as MODERATE? inundation").json()["ml_prediction"] is None
+
+
+def test_ml_prediction_is_present_labelled_ml_model_and_never_merged_into_risk_context(env):
+    env.ml_rows = [ml_row(46), ml_row(46, horizon=3, prediction=135.4)]
+    rag_service.set_llm_provider(None)
+    r = ask(q="Why is Sialkot classified as MODERATE? inundation")
+    b = r.json()
+    ml = b["ml_prediction"]
+    assert r.status_code == 503 and b["status"] == "LLM_UNAVAILABLE"                                    # no provider: the forecast is still returned
+    assert ml["provenance"] == "ML_MODEL" and ml["kind"] == "forecast_of_observed_quantity" and ml["validated_against_baseline"] is False
+    assert [p["horizon_days"] for p in ml["predictions"]] == [1, 3] and ml["predictions"][0]["prediction"] == 126.0 and "not a current risk classification" in ml["note"]
+    assert b["risk_context"]["record"]["risk_status"] == "MODERATE" and "prediction" not in str(b["risk_context"]) and "ML_MODEL" not in str(b["risk_context"])
+    assert b["provenance"]["ml_prediction"]["available"] is True and b["provenance"]["ml_prediction"]["model_run_ids"]
+
+
+def test_the_model_receives_the_forecast_as_a_labelled_item_and_a_valid_ml_sentence_is_cited(env):
+    env.ml_rows = [ml_row(46)]
+    p = Provider(lambda ev: "The risk engine classifies Sialkot as MODERATE [risk_engine]. The ML layer forecasts an AQI of 126 for 2026-09-16 [ml_prediction].")
+    rag_service.set_llm_provider(p)
+    b = ask(q="Why is Sialkot classified as MODERATE? inundation").json()
+    assert b["status"] == "ANSWERED" and sorted(c["kind"] for c in b["citations"]) == ["ml_prediction", "risk_engine"]
+    kinds = [e.get("kind") or "chunk" for e in p.calls[0][2]]
+    assert kinds[:2] == ["risk_engine", "ml_prediction"] and set(kinds[2:]) == {"chunk"}
+
+
+@pytest.mark.parametrize("sentence,code", [
+    ("The ML layer forecasts that Sialkot risk is HIGH tomorrow [ml_prediction].", "ml_prediction_described_as_risk_status"),
+    ("The current AQI is predicted to be 126 [ml_prediction].", "ml_prediction_described_as_current_or_risk"),
+    ("Sialkot is at 126 AQI for 2026-09-16 according to the model [ml_prediction].", "ml_sentence_not_framed_as_prediction"),
+    ("The forecast of 126 AQI is confirmed by the engine [risk_engine] [ml_prediction].", "mixed_provenance_sentence")])
+def test_ml_forecast_described_as_current_or_as_a_risk_status_is_rejected(env, sentence, code):
+    env.ml_rows = [ml_row(46)]
+    rag_service.set_llm_provider(Provider(lambda ev, s=sentence: s))
+    b = ask(q="Why is Sialkot classified as MODERATE? inundation").json()
+    assert b["status"] == "INVALID_ANSWER" and any(p["code"] == code for p in b["groundedness"]["problems"])
+
+
+def test_ml_citation_without_a_forecast_is_rejected(env):
+    rag_service.set_llm_provider(Provider(lambda ev: "The model forecasts an AQI of 126 for tomorrow [ml_prediction]."))
+    b = ask(q="Why is Sialkot classified as MODERATE? inundation").json()
+    assert b["status"] == "INVALID_ANSWER" and any(p["code"] == "ml_citation_without_prediction" for p in b["groundedness"]["problems"])
+
+
+def test_ml_forecast_for_an_area_other_than_the_asked_one_is_not_shown(env):
+    env.ml_rows = [ml_row(30)]
+    b = ask(q="Why is Sialkot classified as MODERATE? inundation").json()
+    assert b["ml_prediction"] is None

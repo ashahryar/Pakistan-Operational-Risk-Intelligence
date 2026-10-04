@@ -21,6 +21,7 @@ COPY api/app api/app
 COPY config/__init__.py config/database.py config/
 COPY pipeline/__init__.py pipeline/__init__.py
 COPY pipeline/rag/__init__.py pipeline/rag/contracts.py pipeline/rag/retrieval.py pipeline/rag/evidence.py pipeline/rag/embeddings.py pipeline/rag/semantic.py pipeline/rag/hybrid.py pipeline/rag/llm.py pipeline/rag/grounding.py pipeline/rag/
+COPY pipeline/ml/__init__.py pipeline/ml/contracts.py pipeline/ml/
 COPY pipeline/intelligence/__init__.py pipeline/intelligence/context.py pipeline/intelligence/risk_context.py pipeline/intelligence/assembly.py pipeline/intelligence/grounding.py pipeline/intelligence/
 COPY scripts/__init__.py scripts/
 COPY scripts/geo/__init__.py scripts/geo/canonical_data.py scripts/geo/resolver.py scripts/geo/

@@ -1,0 +1,75 @@
+{
+  "baselines": {
+    "persistence": {
+      "test": {
+        "mae": 14.1,
+        "n": 50,
+        "r2": 0.0134,
+        "rmse": 17.4648
+      },
+      "validation": {
+        "mae": 20.7143,
+        "n": 49,
+        "r2": 0.4556,
+        "rmse": 27.7662
+      }
+    },
+    "rolling_mean_7": {
+      "test": {
+        "mae": 14.88,
+        "n": 50,
+        "r2": -0.089,
+        "rmse": 18.3494
+      },
+      "validation": {
+        "mae": 24.0904,
+        "n": 49,
+        "r2": 0.3735,
+        "rmse": 29.7864
+      }
+    }
+  },
+  "best_baseline": "persistence",
+  "candidates_validation": {
+    "hist_gradient_boosting": {
+      "mae": 24.9324,
+      "n": 49,
+      "r2": 0.3088,
+      "rmse": 31.2867
+    },
+    "random_forest": {
+      "mae": 22.221,
+      "n": 49,
+      "r2": 0.4358,
+      "rmse": 28.267
+    },
+    "ridge": {
+      "mae": 21.2013,
+      "n": 49,
+      "r2": 0.475,
+      "rmse": 27.2665
+    }
+  },
+  "metric_note": "MAE is the decision metric; R2 is relative to the evaluated period's own mean and can be negative under a level shift",
+  "model_beats_best_baseline": {
+    "test": true,
+    "validation": false
+  },
+  "selected_model": "ridge",
+  "selected_model_test": {
+    "mae": 12.6705,
+    "n": 50,
+    "r2": 0.1745,
+    "rmse": 15.9755
+  },
+  "selected_model_validation": {
+    "mae": 21.2013,
+    "n": 49,
+    "r2": 0.475,
+    "rmse": 27.2665
+  },
+  "skill_vs_best_baseline": {
+    "test": 0.1014,
+    "validation": -0.0235
+  }
+}

@@ -29,12 +29,12 @@ def evidence():
             "source_reference": {"url": None, "file_path": "data/parsed/a.json", "content_sha256": "0" * 64}}
 
 
-def body(status, *, risk=True, docs=True, answer=None, cites=(), warnings=(), problems=()):
+def body(status, *, risk=True, docs=True, answer=None, cites=(), warnings=(), problems=(), ml=None):
     return {"question": "q", "status": status, "answer": answer,
             "question_context": {"geography_status": "resolved", "admin_unit": {"id": 46, "name": "Sialkot"}, "target_basis": "question_text"},
             "risk_context": {"status": "AVAILABLE" if risk else "NO_RISK_CONTEXT", "provenance": "RISK_ENGINE", "record": RECORD if risk else None,
                              "reason": None if risk else "no risk record exists for Sialkot", "lookup": {"basis": "latest"}, "note": "n"},
-            "documentary_evidence": [evidence()] if docs else [],
+            "documentary_evidence": [evidence()] if docs else [], "ml_prediction": ml,
             "retrieval": {"mode": "hybrid", "method": "hybrid_rrf", "evidence_count": int(docs), "top_k": 5, "filters_applied": {"admin_unit_id": 46},
                           "filters_relaxed": ["event_type"], "filters_requested": {}, "note": ""},
             "citations": [{"kind": k, "chunk_id": CID if k == "documentary" else None} for k in cites],
@@ -51,7 +51,7 @@ def fresh_caches():
     st.cache_resource.clear()
 
 
-def patch_api(monkeypatch, result):
+def patch_api(monkeypatch, result, ml_result=None):
     calls = []
 
     def fake_get(self, path, params=None, timeout=None):
@@ -62,6 +62,8 @@ def patch_api(monkeypatch, result):
         if path == "/api/v1/intelligence/ask":
             calls.append(params)
             return result
+        if path == "/api/v1/ml/predictions":
+            return ml_result or ApiResult(False, error_kind="server_error", message="unavailable")
         return ApiResult(False, error_kind="server_error", message="unexpected path")
     monkeypatch.setattr(RiskApiClient, "_get", fake_get)
     return calls
@@ -93,7 +95,7 @@ def test_successful_response_shows_risk_context_evidence_and_the_explanation_sep
     at = ask(at)
     assert not at.exception and not at.error
     assert calls == [{"q": "Why is Sialkot classified as MODERATE?", "mode": "hybrid", "admin_unit_id": 46, "province": None, "date": None, "top_k": 5}]
-    assert subheaders(at) == ["Operational Risk Context", "Documentary Evidence", "AI Explanation"]
+    assert subheaders(at) == ["Operational Risk Context", "ML Forecast (not a current risk status)", "Documentary Evidence", "AI Explanation"]
     m = {x.label: x.value for x in at.metric}
     assert m == {"Status": "MODERATE", "Confidence": "MEDIUM", "Coverage": "16.67%", "Top domain": "rainfall", "Risk score": "Unavailable"}
     df = at.dataframe[0].value
@@ -193,3 +195,54 @@ def test_client_keeps_the_503_body_for_intelligence_and_uses_a_long_timeout():
     assert s.last[1] == {"q": "what?", "mode": "lexical", "admin_unit_id": 46, "date": "2026-07-11", "top_k": 3}
     r = RiskApiClient("http://x", session=FakeSession(FakeResp(503, {"detail": "Hybrid retrieval is unavailable: no runtime"}))).intelligence("q")
     assert not r.ok and r.data is None and "no runtime" in r.message
+
+
+# ------------------------------------------------------------------ Task 33: the ML forecast section
+def ml_block(validated=False):
+    p = {"model_run_id": "air_quality_index-h1-abc", "horizon_days": 1, "prediction_date": "2026-09-16", "feature_cutoff": "2026-09-15", "target": "air_quality_index",
+         "unit": "AQI", "prediction": 126.0, "status": "BASELINE_ONLY" if not validated else "PREDICTED", "model_name": "persistence", "model_version": "1.0.0+abc",
+         "model_type": "baseline" if not validated else "ml", "training_cutoff": "2026-07-26", "provenance": {"provenance": "ML_MODEL"}}
+    return {"provenance": "ML_MODEL", "kind": "forecast_of_observed_quantity", "predictions": [p], "validated_against_baseline": validated, "note": "n"}
+
+
+def test_ml_forecast_is_shown_separately_with_model_version_cutoff_and_no_fake_probability(monkeypatch):
+    patch_api(monkeypatch, ApiResult(False, data=body("LLM_UNAVAILABLE", ml=ml_block()), error_kind="unavailable", message="x", status_code=503))
+    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    assert not at.exception and "ML Forecast (not a current risk status)" in subheaders(at)
+    ml_df = next(d.value for d in at.dataframe if "Forecast for" in d.value.columns)
+    row = ml_df.iloc[0]
+    assert (row["Horizon"], row["Forecast for"], row["Forecast"], row["Status"], row["Type"]) == ("1 day(s)", "2026-09-16", "126 AQI", "BASELINE_ONLY", "baseline")
+    assert row["Model"] == "persistence 1.0.0+abc" and row["Training cutoff"] == "2026-07-26" and row["Features through"] == "2026-09-15"
+    caps = " ".join(c.value for c in at.caption)
+    assert "NOT a validated ML model" in caps and "No calibrated probability" in caps and "ML_MODEL" in caps
+    assert {x.label: x.value for x in at.metric}["Status"] == "MODERATE"                                    # the risk context is untouched by the forecast
+    assert "probab" not in " ".join(str(c) for c in ml_df.columns).lower()
+
+
+def test_validated_ml_model_is_described_as_validated(monkeypatch):
+    patch_api(monkeypatch, ApiResult(True, data=body("ANSWERED", answer=f"x y z w [chunk:{CID}].", ml=ml_block(validated=True))))
+    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    assert any("Validated ML model" in c.value for c in at.caption) and not any("NOT a validated" in c.value for c in at.caption)
+
+
+def test_insufficient_data_state_when_no_valid_forecast_exists(monkeypatch):
+    ml_res = ApiResult(True, data={"count": 3, "predictions": [{"status": "INSUFFICIENT_DATA", "reason": "no air_quality observations exist for this area (0 observed days; at least 180 needed)"}]})
+    patch_api(monkeypatch, ApiResult(True, data=body("ANSWERED", answer=f"x y z w [chunk:{CID}].")), ml_res)
+    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    assert not at.exception and any("INSUFFICIENT_DATA" in i.value and "at least 180 needed" in i.value for i in at.info)
+    assert not any("Forecast for" in d.value.columns for d in at.dataframe)                                   # no table, no invented number
+
+
+def test_ml_section_degrades_quietly_when_the_ml_endpoint_fails(monkeypatch):
+    patch_api(monkeypatch, ApiResult(True, data=body("ANSWERED", answer=f"x y z w [chunk:{CID}].")))
+    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    assert not at.exception and any(i.value.startswith("INSUFFICIENT_DATA - no valid ML forecast") for i in at.info)
+
+
+def test_ml_helpers_and_client():
+    from dashboard.utils.intelligence_helpers import ml_caption, ml_table
+    assert list(ml_table([]).columns)[:3] == ["Horizon", "Forecast for", "Forecast"] and ml_table([]).empty
+    assert "NOT a validated" in ml_caption({"validated_against_baseline": False})
+    s = FakeSession(FakeResp(200, {"count": 0, "predictions": []}))
+    r = RiskApiClient("http://x", session=s).ml_predictions(admin_unit_id=30, horizon=1)
+    assert r.ok and s.last[0] == "http://x/api/v1/ml/predictions" and s.last[1] == {"admin_unit_id": 30, "horizon": 1, "include_insufficient": "true"}

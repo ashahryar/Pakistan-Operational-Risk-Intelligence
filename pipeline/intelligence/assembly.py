@@ -21,6 +21,7 @@ class IntelligenceContext:
     risk_context: dict
     retrieved_evidence: list = field(default_factory=list)
     retrieval: dict = field(default_factory=dict)
+    ml_prediction: Optional[dict] = None          # Task 33: a forecast (provenance ML_MODEL); never merged into risk_context
 
     @property
     def provenance(self) -> dict:
@@ -30,12 +31,15 @@ class IntelligenceContext:
                                  "risk_date": rec["risk_date"] if rec else None},
                 "documentary_evidence": {"source": "official reports retrieved by the RAG layer", "chunk_ids": [e["chunk_id"] for e in self.retrieved_evidence],
                                          "document_ids": sorted({e["document_id"] for e in self.retrieved_evidence})},
-                "note": "Computed signals and documentary evidence are kept separate: a document never becomes a risk-engine input and a "
-                        "risk status is never attributed to a document."}
+                "ml_prediction": {"source": "ML_MODEL", "available": self.ml_prediction is not None,
+                                  "model_run_ids": sorted({p["model_run_id"] for p in self.ml_prediction["predictions"]}) if self.ml_prediction else []},
+                "note": "Computed signals, ML forecasts and documentary evidence are kept separate: a document never becomes a risk-engine input, a "
+                        "risk status is never attributed to a document, and an ML forecast is never a current risk status."}
 
     def to_dict(self) -> dict:
         return {"question": self.question, "question_context": self.question_context, "risk_context": self.risk_context,
-                "documentary_evidence": self.retrieved_evidence, "retrieval": self.retrieval, "provenance": self.provenance}
+                "documentary_evidence": self.retrieved_evidence, "retrieval": self.retrieval, "ml_prediction": self.ml_prediction,
+                "provenance": self.provenance}
 
 
 def plan_filters(*, unit: Optional[dict], province: Optional[dict], province_text: Optional[str], event_types: list[str],
@@ -76,10 +80,10 @@ def plan_filters(*, unit: Optional[dict], province: Optional[dict], province_tex
     return attempts
 
 
-def status_before_generation(*, risk_available: bool, risk_intent: bool, evidence_count: int) -> Optional[str]:
+def status_before_generation(*, risk_available: bool, risk_intent: bool, evidence_count: int, ml_available: bool = False) -> Optional[str]:
     """A terminal status decided without the language model, or None when generation should be attempted."""
     if risk_intent and not risk_available:
         return NO_RISK_CONTEXT                       # a classification was asked about but no risk record exists: nothing to explain
-    if not risk_available and evidence_count == 0:
+    if not risk_available and evidence_count == 0 and not ml_available:
         return "RETRIEVAL_EMPTY"
     return None

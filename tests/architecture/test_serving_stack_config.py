@@ -63,7 +63,7 @@ def test_api_image_contains_only_what_the_api_needs():
                               "pipeline/rag/semantic.py", "pipeline/rag/hybrid.py", "pipeline/rag/llm.py",
                               "pipeline/rag/grounding.py", "pipeline/intelligence/__init__.py", "pipeline/intelligence/context.py",
                               "pipeline/intelligence/risk_context.py", "pipeline/intelligence/assembly.py",
-                              "pipeline/intelligence/grounding.py"}       # only the pure RAG / intelligence runtime modules
+                              "pipeline/intelligence/grounding.py", "pipeline/ml/__init__.py", "pipeline/ml/contracts.py"}       # only the pure RAG / intelligence runtime modules
     scripts_files = {f for c in copies for f in c.split()[1:-1] if f.startswith("scripts/")}
     assert scripts_files == {"scripts/__init__.py", "scripts/geo/__init__.py", "scripts/geo/canonical_data.py", "scripts/geo/resolver.py"}
     assert "USER app" in DASH_DOCKERFILE and "streamlit" in DASH_DOCKERFILE

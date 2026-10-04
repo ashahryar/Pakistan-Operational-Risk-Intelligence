@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import Optional
 
+import pandas as pd
+
 from dashboard.utils.risk_map_helpers import risk_score_text, signal_summary  # noqa: F401  (signal_summary is re-exported for the page)
 
 AUTO = "Automatic (from the question)"
@@ -36,3 +38,20 @@ def risk_metrics(record: dict) -> dict[str, str]:
     return {"Status": record.get("risk_status") or "-", "Confidence": record.get("risk_confidence") or "-",
             "Coverage": "-" if cov is None else f"{cov:g}%", "Top domain": record.get("top_risk_domain") or "none",
             "Risk score": "Unavailable" if record.get("risk_score") is None else risk_score_text(record["risk_score"])}
+
+
+def ml_table(predictions: list[dict]) -> pd.DataFrame:
+    """Rows of the ML forecast table (all text, so mixed values never break Arrow conversion). Probability/confidence is never shown: none is calibrated."""
+    rows = []
+    for p in sorted(predictions, key=lambda p: p.get("horizon_days") or 0):
+        value = "-" if p.get("prediction") is None else f"{p['prediction']:g} {p.get('unit') or ''}".strip()
+        rows.append({"Horizon": f"{p.get('horizon_days')} day(s)", "Forecast for": p.get("prediction_date"), "Forecast": value, "Status": p.get("status"),
+                     "Model": f"{p.get('model_name') or '-'} {p.get('model_version') or ''}".strip(), "Type": p.get("model_type"),
+                     "Training cutoff": p.get("training_cutoff") or "-", "Features through": p.get("feature_cutoff")})
+    return pd.DataFrame(rows, columns=["Horizon", "Forecast for", "Forecast", "Status", "Model", "Type", "Training cutoff", "Features through"])
+
+
+def ml_caption(block: dict) -> str:
+    validated = block.get("validated_against_baseline")
+    return ("Validated ML model: beat the simple baselines on held-out validation and test periods." if validated else
+            "NOT a validated ML model: the machine-learning candidates did not beat a simple baseline on held-out data, so these values are that baseline's forecast.")

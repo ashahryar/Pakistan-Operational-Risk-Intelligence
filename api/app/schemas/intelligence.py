@@ -4,6 +4,7 @@ from typing import Any, Optional
 
 from pydantic import BaseModel
 
+from api.app.schemas.ml import MlPrediction
 from api.app.schemas.rag import Evidence, SourceReference
 from api.app.schemas.risk import OperationalRisk
 
@@ -30,8 +31,16 @@ class IntelligenceRetrieval(BaseModel):
     note: str
 
 
+class MlPredictionBlock(BaseModel):
+    provenance: str                               # ML_MODEL
+    kind: str
+    predictions: list[MlPrediction]
+    validated_against_baseline: bool
+    note: str
+
+
 class IntelligenceCitation(BaseModel):
-    kind: str                                     # documentary | risk_engine
+    kind: str                                     # documentary | risk_engine | ml_prediction
     chunk_id: Optional[str] = None
     document_id: Optional[str] = None
     title: Optional[str] = None
@@ -41,6 +50,7 @@ class IntelligenceCitation(BaseModel):
     admin_unit_id: Optional[int] = None
     risk_date: Optional[str] = None
     calculation_version: Optional[str] = None
+    model_run_ids: Optional[list[str]] = None
 
 
 class IntelligenceModel(BaseModel):
@@ -68,6 +78,7 @@ class IntelligenceResponse(BaseModel):
     risk_context: RiskContext
     documentary_evidence: list[Evidence]
     retrieval: IntelligenceRetrieval
+    ml_prediction: Optional[MlPredictionBlock] = None   # null unless a valid ML forecast exists for the area; never part of risk_context
     answer: Optional[str]
     citations: list[IntelligenceCitation]
     model: IntelligenceModel
