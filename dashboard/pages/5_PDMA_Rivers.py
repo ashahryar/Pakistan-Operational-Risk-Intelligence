@@ -14,10 +14,14 @@ import plotly.express as px
 import streamlit as st
 
 from dashboard.api_client import RiskApiClient
+from dashboard.utils.api_cache import cached_api
 from dashboard.styles.theme import load_css
+from dashboard.utils.api_cache import render_refresh_control
+from dashboard.utils.freshness import render_freshness
 
 st.set_page_config(page_title="PDMA River Gauges", page_icon="🌊", layout="wide")
 load_css()
+render_refresh_control()
 
 STATE_LABEL = {"ELIGIBLE": "Mapped (official evidence)", "CONFLICTING_GEOGRAPHY": "Conflicting evidence", "SECONDARY_ONLY": "Secondary reference only",
                "CAVEATED": "Caveated", "UNRESOLVED": "Unresolved"}
@@ -29,12 +33,12 @@ def _client() -> RiskApiClient:
     return RiskApiClient()
 
 
-@st.cache_data(ttl=300, show_spinner=False)
+@cached_api(ttl=120)
 def _evidence(base_url: str):
     return _client()._get("/api/v1/evidence/gauge-stations")
 
 
-@st.cache_data(ttl=300, show_spinner=False)
+@cached_api(ttl=300)
 def _unit_history(base_url: str, admin_unit_id: int):
     return _client().risk(admin_unit_id=admin_unit_id, limit=500)
 
@@ -42,6 +46,7 @@ def _unit_history(base_url: str, admin_unit_id: int):
 base = _client().base_url
 st.title("🌊 PDMA River Gauge Network")
 st.caption("PDMA Punjab gauge sitreps (data source stated as FFD and DEOCs). A snapshot of published bulletins, not a live feed. Decision support only.")
+render_freshness("pdma_gauge")
 
 res = _evidence(base)
 if not res.ok:
@@ -64,7 +69,7 @@ c[2].metric("Gauge observations", f"{summary['observations']:,}")
 c[3].metric("Mapped to a district", counts.get("ELIGIBLE", 0))
 c[4].metric("Observations attributable", f"{summary['observations_with_eligible_mapping']:,}")
 dmin, dmax = stations["date_min"].min(), stations["date_max"].max()
-st.caption(f"Observation dates {dmin} to {dmax}. Unattributed stations still have observations: they are kept, not dropped, and not assigned to any district. "
+st.caption(f"Observation dates {dmin} to {dmax} (read from the database; one observation is one report date per station). Unattributed stations still have observations: they are kept, not dropped, and not assigned to any district. "
            f"Mapping version {summary['mapping_version']}.")
 
 st.subheader("Geography evidence coverage")

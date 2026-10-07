@@ -6,6 +6,7 @@ import pandas as pd
 import streamlit as st
 
 from dashboard.api_client import RiskApiClient
+from dashboard.utils.api_cache import cached_api
 from dashboard.utils.rag_helpers import FALLBACK_PROVINCES, MODES, SOURCES, citation_rows, evidence_caption, relevance_notice, status_banner
 
 
@@ -18,9 +19,13 @@ def _client() -> RiskApiClient:
     return RiskApiClient()
 
 
-@st.cache_data(ttl=300, show_spinner=False)
+@cached_api(ttl=300)
+def _admin_units(base_url: str, level: int):
+    return _client().admin_units(level=level)
+
+
 def _province_names(base_url: str):
-    res = _client().admin_units(level=1)
+    res = _admin_units(base_url, 1)
     names = sorted(p["name"] for p in res.data) if res.ok and res.data else []
     return names or FALLBACK_PROVINCES
 

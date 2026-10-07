@@ -25,7 +25,7 @@ from __future__ import annotations
 from fastapi import FastAPI
 
 from api.app.config import API_DESCRIPTION, API_TITLE, API_VERSION
-from api.app.routers import agent, disasters, evidence, geography, health, intelligence, ml, rag, risk, weather
+from api.app.routers import agent, disasters, evidence, freshness, geography, health, intelligence, ml, rag, risk, weather
 
 app = FastAPI(title=API_TITLE, version=API_VERSION, description=API_DESCRIPTION)
 
@@ -39,3 +39,4 @@ app.include_router(intelligence.router)
 app.include_router(ml.router)
 app.include_router(agent.router)
 app.include_router(evidence.router)
+app.include_router(freshness.router)

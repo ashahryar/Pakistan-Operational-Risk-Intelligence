@@ -46,9 +46,9 @@ def render_disaster_section(
 
     )
 
-    province_summary["risk_score"] = (
+    province_summary["casualties"] = (          # reported deaths + injured, unweighted: no risk weighting is invented here
 
-        province_summary["deaths"] * 5
+        province_summary["deaths"]
         + province_summary["injured"]
 
     )
@@ -58,7 +58,7 @@ def render_disaster_section(
         province_summary
 
         .sort_values(
-            "risk_score",
+            "casualties",
             ascending=False
         )
 
@@ -125,7 +125,7 @@ def render_disaster_section(
     with k4:
 
         st.metric(
-            "🗺 Districts Affected",
+            "🗺 Provinces Reporting",
             f"{districts_affected:,}",
         )
 
@@ -230,7 +230,7 @@ def render_disaster_section(
                             opacity:0.7;
                             margin-bottom:4px;
                         ">
-                        Risk Score: {row['risk_score']:,.0f}
+                        Reported casualties: {row['casualties']:,.0f}
                         </div>
 
                         <div style="

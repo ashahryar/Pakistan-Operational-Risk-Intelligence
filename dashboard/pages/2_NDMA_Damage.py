@@ -23,6 +23,12 @@ st.set_page_config(
 
 st.info('Source: NDMA situation reports (province level). Houses, roads, bridges and livestock are cumulative per report, so totals use the peak reported value per province and the charts show increments between reports. A blank value means not reported, not zero. Snapshot of published reports, not a live feed.')
 
+from dashboard.utils.api_cache import render_refresh_control  # noqa: E402
+from dashboard.utils.freshness import render_freshness  # noqa: E402
+
+render_refresh_control()
+render_freshness("ndma")
+
 # ==========================================================
 # INFRASTRUCTURE MISSION CONTROL DESIGN SYSTEM (CSS)
 # Tokens sourced 1:1 from DESIGN.md / code.html mockup.

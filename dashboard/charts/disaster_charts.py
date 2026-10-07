@@ -102,15 +102,12 @@ def province_risk_ranking_bar(
 
     ranked = province_summary.copy()
 
-    ranked["risk_score"] = (
-        ranked["deaths"] * 5
-        + ranked["injured"]
-    )
+    ranked["casualties"] = ranked["deaths"] + ranked["injured"]       # unweighted: no risk weighting is invented
 
     ranked = (
         ranked
         .sort_values(
-            "risk_score",
+            "casualties",
             ascending=True
         )
     )
@@ -119,13 +116,13 @@ def province_risk_ranking_bar(
 
         ranked,
 
-        x="risk_score",
+        x="casualties",
 
         y="province",
 
         orientation="h",
 
-        color="risk_score",
+        color="casualties",
 
         color_continuous_scale=_RISK_SCALE,
 
@@ -138,7 +135,7 @@ def province_risk_ranking_bar(
 
     fig.update_traces(
 
-        text=ranked["risk_score"],
+        text=ranked["casualties"],
 
         texttemplate="%{text:.0f}",
 
@@ -150,7 +147,7 @@ def province_risk_ranking_bar(
 
         hovertemplate=(
             "<b>%{y}</b><br>"
-            "Operational Risk: %{x:.0f}<br>"
+            "Reported casualties: %{x:.0f}<br>"
             "Deaths: %{customdata[0]:,.0f}<br>"
             "Injured: %{customdata[1]:,.0f}"
             "<extra></extra>"
@@ -162,7 +159,7 @@ def province_risk_ranking_bar(
 
         coloraxis_showscale=False,
 
-        xaxis_title="Operational Risk Score",
+        xaxis_title="Reported casualties (deaths + injured, unweighted)",
 
         yaxis_title="",
 
@@ -190,7 +187,7 @@ def province_risk_ranking_bar(
 
     return _apply_base_layout(
         fig,
-        "🏆 Province Risk Ranking",
+        "🏆 Provinces by reported casualties",
         360,
     )
 
@@ -467,10 +464,7 @@ def disaster_heatmap(
 
     matrix = province_summary.copy()
 
-    matrix["risk_score"] = (
-        matrix["deaths"] * 5
-        + matrix["injured"]
-    )
+    matrix["casualties"] = matrix["deaths"] + matrix["injured"]       # unweighted: no risk weighting is invented
 
     # ---------------------------------------------------------------
     # Sort provinces by overall risk
@@ -479,7 +473,7 @@ def disaster_heatmap(
     matrix = (
         matrix
         .sort_values(
-            "risk_score",
+            "casualties",
             ascending=False
         )
         .reset_index(drop=True)
@@ -493,14 +487,14 @@ def disaster_heatmap(
 
     injured = matrix["injured"].astype(float)
 
-    risk = matrix["risk_score"].astype(float)
+    risk = matrix["casualties"].astype(float)
 
     # ---------------------------------------------------------------
     # Normalize EACH metric independently to 0-100.
     #
     # This is the important fix.
     #
-    # Previously Risk Score had a much larger numerical range and
+    # Previously the combined score had a much larger numerical range and
     # completely dominated the heatmap.
     # ---------------------------------------------------------------
 
@@ -573,7 +567,7 @@ def disaster_heatmap(
             y=[
                 "Deaths",
                 "Injured",
-                "Risk Score",
+                "Total casualties",
             ],
 
             text=text,

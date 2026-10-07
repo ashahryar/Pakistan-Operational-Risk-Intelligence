@@ -7,6 +7,7 @@ from datetime import date
 import streamlit as st
 
 from dashboard.api_client import RiskApiClient
+from dashboard.utils.api_cache import cached_api
 from dashboard.utils.agent_helpers import BASELINE_LABEL, candidate_rows, ml_rows, provenance_rows, routing_text, status_banner, tool_trace_table
 from dashboard.utils.intelligence_helpers import area_options, risk_metrics, score_caption, signal_summary
 from dashboard.utils.rag_helpers import MODES, evidence_caption, relevance_notice
@@ -19,12 +20,15 @@ def _client() -> RiskApiClient:
     return RiskApiClient()
 
 
-@st.cache_data(ttl=300, show_spinner=False)
+@cached_api(ttl=300)
+def _admin_units(base_url: str, level: int):
+    return _client().admin_units(level=level)
+
+
 def _units(base_url: str):
-    c = _client()
     rows = []
     for level in (1, 2):
-        res = c.admin_units(level=level)
+        res = _admin_units(base_url, level)
         if res.ok and res.data:
             rows += [{"id": u["id"], "name": u["name"], "level": u["level"], "province": u.get("province")} for u in res.data]
     return rows

@@ -63,28 +63,50 @@ def render_ndma_kpis(summary: pd.DataFrame, casualties: pd.DataFrame) -> None:
                "Rescue figures are cumulative in the same way.")
 
 
-def render_coverage(rainfall: pd.DataFrame, weather: pd.DataFrame, casualties: pd.DataFrame, evidence: dict, risk: dict) -> None:
+def _freshness_cells(fresh: Optional[dict], domain: str, fallback: Optional[str]) -> tuple[str, str]:
+    """(latest, status) from the API freshness row; without it, the date derived from the loaded data and an explicit 'unknown' status."""
+    from dashboard.utils.freshness import describe          # local import: the helper imports streamlit/the API client
+    row = (fresh or {}).get(domain)
+    if not row:
+        return fallback or NA, "freshness unavailable"
+    d = describe(row)
+    latest_text = pd.to_datetime(d["latest"]).strftime("%d %b %Y") if d["latest"] else NA
+    status = {"current": "current", "stale": f"stale ({d['age_days']} days old)", "source_unavailable": "source unavailable: no newer ingestion",
+              "no_data": "no data available"}.get(d["state"], "unknown")
+    return latest_text, status
+
+
+def render_coverage(rainfall: pd.DataFrame, weather: pd.DataFrame, casualties: pd.DataFrame, evidence: dict, risk: dict, fresh: Optional[dict] = None) -> None:
     st.subheader("Data and evidence coverage")
     gauge = evidence or {}
     gs = gauge.get("summary", {})
     states = gs.get("state_counts", {})
+    gauge_latest = max((s["date_max"] for s in gauge.get("stations", []) if s.get("date_max")), default=None)
+    cells = {
+        "ndma": _freshness_cells(fresh, "ndma", latest(casualties, "report_date")),
+        "pdma_rainfall": _freshness_cells(fresh, "pdma_rainfall", latest(rainfall, "report_date")),
+        "pmd_weather": _freshness_cells(fresh, "pmd_weather", latest(weather, "scraped_at")),
+        "pdma_gauge": _freshness_cells(fresh, "pdma_gauge", pd.to_datetime(gauge_latest).strftime("%d %b %Y") if gauge_latest else None),
+        "risk": _freshness_cells(fresh, "risk", pd.to_datetime(risk["latest_date"]).strftime("%d %b %Y") if risk and risk.get("latest_date") else None),
+    }
     rows = [
-        {"Domain": "NDMA sitreps (province)", "Records": fmt(len(casualties)) if casualties is not None else NA, "Latest": latest(casualties, "report_date") or NA,
-         "Geography": "province level"},
-        {"Domain": "PDMA rainfall", "Records": fmt(len(rainfall)) if rainfall is not None else NA, "Latest": latest(rainfall, "report_date") or NA,
-         "Geography": "station names resolved to districts by a deterministic resolver; some stay unresolved"},
-        {"Domain": "PMD weather forecasts", "Records": fmt(len(weather)) if weather is not None else NA, "Latest": latest(weather, "scraped_at") or NA,
-         "Geography": "one dated snapshot: no weather history"},
-        {"Domain": "River gauges (PDMA)", "Records": fmt(gs.get("observations")),
-         "Latest": (pd.to_datetime(max((s["date_max"] for s in gauge.get("stations", []) if s.get("date_max")), default=None)).strftime("%d %b %Y")
-                    if any(s.get("date_max") for s in gauge.get("stations", [])) else NA),
+        {"Domain": "NDMA sitreps (province)", "Records": fmt(len(casualties)) if casualties is not None else NA, "Latest available": cells["ndma"][0],
+         "Status": cells["ndma"][1], "Geography": "province level"},
+        {"Domain": "PDMA rainfall", "Records": fmt(len(rainfall)) if rainfall is not None else NA, "Latest available": cells["pdma_rainfall"][0],
+         "Status": cells["pdma_rainfall"][1], "Geography": "station names resolved to districts by a deterministic resolver; some stay unresolved"},
+        {"Domain": "PMD weather forecasts", "Records": fmt(len(weather)) if weather is not None else NA, "Latest available": cells["pmd_weather"][0],
+         "Status": cells["pmd_weather"][1], "Geography": "one dated snapshot: no weather history"},
+        {"Domain": "River gauges (PDMA)", "Records": fmt(gs.get("observations")), "Latest available": cells["pdma_gauge"][0], "Status": cells["pdma_gauge"][1],
          "Geography": f"{states.get('ELIGIBLE', 0)} of {gs.get('stations', 0)} stations mapped to a district from official evidence; "
                       f"{states.get('CONFLICTING_GEOGRAPHY', 0)} conflicting, {states.get('SECONDARY_ONLY', 0)} secondary-only, {states.get('UNRESOLVED', 0)} unresolved"
                       if gs else "evidence endpoint unavailable"},
-        {"Domain": "Operational risk rows (latest per area)", "Records": fmt(risk.get("areas")) if risk else NA, "Latest": risk.get("latest_date") or NA,
+        {"Domain": "Operational risk rows (latest per area)", "Records": fmt(risk.get("areas")) if risk else NA, "Latest available": cells["risk"][0],
+         "Status": cells["risk"][1] + ("; computed by hand after ingestion, may lag" if risk else ""),
          "Geography": f"{risk.get('with_usable_signal', 0)} areas with a usable signal; {risk.get('insufficient_data', 0)} insufficient data" if risk else "risk API unavailable"},
     ]
     st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
+    st.caption("Latest available is the newest date in the data itself (report date, observation time or scrape time, depending on the domain). "
+               "Status compares it with today and with the state of the ingesting DAG.")
 
 
 def render_risk_availability(risk: dict, risk_date: Optional[str]) -> None:

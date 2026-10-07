@@ -33,6 +33,12 @@ st.set_page_config(
 
 st.info('Source: NDMA situation reports (province level; no district geography exists in this table). NDMA figures are cumulative per report, so totals use the peak reported value per province and the charts show the increments between reports. Data are a snapshot of published reports, not a live feed.')
 
+from dashboard.utils.api_cache import render_refresh_control  # noqa: E402
+from dashboard.utils.freshness import render_freshness  # noqa: E402
+
+render_refresh_control()
+render_freshness("ndma")
+
 # ==========================================================
 # COMMAND SURFACE DESIGN SYSTEM (CSS) -- unchanged theme,
 # extended with responsive rules at the bottom of this block.

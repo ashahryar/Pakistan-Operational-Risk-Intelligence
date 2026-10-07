@@ -53,6 +53,12 @@ st.set_page_config(
 
 st.info("Source: PDMA Punjab rainfall reports. 'Stations' are the free-text names printed in the reports: some are district lists, abbreviations or table headers and stay unresolved rather than being guessed. Only resolved names are attributed to a district (see the Geographic Observation section on Home).")
 
+from dashboard.utils.api_cache import render_refresh_control  # noqa: E402
+from dashboard.utils.freshness import render_freshness  # noqa: E402
+
+render_refresh_control()
+render_freshness("pdma_rainfall")
+
 # ==========================================================
 # AUTO REFRESH
 # ==========================================================
@@ -658,8 +664,8 @@ with left:
         render_status_card(
             "🛰",
             "Latest rainfall report",
-            f"{latest_update.strftime('%d %b %Y')} &nbsp;·&nbsp; {latest_update.strftime('%I:%M:%S %p')}",
-            "Dashboard refreshes automatically every 60 seconds.",
+            f"{latest_update.strftime('%d %b %Y')}",
+            "Report date of the newest parsed rainfall report. Data are re-read from the database about once a minute.",
             dot_color="var(--ob-success)",
         ),
         unsafe_allow_html=True,
@@ -908,7 +914,7 @@ with left:
             latest_date.strftime("%d %b %Y"),
             f"Stations Reporting : {station_count} &nbsp;·&nbsp; "
             f"Current Status : {status}<br>"
-            f"Dashboard refreshes automatically after every ETL execution.",
+            f"Report date of the newest parsed report; re-read about once a minute.",
             dot_color=_STATUS_DOT_MAP.get(status, "var(--ob-success)"),
         ),
         unsafe_allow_html=True,
@@ -1492,7 +1498,7 @@ st.markdown(
     """
 <div style="text-align:center; color:var(--ob-text-dim); font-size:11.5px; font-family:var(--ob-font-body); padding-top:4px; line-height:1.7;">
 <b style="color:var(--ob-text-muted);">Source:</b> Provincial Disaster Management Authority (PDMA) Punjab<br>
-Dashboard refreshes automatically after each ETL/Airflow pipeline execution.<br>
+Data are re-read from the database about once a minute; use Refresh data in the sidebar to reload now.<br>
 Designed for Operational Risk Monitoring, Disaster Analytics and Executive Decision Support.
 </div>
 """,

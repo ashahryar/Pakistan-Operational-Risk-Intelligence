@@ -36,6 +36,12 @@ st.set_page_config(
 
 st.info('Source: PMD city forecasts. Only one dated collection exists, so there is no weather history: trend and comparison charts have a single date. Cities whose province could not be resolved appear as Unknown and are not assigned. Not an official forecast.')
 
+from dashboard.utils.api_cache import render_refresh_control  # noqa: E402
+from dashboard.utils.freshness import render_freshness  # noqa: E402
+
+render_refresh_control()
+render_freshness("pmd_weather")
+
 # ==========================================================
 # AUTO REFRESH
 # ==========================================================
@@ -2057,7 +2063,7 @@ st.markdown(
     """
 <div class="wx-footer">
 <b>Source:</b> Pakistan Meteorological Department (PMD)<br>
-The dashboard refreshes automatically after every Airflow pipeline execution.
+Data are re-read from the database about once a minute; use Refresh data in the sidebar to reload now.
 </div>
 """,
     unsafe_allow_html=True,

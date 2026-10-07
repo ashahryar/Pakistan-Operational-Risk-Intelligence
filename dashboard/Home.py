@@ -6,6 +6,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import streamlit as st
 
 from dashboard.api_client import RiskApiClient
+from dashboard.utils.api_cache import cached_api
 from dashboard.components.alerts import render_national_alert_center
 from dashboard.components.executive_landing import (
     render_coverage,
@@ -26,9 +27,12 @@ from dashboard.db import (
 from dashboard.sections.disaster import render_disaster_section
 from dashboard.sections.geo_intelligence import render_geo_intelligence_section
 from dashboard.styles.theme import load_css
+from dashboard.utils.api_cache import render_refresh_control
+from dashboard.utils.freshness import freshness_rows
 
 st.set_page_config(page_title="Pakistan Operational Risk Intelligence", page_icon="🇵🇰", layout="wide", initial_sidebar_state="expanded")
 load_css()
+render_refresh_control()
 
 
 @st.cache_resource
@@ -36,12 +40,12 @@ def _client() -> RiskApiClient:
     return RiskApiClient()
 
 
-@st.cache_data(ttl=120, show_spinner=False)
+@cached_api(ttl=120)
 def _risk_latest(base_url: str):
     return _client().risk_latest(limit=500)
 
 
-@st.cache_data(ttl=300, show_spinner=False)
+@cached_api(ttl=120)
 def _gauge_evidence(base_url: str):
     return _client()._get("/api/v1/evidence/gauge-stations")
 
@@ -62,7 +66,7 @@ evidence = evidence_res.data if evidence_res.ok else None
 render_intro()
 render_ndma_kpis(ndma, casualties)
 st.divider()
-render_coverage(rainfall, weather, casualties, evidence, risk)
+render_coverage(rainfall, weather, casualties, evidence, risk, freshness_rows())
 st.divider()
 render_risk_availability(risk, risk_date)
 st.divider()

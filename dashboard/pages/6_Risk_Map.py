@@ -18,6 +18,8 @@ import plotly.express as px
 import streamlit as st
 
 from dashboard.api_client import RiskApiClient
+from dashboard.utils.api_cache import cached_api, render_refresh_control
+from dashboard.utils.freshness import render_freshness
 from dashboard.styles.theme import load_css
 from dashboard.utils.risk_map_helpers import (
     NO_DATA,
@@ -36,6 +38,7 @@ from dashboard.utils.risk_map_helpers import (
 
 st.set_page_config(page_title="Operational Risk Map", page_icon="🗺️", layout="wide")
 load_css()
+render_refresh_control()
 
 LATEST = "Latest available"
 ALL = "All"
@@ -47,27 +50,27 @@ def _client() -> RiskApiClient:
 
 
 # Cached API reads (5 min). A failed result is not kept: the cache is cleared so the next run retries.
-@st.cache_data(ttl=300, show_spinner=False)
+@cached_api(ttl=300)
 def _provinces(base_url: str):
     return _client().admin_units(level=1)
 
 
-@st.cache_data(ttl=300, show_spinner=False)
+@cached_api(ttl=300)
 def _all_risk_rows(base_url: str):
     return _client().risk(limit=2000)
 
 
-@st.cache_data(ttl=300, show_spinner="Loading map from the API…")
+@cached_api(ttl=300)
 def _risk_map(base_url: str, level, province, status):
     return _client().risk_map(level=level, province=province, risk_status=status)
 
 
-@st.cache_data(ttl=300, show_spinner=False)
+@cached_api(ttl=300)
 def _risk_on_date(base_url: str, date, province):
     return _client().risk(date=date, province=province, limit=2000)
 
 
-@st.cache_data(ttl=300, show_spinner=False)
+@cached_api(ttl=300)
 def _area_detail(base_url: str, admin_unit_id: int, date):
     c = _client()
     return c.risk_latest(admin_unit_id=admin_unit_id) if date is None else c.risk(date=date, admin_unit_id=admin_unit_id, limit=1)
@@ -88,6 +91,7 @@ base = _client().base_url
 st.title("🗺️ National Operational Risk Map")
 st.caption("Served by the PORI API. Statuses are provisional engine outputs (thresholds are not authoritative); "
            "no numeric risk score exists in this version.")
+render_freshness("risk")
 
 provinces_res = _provinces(base)
 if not provinces_res.ok:

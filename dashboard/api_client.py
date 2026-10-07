@@ -82,6 +82,10 @@ class RiskApiClient:
             msg = f"This feature is unavailable: {detail}"
         return ApiResult(False, error_kind=kind, message=msg, status_code=code)
 
+    # -- freshness (Task 41)
+    def freshness(self) -> ApiResult:
+        return self._get("/api/v1/freshness")
+
     # -- geography
     def admin_units(self, level: Optional[int] = None, province: Optional[str] = None, limit: int = 500) -> ApiResult:
         return self._get("/api/v1/geography/admin-units", {"level": level, "province": province, "limit": limit})
