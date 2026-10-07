@@ -39,3 +39,15 @@ def evidence_caption(e: dict) -> str:
     ref = e.get("source_reference") or {}
     parts.append(ref.get("url") or ref.get("file_path") or "no source reference")
     return " · ".join(str(p) for p in parts)
+
+
+def relevance_notice(retrieval: Optional[dict]) -> Optional[tuple[str, str]]:
+    """Task 35: when retrieval found only low-relevance chunks the UI must say NO_EVIDENCE plainly (and never show those chunks as evidence).
+    -> (streamlit level, message) or None when relevant evidence exists / the response carries no relevance decision."""
+    rel = (retrieval or {}).get("relevance")
+    if not rel or not rel.get("abstained"):
+        return None
+    withheld = rel.get("low_relevance_count") or 0
+    return ("info", f"NO_EVIDENCE - no document passage passed the relevance check for this question"
+                    f"{f' ({withheld} loosely matching passage(s) were withheld and are NOT shown as evidence)' if withheld else ''}. "
+                    f"{rel.get('abstention_reason') or ''}".strip())

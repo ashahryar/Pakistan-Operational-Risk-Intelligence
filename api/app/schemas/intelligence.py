@@ -29,6 +29,7 @@ class IntelligenceRetrieval(BaseModel):
     min_score: Optional[float] = None
     embedding_model: Optional[dict[str, Any]] = None
     note: str
+    relevance: Optional[dict[str, Any]] = None    # Task 35: relevance_status RELEVANT | NO_EVIDENCE, abstained, abstention_reason, counts, policy, withheld chunk ids
 
 
 class MlPredictionBlock(BaseModel):
@@ -58,6 +59,7 @@ class IntelligenceModel(BaseModel):
     model: Optional[str] = None
     configured: bool
     error: Optional[str] = None
+    called: Optional[bool] = None                 # Task 35: false when no language model was called (e.g. no relevant evidence)
 
 
 class IntelligenceGroundedness(BaseModel):

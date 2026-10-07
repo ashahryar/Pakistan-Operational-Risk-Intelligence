@@ -124,6 +124,7 @@ def ask_intelligence(q: str, admin_unit_id: Optional[int], province: Optional[st
     retrieval = {"mode": mode, "method": result["retrieval"]["method"], "evidence_count": len(records), "top_k": top_k,
                  "filters_requested": attempts[0]["filters"], "filters_applied": used["filters"], "filters_relaxed": used["relaxed"],
                  "min_score": result["retrieval"]["min_score"], "embedding_model": result["retrieval"]["embedding_model"],
+                 "relevance": result["retrieval"].get("relevance"),
                  "note": DOC_NOTE + (" Inferred filters were relaxed because the stricter search found nothing." if used["relaxed"] else "")}
     ctx = IntelligenceContext(q, qd, block, records, retrieval, ml_block)
 
@@ -139,7 +140,7 @@ def ask_intelligence(q: str, admin_unit_id: Optional[int], province: Optional[st
             citations.append({"kind": "ml_prediction", "model_run_ids": sorted({p["model_run_id"] for p in ml_block["predictions"]})})
         d = ctx.to_dict()
         return {**d, "status": status, "answer": answer, "citations": citations,
-                "model": model or {"provider": None, "model": None, "configured": False},
+                "model": model or {"provider": None, "model": None, "configured": False, "called": False},
                 "groundedness": {"citations_valid": (not any(p["code"] in ("unknown_citation", "no_citations", "mixed_provenance_sentence",
                                                                            "engine_citation_without_risk_context", "ml_citation_without_prediction") for p in v.problems)) if judged else None,
                                  "risk_context_supplied": block["status"] == rc.AVAILABLE, "evidence_supplied": len(records),
@@ -156,10 +157,10 @@ def ask_intelligence(q: str, admin_unit_id: Optional[int], province: Optional[st
     try:
         provider = get_llm_provider()
     except LLMUnavailable as exc:
-        return body(g.LLM_UNAVAILABLE, model={"provider": None, "model": None, "configured": False, "error": str(exc)}), 503
+        return body(g.LLM_UNAVAILABLE, model={"provider": None, "model": None, "configured": False, "error": str(exc), "called": False}), 503
     outcome = answer_intelligence(q, rc.risk_prompt_item(block), items, provider, constraints_from_env(), rc.ml_prompt_item(ml_block))
     model = {"provider": outcome.provider or getattr(provider, "name", None), "model": outcome.model or getattr(provider, "model", None),
-             "configured": True, "error": outcome.llm_error}
+             "configured": True, "error": outcome.llm_error, "called": True}
     if outcome.status == g.LLM_UNAVAILABLE:
         return body(g.LLM_UNAVAILABLE, outcome=outcome, model=model), 503
     return body(outcome.status, outcome.answer, outcome, model, outcome.validation.citations if outcome.status == g.ANSWERED else ()), 200

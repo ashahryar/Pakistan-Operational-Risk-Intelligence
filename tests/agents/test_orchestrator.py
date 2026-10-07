@@ -198,7 +198,7 @@ def test_a_valid_grounded_answer_is_returned_with_attributed_citations():
     assert body["status"] == C.ANSWERED and http == 200 and body["answer"].startswith("The risk engine reports")
     kinds = {c["kind"]: c for c in body["citations"]}
     assert kinds["risk_engine"]["provenance"] == C.RISK_ENGINE and kinds["ml_prediction"]["attributions"] == [C.BASELINE_MODEL]
-    assert body["model"] == {"provider": "scripted", "model": "s-1", "configured": True, "error": None} and body["groundedness"]["citations_valid"] is True
+    assert body["model"] == {"provider": "scripted", "model": "s-1", "configured": True, "error": None, "called": True} and body["groundedness"]["citations_valid"] is True
     assert len(p.calls) == 1                                                                      # deterministic routing: the model is only used for the answer
     sent = p.calls[-1]
     assert [e["kind"] for e in sent["evidence"]] == ["risk_engine", "ml_prediction"] and sent["evidence"][1]["validated_against_baseline"] is False

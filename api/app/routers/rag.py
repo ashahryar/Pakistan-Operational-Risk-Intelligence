@@ -56,8 +56,10 @@ def search(q: str = Query(..., min_length=2, max_length=200, description="keywor
            admin_unit_id: Optional[int] = Query(None, ge=1), event_type: Optional[str] = None,
            date_from: Optional[date] = None, date_to: Optional[date] = None, limit: int = Query(10, ge=1, le=50),
            mode: Literal["lexical", "semantic", "hybrid"] = Query("lexical", description="lexical = BM25 keyword baseline (default); semantic = embedding similarity; hybrid = BM25 + semantic by rank fusion"),
-           min_score: Optional[float] = Query(None, ge=0, le=1, description="semantic / hybrid modes: minimum cosine similarity of the semantic component")):
-    """Evidence search: returns source chunks with provenance. It does not generate an answer."""
+           min_score: Optional[float] = Query(None, ge=0, le=1, description="semantic / hybrid modes: minimum cosine similarity of the semantic component"),
+           only_relevant: bool = Query(False, description="drop results the relevance policy classifies as LOW_RELEVANCE (default: keep them, each is labelled in relevance.assessment)")):
+    """Evidence search: returns source chunks with provenance. It does not generate an answer. Each result carries a relevance assessment and the response states
+    whether the query as a whole has relevant evidence (relevance_status RELEVANT | NO_EVIDENCE)."""
     _check(admin_unit_id, date_from, date_to)
     if min_score is not None and mode == "lexical":
         raise HTTPException(status_code=422, detail="min_score applies to mode=semantic or mode=hybrid only")
@@ -65,10 +67,10 @@ def search(q: str = Query(..., min_length=2, max_length=200, description="keywor
                             event_type=event_type, date_from=date_from.isoformat() if date_from else None,
                             date_to=date_to.isoformat() if date_to else None)
     if mode == "semantic":
-        return search_semantic_evidence(q, filters, limit, min_score)
+        return search_semantic_evidence(q, filters, limit, min_score, only_relevant)
     if mode == "hybrid":
-        return search_hybrid_evidence(q, filters, limit, min_score)
-    return search_evidence(q, filters, limit)
+        return search_hybrid_evidence(q, filters, limit, min_score, only_relevant)
+    return search_evidence(q, filters, limit, only_relevant)
 
 
 @router.get("/ask", response_model=AskResponse,

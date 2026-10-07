@@ -102,7 +102,37 @@ def get_semantic_retriever():
         return _sem_cache["retriever"], lexical
 
 
-def search_semantic_evidence(q: str, filters: SearchFilters, limit: int, min_score: Optional[float] = None) -> dict:
+# ---------------------------------------------------------------------------------------------------- Task 35: relevance gate
+def _cosines_fn(retriever):
+    """The cosine function of a semantic / hybrid retriever (None for lexical)."""
+    fn = getattr(retriever, "cosines", None)
+    if fn is None and getattr(retriever, "semantic", None) is not None:
+        fn = retriever.semantic.cosines
+    return fn
+
+
+def _gate(mode: str, q: str, hits, retriever, lexical):
+    from pipeline.rag import relevance
+    return relevance.gate(mode, q, hits, lexical, _cosines_fn(retriever))
+
+
+def _relevance_block(summary: dict, assessments: list) -> dict:
+    """The relevance decision of a retrieval, for the ask / intelligence / agent responses. Withheld (low-relevance) chunks are listed by id and signals only,
+    never as evidence."""
+    return {**summary, "withheld_chunks": [{"chunk_id": a["chunk_id"], "coverage": a["coverage"], "cosine": a["cosine"]} for a in assessments if a["label"] != "RELEVANT"][:10]}
+
+
+def _annotate(results: list, assessments: list, summary: dict, only_relevant: bool) -> dict:
+    """Backward-compatible additions to a search response: every result gets `relevance.assessment`; the response gets the query-level decision.
+    Results are not removed unless the caller asks (`only_relevant`)."""
+    for r, a in zip(results, assessments):
+        r["relevance"]["assessment"] = {"label": a["label"], "coverage": a["coverage"], "absent_share": a["absent_share"], "cosine": a["cosine"]}
+    kept = [r for r in results if r["relevance"]["assessment"]["label"] == "RELEVANT"] if only_relevant else results
+    return {"results": kept, "count": len(kept), "relevance_status": summary["relevance_status"], "abstained": summary["abstained"],
+            "abstention_reason": summary["abstention_reason"], "relevance_policy": summary["policy"]}
+
+
+def search_semantic_evidence(q: str, filters: SearchFilters, limit: int, min_score: Optional[float] = None, only_relevant: bool = False) -> dict:
     """Semantic (embedding) retrieval returning the same evidence records as the lexical search. 503 if unavailable."""
     from fastapi import HTTPException
 
@@ -114,6 +144,8 @@ def search_semantic_evidence(q: str, filters: SearchFilters, limit: int, min_sco
         raise HTTPException(status_code=503, detail=f"Semantic retrieval is unavailable: {exc}") from exc
     chunk_by_id = {c["chunk_id"]: c for c in lexical.chunks}
     results = [build_evidence(h, lexical.docs[h.document_id], chunk_by_id[h.chunk_id]) for h in hits]
+    _, ass, summary = _gate("semantic", q, hits, retriever, lexical)
+    extra = _annotate(results, ass, summary, only_relevant)
     info = retriever.embedder.info
     return {"query": q, "mode": "semantic", "retrieval_method": retriever.method,
             "retrieval_note": "Semantic vector retrieval: cosine similarity between the query embedding and stored chunk embeddings "
@@ -121,17 +153,20 @@ def search_semantic_evidence(q: str, filters: SearchFilters, limit: int, min_sco
                               "evidence; no answer is generated.",
             "embedding_model": {"name": info.name, "version": info.version, "dimension": info.dimension},
             "min_score": retriever.min_score if min_score is None else min_score,
-            "filters": {k: v for k, v in filters.__dict__.items() if v is not None}, "count": len(results), "results": results}
+            "filters": {k: v for k, v in filters.__dict__.items() if v is not None}, **extra}
 
 
-def search_evidence(q: str, filters: SearchFilters, limit: int) -> dict:
+def search_evidence(q: str, filters: SearchFilters, limit: int, only_relevant: bool = False) -> dict:
     retriever = get_retriever()
     chunk_by_id = {c["chunk_id"]: c for c in retriever.chunks}
-    results = [build_evidence(h, retriever.docs[h.document_id], chunk_by_id[h.chunk_id]) for h in retriever.search(q, filters, limit)]
+    hits = retriever.search(q, filters, limit)
+    results = [build_evidence(h, retriever.docs[h.document_id], chunk_by_id[h.chunk_id]) for h in hits]
+    _, ass, summary = _gate("lexical", q, hits, retriever, retriever)
+    extra = _annotate(results, ass, summary, only_relevant)
     return {"query": q, "mode": "lexical", "retrieval_method": RETRIEVAL_METHOD,
             "retrieval_note": "Lexical keyword baseline: matches words that literally occur in the text. Not semantic/vector search; "
                               "no answer is generated -- these are source evidence records.",
-            "filters": {k: v for k, v in filters.__dict__.items() if v is not None}, "count": len(results), "results": results}
+            "filters": {k: v for k, v in filters.__dict__.items() if v is not None}, **extra}
 
 
 def _where(source, source_type, province, admin_unit_id, event_type, date_from, date_to) -> tuple[str, dict]:
@@ -214,7 +249,7 @@ def _embedding_info(retriever) -> dict:
     return {"name": info.name, "version": info.version, "dimension": info.dimension}
 
 
-def search_hybrid_evidence(q: str, filters: SearchFilters, limit: int, min_score: Optional[float] = None) -> dict:
+def search_hybrid_evidence(q: str, filters: SearchFilters, limit: int, min_score: Optional[float] = None, only_relevant: bool = False) -> dict:
     """Hybrid (BM25 + semantic, reciprocal rank fusion) retrieval returning the usual evidence records. 503 if semantic is unavailable."""
     from fastapi import HTTPException
 
@@ -226,9 +261,11 @@ def search_hybrid_evidence(q: str, filters: SearchFilters, limit: int, min_score
         raise HTTPException(status_code=503, detail=f"Hybrid retrieval is unavailable (it needs semantic retrieval): {exc}") from exc
     chunk_by_id = {c["chunk_id"]: c for c in lexical.chunks}
     results = [build_evidence(h, lexical.docs[h.document_id], chunk_by_id[h.chunk_id]) for h in hits]
+    _, ass, summary = _gate("hybrid", q, hits, retriever, lexical)
+    extra = _annotate(results, ass, summary, only_relevant)
     return {"query": q, "mode": "hybrid", "retrieval_method": retriever.method, "retrieval_note": HYBRID_NOTE,
             "embedding_model": _embedding_info(retriever), "min_score": retriever.min_score if min_score is None else min_score,
-            "filters": {k: v for k, v in filters.__dict__.items() if v is not None}, "count": len(results), "results": results}
+            "filters": {k: v for k, v in filters.__dict__.items() if v is not None}, **extra}
 
 
 def _retrieve_for_ask(q: str, filters: SearchFilters, limit: int, mode: str, min_score: Optional[float]):
@@ -258,13 +295,14 @@ def ask_question(q: str, filters: SearchFilters, mode: str, top_k: int, min_scor
     except (SemanticUnavailable, EmbeddingUnavailable) as exc:
         raise HTTPException(status_code=503, detail=f"{mode.capitalize()} retrieval is unavailable: {exc}") from exc
     chunk_by_id = {c["chunk_id"]: c for c in lexical.chunks}
-    selected = g.select_evidence(hits, chunk_by_id, top_k)
+    rel_hits, ass, summary = _gate(mode, q, hits, retriever, lexical)                 # Task 35: only chunks that pass the relevance policy are evidence
+    selected = g.select_evidence(rel_hits, chunk_by_id, top_k)
     records = [build_evidence(h, lexical.docs[h.document_id], chunk_by_id[h.chunk_id]) for h in selected]
     items = g.pack_evidence(records, chunk_by_id)
-    retrieval = {"mode": mode, "method": retriever.method, "evidence_count": len(records), "top_k": top_k,
+    retrieval = {"mode": mode, "method": retriever.method, "evidence_count": len(records), "top_k": top_k, "relevance": _relevance_block(summary, ass),
                  "filters": {k: v for k, v in filters.__dict__.items() if v is not None}, "min_score": details["min_score"],
                  "embedding_model": details["embedding_model"],
-                 "note": "Evidence is the top-ranked distinct chunks (duplicate boilerplate chunks are skipped)."}
+                 "note": "Evidence is the top-ranked distinct chunks that pass the relevance policy (duplicate boilerplate chunks are skipped; low-relevance chunks are withheld)."}
     note = "Deterministic provenance check: cited ids must be among the supplied evidence and each sentence must cite. It is not fact checking."
 
     def body(status, answer, outcome=None, model=None, cited=()):
@@ -274,7 +312,7 @@ def ask_question(q: str, filters: SearchFilters, mode: str, top_k: int, min_scor
                 "citations": [{"chunk_id": e["chunk_id"], "document_id": e["document_id"], "title": e["title"], "source": e["source"],
                                "document_date": e["document_date"], "source_reference": e["source_reference"]}
                               for e in records if e["chunk_id"] in cited],
-                "evidence": records, "retrieval": retrieval, "model": model or {"provider": None, "model": None, "configured": False},
+                "evidence": records, "retrieval": retrieval, "model": model or {"provider": None, "model": None, "configured": False, "called": False},
                 "groundedness": {"citations_valid": (not any(p["code"] in ("unknown_citation", "no_citations") for p in v.problems)) if judged else None,
                                  "all_sentences_cited": (not v.uncited_sentences) if judged else None,
                                  "evidence_supplied": len(records), "evidence_cited": len(cited), "problems": v.problems if v else [],
@@ -287,10 +325,10 @@ def ask_question(q: str, filters: SearchFilters, mode: str, top_k: int, min_scor
     try:
         provider = get_llm_provider()
     except LLMUnavailable as exc:
-        return body(g.LLM_UNAVAILABLE, None, model={"provider": None, "model": None, "configured": False, "error": str(exc)}), 503
+        return body(g.LLM_UNAVAILABLE, None, model={"provider": None, "model": None, "configured": False, "error": str(exc), "called": False}), 503
     outcome = g.answer_question(q, items, provider, constraints_from_env())
     model = {"provider": outcome.provider or getattr(provider, "name", None), "model": outcome.model or getattr(provider, "model", None),
-             "configured": True, "error": outcome.llm_error}
+             "configured": True, "error": outcome.llm_error, "called": True}
     if outcome.status == g.LLM_UNAVAILABLE:
         return body(g.LLM_UNAVAILABLE, None, outcome, model), 503
     return body(outcome.status, outcome.answer, outcome, model, outcome.validation.citations if outcome.status == g.ANSWERED else ()), 200
@@ -308,7 +346,9 @@ def retrieve_evidence(q: str, filters: SearchFilters, mode: str, top_k: int, min
     except (SemanticUnavailable, EmbeddingUnavailable) as exc:
         raise HTTPException(status_code=503, detail=f"{mode.capitalize()} retrieval is unavailable: {exc}") from exc
     chunk_by_id = {c["chunk_id"]: c for c in lexical.chunks}
-    selected = g.select_evidence(hits, chunk_by_id, top_k)
+    rel_hits, ass, summary = _gate(mode, q, hits, retriever, lexical)                 # Task 35: only chunks that pass the relevance policy are evidence
+    selected = g.select_evidence(rel_hits, chunk_by_id, top_k)
     records = [build_evidence(h, lexical.docs[h.document_id], chunk_by_id[h.chunk_id]) for h in selected]
     return {"records": records, "items": g.pack_evidence(records, chunk_by_id),
-            "retrieval": {"mode": mode, "method": retriever.method, "min_score": details["min_score"], "embedding_model": details["embedding_model"]}}
+            "retrieval": {"mode": mode, "method": retriever.method, "min_score": details["min_score"], "embedding_model": details["embedding_model"],
+                          "relevance": _relevance_block(summary, ass)}}

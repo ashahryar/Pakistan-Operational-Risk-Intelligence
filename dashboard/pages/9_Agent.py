@@ -19,7 +19,7 @@ from dashboard.api_client import RiskApiClient
 from dashboard.styles.theme import load_css
 from dashboard.utils.agent_helpers import BASELINE_LABEL, candidate_rows, ml_rows, provenance_rows, routing_text, status_banner, tool_trace_table
 from dashboard.utils.intelligence_helpers import area_options, risk_metrics, signal_summary
-from dashboard.utils.rag_helpers import MODES, evidence_caption
+from dashboard.utils.rag_helpers import MODES, evidence_caption, relevance_notice
 
 st.set_page_config(page_title="Operational Intelligence Agent", page_icon="🤖", layout="wide")
 load_css()
@@ -148,6 +148,9 @@ if submitted:
         st.caption(f"Provenance: RAG_DOCUMENT | retrieval: {r.get('mode')} ({r.get('method')}) | filters applied {r.get('filters_applied')}"
                    + (f" | relaxed: {', '.join(r['filters_relaxed'])}" if r.get("filters_relaxed") else ""))
     cited = {c["chunk_id"] for c in body.get("citations") or [] if c.get("kind") == "documentary"}
+    notice = relevance_notice(r)
+    if notice:
+        getattr(st, notice[0])(notice[1])
     if not body.get("documentary_evidence"):
         st.caption("No documentary evidence was retrieved" + ("." if r else " (the documents were not consulted for this question)."))
     for e in body.get("documentary_evidence") or []:

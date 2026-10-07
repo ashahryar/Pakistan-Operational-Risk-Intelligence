@@ -17,7 +17,7 @@ import streamlit as st
 
 from dashboard.api_client import RiskApiClient
 from dashboard.styles.theme import load_css
-from dashboard.utils.rag_helpers import FALLBACK_PROVINCES, MODES, SOURCES, citation_rows, evidence_caption, status_banner
+from dashboard.utils.rag_helpers import FALLBACK_PROVINCES, MODES, SOURCES, citation_rows, evidence_caption, relevance_notice, status_banner
 
 st.set_page_config(page_title="Ask the Reports", page_icon="💬", layout="wide")
 load_css()
@@ -76,6 +76,9 @@ if submitted:
     r = body.get("retrieval") or {}
     st.caption(f"Retrieval: {r.get('mode')} ({r.get('method')}) · {r.get('evidence_count')} passages · "
                f"Model: {model.get('provider') or 'not configured'}{' / ' + model['model'] if model.get('model') else ''}")
+    notice = relevance_notice(r)
+    if notice:
+        getattr(st, notice[0])(notice[1])
     g = body.get("groundedness") or {}
     for w in g.get("warnings") or []:
         st.warning(f"Number {w.get('number')} does not appear in the cited text: “{w.get('sentence')}”")

@@ -62,3 +62,15 @@ class SemanticRetriever:
         cand.sort()                                               # best score first; ties broken by chunk_id (deterministic)
         v = self.embedder.info.version
         return [Hit(cid, did, -s, self.method, (), v) for s, cid, did in cand[:limit]]
+
+    def cosines(self, query: str, chunk_ids) -> dict:
+        """Task 35: the cosine similarity between the query and each given chunk (any chunk, not only those above the floor). Same vectors and same
+        embedder as `search`; used to judge relevance of hits that another retriever returned."""
+        if not query or not query.strip() or not len(self.chunks):
+            return {}
+        q = np.asarray(self.embedder.embed_query(query), dtype=np.float32)
+        if q.shape != (self.embedder.info.dimension,) or not np.all(np.isfinite(q)):
+            raise IncompatibleEmbeddings("query embedding has the wrong shape or non-finite values")
+        sims = self.matrix @ q
+        index = {c["chunk_id"]: i for i, c in enumerate(self.chunks)}
+        return {cid: round(float(sims[index[cid]]), 6) for cid in chunk_ids if cid in index}

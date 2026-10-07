@@ -246,3 +246,15 @@ def test_page_against_the_live_api():
     assert any(s.value == "Tool Trace" for s in at.subheader) and any("RISK_ENGINE" in c.value for c in at.caption)
     at2 = ask(AppTest.from_file(PAGE, default_timeout=120).run(), "What is Islamabad's current risk status?")
     assert not at2.exception and any("ambiguous" in w.value.lower() for w in at2.warning)
+
+
+# ------------------------------------------------------------------ Task 35: NO_EVIDENCE from the relevance policy
+def test_agent_no_evidence_states_the_abstention_and_shows_no_chunk(monkeypatch):
+    rel = {"relevance_status": "NO_EVIDENCE", "abstained": True, "low_relevance_count": 5, "abstention_reason": "5 retrieved chunk(s) shared words with the question but none passed the relevance check"}
+    b = abody("NO_EVIDENCE", intent="DOCUMENT_SEARCH", risk=False, docs=False, ml=None, reason="requested information is not available (evidence: NO_EVIDENCE)",
+              comps={"evidence": {"status": "NO_EVIDENCE", "count": 0, "relevance_status": "NO_EVIDENCE"}})
+    b["retrieval"] = {"mode": "hybrid", "method": None, "evidence_count": 0, "filters_applied": {"province": "Sindh"}, "filters_relaxed": [], "relevance": rel}
+    patch_api(monkeypatch, ApiResult(True, data=b))
+    at = ask(AppTest.from_file(PAGE, default_timeout=30).run(), "What did NDMA report about volcanic eruptions in Sindh?")
+    assert not at.exception and any("NO_EVIDENCE" in w.value for w in at.warning)
+    assert any("NO_EVIDENCE" in i.value and "5 loosely matching passage(s) were withheld" in i.value for i in at.info) and not any(CID in x.label for x in at.expander)

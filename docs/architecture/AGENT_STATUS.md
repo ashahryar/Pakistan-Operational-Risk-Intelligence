@@ -73,22 +73,22 @@ Every tool result carries `provenance.sources ⊆ {RISK_ENGINE, RAG_DOCUMENT, ML
 |---|---|
 | Routing accuracy (intent) | 36/36 |
 | Tool-selection accuracy (ordered tool list) | 36/36 |
-| Status accuracy | 35/36 (see D4) |
+| Status accuracy | 36/36 (35/36 before Task 35: D4 returned 5 off-topic chunks; see [`RAG_RELEVANCE_STATUS.md`](RAG_RELEVANCE_STATUS.md)) |
 | Invalid-call rejection | 20/20 direct calls rejected with 0 backend invocations; 10/10 model-proposed plans rejected by the validator and 10/10 end to end (`INVALID_TOOL_CALL`, nothing but the geography step executed) |
-| Provenance correctness | 193/193 checks; 11/11 risk records equal an independent SQL read; 3/3 baseline forecasts labelled and attributed to BASELINE_MODEL; ML row statuses equal an independent SQL read |
-| Abstention correctness | 20/21 abstained without facts (D4); 0/36 cases with an answer |
+| Provenance correctness | 192/192 checks (193 before Task 35: D4 no longer returns documents); 11/11 risk records equal an independent SQL read; 3/3 baseline forecasts labelled and attributed to BASELINE_MODEL; ML row statuses equal an independent SQL read |
+| Abstention correctness | 21/21 abstained without facts (20/21 before Task 35); 0/36 cases with an answer |
 | Grounding validation (scripted probes, not a model) | 9/9: the separated answer is ANSWERED; wrong status, false causality, baseline called validated ML, forecast as current risk / given a risk status, unknown citation, mixed provenance are withheld; abstention is reported |
 | False-premise handling | 4/4 (3 wrong premises corrected from the engine value, 1 correct-premise control) |
 | Reproducibility (same plan fingerprint on rerun) | 36/36 |
 
-**The one miss (D4, reported as found, expectation not tuned):** "What did NDMA report about volcanic eruptions in Sindh?" returned 5 chunks instead of `NO_EVIDENCE`. Lexical BM25 matches the filler words (NDMA, report, Sindh) and the retrieval layer has no relevance floor in lexical mode — the same off-topic-chunks limitation measured in Task 32. The agent only reports `NO_EVIDENCE` when retrieval returns nothing.
+**D4 (fixed in Task 35):** "What did NDMA report about volcanic eruptions in Sindh?" originally returned 5 chunks instead of `NO_EVIDENCE` because lexical BM25 has no relevance floor. The relevance policy (`pipeline/rag/relevance.py`, no rule about volcanoes) now classifies those chunks `LOW_RELEVANCE`, and the agent reports `NO_EVIDENCE`. D4 belongs to the policy's selection pool, so the independent evidence is the fresh holdout described in `RAG_RELEVANCE_STATUS.md`.
 
 ## Limitations
 
 * No real language model was available: LLM routing quality, answer quality and hallucination / causal-claim behaviour of a real model are **not measured**; the scripted-provider tests check our validators and the agent's handling only.
 * The guardrails and the grounding checks are wording heuristics, not proofs; a paraphrased unsafe request or claim can slip past them (the structural limits — no SQL / file / shell / HTTP tool, read-only backends — do not depend on wording).
 * Two-letter aliases (KP, GB) are not recognised in free text by the existing resolver (kept: no new matching); places are only recognised if they are canonical names or aliases.
-* Lexical retrieval returns loosely related chunks for off-topic questions (see D4); hybrid / semantic retrieval needs the embedding runtime (a lexical-only image answers those modes with a tool status `UNAVAILABLE`).
+* The relevance gate is a keyword-absence heuristic calibrated on a small set (see `RAG_RELEVANCE_STATUS.md` for its false-abstention cost and residual false positives); hybrid / semantic retrieval needs the embedding runtime (a lexical-only image answers those modes with a tool status `UNAVAILABLE`).
 * The only ML target is the Lahore AQI baseline forecast (Task 33): every other area is `INSUFFICIENT_DATA`, and forecasts for other targets or horizons are never substituted.
 * "Current" means the area's latest available risk record (its own maximum date), not today's date; the response states the risk date.
 * No conversation memory, no write capability, no autonomous multi-step loop — by design.

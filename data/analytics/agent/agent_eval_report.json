@@ -105,7 +105,7 @@
     },
     {
       "answer_is_null": true,
-      "evidence": 5,
+      "evidence": 1,
       "evidence_returned": true,
       "group": "supported",
       "http": 503,
@@ -212,7 +212,7 @@
     },
     {
       "answer_is_null": true,
-      "evidence": 5,
+      "evidence": 0,
       "group": "supported",
       "http": 503,
       "id": "S7-combined-why-forecast",
@@ -850,26 +850,26 @@
       "tools_correct": true
     },
     {
-      "abstained_without_facts": false,
+      "abstained_without_facts": true,
       "answer_is_null": true,
-      "evidence": 5,
+      "evidence": 0,
       "group": "insufficient",
-      "http": 503,
+      "http": 200,
       "id": "D4-no-matching-documents",
       "intent": "DOCUMENT_SEARCH",
       "intent_correct": true,
       "ml": null,
       "provenance_checks": {
         "failed": [],
-        "passed": 6,
-        "total": 6
+        "passed": 5,
+        "total": 5
       },
       "question": "What did NDMA report about volcanic eruptions in Sindh?",
       "reason_code": null,
       "reproducible": true,
       "risk": null,
-      "status": "LLM_UNAVAILABLE",
-      "status_correct": false,
+      "status": "NO_EVIDENCE",
+      "status_correct": true,
       "tools": [
         "geography.resolve_place",
         "rag.retrieve"
@@ -1480,7 +1480,7 @@
   },
   "summary": {
     "abstention_correctness": {
-      "abstained_correctly": "20/21",
+      "abstained_correctly": "21/21",
       "cases_expected_to_abstain_without_facts": 21,
       "cases_with_a_fabricated_answer": 0
     },
@@ -1500,7 +1500,7 @@
       "insufficient": {
         "cases": 5,
         "intent_correct": 5,
-        "status_correct": 4,
+        "status_correct": 5,
         "tools_correct": 5
       },
       "supported": {
@@ -1530,17 +1530,18 @@
     "provenance_correctness": {
       "baseline_forecasts_labelled_and_attributed": "3/3",
       "cases_with_all_checks_passing": "36/36",
-      "checks_passed": "193/193",
+      "checks_passed": "192/192",
       "risk_record_equals_independent_sql": "11/11"
     },
     "reproducibility_same_plan_fingerprint_on_rerun": "36/36",
     "routing_accuracy": "36/36",
-    "status_accuracy": "35/36",
+    "status_accuracy": "36/36",
     "status_counts": {
       "AMBIGUOUS_GEOGRAPHY": 3,
       "COMPLETED": 2,
       "INSUFFICIENT_DATA": 4,
-      "LLM_UNAVAILABLE": 14,
+      "LLM_UNAVAILABLE": 13,
+      "NO_EVIDENCE": 1,
       "UNSUPPORTED_REQUEST": 13
     },
     "tool_selection_accuracy": "36/36"

@@ -35,7 +35,7 @@ def test_documentary_evidence_and_unsupported_handling(evaluation):
     assert s["documentary_evidence_has_expected_term"] == "8/8" and s["unsupported_without_risk_context"] == "4/4"
     assert case(evaluation, "unsupported_cake")["status"] == "RETRIEVAL_EMPTY"
     junk = s["unsupported_junk_chunks_returned"]
-    assert junk["unsupported_hurricane"] > 0 and junk["unsupported_bitcoin"] > 0               # known limitation: hybrid retrieval passes keyword junk through
+    assert all(n == 0 for n in junk.values())                                                  # Task 35: the relevance gate withholds the keyword-overlap chunks (Task 32 returned 5 / 5 / 0 / 3)
 
 
 @live

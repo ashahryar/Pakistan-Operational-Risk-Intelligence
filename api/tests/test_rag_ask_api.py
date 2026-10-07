@@ -102,7 +102,7 @@ def test_valid_question_returns_validated_answer_citations_and_separate_evidence
     assert b["answer_status"] == "ANSWERED" and b["answer"] == f"River overflow was reported in the area [chunk:{cid}]."
     assert [c["chunk_id"] for c in b["citations"]] == [cid] and b["citations"][0]["source_reference"]["file_path"] == "data/parsed/f1.json"
     assert b["retrieval"]["mode"] == "hybrid" and b["retrieval"]["method"] == "hybrid_rrf" and b["retrieval"]["top_k"] == 3
-    assert b["model"] == {"provider": "scripted", "model": "s-1", "configured": True, "error": None}
+    assert b["model"] == {"provider": "scripted", "model": "s-1", "configured": True, "error": None, "called": True}
     g = b["groundedness"]
     assert g["citations_valid"] is True and g["all_sentences_cited"] is True and g["evidence_supplied"] == 1 and g["evidence_cited"] == 1
     assert "not an official warning" in b["disclaimer"]

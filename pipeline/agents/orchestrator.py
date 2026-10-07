@@ -42,7 +42,7 @@ def _empty_response(req: AgentRequest, trace: Trace, status: str, reason: Option
     t = trace.finish(status, reason)
     body = {"question": req.q, "status": status, "status_reason": reason, "reason_code": extra.pop("reason_code", None), "intent": intent, "answer": None, "geography": extra.pop("geography", None),
             "risk_context": None, "risk_history": None, "documentary_evidence": [], "retrieval": None, "ml_prediction": None, "components": {}, "premise_check": None,
-            "tool_trace": t["tool_calls"], "citations": [], "model": {"provider": None, "model": None, "configured": False},
+            "tool_trace": t["tool_calls"], "citations": [], "model": {"provider": None, "model": None, "configured": False, "called": False},
             "groundedness": None, "provenance": A.provenance_block(geography=None, risk_block=None, records=[], ml_block=None, tool_trace=t["tool_calls"]),
             "policy": t["policy"], "trace": t, "disclaimer": C.DISCLAIMER}
     body.update(extra)
@@ -216,8 +216,10 @@ def run_agent(req: AgentRequest, deps: AgentDeps) -> tuple[dict, int]:
                              "filters_relaxed": relaxed, "note": DOC_NOTE + (" Inferred filters were relaxed because the stricter search found nothing." if relaxed else "")}
                 components["evidence"] = {"status": "AVAILABLE", "count": len(records)}
             elif rag_final.status == C.TOOL_EMPTY:
-                retrieval = {"mode": req.mode, "evidence_count": 0, "filters_requested": filters_requested or {}, "filters_applied": filters_applied or {}, "filters_relaxed": relaxed, "note": DOC_NOTE}
-                components["evidence"] = {"status": "NO_EVIDENCE", "count": 0}
+                rel = ((rag_final.result or {}).get("retrieval") or {}).get("relevance")
+                retrieval = {"mode": req.mode, "evidence_count": 0, "filters_requested": filters_requested or {}, "filters_applied": filters_applied or {}, "filters_relaxed": relaxed, "note": DOC_NOTE,
+                             "relevance": rel}
+                components["evidence"] = {"status": "NO_EVIDENCE", "count": 0, "reason": (rel or {}).get("abstention_reason"), "relevance_status": (rel or {}).get("relevance_status")}
             else:
                 components["evidence"] = {"status": "UNAVAILABLE", "reason": rag_final.reason, "count": 0}
         if ml_res is not None:
@@ -242,7 +244,7 @@ def run_agent(req: AgentRequest, deps: AgentDeps) -> tuple[dict, int]:
     def done(status, reason=None, answer=None, citations=(), model=None, groundedness=None, http=200):
         t = trace.finish(status, reason)
         return {**base, "status": status, "status_reason": reason, "answer": answer, "citations": list(citations),
-                "model": model or {"provider": None, "model": None, "configured": False}, "groundedness": groundedness, "tool_trace": t["tool_calls"], "trace": t}, http
+                "model": model or {"provider": None, "model": None, "configured": False, "called": False}, "groundedness": groundedness, "tool_trace": t["tool_calls"], "trace": t}, http
 
     # ------------------------------------------------------------------------------------------------------------ 7. status / generation
     if intent == C.GEOGRAPHY_LOOKUP:
@@ -271,14 +273,14 @@ def run_agent(req: AgentRequest, deps: AgentDeps) -> tuple[dict, int]:
         provider = provider or deps.provider_factory()
     except LLMUnavailable as exc:
         return done(C.LLM_UNAVAILABLE, "no real language model is configured; the structured tool results are returned and no answer was generated",
-                    model={"provider": None, "model": None, "configured": False, "error": str(exc)}, http=503)
+                    model={"provider": None, "model": None, "configured": False, "error": str(exc), "called": False}, http=503)
     items = (rag_final.result["items"] if rag_final is not None and rag_final.status == C.TOOL_OK else [])
     risk_item = rc.risk_prompt_item(risk_block) if risk_block else None
     ml_item = rc.ml_prompt_item(ml_block)
     trace.generation = {"attempted": True, "provider": getattr(provider, "name", None), "model": getattr(provider, "model", None)}
     outcome = answer_intelligence(req.q, risk_item, items, provider, deps.constraints_factory(), ml_item)
     model = {"provider": outcome.provider or getattr(provider, "name", None), "model": outcome.model or getattr(provider, "model", None), "configured": True,
-             "error": outcome.llm_error}
+             "error": outcome.llm_error, "called": True}
     trace.generation.update(status=outcome.status, error=outcome.llm_error)
     v = outcome.validation
     judged = outcome.status in (g.ANSWERED, g.INVALID)
@@ -304,7 +306,7 @@ def r_unrecognized(geo_res: Optional[ToolResult]) -> bool:
 def _from_intelligence(body_intel: dict, base: dict, trace: Trace, done, records, risk_record, ml_block):
     """The existing intelligence service produced the answer (or its own terminal status); map it onto the agent statuses without re-validating."""
     st = body_intel["status"]
-    model = body_intel.get("model") or {"provider": None, "model": None, "configured": False}
+    model = body_intel.get("model") or {"provider": None, "model": None, "configured": False, "called": False}
     trace.generation = {"attempted": st not in ("NO_RISK_CONTEXT", "RETRIEVAL_EMPTY"), "provider": model.get("provider"), "model": model.get("model"), "status": st,
                         "error": model.get("error"), "via": "intelligence.ask"}
     grounded = body_intel.get("groundedness")

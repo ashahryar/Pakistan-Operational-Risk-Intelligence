@@ -1,0 +1,173 @@
+# Task 35 -- frozen evaluation set for the RAG RELEVANCE / ABSTENTION policy. It EXTENDS config/rag_semantic_eval.yaml (the 39 Task 30-31 cases are included
+# unchanged via `include`); nothing in the included file was edited.
+#
+# Case groups (derived, not asserted):
+#   supported           has `relevant_terms`: a chunk is RELEVANT if its verbatim text contains one of them (case-insensitive substring; one judge, heuristic)
+#   unsupported         category `empty` (base file) or `unsupported` (below): no relevant chunk can exist; the system must abstain
+#   difficult_negative  category `difficult_negative`: written with words that are FREQUENT in the corpus (NDMA, report, Sindh, Punjab, flood, relief ...) but whose
+#                       requested concept is absent. `absent_terms` lists words that must have ZERO occurrences in the corpus; the harness VERIFIES that and marks a case
+#                       INVALID (excluded and reported) if any of them occurs. No corpus evidence is fabricated.
+#
+# Development / holdout split: within each group, cases are taken in file order (base file first) and ASSIGNED ALTERNATELY: 1st dev, 2nd holdout, 3rd dev ...
+# The rule is deterministic and was fixed BEFORE any score was computed. Thresholds are SELECTED on the dev cases only and then REPORTED once on the holdout cases.
+# The new cases below were written from the corpus vocabulary (presence of each relevant term in several chunks / absence of each absent term was checked), not from
+# any retrieval score. Small, one author, substring judge: a development evaluation, not a statistically strong benchmark.
+version: 1
+include: rag_semantic_eval.yaml
+k: 5
+cases:
+  # ---------------------------------------------------------------- supported: exact place / district / province names
+  - {id: place_murree, category: exact_place, query: "Murree", relevant_terms: ["murree"]}
+  - {id: place_hunza, category: exact_place, query: "Hunza valley", relevant_terms: ["hunza"]}
+  - {id: place_muzaffarabad, category: exact_place, query: "Muzaffarabad", relevant_terms: ["muzaffarabad"]}
+  - {id: district_shangla, category: district, query: "Shangla district", relevant_terms: ["shangla"]}
+  - {id: district_mansehra, category: district, query: "Mansehra", relevant_terms: ["mansehra"]}
+  - {id: district_chakwal, category: district, query: "Chakwal", relevant_terms: ["chakwal"]}
+  - {id: district_sukkur, category: district, query: "flood in Sukkur", relevant_terms: ["sukkur"]}
+  - {id: district_nowshera, category: district, query: "Nowshera", relevant_terms: ["nowshera"]}
+  - {id: district_ghizer, category: district, query: "Ghizer", relevant_terms: ["ghizer"]}
+  - {id: district_kasur, category: district, query: "Kasur district", relevant_terms: ["kasur"]}
+  # ---------------------------------------------------------------- supported: known event terminology
+  - {id: term_thunderstorm, category: disaster_term, query: "thunderstorm with lightning", relevant_terms: ["thunderstorm", "lightning"]}
+  - {id: term_flood_forecasting, category: disaster_term, query: "flood forecasting division river flows", relevant_terms: ["flood forecasting"]}
+  - {id: term_rainfall_24h, category: disaster_term, query: "rainfall recorded in the last 24 hours", relevant_terms: ["rainfall"]}
+  - {id: term_hail_wind, category: disaster_term, query: "hailstorm and windstorm alert", relevant_terms: ["hailstorm", "windstorm"]}
+  - {id: term_urban_flood, category: disaster_term, query: "urban flooding in cities", relevant_terms: ["urban flooding"]}
+  - {id: term_drought, category: disaster_term, query: "drought conditions", relevant_terms: ["drought"]}
+  - {id: term_monsoon, category: disaster_term, query: "monsoon rainfall outlook", relevant_terms: ["monsoon"]}
+  - {id: term_nullah, category: disaster_term, query: "nullah overflow", relevant_terms: ["nullah"]}
+  # ---------------------------------------------------------------- supported: rivers / dams / relief / health
+  - {id: river_tarbela, category: infrastructure, query: "Tarbela dam water level", relevant_terms: ["tarbela"]}
+  - {id: river_jhelum, category: infrastructure, query: "Jhelum river flow", relevant_terms: ["jhelum"]}
+  - {id: river_sutlej, category: infrastructure, query: "Sutlej river flooding", relevant_terms: ["sutlej"]}
+  - {id: relief_items, category: casualty, query: "tents and ration bags distributed to affected families", relevant_terms: ["tents", "ration"]}
+  - {id: relief_camps, category: casualty, query: "relief camps established", relevant_terms: ["relief camp"]}
+  - {id: health_dengue, category: casualty, query: "mosquito nets and dengue prevention", relevant_terms: ["mosquito", "dengue"]}
+  - {id: loss_livestock, category: casualty, query: "cattle losses", relevant_terms: ["livestock"]}
+  - {id: loss_crops, category: infrastructure, query: "crops damaged by flood", relevant_terms: ["crop"]}
+  - {id: loss_bridges, category: infrastructure, query: "bridges damaged by floodwater", relevant_terms: ["bridge"]}
+  - {id: loss_wounded, category: casualty, query: "persons wounded in the incident", relevant_terms: ["injured", "injur"]}
+  # ---------------------------------------------------------------- supported: paraphrases with little or no wording in common
+  - {id: para_swelling_rivers, category: paraphrase, query: "rivers swelling beyond their capacity", relevant_terms: ["flood", "overflow", "high flood"]}
+  - {id: para_high_temperature, category: paraphrase, query: "abnormally high temperatures expected", relevant_terms: ["heatwave", "heat wave", "hot", "temperature"]}
+  - {id: para_stormy, category: paraphrase, query: "stormy weather with strong winds", relevant_terms: ["windstorm", "storm", "wind"]}
+  - {id: para_rescued, category: paraphrase, query: "people who were taken to safety", relevant_terms: ["rescued", "evacuat", "relief camp", "shelter"]}
+  # ---------------------------------------------------------------- supported with metadata filters
+  - {id: filter_sindh_flood, category: source, query: "flood damage", filters: {province: Sindh}, relevant_terms: ["flood"]}
+  - {id: filter_pdma_heat, category: source, query: "heatwave warning", filters: {source: pdma}, relevant_terms: ["heatwave"]}
+  - {id: filter_ndma_relief, category: source, query: "relief items distributed", filters: {source: ndma}, relevant_terms: ["relief"]}
+
+  # ---------------------------------------------------------------- unsupported (no corpus word at all)
+  - {id: uns_cricket, category: unsupported, query: "who won the cricket match yesterday", relevant_terms: [], absent_terms: ["cricket"]}
+  - {id: uns_capital_france, category: unsupported, query: "capital city of France", relevant_terms: [], absent_terms: ["france", "paris"]}
+  - {id: uns_guitar, category: unsupported, query: "learn to play the guitar", relevant_terms: [], absent_terms: ["guitar"]}
+  - {id: uns_tsunami_ocean, category: unsupported, query: "tsunami warning in the Indian Ocean", relevant_terms: [], absent_terms: ["tsunami"]}
+  - {id: uns_wildfire, category: unsupported, query: "wildfire in California", relevant_terms: [], absent_terms: ["wildfire", "california"]}
+  - {id: uns_nuclear, category: unsupported, query: "nuclear reactor safety inspection", relevant_terms: [], absent_terms: ["nuclear", "reactor"]}
+  - {id: uns_covid, category: unsupported, query: "covid vaccination schedule", relevant_terms: [], absent_terms: ["covid", "vaccination"]}
+
+  # ---------------------------------------------------------------- difficult negatives: frequent corpus words + an absent concept
+  - {id: neg_volcano_sindh, category: difficult_negative, query: "What did NDMA report about volcanic eruptions in Sindh?", relevant_terms: [], absent_terms: ["volcan", "eruption"]}
+  - {id: neg_tsunami_karachi, category: difficult_negative, query: "NDMA situation report on tsunami damage in Karachi", relevant_terms: [], absent_terms: ["tsunami"]}
+  - {id: neg_wildfire_punjab, category: difficult_negative, query: "Punjab provincial report on wildfire damage to forests", relevant_terms: [], absent_terms: ["wildfire"]}
+  - {id: neg_tornado_balochistan, category: difficult_negative, query: "tornado warning issued for Balochistan districts", relevant_terms: [], absent_terms: ["tornado"]}
+  - {id: neg_hurricane_relief, category: difficult_negative, query: "hurricane relief items distributed in Sindh", relevant_terms: [], absent_terms: ["hurricane"]}
+  - {id: neg_avalanche_gb, category: difficult_negative, query: "avalanche casualties reported in Gilgit-Baltistan", relevant_terms: [], absent_terms: ["avalanche"]}
+  - {id: neg_locust_punjab, category: difficult_negative, query: "locust swarm damage to crops in Punjab", relevant_terms: [], absent_terms: ["locust"]}
+  - {id: neg_election_sindh, category: difficult_negative, query: "election results announced in Sindh province", relevant_terms: [], absent_terms: ["election"]}
+  - {id: neg_internet_lahore, category: difficult_negative, query: "internet outage statistics in Lahore", relevant_terms: [], absent_terms: ["internet"]}
+  - {id: neg_stock_market, category: difficult_negative, query: "stock market crash today in Pakistan", relevant_terms: [], absent_terms: ["stock market", "shares"]}
+  - {id: neg_passengers_lahore, category: difficult_negative, query: "airport and railway passenger numbers in Lahore", relevant_terms: [], absent_terms: ["passenger"]}
+  - {id: neg_hotel_murree, category: difficult_negative, query: "tourist hotel bookings in Murree", relevant_terms: [], absent_terms: ["hotel", "booking"]}
+  - {id: neg_covid_islamabad, category: difficult_negative, query: "covid vaccination numbers in Islamabad", relevant_terms: [], absent_terms: ["covid"]}
+  - {id: neg_nuclear_punjab, category: difficult_negative, query: "nuclear power plant accident in Punjab", relevant_terms: [], absent_terms: ["nuclear"]}
+
+  # =====================================================================================================================
+  # ITERATION 2 -- FRESH HOLDOUT ("holdout2"). Written AFTER the iteration-1 policy was selected on `dev` and reported on `holdout`, and BEFORE any score of
+  # these cases was computed. Because the iteration-1 holdout results were seen, `holdout` is treated as development data for iteration 2; the policy of
+  # iteration 2 is evaluated only on these cases. Validity (absent terms really absent, relevant terms really present) is checked against the corpus, never
+  # against a retrieval score. All difficult negatives below are, like those above, built around a concept word that is absent from the corpus: negatives whose
+  # words ALL occur in the corpus are not represented (a stated limitation).
+  # =====================================================================================================================
+  - {id: h2_place_gwadar, split: holdout2, category: exact_place, query: "Gwadar", relevant_terms: ["gwadar"]}
+  - {id: h2_district_kotli, split: holdout2, category: district, query: "Kotli district", relevant_terms: ["kotli"]}
+  - {id: h2_district_charsadda, split: holdout2, category: district, query: "Charsadda", relevant_terms: ["charsadda"]}
+  - {id: h2_district_bagh, split: holdout2, category: district, query: "Bagh district", relevant_terms: ["bagh"]}
+  - {id: h2_district_kurram, split: holdout2, category: district, query: "Kurram", relevant_terms: ["kurram"]}
+  - {id: h2_district_astore, split: holdout2, category: district, query: "Astore", relevant_terms: ["astore"]}
+  - {id: h2_dam_mangla, split: holdout2, category: infrastructure, query: "Mangla dam", relevant_terms: ["mangla"]}
+  - {id: h2_term_snowfall, split: holdout2, category: disaster_term, query: "snowfall expected in northern areas", relevant_terms: ["snowfall"]}
+  - {id: h2_term_lightning, split: holdout2, category: disaster_term, query: "lightning strikes", relevant_terms: ["lightning"]}
+  - {id: h2_term_windstorm, split: holdout2, category: disaster_term, query: "windstorm damage", relevant_terms: ["windstorm"]}
+  - {id: h2_term_inundation, split: holdout2, category: disaster_term, query: "inundation of low-lying areas", relevant_terms: ["inundat"]}
+  - {id: h2_para_crops, split: holdout2, category: paraphrase, query: "crops ruined by water", relevant_terms: ["crop", "flood"]}
+  - {id: h2_para_hurt, split: holdout2, category: paraphrase, query: "people hurt in accidents", relevant_terms: ["injured", "injur"]}
+  - {id: h2_para_temperature, split: holdout2, category: paraphrase, query: "temperature much above normal", relevant_terms: ["heatwave", "temperature", "hot"]}
+  - {id: h2_para_reservoir, split: holdout2, category: paraphrase, query: "dam reservoir levels", relevant_terms: ["reservoir", "dam"]}
+  - {id: h2_filter_pmd_rain, split: holdout2, category: source, query: "rainfall", filters: {source: pmd}, relevant_terms: ["rain"]}
+  - {id: h2_filter_punjab_flood, split: holdout2, category: source, query: "flood", filters: {province: Punjab}, relevant_terms: ["flood"]}
+  - {id: h2_filter_ndma_monsoon, split: holdout2, category: source, query: "monsoon", filters: {source: ndma}, relevant_terms: ["monsoon"]}
+  - {id: h2_uns_movies, split: holdout2, category: unsupported, query: "movie release dates this month", relevant_terms: [], absent_terms: ["movie"]}
+  - {id: h2_uns_football, split: holdout2, category: unsupported, query: "football transfer news", relevant_terms: [], absent_terms: ["football"]}
+  - {id: h2_uns_mortgage, split: holdout2, category: unsupported, query: "mortgage interest rates", relevant_terms: [], absent_terms: ["mortgage"]}
+  - {id: h2_uns_chemistry, split: holdout2, category: unsupported, query: "periodic table of the elements", relevant_terms: [], absent_terms: ["periodic table"]}
+  - {id: h2_uns_airline, split: holdout2, category: unsupported, query: "airline ticket booking", relevant_terms: [], absent_terms: ["ticket", "booking"]}
+  - {id: h2_neg_eclipse, split: holdout2, category: difficult_negative, query: "PDMA advisory on solar eclipse in Punjab", relevant_terms: [], absent_terms: ["eclipse"]}
+  - {id: h2_neg_kidnapping, split: holdout2, category: difficult_negative, query: "NDMA situation report on kidnapping incidents in Sindh", relevant_terms: [], absent_terms: ["kidnap"]}
+  - {id: h2_neg_penguins, split: holdout2, category: difficult_negative, query: "flood relief items for penguins in Balochistan", relevant_terms: [], absent_terms: ["penguin"]}
+  - {id: h2_neg_school_fees, split: holdout2, category: difficult_negative, query: "Punjab cabinet decision on school fees", relevant_terms: [], absent_terms: ["school", "fees"]}
+  - {id: h2_neg_pandemic, split: holdout2, category: difficult_negative, query: "pandemic lockdown restrictions in Islamabad", relevant_terms: [], absent_terms: ["pandemic", "lockdown"]}
+  - {id: h2_neg_cyber, split: holdout2, category: difficult_negative, query: "NDMA report on cyber attack on servers", relevant_terms: [], absent_terms: ["cyber", "servers"]}
+  - {id: h2_neg_terrorist, split: holdout2, category: difficult_negative, query: "terrorist attack casualties in Peshawar", relevant_terms: [], absent_terms: ["terrorist"]}
+  - {id: h2_neg_robbery, split: holdout2, category: difficult_negative, query: "Punjab provincial advisory on bank robbery cases", relevant_terms: [], absent_terms: ["robbery"]}
+
+  # =====================================================================================================================
+  # ITERATION 3 -- question-form queries. Found by the EXISTING Task 32 real-data test (documentary evidence 8/8 fell to 3/8 under the iteration-2 policy):
+  # real intelligence / agent questions are verbose ("What did NDMA report about ..."), unlike the keyword-style queries above. (a) The Task 32 questions are
+  # copied here as supported / unsupported cases in the development pool (their results were seen). (b) A FRESH question-form holdout ("holdout3") was written
+  # BEFORE any of its scores was computed, and is the only data the iteration-3 policy is reported on. The question-framing stop-word list (retrieval.FRAMING_WORDS)
+  # was fixed before holdout3 was run, from generic question wording, not from any negative.
+  # =====================================================================================================================
+  - {id: t32_swat_flash_floods, split: dev, category: question_form, query: "What flash floods were reported in Swat?", relevant_terms: ["swat"]}
+  - {id: t32_landslides, split: dev, category: question_form, query: "What landslide events were reported?", relevant_terms: ["landslide"]}
+  - {id: t32_pdma_heavy_rain, split: dev, category: question_form, query: "What did PDMA advise about heavy rain?", filters: {source: pdma}, relevant_terms: ["rain"]}
+  - {id: t32_dengue, split: dev, category: question_form, query: "What was reported about dengue?", relevant_terms: ["dengue"]}
+  - {id: t32_house_damage_punjab, split: dev, category: question_form, query: "What damage to houses was reported in Punjab?", relevant_terms: ["house"]}
+  - {id: t32_mixed_sialkot, split: dev, category: question_form, query: "What documented flooding affected Sialkot and why is its operational risk MODERATE?", relevant_terms: ["sialkot"]}
+  - {id: t32_mixed_punjab, split: dev, category: question_form, query: "What official evidence supports the operational risk conditions in Punjab?", relevant_terms: ["punjab"]}
+  - {id: t32_mixed_lahore, split: dev, category: question_form, query: "What hazards were documented in Lahore and what is its current operational risk?", relevant_terms: ["lahore"]}
+  - {id: t32_uns_bitcoin, split: dev, category: unsupported, query: "What is the price of bitcoin today?", relevant_terms: [], absent_terms: ["bitcoin"]}
+  - {id: t32_uns_cake, split: dev, category: unsupported, query: "How do I bake a cake?", relevant_terms: [], absent_terms: ["cake"]}
+  - {id: t32_uns_gdp, split: dev, category: unsupported, query: "What is the GDP of Japan?", relevant_terms: [], absent_terms: ["gdp"]}
+  # ---- fresh question-form holdout (supported)
+  - {id: h3_q_landslides_gb, split: holdout3, category: question_form, query: "What did NDMA report about landslides in Gilgit-Baltistan?", relevant_terms: ["landslide"]}
+  - {id: h3_q_flash_kp, split: holdout3, category: question_form, query: "What was reported about flash floods in Khyber Pakhtunkhwa?", relevant_terms: ["flash flood"]}
+  - {id: h3_q_districts_flood, split: holdout3, category: question_form, query: "Which districts of Punjab were affected by flooding?", relevant_terms: ["flood"]}
+  - {id: h3_q_roads_bridges, split: holdout3, category: question_form, query: "What damage to roads and bridges was reported?", relevant_terms: ["road", "bridge"]}
+  - {id: h3_q_injured, split: holdout3, category: question_form, query: "How many people were injured according to the NDMA sitrep?", relevant_terms: ["injured"]}
+  - {id: h3_q_pdma_heat, split: holdout3, category: question_form, query: "What did PDMA say about heatwave conditions?", filters: {source: pdma}, relevant_terms: ["heatwave"]}
+  - {id: h3_q_relief_sindh, split: holdout3, category: question_form, query: "What relief items were distributed in Sindh?", relevant_terms: ["relief"]}
+  - {id: h3_q_dengue_punjab, split: holdout3, category: question_form, query: "Were there any reports of dengue cases in Punjab?", relevant_terms: ["dengue"]}
+  - {id: h3_q_monsoon_pmd, split: holdout3, category: question_form, query: "What is the monsoon rainfall outlook issued by PMD?", relevant_terms: ["monsoon"]}
+  - {id: h3_q_livestock, split: holdout3, category: question_form, query: "What was reported about livestock losses?", relevant_terms: ["livestock"]}
+  - {id: h3_q_chitral, split: holdout3, category: question_form, query: "What do the reports say about the situation in Chitral?", relevant_terms: ["chitral"]}
+  - {id: h3_q_rain_balochistan, split: holdout3, category: question_form, query: "Which areas of Balochistan received heavy rain?", relevant_terms: ["rain"]}
+  - {id: h3_q_forecasting, split: holdout3, category: question_form, query: "What does the flood forecasting division say about river flows?", relevant_terms: ["flood forecasting"]}
+  - {id: h3_q_mangla, split: holdout3, category: question_form, query: "What did the reports mention about Mangla dam levels?", relevant_terms: ["mangla"]}
+  - {id: h3_q_urban_lahore, split: holdout3, category: question_form, query: "What was documented about urban flooding in Lahore?", relevant_terms: ["urban flooding"]}
+  - {id: h3_q_murree, split: holdout3, category: question_form, query: "What happened in Murree during the monsoon?", relevant_terms: ["murree"]}
+  # ---- fresh question-form holdout (unsupported / difficult negatives)
+  - {id: h3_n_tsunami_balochistan, split: holdout3, category: difficult_negative, query: "What did NDMA report about tsunami warnings in Balochistan?", relevant_terms: [], absent_terms: ["tsunami"]}
+  - {id: h3_n_volcano_punjab, split: holdout3, category: difficult_negative, query: "What damage did the volcano cause in Punjab?", relevant_terms: [], absent_terms: ["volcan"]}
+  - {id: h3_n_avalanche_skardu, split: holdout3, category: difficult_negative, query: "How many people were hurt in the avalanche in Skardu?", relevant_terms: [], absent_terms: ["avalanche"]}
+  - {id: h3_n_election_lahore, split: holdout3, category: difficult_negative, query: "What did the reports say about the election in Lahore?", relevant_terms: [], absent_terms: ["election"]}
+  - {id: h3_n_nuclear_punjab, split: holdout3, category: difficult_negative, query: "What did PDMA advise about nuclear safety in Punjab?", relevant_terms: [], absent_terms: ["nuclear"]}
+  - {id: h3_n_crypto_regulation, split: holdout3, category: difficult_negative, query: "What does NDMA say about cryptocurrency regulation?", relevant_terms: [], absent_terms: ["cryptocurrency"]}
+  - {id: h3_n_ventilators, split: holdout3, category: difficult_negative, query: "Which hospitals in Lahore had ventilators available?", relevant_terms: [], absent_terms: ["ventilator"]}
+  - {id: h3_n_exam_results, split: holdout3, category: difficult_negative, query: "What were the exam results of schools in Punjab?", relevant_terms: [], absent_terms: ["exam", "school"]}
+  - {id: h3_n_metro_fares, split: holdout3, category: difficult_negative, query: "What did the Sindh government announce about the metro bus fares?", relevant_terms: [], absent_terms: ["fares"]}
+  - {id: h3_n_pesticide, split: holdout3, category: difficult_negative, query: "What did NDMA report about pesticide poisoning in Punjab?", relevant_terms: [], absent_terms: ["pesticide"]}
+  - {id: h3_n_stock_exchange, split: holdout3, category: difficult_negative, query: "How did the stock exchange perform in Karachi today?", relevant_terms: [], absent_terms: ["stock exchange"]}
+  - {id: h3_n_wildfire_murree, split: holdout3, category: difficult_negative, query: "Did the reports mention any wildfire near Murree?", relevant_terms: [], absent_terms: ["wildfire"]}
+  - {id: h3_u_australia, split: holdout3, category: unsupported, query: "What is the capital of Australia?", relevant_terms: [], absent_terms: ["australia"]}
+  - {id: h3_u_passport, split: holdout3, category: unsupported, query: "How do I renew my passport?", relevant_terms: [], absent_terms: ["passport"]}

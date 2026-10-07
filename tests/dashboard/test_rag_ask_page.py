@@ -174,3 +174,26 @@ def test_client_other_503_without_answer_status_is_unchanged():
     assert not r.ok and r.data is None and "database is unavailable" in r.message
     r = RiskApiClient("http://x", session=FakeSession(FakeResp(503, {"detail": "Hybrid retrieval is unavailable: no runtime"}))).ask("q")
     assert not r.ok and r.data is None and "no runtime" in r.message
+
+
+# ------------------------------------------------------------------ Task 35: NO_EVIDENCE is stated plainly and withheld chunks are never shown as evidence
+REL_NONE = {"relevance_status": "NO_EVIDENCE", "abstained": True, "abstention_reason": "5 retrieved chunk(s) shared words with the question but none passed the relevance check",
+            "relevant_count": 0, "low_relevance_count": 5, "withheld_chunks": [{"chunk_id": CID, "coverage": 0.2, "cosine": 0.7}], "policy": {"mode": "hybrid"}}
+
+
+def test_no_evidence_notice_is_shown_and_no_withheld_chunk_is_displayed(monkeypatch):
+    b = body("RETRIEVAL_EMPTY", cited=False)
+    b["retrieval"] = {**b["retrieval"], "evidence_count": 0, "relevance": REL_NONE}
+    b["model"] = {"provider": None, "model": None, "configured": False, "called": False}
+    patch_api(monkeypatch, ApiResult(True, data=b))
+    at = ask(AppTest.from_file(PAGE, default_timeout=30).run(), "What did NDMA report about volcanic eruptions in Sindh?")
+    assert not at.exception and any("NO_EVIDENCE" in i.value and "5 loosely matching passage(s) were withheld" in i.value and "NOT shown as evidence" in i.value for i in at.info)
+    assert not at.expander and any("Nothing was retrieved" in c.value for c in at.caption)
+
+
+def test_relevance_notice_helper():
+    from dashboard.utils.rag_helpers import relevance_notice
+    assert relevance_notice(None) is None and relevance_notice({}) is None and relevance_notice({"relevance": {"abstained": False}}) is None
+    level, msg = relevance_notice({"relevance": REL_NONE})
+    assert level == "info" and msg.startswith("NO_EVIDENCE") and "5 loosely matching" in msg
+    assert "loosely" not in relevance_notice({"relevance": {**REL_NONE, "low_relevance_count": 0, "abstention_reason": "no chunk matched the question and filters"}})[1]

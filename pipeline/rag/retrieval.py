@@ -23,6 +23,33 @@ def tokenize(text: str) -> list[str]:
     return _TOKEN.findall(text.lower())
 
 
+# Function words. Removed from the query for the hybrid mode's lexical side (Task 31) and from the relevance signal (Task 35); standalone BM25 ranking is unchanged.
+STOPWORDS = frozenset("""a an and are as at be been but by can did do does for from had has have how i if in into is it its of on or our
+so than that the their them then there these they this to was we were what when where which who whom why will with would you your""".split())
+
+
+def content_terms(query: str) -> list[str]:
+    """Distinct query words with stop words removed, in order."""
+    return [t for t in dict.fromkeys(tokenize(query)) if t not in STOPWORDS]
+
+
+# Question-framing words: they describe HOW a question about reports is asked ("what was reported about ...", "official evidence", "current situation"), not WHAT it
+# asks about. Used ONLY by the relevance signal (never by BM25 ranking). Fixed from generic question wording before the iteration-3 holdout was run; agency names are
+# included because the source is a metadata filter, not a topic.
+FRAMING_WORDS = frozenset("""report reports reported reporting about advise advised advice document documents documented official officially evidence supports support
+supported situation event events affected affect affects happened happen happens occurred occur details detail information info status condition conditions current
+currently latest recent recently update updates issued issue announce announced say says said stated state states mention mentioned mentions regarding concerning
+related relating tell show give list provide find any all some there news operational risk classified classification many much number numbers during according
+sitrep sitreps ndma pdma pmd ffc suparco hazards""".split())
+
+
+def signal_terms(query: str) -> list[str]:
+    """The topic-bearing words of a query for the relevance signal: content words minus question-framing words. If nothing is left (a question made only of framing
+    words) the content words are used, so the signal is never computed on an empty set."""
+    terms = [t for t in content_terms(query) if t not in FRAMING_WORDS]
+    return terms or content_terms(query)
+
+
 @dataclass(frozen=True)
 class SearchFilters:
     source: Optional[str] = None
@@ -90,6 +117,20 @@ class LexicalRetriever:
             df.update(t.keys())
         n = len(self.chunks)
         self.idf = {w: math.log(1 + (n - c + 0.5) / (c + 0.5)) for w, c in df.items()}
+        self.idf_absent = math.log(1 + (n + 0.5) / 0.5)           # idf of a word that occurs in no chunk (df = 0): the rarest possible
+        self._index = {c["chunk_id"]: i for i, c in enumerate(self.chunks)}
+
+    def coverage(self, query: str, chunk_id: str) -> float:
+        """Task 35 relevance signal: the share of the query's CONTENT words (stop words removed), weighted by IDF, that occur in the chunk. 0..1.
+        A word that occurs nowhere in the corpus counts as unmatched with the highest weight, so a query built around a concept the corpus
+        never mentions (plus a few frequent words such as 'NDMA' or 'Sindh') scores low even though BM25 still returns chunks for the frequent words."""
+        terms = signal_terms(query)
+        i = self._index.get(chunk_id)
+        if not terms or i is None:
+            return 0.0
+        weight = {t: self.idf.get(t, self.idf_absent) for t in terms}
+        total = sum(weight.values())
+        return round(sum(w for t, w in weight.items() if self.tf[i].get(t, 0)) / total, 6) if total else 0.0
 
     def search(self, query: str, filters: SearchFilters = SearchFilters(), limit: int = 10) -> list[Hit]:  # noqa: B008
         terms = list(dict.fromkeys(tokenize(query)))
@@ -111,3 +152,13 @@ class LexicalRetriever:
                 hits.append((score, doc.get("document_date") or "", c["chunk_id"], c, tuple(found)))
         hits.sort(key=lambda h: (-h[0], h[2]))            # score desc, then chunk_id: fully deterministic
         return [Hit(c["chunk_id"], c["document_id"], round(s, 6), self.method, found) for s, _, _, c, found in hits[:limit]]
+
+    def absent_share(self, query: str) -> float:
+        """Task 35 relevance signal (query level): the IDF-weighted share of the query's content words that occur in NO chunk of the corpus. BM25 can only match
+        literal words, so a query whose weight is mostly such words cannot be answered by keyword matching however well the remaining frequent words match."""
+        terms = signal_terms(query)
+        if not terms:
+            return 0.0
+        weight = {t: self.idf.get(t, self.idf_absent) for t in terms}
+        total = sum(weight.values())
+        return round(sum(w for t, w in weight.items() if t not in self.idf) / total, 6) if total else 0.0

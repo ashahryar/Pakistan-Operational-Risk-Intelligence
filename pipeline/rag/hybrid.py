@@ -16,15 +16,14 @@ from __future__ import annotations
 
 from typing import Optional
 
-from pipeline.rag.retrieval import Hit, LexicalRetriever, SearchFilters, tokenize
+from pipeline.rag.retrieval import STOPWORDS, Hit, LexicalRetriever, SearchFilters, tokenize
 from pipeline.rag.semantic import SemanticRetriever
 
 HYBRID_METHOD = "hybrid_rrf"
 RRF_K = 60
 CANDIDATE_POOL = 50
 
-STOPWORDS = frozenset("""a an and are as at be been but by can did do does for from had has have how i if in into is it its of on or our
-so than that the their them then there these they this to was we were what when where which who whom why will with would you your""".split())
+_ = STOPWORDS            # the stop-word list now lives in retrieval.py (shared with the relevance signal); re-exported here
 
 
 def query_terms(query: str) -> list[str]:

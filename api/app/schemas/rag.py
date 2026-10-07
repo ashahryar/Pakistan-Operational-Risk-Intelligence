@@ -101,6 +101,7 @@ class Relevance(BaseModel):
     fused_rank: Optional[int] = None
     lexical_score: Optional[float] = None
     semantic_score: Optional[float] = None
+    assessment: Optional[dict[str, Any]] = None  # Task 35: {label RELEVANT|LOW_RELEVANCE, coverage, absent_share, cosine}
 
 
 class SourceReference(BaseModel):
@@ -135,6 +136,10 @@ class SearchResponse(BaseModel):
     results: list[Evidence]
     embedding_model: Optional[dict[str, Any]] = None
     min_score: Optional[float] = None
+    relevance_status: Optional[str] = None      # Task 35: RELEVANT | NO_EVIDENCE (decided by the relevance policy, not by the number of results)
+    abstained: Optional[bool] = None
+    abstention_reason: Optional[str] = None
+    relevance_policy: Optional[dict[str, Any]] = None
 
 
 class Citation(BaseModel):
@@ -155,6 +160,7 @@ class AskRetrieval(BaseModel):
     min_score: Optional[float] = None
     embedding_model: Optional[dict[str, Any]] = None
     note: str
+    relevance: Optional[dict[str, Any]] = None  # Task 35: relevance_status, abstained, abstention_reason, counts, policy
 
 
 class AskModel(BaseModel):
@@ -162,6 +168,7 @@ class AskModel(BaseModel):
     model: Optional[str] = None
     configured: bool
     error: Optional[str] = None
+    called: Optional[bool] = None               # Task 35: whether a language model was actually called (false when retrieval found no relevant evidence)
 
 
 class AskGroundedness(BaseModel):

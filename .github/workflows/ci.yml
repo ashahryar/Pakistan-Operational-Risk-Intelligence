@@ -154,6 +154,7 @@ jobs:
           test "$(curl -s -o /dev/null -w '%{http_code}' -X POST http://localhost:8000/api/v1/risk)" = 405
           curl -fsS http://localhost:8000/api/v1/rag/documents | python -c "import json,sys; assert json.load(sys.stdin)==[]"
           curl -fsS "http://localhost:8000/api/v1/rag/search?q=flood" | python -c "import json,sys; d=json.load(sys.stdin); assert d['count']==0 and d['retrieval_method']=='lexical_bm25_baseline'"
+          curl -fsS "http://localhost:8000/api/v1/rag/search?q=flood" | python -c "import json,sys; d=json.load(sys.stdin); assert d['relevance_status']=='NO_EVIDENCE' and d['abstained'] is True and d['relevance_policy']['mode']=='lexical'"
           test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8000/api/v1/rag/documents/none:none:none)" = 404
           test "$(curl -s -o /dev/null -w '%{http_code}' -X POST http://localhost:8000/api/v1/rag/search)" = 405
           test "$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8000/api/v1/rag/search?q=flood&mode=semantic")" = 503

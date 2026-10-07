@@ -18,7 +18,7 @@ import streamlit as st
 from dashboard.api_client import RiskApiClient
 from dashboard.styles.theme import load_css
 from dashboard.utils.intelligence_helpers import area_options, ml_caption, ml_table, risk_metrics, signal_summary, status_banner
-from dashboard.utils.rag_helpers import MODES, evidence_caption
+from dashboard.utils.rag_helpers import MODES, evidence_caption, relevance_notice
 
 st.set_page_config(page_title="Operational Intelligence", page_icon="🧭", layout="wide")
 load_css()
@@ -116,6 +116,9 @@ if submitted:
     st.caption(f"Retrieval: {r.get('mode')} ({r.get('method')}) | filters applied {r.get('filters_applied')}"
                + (f" | relaxed: {', '.join(r['filters_relaxed'])}" if r.get("filters_relaxed") else ""))
     cited = {c["chunk_id"] for c in body.get("citations") or [] if c.get("kind") == "documentary"}
+    notice = relevance_notice(r)
+    if notice:
+        getattr(st, notice[0])(notice[1])
     if not body.get("documentary_evidence"):
         st.caption("No documentary evidence was retrieved.")
     for e in body.get("documentary_evidence") or []:

@@ -53,7 +53,7 @@ def doc_summary(**over):
 def test_valid_search_passes_filters_and_returns_evidence(monkeypatch):
     seen = {}
 
-    def fake(q, filters, limit):
+    def fake(q, filters, limit, only_relevant=False):
         seen.update(q=q, f=filters, limit=limit)
         return response([evidence()])
     monkeypatch.setattr(rag_router, "search_evidence", fake)
@@ -78,7 +78,7 @@ def test_invalid_search_parameters_are_422(qs):
 
 
 def test_empty_search_result_is_200_with_zero_results(monkeypatch):
-    monkeypatch.setattr(rag_router, "search_evidence", lambda q, f, limit: response([]))
+    monkeypatch.setattr(rag_router, "search_evidence", lambda q, f, limit, only_relevant=False: response([]))
     r = client.get("/api/v1/rag/search?q=zzzzqqqq")
     assert r.status_code == 200 and r.json()["count"] == 0 and r.json()["results"] == []
 

@@ -39,7 +39,7 @@ def semantic_response():
 # ------------------------------------------------------------------ routing and validation (service patched)
 def test_default_mode_is_lexical_and_never_calls_the_semantic_service(monkeypatch):
     calls = []
-    monkeypatch.setattr(rag_router, "search_evidence", lambda q, f, limit: calls.append("lexical") or {
+    monkeypatch.setattr(rag_router, "search_evidence", lambda q, f, limit, only_relevant=False: calls.append("lexical") or {
         "query": q, "retrieval_method": "lexical_bm25_baseline", "retrieval_note": "n", "filters": {}, "count": 0, "results": []})
     monkeypatch.setattr(rag_router, "search_semantic_evidence", lambda *a, **k: calls.append("semantic"))
     r = client.get("/api/v1/rag/search?q=flood")
@@ -49,7 +49,7 @@ def test_default_mode_is_lexical_and_never_calls_the_semantic_service(monkeypatc
 
 def test_semantic_mode_passes_filters_and_min_score(monkeypatch):
     seen = {}
-    monkeypatch.setattr(rag_router, "search_semantic_evidence", lambda q, f, limit, min_score: seen.update(q=q, f=f, limit=limit, ms=min_score) or semantic_response())
+    monkeypatch.setattr(rag_router, "search_semantic_evidence", lambda q, f, limit, min_score, only_relevant=False: seen.update(q=q, f=f, limit=limit, ms=min_score) or semantic_response())
     monkeypatch.setattr(rag_router, "admin_unit_exists", lambda i: True)
     r = client.get("/api/v1/rag/search?q=river overflow&mode=semantic&min_score=0.6&source=ndma&province=Punjab&admin_unit_id=2&event_type=flood"
                    "&date_from=2026-07-01&date_to=2026-07-31&limit=3")

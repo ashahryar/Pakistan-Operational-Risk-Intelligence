@@ -246,3 +246,13 @@ def test_ml_helpers_and_client():
     s = FakeSession(FakeResp(200, {"count": 0, "predictions": []}))
     r = RiskApiClient("http://x", session=s).ml_predictions(admin_unit_id=30, horizon=1)
     assert r.ok and s.last[0] == "http://x/api/v1/ml/predictions" and s.last[1] == {"admin_unit_id": 30, "horizon": 1, "include_insufficient": "true"}
+
+
+# ------------------------------------------------------------------ Task 35: NO_EVIDENCE for the documents is stated, risk context unaffected
+def test_no_evidence_is_stated_and_withheld_passages_are_not_shown(monkeypatch):
+    b = body("RETRIEVAL_EMPTY", risk=True, docs=False)
+    b["retrieval"] = {**b["retrieval"], "relevance": {"relevance_status": "NO_EVIDENCE", "abstained": True, "low_relevance_count": 5, "abstention_reason": "none passed the relevance check"}}
+    patch_api(monkeypatch, ApiResult(True, data=b))
+    at = ask(AppTest.from_file(PAGE, default_timeout=30).run(), "What did NDMA report about volcanic eruptions in Sindh?")
+    assert not at.exception and any("NO_EVIDENCE" in i.value and "NOT shown as evidence" in i.value for i in at.info) and not at.expander
+    assert {x.label: x.value for x in at.metric}["Status"] == "MODERATE"                                           # the risk-engine context is shown as before
