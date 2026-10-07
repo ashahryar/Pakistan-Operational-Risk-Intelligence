@@ -1,8 +1,8 @@
-# Authoritative geography and data coverage — evidence audit (Task 37)
+# Authoritative geography and data coverage — evidence audit (Tasks 37 and 38)
 
-**Result: no gauge station could be mapped to an administrative unit from authoritative evidence, so gauge geography stays unresolved. One crosswalk relationship was improved with real official evidence (Nawabshah). No scoring change: `score_v2` stays disabled, `risk_score` stays NULL, and the number of newly eligible observations is 0.**
+**Result after Task 38 (partial evidence): 2 of 41 gauge stations now have an eligible, evidence-backed administrative mapping — Chashma → Mianwali and Trimmu → Jhang — covering 186 of 3,686 gauge observations, of which 126 satisfy the scoring data contract. The other 39 stations remain unresolved, conflicting, secondary-only or caveated. `score_v2` stays disabled, `risk_score` stays NULL, and no new cell has two independent signal groups.**
 
-Machine-readable: `data/analytics/geo/coverage_evidence_audit.json` (`python scripts/geo/audit_coverage_task37.py`, deterministic, no database writes). Evidence registry: `config/crosswalk_evidence.yaml`.
+Machine-readable: `data/analytics/geo/coverage_evidence_audit.json` (`python scripts/geo/audit_coverage_task37.py`, deterministic, no database writes). Evidence registries: `config/gauge_station_evidence.yaml` (gauge stations), `config/crosswalk_evidence.yaml` (crosswalk).
 
 ## Which signals can be tied to which administrative units, and on what evidence
 
@@ -10,56 +10,86 @@ Machine-readable: `data/analytics/geo/coverage_evidence_audit.json` (`python scr
 |---|---:|---:|---:|---|---|---|
 | rainfall (PDMA) | 869 | 76 % | 42 | 2025-03-03 → 2026-07-14 (78 dates, 421 missing) | Task 10 deterministic name resolver | qualified: official source, project-resolved names |
 | weather (PMD) | 39 | 69 % | 27 | 1 date | Task 10 city resolver | one date: no history |
-| gauge (PDMA/FFD) | 3,686 | **0 %** | **0** | 93 dates | none — no authoritative evidence | unresolved |
+| gauge (PDMA/FFD) | 3,686 | **5.05 %** (186) | **2** | 93 dates, 0 missing | official owner evidence for 2 stations only | 39 of 41 stations unresolved |
 | air quality (EPA Punjab) | 352 | 100 % | 1 (Lahore) | 351 dates, 0 missing | single named city | continuous, one geography |
 | hazard alert | 38 | 95 % | – | 5 dates | region resolver | contextual only |
 | disaster event | 1,543 | 100 % | – | 80 dates | province names | contextual only |
 
-Nothing in the table is "government-certified". The canonical model (`geo.admin_unit`, 69 districts) is a locally consolidated list and the HDX COD-AB boundary file is a third-party humanitarian compilation (vintage 2022-09-09).
+Nothing is "government-certified". The canonical model (`geo.admin_unit`, 69 districts) is a locally consolidated list; the HDX COD-AB boundary file is a third-party humanitarian compilation (vintage 2022-09-09).
 
-## Gauge stations (41 stations, 3,686 observations)
+## Gauge stations (41 stations, 3,686 observations, 93 daily dates each; derived from the repository)
 
-Re-audited against the project's own sources and a time-boxed official-source search.
+### Sources retrieved in Task 38 (2026-10-07)
 
-* **PDMA gauge sitreps** (410 PDFs in 2026): list river, site, design capacity, flood limits and flows. No district, no coordinates.
-* **FFC daily flood reports** (5 PDFs read as text): no sentence pairs a station with a district; district names occur only in weather-forecast region lists.
-* **Official sites** (FFC annual report, per-headworks plans): ffc.gov.pk refused the connection, as in Task 25. A web search restricted to official domains returned titles only. Nothing was verified, so nothing was used.
+| Source | What it states | Use |
+|---|---|---|
+| WAPDA, "Chashma Hydel Power" page (html sha256 `688960af…`) | "The barrage is located on the Indus River near the village of Chashma in Mianwali District" | **applied**: Chashma → Mianwali |
+| WAPDA, "Tarbela 5th Extension" page (`f74c666c…`) | "Tarbela Dam is located on on Indus River, District Swabi, Khyber Pakhtunkhwa." | recorded, **not applicable**: Swabi is not in `geo.admin_unit` |
+| WAPDA, "Mangla Dam" page (`cabf002d…`) | "about 30 km upstream of Jhelum city" — no district | nothing to apply; Mangla stays caveated |
+| Punjab Irrigation Department (FRAU), *Flood Report 2025* (143 pp., sha256 `ed8fdd54…`), Table 4 "Breaching Sites Location", printed p. 99 | latitude/longitude for 10 headworks (+ Shahdara, Jinnah Barrage) **of the breaching section**, with its chainage | applied only through a stability test (below) → Trimmu |
+| Punjab Irrigation Department (FRAU), *Flood Atlas 2022* (34 pp.) | flood limits and narrative; "gauge at Jassar Bridge in Shakargarh", "Shahdara Railway Bridge near Lahore" | place/proximity wording, no district statement: not used |
+| FFD (ffd.pmd.gov.pk) pages | reservoir levels, no station table | nothing usable |
+| FFC (HTTP 500), IRSA (connection refused) | – | unreachable; limitation recorded |
 
-| State | Stations | Detail |
-|---|---:|---|
-| authoritative / eligible | 0 | none added |
-| secondary-only (not eligible) | 4 | Marala → Sialkot, Khanki → Gujranwala, Trimmu → Jhang, Balloki → Kasur |
-| CONFLICTING (ambiguous in the mapping) | 2 | Tarbela (Swabi / Haripur), Rasul (Jhelum / Mandi Bahauddin); every source kept, no vote |
-| caveated | 1 | Mangla (seed row is not a real district) |
-| unresolved | 34 | including Panjnad, whose only evidence names a unit absent from the canonical model |
+PDF contents were read from the downloaded files (text layer; the coordinate table digits were also checked against a rendered page image), not from search summaries.
 
-The existing statuses (`ambiguous`, `resolved_inferred`, …) are not renamed; the Task 37 report presents `ambiguous` records as `conflict_status: CONFLICTING`.
+### How coordinates are used (the one code change)
 
-## Administrative crosswalk
+The only official coordinates found belong to **breaching sections**, whose chainage (RD along a bund) is stated in the same row — up to about 6 km from the structure — and headworks sit on rivers that form district boundaries. So a bare point-in-polygon result would be unreliable (a point in the Khanki row falls in Gujrat; Sulemanki's falls in Okara). `pipeline/geo/boundaries.py::locate_within_radius` and an optional `position_uncertainty_m` on an evidence record express this: the centre and 64 probe points out to the stated uncertainty must all fall inside the **same single boundary district**, otherwise no district is attributed and the evidence is only preserved. The radius per station is the chainage converted to metres (RD in feet × 0.3048; a bare "RD n" read as n thousand feet, the larger value) rounded up to 500 m. Evidence without the field behaves exactly as before.
 
-* Provinces: 4 exact, 3 alias (unchanged). Districts: **54 exact, 3 alias, 103 unmatched** (was 54 / 2 / 104).
-* **Added: PK719 "Shaheed Benazir Abad" → canonical "Nawabshah" (id 59), ALIAS.** Evidence: Provincial Assembly of Sindh, Sindh Act No. XIV of 2023 (notification 8 June 2023), which says "District Shaheed Benazirabad (Nawabshah)"; I read it from the downloaded PDF text, not from a search summary. The boundary spelling differs from the Act's by a space; the bridge is declared, not fuzzy. This is a name equivalence, not a boundary certification, and it stays `pending_manual_review`.
-* Not applied: Karachi (one canonical unit against six boundary districts → CONFLICTING); Kot Addu, Murree and Wazirabad (absent from the 2022 file); towns/tehsils seeded as districts (Fort Munro, Joharabad, Kamra, Mangla, Khanpur, Noorpur Thal, Rawalakot, Turbat — containment is not identity); 103 boundary districts the canonical model does not contain (extending `geo.admin_unit` would redefine the canonical model and is a separate DB task).
-* Canonical ids are unchanged (a test checks every previously matched id).
-* Evaluated and not applied (UNVERIFIED): rainfall station names `Jehlum`, `MB Din`, `TT Singh`, `Layyah (Karor)`, `Sargodha (City)`, `Sargodha City`, `Sialkot (City)`. A simulation resolving all 31 rows would add 5 eligible rainfall observations and no two-group cell, and no source states the equivalences.
+| Station | Official coordinate result | Outcome |
+|---|---|---|
+| Trimmu | Jhang at every probe up to 5.5 km (still Jhang at 12 km; only an 18 km disc leaves it) | **eligible**, `resolved_coordinate`, `coordinate_based`, medium confidence |
+| Rasul, Marala, Khanki, Qadirabad, Panjnad, Sidhnai, Islam | disc spans 2–3 districts | refused, evidence kept |
+| Suleimanki | disc leaves every polygon | refused |
+| Balloki | stable, but in Nankana Sahib, which has no canonical unit and contradicts the secondary Kasur candidate | not applied |
+| Shahdara | breaching section is on a distributary, no bound on the offset | deferred (`deferred_official_coordinates`) |
+| Kalabagh | the table lists Jinnah Barrage; the report does not say the PDMA "Kalabagh" gauge is that barrage | deferred |
 
-## Newly eligible observations: 0
+Identity assumption: a PDMA station name equals the same-named site on the same river (the design capacity also matches for Marala, Qadirabad, Trimmu, Rasul, Suleimanki, and for Chashma by name and river). This is the part of the Trimmu and Chashma mappings that a reviewer should confirm.
 
-Before and after eligibility counts are identical in every domain (rainfall 46 eligible, air quality 320, others 0). Crosswalk improvement affects only coordinate-derived mapping, and no station has coordinates.
+### Station states
+
+| State | Stations |
+|---|---|
+| eligible (authoritative) | **2**: Chashma (owner district statement, derivation `source_reported`), Trimmu (official coordinates, `coordinate_based`) |
+| CONFLICTING (`ambiguous`) | 2: Tarbela (authoritative Swabi, secondary Haripur — and Swabi is not canonical), Rasul (Jhelum / Mandi Bahauddin; official coordinates unstable) |
+| secondary-only (ineligible) | 3: Marala → Sialkot, Khanki → Gujranwala, Balloki → Kasur |
+| caveated | 1: Mangla |
+| unresolved | 33 (the 20+ hill-torrent and nullah sites have no evidence at all; the rest are listed above) |
+
+Trimmu was a secondary-only candidate (Jhang) in Task 37; the same district now rests on official coordinates, not on the secondary record. Panjnad's evidence names Muzaffargarh, which is not in `geo.admin_unit`.
+
+### Coverage impact
+
+| | Before (Task 37) | After (Task 38) |
+|---|---:|---:|
+| stations with an eligible mapping | 0 | 2 |
+| gauge observations attributable to an admin unit | 0 | 186 |
+| gauge observations eligible under the scoring contract (≥ 30 prior observations) | 0 | **126** (2 × (93 − 30)) |
+| gauge observations with too little history | 0 | 60 |
+| admin units with an eligible gauge series | 0 | 2 (Mianwali, Jhang) |
+| cells with ≥ 1 eligible signal group | 358 | 484 |
+| cells with 2 independent groups | 8 | 8 |
+
+Neither Mianwali nor Jhang has an eligible signal from another independence group, so no cell gains a second group. The stored risk table was **not** regenerated: it still has 1,586 rows with `risk_score` NULL; the 126 newly eligible observations exist in the audit, not in the database.
+
+## Administrative crosswalk (unchanged in Task 38)
+
+Districts: 54 exact, 3 alias, 103 unmatched. The only Task 37 addition is PK719 "Shaheed Benazir Abad" → Nawabshah (id 59), from Sindh Act XIV of 2023 ("District Shaheed Benazirabad (Nawabshah)"). Karachi (one canonical unit, six boundary districts) is CONFLICTING and not applied; Kot Addu, Murree and Wazirabad are absent from the 2022 file; towns/tehsils seeded as districts stay unmatched; 103 boundary districts (e.g. Swabi, Haripur, Awaran) have no canonical unit. Canonical ids are unchanged. Seven rainfall station-name candidates (`Jehlum`, `MB Din`, `TT Singh`, …) stay UNVERIFIED (simulation: +5 eligible observations, no new two-group cell).
 
 ## Ranked gaps (transparent ordinal sum; raw row count is not an input)
 
-1. **Authoritative gauge station geography** (score 17.7): 41 stations and 3,686 observations on a continuous series, but no retrievable official list.
-2. Dated weather history accumulation (14.0): 27 resolved geographies, needs ≥ 31 dated daily collections; DAGs are paused and PMD overwrites `latest.json`.
-3. A second continuous air-quality geography (13.3): needs a new source.
-4. Rainfall station-name aliases (9.2): +5 observations, no evidence.
+1. **Official gauge-site coordinates or district statements** (18.7): the 9 stations whose breaching-section coordinates were unstable plus Tarbela; FFD / IRSA / FFC per-headworks documents were unreachable.
+2. Canonical model extension for authoritative districts (14.0): Swabi for Tarbela — requires an approved change to `geo.admin_unit`; not done.
+3. Dated weather history accumulation (14.0).
+4. A second continuous air-quality geography (13.3).
+5. Rainfall station-name aliases (9.2).
 
-**Recommended next evidence gap:** obtain an official station list (FFD / WAPDA / IRSA / Punjab Irrigation per-headworks documents) by manual retrieval. Add the records as `authoritative` entries in `config/gauge_station_evidence.yaml`; the Task 24/25 pipeline accepts them without code changes.
-
-## What did not change
-
-No serving contract, dashboard, DAG, database or AWS change was needed. Scoring remains `enabled: false` with `weights: {}`; the Task 36 contract still abstains even when signals are eligible (a test covers it).
+**Recommended next evidence gap:** official gauge-**site** coordinates or district statements (for example the FFD telemetry station list or the FFC per-headworks flood-fighting plans). Add them as `authoritative` records to `config/gauge_station_evidence.yaml`; no code change is needed.
 
 ## Limitations
 
-The gap scores are ordinal judgements about measured quantities, not an estimate of value. The crosswalk evidence for the two older aliases (`D. I. Khan`, `Leiah`) is not recorded. Official-site retrieval was limited by network access from this environment, so the absence of evidence here is not proof that official documents do not exist.
+* The two mappings rest on name identity between the PDMA station and the owner's site, and (Trimmu) on a third-party boundary file plus an offset bound derived from a chainage in the source; both are marked `pending_manual_review`.
+* The 126 eligible observations are signals that satisfy the data contract, not a score; there are still no evidence-based weights or outcome labels.
+* The gap scores are ordinal judgements about measured quantities. Two official sites were unreachable from this environment, so absence of evidence there is not proof it does not exist.

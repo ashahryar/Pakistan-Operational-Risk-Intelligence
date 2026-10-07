@@ -7,7 +7,7 @@
       "admin_units_with_eligible_observation": 0
     },
     "gauge": {
-      "admin_units_with_eligible_observation": 0
+      "admin_units_with_eligible_observation": 2
     },
     "hazard_alert": {
       "admin_units_with_eligible_observation": 0
@@ -19,8 +19,16 @@
       "admin_units_with_eligible_observation": 0
     }
   },
-  "answer_summary": "No gauge station has authoritative geography. Rainfall (PDMA), weather (PMD) and air quality (EPA Punjab) are associated with administrative units through the project's deterministic name resolver against the canonical model, which is explicitly qualified (not government-certified). Hazard alerts and disaster events are contextual.",
+  "answer_summary": "2 of 41 gauge stations have authoritative geography (Chashma, Trimmu). Rainfall (PDMA), weather (PMD) and air quality (EPA Punjab) are associated with administrative units through the project's deterministic name resolver against the canonical model, which is explicitly qualified (not government-certified). Hazard alerts and disaster events are contextual.",
   "audit_version": "1.0.0",
+  "cells": {
+    "assessed_after": 1771,
+    "assessed_before": 1586,
+    "with_an_eligible_signal_group_after": 484,
+    "with_an_eligible_signal_group_before": 358,
+    "with_two_independent_groups_after": 8,
+    "with_two_independent_groups_before": 8
+  },
   "cells_scored": 0,
   "crosswalk": {
     "before_counts": {
@@ -282,37 +290,40 @@
       "source": "NDMA situation reports"
     },
     "gauge": {
-      "admin_units_with_eligible_observation": 0,
+      "admin_units_with_eligible_observation": 2,
       "authoritative_status": "official hydrology values; geography unresolved",
       "blockers": [
-        "no authoritative station-to-district or coordinate evidence (Task 25 + Task 37 searches)",
-        "3,499 observations UNRESOLVED_GEOGRAPHY"
+        "only 2 of 41 stations have an eligible (authoritative) mapping; the rest are unresolved, conflicting, secondary-only or caveated",
+        "3313 assessed observations remain UNRESOLVED_GEOGRAPHY",
+        "the only official coordinates found are breaching-section locations, not gauge sites"
       ],
       "dataset": "data/analytics/gold/datasets/gold_gauge_daily.jsonl",
       "date_max": "2026-09-15",
       "date_min": "2026-06-15",
-      "distinct_admin_units_with_series": 0,
+      "distinct_admin_units_with_series": 2,
       "distinct_dates": 93,
-      "distinct_geographies_resolved": 0,
+      "distinct_geographies_resolved": 2,
       "eligibility_counts_after": {
-        "UNRESOLVED_GEOGRAPHY": 3499
+        "ELIGIBLE": 126,
+        "INSUFFICIENT_DATA": 60,
+        "UNRESOLVED_GEOGRAPHY": 3313
       },
       "eligibility_counts_before": {
         "UNRESOLVED_GEOGRAPHY": 3499
       },
-      "geography_resolution_method": "none: no authoritative station-to-district evidence; secondary candidates are never applied",
-      "historical_normalization_possible": false,
+      "geography_resolution_method": "authoritative evidence only: owner district statement (WAPDA, Chashma) or official coordinates with a stated position uncertainty that stay inside one boundary district (Punjab Irrigation Department, Trimmu); secondary candidates are never applied",
+      "historical_normalization_possible": true,
       "latest_date": "2026-09-15",
-      "longest_gap_days": 0,
-      "longest_unit_history_observations": 0,
+      "longest_gap_days": 1,
+      "longest_unit_history_observations": 93,
       "missing_dates_within_span": 0,
-      "missing_geography_rows": 3686,
-      "newly_eligible_observations": 0,
-      "observation_span_days": 0,
-      "resolved_pct": 0.0,
-      "resolved_rows": 0,
+      "missing_geography_rows": 3500,
+      "newly_eligible_observations": 126,
+      "observation_span_days": 93,
+      "resolved_pct": 5.05,
+      "resolved_rows": 186,
       "rows": 3686,
-      "scoring_decision": "NO_ELIGIBLE_OBSERVATION",
+      "scoring_decision": "ELIGIBLE_OBSERVATIONS_EXIST",
       "source": "PDMA Punjab gauges and rivers sitrep (PDF; data source stated as FFD and DEOCs)"
     },
     "hazard_alert": {
@@ -425,18 +436,33 @@
   "gap_ranking": [
     {
       "authority": 3,
-      "blocker": "no retrievable official station list; official sites refuse connections or serve unreadable files",
-      "gap_score": 17.7,
+      "blocker": "official coordinates exist only for breaching sections; gauge-site coordinates or district statements still need an official list (FFD / IRSA / FFC unreachable)",
+      "gap_score": 18.7,
       "history_continuity": 0.9,
-      "name": "authoritative_gauge_station_geography",
+      "name": "official_gauge_site_coordinates_or_districts",
       "normalizable": true,
-      "observations_unlocked": 3686,
+      "observations_unlocked": 930,
       "precision": 3,
       "rank": 1,
       "relevance": 3,
-      "reliability": 0,
+      "reliability": 1,
       "units_unlocked": 10,
-      "units_unlocked_note": "lower bound: distinct districts named by the secondary candidates; 41 stations"
+      "units_unlocked_note": "lower bound: the 9 stations whose official breaching-section coordinates were unstable across districts, plus Tarbela"
+    },
+    {
+      "authority": 3,
+      "blocker": "outside Task 38 scope: changes the canonical geography",
+      "gap_score": 14.0,
+      "history_continuity": 0.9,
+      "name": "canonical_model_extension_for_authoritative_districts",
+      "normalizable": true,
+      "observations_unlocked": 93,
+      "precision": 2,
+      "rank": 2,
+      "relevance": 2,
+      "reliability": 1,
+      "units_unlocked": 1,
+      "units_unlocked_note": "Swabi (WAPDA states Tarbela is in District Swabi); needs approval to extend geo.admin_unit"
     },
     {
       "authority": 2,
@@ -447,7 +473,7 @@
       "normalizable": true,
       "observations_unlocked": 0,
       "precision": 2,
-      "rank": 2,
+      "rank": 3,
       "relevance": 2,
       "reliability": 2,
       "units_unlocked": 10,
@@ -462,7 +488,7 @@
       "normalizable": true,
       "observations_unlocked": 0,
       "precision": 2,
-      "rank": 3,
+      "rank": 4,
       "relevance": 2,
       "reliability": 1,
       "units_unlocked": 1,
@@ -477,7 +503,7 @@
       "normalizable": true,
       "observations_unlocked": 5,
       "precision": 1,
-      "rank": 4,
+      "rank": 5,
       "relevance": 1,
       "reliability": 2,
       "units_unlocked": 0,
@@ -487,32 +513,188 @@
   "gauge_stations": {
     "authoritative_evidence_references": [
       {
-        "checked": "2026-10-07",
-        "outcome": "tables list river, site, design capacity, flood limits, inflow/outflow; no district, no coordinates",
-        "result": "no_evidence",
-        "source": "PDMA Punjab 'Daily Sitrep - Gauges and Rivers Situation' PDFs (data/raw/pdma/reports/gauge_reports, 410 files in 2026)"
+        "district": "Mianwali",
+        "evidence_status": "authoritative",
+        "latitude": null,
+        "longitude": null,
+        "position_uncertainty_m": null,
+        "retrieved": "2026-10-07",
+        "source_organization": "Water and Power Development Authority (WAPDA), Government of Pakistan",
+        "source_page": "web page, section 'Chashma Hydel Power'",
+        "source_statement": "The barrage is located on the Indus River near the village of Chashma in Mianwali District",
+        "source_title": "Chashma Hydel Power",
+        "source_url": "https://wapda.gov.pk/chashma-hydel-power/",
+        "station_name": "Chashma",
+        "station_name_in_source": "Chashma Barrage"
       },
       {
-        "checked": "2026-10-07",
-        "outcome": "no sentence in any of the files pairs a station with the word District/Distt/Dist.; district names appear only inside weather-forecast region lists",
-        "result": "no_evidence",
-        "source": "Federal Flood Commission daily flood situation reports (data/raw/ffc/dfsr_glof_archive, 5 DFSR/Glof/press PDFs read as text)"
+        "district": "Swabi",
+        "evidence_status": "authoritative",
+        "latitude": null,
+        "longitude": null,
+        "position_uncertainty_m": null,
+        "retrieved": "2026-10-07",
+        "source_organization": "Water and Power Development Authority (WAPDA), Government of Pakistan",
+        "source_page": "web page, first sentence",
+        "source_statement": "Tarbela Dam is located on on Indus River, District Swabi, Khyber Pakhtunkhwa.",
+        "source_title": "Tarbela 5th Extension",
+        "source_url": "https://wapda.gov.pk/tarbela-5th-extension-2/",
+        "station_name": "Tarbela",
+        "station_name_in_source": "Tarbela Dam"
       },
       {
-        "checked": "2026-10-07",
-        "outcome": "listed by web search but ffc.gov.pk refused the connection (ECONNREFUSED), as in Task 25; content not read, not used",
-        "result": "unverifiable",
-        "source": "FFC Annual Flood Report 2025 (ffc.gov.pk) and per-headworks plans",
-        "url": "https://www.ffc.gov.pk/wp-content/uploads/2026/05/Flood-Report-2025.pdf"
+        "district": null,
+        "evidence_status": "authoritative",
+        "latitude": 32.69177,
+        "longitude": 73.51179,
+        "position_uncertainty_m": 1000,
+        "retrieved": "2026-10-07",
+        "source_organization": "Flood Risk Assessment Unit, Irrigation Department, Government of the Punjab",
+        "source_page": "printed page 99 (PDF page 100)",
+        "source_statement": "Rasul Barrage: latitude 32.69177, longitude 73.51179 (breaching section RD 2500 - RD 3000 of RMB)",
+        "source_title": "Flood Report 2025, Table 4 Breaching Sites Location",
+        "source_url": "https://irrigation.punjab.gov.pk/uploads/pages/Flood_report_2025.pdf",
+        "station_name": "Rasul",
+        "station_name_in_source": "Rasul Barrage"
       },
       {
-        "checked": "2026-10-07",
-        "outcome": "returned titles only (flood fighting plans for Balloki, Marala, Trimmu, Khanki); the plan documents were not retrievable, so no district statement could be verified",
-        "result": "no_evidence",
-        "source": "web search restricted to official domains (ffc, irrigation.punjab, pdma, wapda, pakirsa, pmd)"
+        "district": null,
+        "evidence_status": "authoritative",
+        "latitude": 32.691715,
+        "longitude": 74.454487,
+        "position_uncertainty_m": 2000,
+        "retrieved": "2026-10-07",
+        "source_organization": "Flood Risk Assessment Unit, Irrigation Department, Government of the Punjab",
+        "source_page": "printed page 99 (PDF page 100)",
+        "source_statement": "Marala: latitude 32.691715, longitude 74.454487 (breaching section RD 5000 of RMB)",
+        "source_title": "Flood Report 2025, Table 4 Breaching Sites Location",
+        "source_url": "https://irrigation.punjab.gov.pk/uploads/pages/Flood_report_2025.pdf",
+        "station_name": "Marala",
+        "station_name_in_source": "Marala"
+      },
+      {
+        "district": null,
+        "evidence_status": "authoritative",
+        "latitude": 32.42245,
+        "longitude": 73.96639,
+        "position_uncertainty_m": 1500,
+        "retrieved": "2026-10-07",
+        "source_organization": "Flood Risk Assessment Unit, Irrigation Department, Government of the Punjab",
+        "source_page": "printed page 99 (PDF page 100)",
+        "source_statement": "Khanki H/W: latitude 32.42245, longitude 73.96639 (breaching section RD 4000 of RMB)",
+        "source_title": "Flood Report 2025, Table 4 Breaching Sites Location",
+        "source_url": "https://irrigation.punjab.gov.pk/uploads/pages/Flood_report_2025.pdf",
+        "station_name": "Khanki",
+        "station_name_in_source": "Khanki H/W"
+      },
+      {
+        "district": null,
+        "evidence_status": "authoritative",
+        "latitude": 32.344475,
+        "longitude": 73.686206,
+        "position_uncertainty_m": 2500,
+        "retrieved": "2026-10-07",
+        "source_organization": "Flood Risk Assessment Unit, Irrigation Department, Government of the Punjab",
+        "source_page": "printed page 99 (PDF page 100)",
+        "source_statement": "Qadirabad Bridge: latitude 32.344475, longitude 73.686206 (breaching section RD 8000 of RMB)",
+        "source_title": "Flood Report 2025, Table 4 Breaching Sites Location",
+        "source_url": "https://irrigation.punjab.gov.pk/uploads/pages/Flood_report_2025.pdf",
+        "station_name": "Qadirabad",
+        "station_name_in_source": "Qadirabad Bridge"
+      },
+      {
+        "district": null,
+        "evidence_status": "authoritative",
+        "latitude": 31.1682489,
+        "longitude": 72.1069631,
+        "position_uncertainty_m": 5500,
+        "retrieved": "2026-10-07",
+        "source_organization": "Flood Risk Assessment Unit, Irrigation Department, Government of the Punjab",
+        "source_page": "printed page 99 (PDF page 100)",
+        "source_statement": "Trimmu H/W: latitude 31.1682489, longitude 72.1069631 (breaching section RD 18000 of RMB)",
+        "source_title": "Flood Report 2025, Table 4 Breaching Sites Location",
+        "source_url": "https://irrigation.punjab.gov.pk/uploads/pages/Flood_report_2025.pdf",
+        "station_name": "Trimmu",
+        "station_name_in_source": "Trimmu H/W"
+      },
+      {
+        "district": null,
+        "evidence_status": "authoritative",
+        "latitude": 29.41521,
+        "longitude": 71.01824,
+        "position_uncertainty_m": 6000,
+        "retrieved": "2026-10-07",
+        "source_organization": "Flood Risk Assessment Unit, Irrigation Department, Government of the Punjab",
+        "source_page": "printed page 99 (PDF page 100)",
+        "source_statement": "Punjnad H/W: latitude 29.41521, longitude 71.01824 (breaching section RD 19000 of RMB)",
+        "source_title": "Flood Report 2025, Table 4 Breaching Sites Location",
+        "source_url": "https://irrigation.punjab.gov.pk/uploads/pages/Flood_report_2025.pdf",
+        "station_name": "Panjnad",
+        "station_name_in_source": "Punjnad H/W"
+      },
+      {
+        "district": null,
+        "evidence_status": "authoritative",
+        "latitude": 31.266231,
+        "longitude": 73.878798,
+        "position_uncertainty_m": 1000,
+        "retrieved": "2026-10-07",
+        "source_organization": "Flood Risk Assessment Unit, Irrigation Department, Government of the Punjab",
+        "source_page": "printed page 99 (PDF page 100)",
+        "source_statement": "Balloki H/W: latitude 31.266231, longitude 73.878798 (breaching section RD 2 of Madodas Bund)",
+        "source_title": "Flood Report 2025, Table 4 Breaching Sites Location",
+        "source_url": "https://irrigation.punjab.gov.pk/uploads/pages/Flood_report_2025.pdf",
+        "station_name": "Balloki",
+        "station_name_in_source": "Balloki H/W"
+      },
+      {
+        "district": null,
+        "evidence_status": "authoritative",
+        "latitude": 30.582436,
+        "longitude": 72.20303,
+        "position_uncertainty_m": 5000,
+        "retrieved": "2026-10-07",
+        "source_organization": "Flood Risk Assessment Unit, Irrigation Department, Government of the Punjab",
+        "source_page": "printed page 99 (PDF page 100)",
+        "source_statement": "Sidhnai H/W: latitude 30.582436, longitude 72.20303 (breaching section RD 16 of RMB)",
+        "source_title": "Flood Report 2025, Table 4 Breaching Sites Location",
+        "source_url": "https://irrigation.punjab.gov.pk/uploads/pages/Flood_report_2025.pdf",
+        "station_name": "Sidhnai",
+        "station_name_in_source": "Sidhnai H/W"
+      },
+      {
+        "district": null,
+        "evidence_status": "authoritative",
+        "latitude": 30.42,
+        "longitude": 73.838,
+        "position_uncertainty_m": 6500,
+        "retrieved": "2026-10-07",
+        "source_organization": "Flood Risk Assessment Unit, Irrigation Department, Government of the Punjab",
+        "source_page": "printed page 99 (PDF page 100)",
+        "source_statement": "Suliemanki H/W: latitude 30.42, longitude 73.838 (breaching section RD 20 of RMB)",
+        "source_title": "Flood Report 2025, Table 4 Breaching Sites Location",
+        "source_url": "https://irrigation.punjab.gov.pk/uploads/pages/Flood_report_2025.pdf",
+        "station_name": "Suleimanki",
+        "station_name_in_source": "Suliemanki H/W"
+      },
+      {
+        "district": null,
+        "evidence_status": "authoritative",
+        "latitude": 29.82698,
+        "longitude": 72.54766,
+        "position_uncertainty_m": 4000,
+        "retrieved": "2026-10-07",
+        "source_organization": "Flood Risk Assessment Unit, Irrigation Department, Government of the Punjab",
+        "source_page": "printed page 99 (PDF page 100)",
+        "source_statement": "Islam H/W: latitude 29.82698, longitude 72.54766 (breaching section RD 10 - 13 of RMB)",
+        "source_title": "Flood Report 2025, Table 4 Breaching Sites Location",
+        "source_url": "https://irrigation.punjab.gov.pk/uploads/pages/Flood_report_2025.pdf",
+        "station_name": "Islam",
+        "station_name_in_source": "Islam H/W"
       }
     ],
-    "authoritative_mappings_added": 0,
+    "authoritative_mappings": 2,
+    "baseline_authoritative_mappings_task37": 0,
     "caveated": [
       {
         "candidate_admin_unit": "Mangla",
@@ -531,7 +713,7 @@
           "Mandi Bahauddin"
         ],
         "conflict_status": "CONFLICTING",
-        "evidence_records": 2,
+        "evidence_records": 3,
         "ineligibility_reason": "ambiguous_mapping",
         "mapping_status": "ambiguous",
         "station_key": "pdma:rasul",
@@ -544,53 +726,54 @@
           "Swabi"
         ],
         "conflict_status": "CONFLICTING",
-        "evidence_records": 2,
+        "evidence_records": 3,
         "ineligibility_reason": "ambiguous_mapping",
         "mapping_status": "ambiguous",
         "station_key": "pdma:tarbela",
         "station_name": "Tarbela"
       }
     ],
-    "eligible_mappings": [],
-    "inventory_count": 41,
-    "never_eligible_invariant_holds": true,
-    "observations": 3686,
-    "resolved_mappings": [],
-    "secondary_only_mappings": [
+    "deferred_official_coordinates": [
       {
-        "candidate_admin_unit": "Kasur",
-        "evidence_records": 1,
-        "ineligibility_reason": "secondary_evidence_not_eligible_by_policy",
-        "mapping_status": "resolved_inferred",
-        "station_key": "pdma:balloki",
-        "station_name": "Balloki"
+        "latitude": 31.655647,
+        "longitude": 74.30563,
+        "reason": "breaching section is 'RD 56 - 64 of Shahdara Disty.' (a distributary): no bound on its distance from the gauge, so no stability radius can be justified",
+        "source_page": "printed page 99",
+        "source_url": "https://irrigation.punjab.gov.pk/uploads/pages/Flood_report_2025.pdf",
+        "station_name": "Shahdara",
+        "station_name_in_source": "Shahdara"
       },
       {
-        "candidate_admin_unit": "Gujranwala",
-        "evidence_records": 1,
-        "ineligibility_reason": "secondary_evidence_not_eligible_by_policy",
-        "mapping_status": "resolved_inferred",
-        "station_key": "pdma:khanki",
-        "station_name": "Khanki"
-      },
+        "latitude": 32.938792,
+        "longitude": 71.507152,
+        "reason": "the report lists Jinnah Barrage (XEN Kalabagh); it does not state that the PDMA 'Kalabagh' gauge is Jinnah Barrage, so identity is not established",
+        "source_page": "printed page 99",
+        "source_url": "https://irrigation.punjab.gov.pk/uploads/pages/Flood_report_2025.pdf",
+        "station_name": "Kalabagh",
+        "station_name_in_source": "Jinnah Barrage (concerned XEN: Kalabagh)"
+      }
+    ],
+    "eligible_mappings": [
       {
-        "candidate_admin_unit": "Sialkot",
+        "candidate_admin_unit": "Mianwali",
         "evidence_records": 1,
-        "ineligibility_reason": "secondary_evidence_not_eligible_by_policy",
-        "mapping_status": "resolved_inferred",
-        "station_key": "pdma:marala",
-        "station_name": "Marala"
+        "ineligibility_reason": null,
+        "mapping_status": "resolved_authoritative",
+        "station_key": "pdma:chashma",
+        "station_name": "Chashma"
       },
       {
         "candidate_admin_unit": "Jhang",
-        "evidence_records": 1,
-        "ineligibility_reason": "secondary_evidence_not_eligible_by_policy",
-        "mapping_status": "resolved_inferred",
+        "evidence_records": 2,
+        "ineligibility_reason": null,
+        "mapping_status": "resolved_coordinate",
         "station_key": "pdma:trimmu",
         "station_name": "Trimmu"
       }
     ],
-    "task25_investigation_log": [
+    "gauge_observations_newly_eligible_for_scoring": 126,
+    "inventory_count": 41,
+    "investigation_log": [
       {
         "checked": "2026-10-04",
         "outcome": "not reachable from the build environment (connection refused); web search surfaced no telemetry site list with locations. The project's source inventory only records a 'Telemetry Sites Locations' item (no content).",
@@ -638,6 +821,144 @@
         "source": "Punjab Irrigation Department",
         "source_type": "official",
         "url": "https://irrigation.punjab.gov.pk"
+      },
+      {
+        "checked": "2026-10-07",
+        "outcome": "RETRIEVED (sha256 ed8fdd54def974e938a51a1eec78911f7b7560a99e2870fcaec1a7837335162f, text layer, read with PyMuPDF; digits checked against a rendered page image). Table 4 'Breaching Sites Location' (printed page 99) gives latitude/longitude for 10 of the gauge sites' headworks, but the coordinates are the BREACHING SECTION of each site (the row states its chainage as an RD along a bund), not the gauge. Used only through position_uncertainty_m: a district is attributed only if it is the same everywhere within the stated offset.",
+        "result": "authoritative_coordinates_with_uncertainty",
+        "source": "Punjab Irrigation Department -- Flood Risk Assessment Unit (FRAU), 'Flood Report 2025' (PDF, 143 pages)",
+        "source_type": "official",
+        "url": "https://irrigation.punjab.gov.pk/uploads/pages/Flood_report_2025.pdf"
+      },
+      {
+        "checked": "2026-10-07",
+        "outcome": "names the nullah sites as 'Bein at Shakargarh', 'Deg at Kingra', 'Aik at Ura', 'Basantar at Narowal', 'Palku at Wazirabad'; these are place names, not district statements, and the report does not equate them with the PDMA nullah station names. No station mapped from them.",
+        "result": "place_names_only",
+        "source": "Punjab Irrigation Department -- FRAU, 'Flood Report 2025', flood-limit table (printed page 47)",
+        "source_type": "official",
+        "url": "https://irrigation.punjab.gov.pk/uploads/pages/Flood_report_2025.pdf"
+      },
+      {
+        "checked": "2026-10-07",
+        "outcome": "RETRIEVED (sha256 34ddf7ddedb86fbd40d285b1d57addfc76ce5590890cb54e926af0947f4f99ab). Text layer holds flood-limit tables and narrative only: 'gauge at Jassar Bridge in Shakargarh', 'Shahdara Railway Bridge near Lahore' (place / proximity, not district statements). No coordinates or district per station. Hill-torrent names (Sanghar, Vehowa, Vidor, Sori Lund, Kaura) appear with discharge volumes only.",
+        "result": "no_station_district",
+        "source": "Punjab Irrigation Department -- FRAU, 'Flood Atlas 2022' (PDF, 34 pages)",
+        "source_type": "official",
+        "url": "https://irrigation.punjab.gov.pk/uploads/pages/FRAU_ATLAS_2022.pdf"
+      },
+      {
+        "checked": "2026-10-07",
+        "outcome": "RETRIEVED (html sha256 f74c666c25d406b0aa75fda99acc2d003f7f967400e16830789b3642d5df9941). The owner states 'Tarbela Dam is located on on Indus River, District Swabi, Khyber Pakhtunkhwa.' Recorded as authoritative. Swabi is not in geo.admin_unit, so no mapping can be applied without extending the canonical model.",
+        "result": "authoritative_district_not_in_canonical",
+        "source": "WAPDA -- 'Tarbela 5th Extension' page",
+        "source_type": "official",
+        "url": "https://wapda.gov.pk/tarbela-5th-extension-2/"
+      },
+      {
+        "checked": "2026-10-07",
+        "outcome": "RETRIEVED (html sha256 688960afe52a6431825e7eb81c384eef762df8903d5d8b2b6d6a49d86c76715f). The owner states 'The barrage is located on the Indus River near the village of Chashma in Mianwali District'. Recorded as authoritative.",
+        "result": "authoritative_district",
+        "source": "WAPDA -- 'Chashma Hydel Power' page",
+        "source_type": "official",
+        "url": "https://wapda.gov.pk/chashma-hydel-power/"
+      },
+      {
+        "checked": "2026-10-07",
+        "outcome": "RETRIEVED (html sha256 cabf002d307fd87a45ee7031fb38a70c0c68a396c96c9c37dd9aee42da9d1c78). Says 'a place called Mangla on river Jhelum located about 30 km upstream of Jhelum city'; no district statement. Mangla stays caveated. (The WAPDA 'Mangla Marala Link Canal' page places a canal head regulator in District Mirpur, AJ&K, but that is a different structure 8 km downstream of the dam and is not used.)",
+        "result": "no_district_statement",
+        "source": "WAPDA -- 'Mangla Dam' page",
+        "source_type": "official",
+        "url": "https://wapda.gov.pk/mangla-dam/"
+      },
+      {
+        "checked": "2026-10-07",
+        "outcome": "RETRIEVED the site pages; the bulletin carries reservoir levels (Tarbela, Mangla) and no station-district or coordinate table; the flood-reports page links no documents. Nothing usable.",
+        "result": "no_evidence",
+        "source": "Flood Forecasting Division, PMD (ffd.pmd.gov.pk): flood bulletins, flood reports, station meteograms",
+        "source_type": "official",
+        "url": "https://ffd.pmd.gov.pk"
+      },
+      {
+        "checked": "2026-10-07",
+        "outcome": "still unreachable (ffc.gov.pk answered HTTP 500, pakirsa.gov.pk refused the connection).",
+        "result": "unreachable",
+        "source": "Federal Flood Commission (ffc.gov.pk), IRSA (pakirsa.gov.pk)",
+        "source_type": "official",
+        "url": "https://ffc.gov.pk"
+      }
+    ],
+    "investigation_log_task37": [
+      {
+        "checked": "2026-10-07",
+        "outcome": "tables list river, site, design capacity, flood limits, inflow/outflow; no district, no coordinates",
+        "result": "no_evidence",
+        "source": "PDMA Punjab 'Daily Sitrep - Gauges and Rivers Situation' PDFs (data/raw/pdma/reports/gauge_reports, 410 files in 2026)"
+      },
+      {
+        "checked": "2026-10-07",
+        "outcome": "no sentence in any of the files pairs a station with the word District/Distt/Dist.; district names appear only inside weather-forecast region lists",
+        "result": "no_evidence",
+        "source": "Federal Flood Commission daily flood situation reports (data/raw/ffc/dfsr_glof_archive, 5 DFSR/Glof/press PDFs read as text)"
+      },
+      {
+        "checked": "2026-10-07",
+        "outcome": "listed by web search but ffc.gov.pk refused the connection (ECONNREFUSED), as in Task 25; content not read, not used",
+        "result": "unverifiable",
+        "source": "FFC Annual Flood Report 2025 (ffc.gov.pk) and per-headworks plans",
+        "url": "https://www.ffc.gov.pk/wp-content/uploads/2026/05/Flood-Report-2025.pdf"
+      },
+      {
+        "checked": "2026-10-07",
+        "outcome": "returned titles only (flood fighting plans for Balloki, Marala, Trimmu, Khanki); the plan documents were not retrievable, so no district statement could be verified",
+        "result": "no_evidence",
+        "source": "web search restricted to official domains (ffc, irrigation.punjab, pdma, wapda, pakirsa, pmd)"
+      }
+    ],
+    "never_eligible_invariant_holds": true,
+    "observations": 3686,
+    "observations_with_eligible_mapping": 186,
+    "resolved_mappings": [
+      {
+        "candidate_admin_unit": "Mianwali",
+        "evidence_records": 1,
+        "ineligibility_reason": null,
+        "mapping_status": "resolved_authoritative",
+        "station_key": "pdma:chashma",
+        "station_name": "Chashma"
+      },
+      {
+        "candidate_admin_unit": "Jhang",
+        "evidence_records": 2,
+        "ineligibility_reason": null,
+        "mapping_status": "resolved_coordinate",
+        "station_key": "pdma:trimmu",
+        "station_name": "Trimmu"
+      }
+    ],
+    "secondary_only_mappings": [
+      {
+        "candidate_admin_unit": "Kasur",
+        "evidence_records": 2,
+        "ineligibility_reason": "secondary_evidence_not_eligible_by_policy",
+        "mapping_status": "resolved_inferred",
+        "station_key": "pdma:balloki",
+        "station_name": "Balloki"
+      },
+      {
+        "candidate_admin_unit": "Gujranwala",
+        "evidence_records": 2,
+        "ineligibility_reason": "secondary_evidence_not_eligible_by_policy",
+        "mapping_status": "resolved_inferred",
+        "station_key": "pdma:khanki",
+        "station_name": "Khanki"
+      },
+      {
+        "candidate_admin_unit": "Sialkot",
+        "evidence_records": 2,
+        "ineligibility_reason": "secondary_evidence_not_eligible_by_policy",
+        "mapping_status": "resolved_inferred",
+        "station_key": "pdma:marala",
+        "station_name": "Marala"
       }
     ],
     "unresolved": [
@@ -686,14 +1007,6 @@
         "evidence_records": 0,
         "ineligibility_reason": "no_evidence",
         "mapping_status": "unresolved",
-        "station_key": "pdma:chashma",
-        "station_name": "Chashma"
-      },
-      {
-        "candidate_admin_unit": null,
-        "evidence_records": 0,
-        "ineligibility_reason": "no_evidence",
-        "mapping_status": "unresolved",
         "station_key": "pdma:deg",
         "station_name": "Deg"
       },
@@ -707,8 +1020,8 @@
       },
       {
         "candidate_admin_unit": null,
-        "evidence_records": 0,
-        "ineligibility_reason": "no_evidence",
+        "evidence_records": 1,
+        "ineligibility_reason": "no_usable_evidence",
         "mapping_status": "unresolved",
         "station_key": "pdma:islam",
         "station_name": "Islam"
@@ -787,7 +1100,7 @@
       },
       {
         "candidate_admin_unit": null,
-        "evidence_records": 1,
+        "evidence_records": 2,
         "ineligibility_reason": "admin_unit_not_in_canonical_geography",
         "mapping_status": "unresolved",
         "station_key": "pdma:panjnad",
@@ -803,8 +1116,8 @@
       },
       {
         "candidate_admin_unit": null,
-        "evidence_records": 0,
-        "ineligibility_reason": "no_evidence",
+        "evidence_records": 1,
+        "ineligibility_reason": "no_usable_evidence",
         "mapping_status": "unresolved",
         "station_key": "pdma:qadirabad",
         "station_name": "Qadirabad"
@@ -835,8 +1148,8 @@
       },
       {
         "candidate_admin_unit": null,
-        "evidence_records": 0,
-        "ineligibility_reason": "no_evidence",
+        "evidence_records": 1,
+        "ineligibility_reason": "no_usable_evidence",
         "mapping_status": "unresolved",
         "station_key": "pdma:sidhnai",
         "station_name": "Sidhnai"
@@ -875,8 +1188,8 @@
       },
       {
         "candidate_admin_unit": null,
-        "evidence_records": 0,
-        "ineligibility_reason": "no_evidence",
+        "evidence_records": 1,
+        "ineligibility_reason": "no_usable_evidence",
         "mapping_status": "unresolved",
         "station_key": "pdma:suleimanki",
         "station_name": "Suleimanki"
@@ -914,26 +1227,26 @@
         "station_name": "Zangi"
       }
     ],
-    "unresolved_count": 34
+    "unresolved_count": 33
   },
   "newly_unlocked_eligible_observations": {
     "air_quality": 0,
     "disaster_event": 0,
-    "gauge": 0,
+    "gauge": 126,
     "hazard_alert": 0,
     "rainfall": 0,
     "weather": 0
   },
   "question": "Which operational signals can be associated with which Pakistan administrative units from authoritative or explicitly qualified evidence?",
-  "recommendation_note": "Obtain an official station list (FFD / WAPDA / IRSA / Punjab Irrigation per-headworks documents) by manual retrieval and add it as authoritative records to config/gauge_station_evidence.yaml; the pipeline accepts it without code changes.",
-  "recommended_next_evidence_gap": "authoritative_gauge_station_geography",
+  "recommendation_note": "Obtain official gauge-SITE coordinates or district statements (FFD telemetry / IRSA / FFC per-headworks plans, which were unreachable) and add them as authoritative records to config/gauge_station_evidence.yaml; the pipeline accepts them without code changes. Separately, a decision is needed on extending geo.admin_unit with districts that an owner states (Swabi for Tarbela).",
+  "recommended_next_evidence_gap": "official_gauge_site_coordinates_or_districts",
   "registry_version": "crosswalk-evidence-1.0.0",
   "remaining_blockers": [
-    "no authoritative gauge station evidence",
+    "39 of 41 gauge stations lack an eligible mapping",
     "weather has a single dated observation",
     "only Lahore has a continuous air-quality series",
     "no evidence-based weights or outcome labels (Task 36)",
-    "104 -> 103 boundary districts still lack a canonical unit"
+    "103 boundary districts still lack a canonical unit (Swabi, needed for Tarbela, is one)"
   ],
   "score_v2_outcome": "B",
   "scoring_enabled": false

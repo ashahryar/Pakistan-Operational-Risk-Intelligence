@@ -371,3 +371,21 @@ def locate_station(index: BoundaryIndex, crosswalk: dict, lat: float, lon: float
     if cw.get("match_status") in MATCHED:
         out.update(pori_admin_unit_id=cw["pori_admin_unit_id"], pori_admin_unit_name=cw["pori_admin_unit_name"])
     return out
+
+
+def locate_within_radius(index: BoundaryIndex, crosswalk: dict, lat: float, lon: float, radius_m: float,
+                         rings: int = 4, bearings: int = 16) -> dict:
+    """Task 38 -- district attribution of a coordinate that is only known to within `radius_m` metres.
+
+    The centre and `rings` x `bearings` probe points out to `radius_m` must ALL fall inside the same single boundary district; otherwise the
+    attribution depends on where inside the uncertainty disc the true position is, and it is refused (`stable` False). Deterministic."""
+    centre = locate_station(index, crosswalk, lat, lon)
+    units = {centre["boundary_pcode"]} if centre["polygon_status"] == "inside" else {None}
+    for r in range(1, rings + 1):
+        d = radius_m * r / rings
+        for k in range(bearings):
+            a = 2 * math.pi * k / bearings
+            p = locate_station(index, crosswalk, lat + d * math.sin(a) / 111320.0, lon + d * math.cos(a) / (111320.0 * math.cos(math.radians(lat))))
+            units.add(p["boundary_pcode"] if p["polygon_status"] == "inside" else None)
+    return {**centre, "position_uncertainty_m": radius_m, "probe_units": sorted(u or "outside/overlap" for u in units),
+            "stable": len(units) == 1 and None not in units}

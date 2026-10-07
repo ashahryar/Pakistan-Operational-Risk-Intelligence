@@ -21,21 +21,22 @@ def test_audit_is_idempotent(report):
 
 def test_outcome_is_b_no_numeric_score_and_every_cell_abstains(report):
     assert report["outcome"] == "B" and report["numeric_score_enabled"] is False and report["scoring_enabled"] is False
-    assert report["cells_scored"] == 0 and report["cells_abstained"] == report["cells_assessed"] == 1586 and report["evidence_based_weights_defined"] == []
-    assert sum(report["contributing_group_histogram"].values()) == 1586 and "NOT defensible" in report["conclusion"]
+    assert report["cells_scored"] == 0 and report["cells_abstained"] == report["cells_assessed"] == 1771 and report["evidence_based_weights_defined"] == []
+    assert sum(report["contributing_group_histogram"].values()) == 1771 and "NOT defensible" in report["conclusion"]
 
 
 def test_abstention_reasons_add_up(report):
     c, h = report["abstention_reason_counts"], report["contributing_group_histogram"]
-    assert c["SCORE_V2_DISABLED"] == 1586 and c["NO_ELIGIBLE_SIGNAL"] == h["0"] and c["TOO_FEW_INDEPENDENT_SIGNAL_GROUPS"] == h["1"]
-    assert c["NO_EVIDENCE_BASED_WEIGHTS"] == report["cells_with_at_least_one_eligible_signal_group"] == 358
+    assert c["SCORE_V2_DISABLED"] == 1771 and c["NO_ELIGIBLE_SIGNAL"] == h["0"] and c["TOO_FEW_INDEPENDENT_SIGNAL_GROUPS"] == h["1"]
+    assert c["NO_EVIDENCE_BASED_WEIGHTS"] == report["cells_with_at_least_one_eligible_signal_group"] == 484      # Task 38: 358 + 126 gauge cells
     assert report["cells_with_required_independent_groups"] == 8 == h["2"]                        # only 8 cells even meet the data contract
 
 
 def test_domain_findings_match_the_coverage_facts(report):
     d = report["domains"]
     assert d["weather"]["distinct_dates"] == 1 and d["weather"]["historical_reference_available"] is False
-    assert d["gauge"]["resolved_rows"] == 0 and d["gauge"]["eligibility_counts"].get("ELIGIBLE", 0) == 0 and d["gauge"]["decision"] == "NO_ELIGIBLE_OBSERVATION"
+    assert d["gauge"]["resolved_rows"] == 186 and d["gauge"]["eligibility_counts"].get("ELIGIBLE", 0) == 126 and d["gauge"]["decision"] == "ELIGIBLE_OBSERVATIONS_EXIST"
+    assert d["gauge"]["distinct_geographies_resolved"] == 2          # Task 38: Chashma (Mianwali) and Trimmu (Jhang) only
     assert d["air_quality"]["distinct_geographies_resolved"] == 1 and d["air_quality"]["eligibility_counts"]["ELIGIBLE"] > 0
     assert d["hazard_alert"]["decision"] == d["disaster_event"]["decision"] == "CONTEXTUAL"
     assert d["rainfall"]["eligibility_counts"]["UNRESOLVED_GEOGRAPHY"] > 0 and d["rainfall"]["longest_unit_history_observations"] < 60

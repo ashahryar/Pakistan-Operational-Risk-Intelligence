@@ -1,20 +1,20 @@
 {
   "abstention_reason_counts": {
-    "NO_ELIGIBLE_SIGNAL": 1287,
-    "NO_EVIDENCE_BASED_WEIGHTS": 484,
-    "SCORE_V2_DISABLED": 1771,
-    "TOO_FEW_INDEPENDENT_SIGNAL_GROUPS": 476
+    "NO_ELIGIBLE_SIGNAL": 1228,
+    "NO_EVIDENCE_BASED_WEIGHTS": 358,
+    "SCORE_V2_DISABLED": 1586,
+    "TOO_FEW_INDEPENDENT_SIGNAL_GROUPS": 350
   },
   "audit_version": "1.0.0",
-  "cells_abstained": 1771,
-  "cells_assessed": 1771,
+  "cells_abstained": 1586,
+  "cells_assessed": 1586,
   "cells_scored": 0,
-  "cells_with_at_least_one_eligible_signal_group": 484,
+  "cells_with_at_least_one_eligible_signal_group": 358,
   "cells_with_required_independent_groups": 8,
-  "conclusion": "A numeric score is NOT defensible yet: no evidence-based weights exist, and only 8 of 1771 cells even have 2 independent eligible signal groups.",
+  "conclusion": "A numeric score is NOT defensible yet: no evidence-based weights exist, and only 8 of 1586 cells even have 2 independent eligible signal groups.",
   "contributing_group_histogram": {
-    "0": 1287,
-    "1": 476,
+    "0": 1228,
+    "1": 350,
     "2": 8
   },
   "domains": {
@@ -85,43 +85,31 @@
     "gauge": {
       "date_max": "2026-09-15",
       "date_min": "2026-06-15",
-      "decision": "ELIGIBLE_OBSERVATIONS_EXIST",
-      "decision_reason": "individual observations satisfy the contract; aggregation is still blocked (see outcome)",
+      "decision": "NO_ELIGIBLE_OBSERVATION",
+      "decision_reason": "geography is unresolved, ambiguous or caveated; it is never mapped or guessed",
       "distinct_dates": 93,
-      "distinct_geographies_resolved": 2,
+      "distinct_geographies_resolved": 0,
       "eligibility_counts": {
-        "ELIGIBLE": 126,
-        "INSUFFICIENT_DATA": 60,
-        "UNRESOLVED_GEOGRAPHY": 3313
+        "UNRESOLVED_GEOGRAPHY": 3499
       },
-      "historical_reference_available": true,
+      "historical_reference_available": false,
       "history_needed_for_score": 30,
       "independence_group": "hydromet_event",
-      "longest_gap_days": 1,
-      "longest_unit_history_observations": 93,
+      "longest_gap_days": 0,
+      "longest_unit_history_observations": 0,
       "normalization": "percentile_rank_strict_prior",
-      "observation_span_days": 93,
-      "resolved_pct": 5.05,
-      "resolved_rows": 186,
+      "observation_span_days": 0,
+      "resolved_pct": 0.0,
+      "resolved_rows": 0,
       "rows": 3686,
       "top_reasons": [
         {
-          "count": 3313,
+          "count": 3499,
           "eligibility": "UNRESOLVED_GEOGRAPHY",
           "reason": "geography is unresolved, ambiguous or caveated; it is never mapped or guessed"
-        },
-        {
-          "count": 126,
-          "eligibility": "ELIGIBLE",
-          "reason": "satisfies the evidence contract"
-        },
-        {
-          "count": 60,
-          "eligibility": "INSUFFICIENT_DATA",
-          "reason": "fewer than 30 prior observations of this unit and domain: no defensible normalization"
         }
       ],
-      "units_with_series": 2
+      "units_with_series": 0
     },
     "hazard_alert": {
       "date_max": "2026-09-02",
@@ -240,9 +228,9 @@
   "numeric_score_enabled": false,
   "outcome": "B",
   "provenance_coverage": {
-    "assessed_signals": 2802,
+    "assessed_signals": 2616,
     "pct": 100.0,
-    "with_source_record_ids": 2802
+    "with_source_record_ids": 2616
   },
   "required_independent_groups": 2,
   "score_version": "operational-score-v2-foundation-1.0.0",

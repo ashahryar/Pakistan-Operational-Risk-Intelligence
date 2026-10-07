@@ -21,7 +21,7 @@ from __future__ import annotations
 
 from typing import Any, Optional
 
-from pipeline.geo.boundaries import BoundaryIndex, locate_station, validate_coordinate
+from pipeline.geo.boundaries import BoundaryIndex, locate_station, locate_within_radius, validate_coordinate
 from pipeline.geo.gauge_station import match_key
 
 ELIGIBLE_STATUSES = {"resolved_authoritative", "resolved_coordinate", "resolved_source_reported"}
@@ -53,7 +53,8 @@ def _blank(station: dict, evidence_cfg: dict) -> dict:
 
 def _compact(e: dict) -> dict:
     keys = ("station_name", "source", "source_type", "source_url", "source_record", "station_id", "latitude",
-            "longitude", "district", "tehsil", "river", "basin", "evidence_status", "evidence_strength", "notes", "retrieved")
+            "longitude", "position_uncertainty_m", "district", "tehsil", "river", "basin", "evidence_status", "evidence_strength", "notes", "retrieved",
+            "source_title", "source_organization", "source_page", "station_name_in_source", "source_statement")
     return {k: e.get(k) for k in keys}
 
 
@@ -100,11 +101,19 @@ def build_mapping(inventory: list[dict], evidence_cfg: dict, units_by_name: dict
                 elif boundary is None:
                     notes.append("coordinates valid but no boundary dataset loaded; not mapped")
                 else:
-                    loc = locate_station(boundary, crosswalk or {}, float(e["latitude"]), float(e["longitude"]))
-                    m.update({k: loc[k] for k in ("boundary_source", "boundary_version", "boundary_level", "boundary_unit_name",
-                                                  "boundary_pcode", "boundary_match_basis", "boundary_confidence")})
+                    unc = e.get("position_uncertainty_m")
+                    if unc:                 # coordinate known only to within `unc` metres: attribution must hold across the whole disc
+                        loc = locate_within_radius(boundary, crosswalk or {}, float(e["latitude"]), float(e["longitude"]), float(unc))
+                    else:
+                        loc = locate_station(boundary, crosswalk or {}, float(e["latitude"]), float(e["longitude"]))
+                    if not (unc and loc["polygon_status"] == "inside" and not loc["stable"]):      # an unstable attribution is not recorded as the boundary unit
+                        m.update({k: loc[k] for k in ("boundary_source", "boundary_version", "boundary_level", "boundary_unit_name",
+                                                      "boundary_pcode", "boundary_match_basis", "boundary_confidence")})
                     if loc["polygon_status"] != "inside":
                         notes.append(f"coordinate polygon result {loc['polygon_status']}; no district assigned")
+                    elif unc and not loc["stable"]:
+                        notes.append(f"coordinate attribution is not stable within the stated {unc} m position uncertainty "
+                                     f"(probe districts {loc['probe_units']}); no district assigned")
                     elif loc["pori_admin_unit_name"] is None:
                         notes.append(f"coordinate falls in boundary district {loc['boundary_unit_name']!r} which has no "
                                      f"canonical match (crosswalk {loc['crosswalk_status']})")
@@ -132,7 +141,7 @@ def build_mapping(inventory: list[dict], evidence_cfg: dict, units_by_name: dict
                      ineligibility_reason="ambiguous_mapping")
         elif not names:
             m.update(mapping_basis="no_usable_evidence", ineligibility_reason="no_usable_evidence",
-                     caveat="; ".join(notes) or "evidence present but names no admin unit")
+                     caveat=None if notes else "evidence present but names no admin unit")
         else:
             name = names[0]
             best = max(cands, key=lambda c: _RANK.get(c["evidence_status"], 0))

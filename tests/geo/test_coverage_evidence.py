@@ -112,13 +112,13 @@ def test_no_fuzzy_promotion_only_declared_aliases_exist():
 
 
 # --- gauge geography: unresolved / conflicting / secondary-only / eligibility -------------------------------------------
-def test_gauge_view_states_and_nothing_eligible():
+def test_gauge_view_states_and_only_evidenced_stations_eligible():
     v = CE.gauge_station_view(MAPPING)
-    assert len(v["unresolved"]) == 34 and len(v["conflicting"]) == 2 and len(v["secondary_only"]) == 4 and len(v["caveated"]) == 1
-    assert v["eligible"] == [] and v["resolved"] == [] and CE.secondary_never_eligible(v)
+    assert len(v["unresolved"]) == 33 and len(v["conflicting"]) == 2 and len(v["secondary_only"]) == 3 and len(v["caveated"]) == 1
+    assert {r["station_name"] for r in v["eligible"]} == {"Chashma", "Trimmu"} == {r["station_name"] for r in v["resolved"]} and CE.secondary_never_eligible(v)    # Task 38
     names = {r["station_name"] for r in v["conflicting"]}
     assert names == {"Tarbela", "Rasul"}
-    assert {r["station_name"] for r in v["secondary_only"]} == {"Marala", "Khanki", "Trimmu", "Balloki"}
+    assert {r["station_name"] for r in v["secondary_only"]} == {"Marala", "Khanki", "Balloki"}
     assert {r["station_name"] for r in v["caveated"]} == {"Mangla"}
     assert all(r["conflict_status"] == "CONFLICTING" and len(r["claimed_districts"]) == 2 for r in v["conflicting"])
 
@@ -155,7 +155,7 @@ def test_audit_domains_are_complete_and_consistent():
         assert x["rows"] >= x["resolved_rows"] >= 0 and x["missing_geography_rows"] == x["rows"] - x["resolved_rows"]
         assert x["missing_dates_within_span"] == max(x["observation_span_days"] - x["distinct_dates"], 0)
         assert x["source"] and x["geography_resolution_method"] and x["blockers"], d
-    assert AUDIT["domains"]["gauge"]["resolved_rows"] == 0 and AUDIT["domains"]["air_quality"]["distinct_admin_units_with_series"] == 1
+    assert AUDIT["domains"]["gauge"]["resolved_rows"] == 186 and AUDIT["domains"]["air_quality"]["distinct_admin_units_with_series"] == 1
 
 
 def test_audit_date_continuity_air_quality_has_no_missing_dates():
@@ -163,10 +163,12 @@ def test_audit_date_continuity_air_quality_has_no_missing_dates():
     assert aq["missing_dates_within_span"] == 0 and aq["longest_gap_days"] == 1 and aq["historical_normalization_possible"]
 
 
-def test_audit_eligibility_transition_is_zero_and_documented():
-    assert AUDIT["newly_unlocked_eligible_observations"] == {d: 0 for d in AUDIT["domains"]}
-    for x in AUDIT["domains"].values():
-        assert x["eligibility_counts_before"] == x["eligibility_counts_after"]
+def test_audit_eligibility_transition_is_confined_to_gauge():
+    new = AUDIT["newly_unlocked_eligible_observations"]
+    assert new["gauge"] == 126 and all(v == 0 for d, v in new.items() if d != "gauge")      # Task 38; every other domain is unchanged
+    for d, x in AUDIT["domains"].items():
+        if d != "gauge":
+            assert x["eligibility_counts_before"] == x["eligibility_counts_after"]
 
 
 def test_gap_ranking_is_deterministic_and_not_row_count_driven():
@@ -192,4 +194,4 @@ def test_newly_resolved_signals_become_eligible_but_score_stays_null():
 
 def test_audit_reports_scoring_disabled_and_zero_scored_cells():
     assert AUDIT["scoring_enabled"] is False and AUDIT["cells_scored"] == 0 and AUDIT["score_v2_outcome"] == "B"
-    assert AUDIT["gauge_stations"]["authoritative_mappings_added"] == 0 and AUDIT["gauge_stations"]["eligible_mappings"] == []
+    assert AUDIT["gauge_stations"]["authoritative_mappings"] == 2 and len(AUDIT["gauge_stations"]["eligible_mappings"]) == 2

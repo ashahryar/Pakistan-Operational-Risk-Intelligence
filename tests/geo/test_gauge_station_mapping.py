@@ -207,8 +207,12 @@ def test_real_evidence_file_is_versioned_and_never_marks_secondary_evidence_auth
         assert e["evidence_status"] in {"authoritative", "official_secondary", "secondary", "conflicting", "unresolved"}
         if e["source_type"] in {"secondary", "legacy_seed"}:
             assert e["evidence_status"] != "authoritative", e
-        assert e.get("latitude") is None and e.get("longitude") is None       # no coordinates were ever sourced
-    assert not any(e["evidence_status"] == "authoritative" for e in c["evidence"])   # none located so far
+        if e.get("latitude") is not None or e.get("longitude") is not None:   # coordinates only from an official owner, with a bounded position uncertainty
+            assert e["evidence_status"] == "authoritative" and e["source_type"] == "official" and e.get("position_uncertainty_m") and e["source_url"]
+        if e["evidence_status"] == "authoritative":                            # Task 38: full traceability for every accepted record
+            for f in ("source_title", "source_organization", "source_page", "station_name_in_source", "source_url", "source_statement", "retrieved"):
+                assert e.get(f), (f, e["station_name"])
+            assert e["source_type"] == "official" and (e.get("district") or e.get("latitude") is not None)
     assert c["investigation_log"] and all(i["outcome"] and i["checked"] for i in c["investigation_log"])
 
 
@@ -224,4 +228,4 @@ def test_real_data_run_is_valid_and_idempotent(tmp_path):
     assert first["validation_errors"] == [] and first == second and first_files == second_files
     inv = json.loads(first_files["gauge_station_inventory.json"])
     assert len({s["station_key"] for s in inv}) == len(inv) == first["distinct_stations"]
-    assert first["coordinate_derived_mappings"] == 0
+    assert first["coordinate_derived_mappings"] == 1          # Task 38: Trimmu only

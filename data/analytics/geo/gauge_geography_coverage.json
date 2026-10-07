@@ -1,6 +1,6 @@
 {
   "admin_unit_labels_from_db": true,
-  "authoritative_station_mappings": 0,
+  "authoritative_station_mappings": 1,
   "basin_context_status_counts": {
     "unresolved": 41
   },
@@ -12,39 +12,39 @@
       "metric": "distinct_gauge_stations"
     },
     {
-      "after_task24": 5,
+      "after_task24": 6,
       "before_task24": 1,
-      "change": 4,
+      "change": 5,
       "metric": "stations_with_candidate_admin_geography"
     },
     {
-      "after_task24": 0,
+      "after_task24": 2,
       "before_task24": 0,
-      "change": 0,
+      "change": 2,
       "metric": "stations_eligible_for_admin_risk"
     },
     {
-      "after_task24": 41,
+      "after_task24": 39,
       "before_task24": 41,
-      "change": 0,
+      "change": -2,
       "metric": "stations_unresolved_for_risk"
     },
     {
-      "after_task24": 465,
+      "after_task24": 558,
       "before_task24": 93,
-      "change": 372,
+      "change": 465,
       "metric": "observations_with_candidate_admin_geography"
     },
     {
-      "after_task24": 0,
+      "after_task24": 186,
       "before_task24": 0,
-      "change": 0,
+      "change": 186,
       "metric": "observations_attributable_for_risk"
     },
     {
-      "after_task24": 3686,
+      "after_task24": 3500,
       "before_task24": 3686,
-      "change": 0,
+      "change": -186,
       "metric": "observations_unresolved_for_risk"
     },
     {
@@ -72,9 +72,9 @@
       "metric": "ambiguous_stations"
     },
     {
-      "after_task24": 4,
+      "after_task24": 3,
       "before_task24": 0,
-      "change": 4,
+      "change": 3,
       "metric": "inferred_stations_not_eligible"
     }
   ],
@@ -86,28 +86,32 @@
     "level2:exact": 54,
     "level2:unmatched": 103
   },
-  "coordinate_derived_mappings": 0,
+  "coordinate_derived_mappings": 1,
   "distinct_stations": 41,
-  "eligible_stations": 0,
+  "eligible_stations": 2,
   "geography_derivation_counts": {
-    "inferred": 5,
-    "none": 36
+    "coordinate_based": 1,
+    "inferred": 4,
+    "none": 35,
+    "source_reported": 1
   },
-  "mapping_date": "2026-10-04",
+  "mapping_date": "2026-10-07",
   "mapping_status_counts": {
     "ambiguous": 2,
     "caveated": 1,
-    "resolved_inferred": 4,
-    "unresolved": 34
+    "resolved_authoritative": 1,
+    "resolved_coordinate": 1,
+    "resolved_inferred": 3,
+    "unresolved": 33
   },
-  "mapping_version": "gauge-geo-2.0.0",
-  "observations_eligible_for_risk": 0,
-  "observations_unresolved": 3686,
+  "mapping_version": "gauge-geo-3.0.0",
+  "observations_eligible_for_risk": 186,
+  "observations_unresolved": 3500,
   "river_context_status_counts": {
     "source_reported": 40,
     "unresolved": 1
   },
-  "stations_with_authoritative_coordinates": 0,
+  "stations_with_authoritative_coordinates": 10,
   "task24_reference": {
     "eligible_stations": 0,
     "mapping_status_counts": {
@@ -158,13 +162,6 @@
     {
       "mapping_status": "unresolved",
       "observation_count": 93,
-      "river_name_reported": "INDUS",
-      "station_key": "pdma:chashma",
-      "station_name": "Chashma"
-    },
-    {
-      "mapping_status": "unresolved",
-      "observation_count": 93,
       "river_name_reported": "NULLAHS",
       "station_key": "pdma:deg",
       "station_name": "Deg"
@@ -189,6 +186,13 @@
       "river_name_reported": "RAVI",
       "station_key": "pdma:jassar",
       "station_name": "Jassar"
+    },
+    {
+      "mapping_status": "unresolved",
+      "observation_count": 93,
+      "river_name_reported": "RAJANPUR HILL TORRENTS",
+      "station_key": "pdma:kaha",
+      "station_name": "Kaha"
     }
   ],
   "validation_errors": [],

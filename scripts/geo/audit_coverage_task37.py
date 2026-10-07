@@ -30,7 +30,7 @@ from scripts.risk import run_risk_engine as RUN  # noqa: E402
 GEO = PROJECT_ROOT / "data" / "analytics" / "geo"
 OUT = GEO / "coverage_evidence_audit.json"
 REGISTRY = PROJECT_ROOT / "config" / "crosswalk_evidence.yaml"
-TASK36_AUDIT = PROJECT_ROOT / "data" / "analytics" / "risk" / "score_v2_audit.json"
+TASK36_AUDIT = PROJECT_ROOT / "data" / "analytics" / "geo" / "score_v2_audit_baseline_task37.json"   # frozen copy of the Task 36 audit: the BEFORE state
 
 # Declared (descriptive, not measured) facts per domain. Everything numeric below is measured from the data.
 DOMAIN_FACTS = {
@@ -79,6 +79,7 @@ def build_report() -> dict:
     xw = _load_json(GEO / "gauge_boundary_crosswalk.json")
     mapping = _load_json(GEO / "gauge_station_mapping.json")
     inventory = {s["station_key"]: s for s in _load_json(GEO / "gauge_station_inventory.json")}
+    gauge_cfg = yaml.safe_load((PROJECT_ROOT / "config" / "gauge_station_evidence.yaml").read_text(encoding="utf-8"))
     check = CE.check_registry(registry, xw["crosswalk"])
     view = CE.gauge_station_view(mapping)
 
@@ -96,16 +97,24 @@ def build_report() -> dict:
                       "eligibility_counts_before": b["eligibility_counts"], "eligibility_counts_after": x["eligibility_counts"],
                       "newly_eligible_observations": x["eligibility_counts"].get(S.ELIGIBLE, 0) - b["eligibility_counts"].get(S.ELIGIBLE, 0),
                       "admin_units_with_eligible_observation": len(elig_units.get(d, {})), "scoring_decision": x["decision"], "blockers": [x["decision_reason"]]}
-    domains["gauge"]["blockers"] = ["no authoritative station-to-district or coordinate evidence (Task 25 + Task 37 searches)", "3,499 observations UNRESOLVED_GEOGRAPHY"]
+    n_auth = len(view["eligible"])
+    domains["gauge"]["blockers"] = [f"only {n_auth} of {len(inventory)} stations have an eligible (authoritative) mapping; the rest are unresolved, conflicting, secondary-only or caveated",
+                                    f"{domains['gauge']['eligibility_counts_after'].get('UNRESOLVED_GEOGRAPHY', 0)} assessed observations remain UNRESOLVED_GEOGRAPHY",
+                                    "the only official coordinates found are breaching-section locations, not gauge sites"]
+    domains["gauge"]["geography_resolution_method"] = ("authoritative evidence only: owner district statement (WAPDA, Chashma) or official coordinates with a stated position uncertainty "
+                                                       "that stay inside one boundary district (Punjab Irrigation Department, Trimmu); secondary candidates are never applied")
     domains["weather"]["blockers"] = ["a single observation date: no prior history to normalize against"]
     domains["rainfall"]["blockers"] = ["only a few units have >= 30 prior observations", "74 header-artefact rows ('Stations') and multi-district strings stay unresolved by design"]
     domains["air_quality"]["blockers"] = ["only one geography (Lahore)"]
 
     gauge_obs = sum(s["observation_count"] for s in inventory.values())
     gaps = CE.rank_gaps([
-        {"name": "authoritative_gauge_station_geography", "units_unlocked": 10, "units_unlocked_note": "lower bound: distinct districts named by the secondary candidates; 41 stations",
-         "history_continuity": 0.9, "authority": 3, "normalizable": True, "precision": 3, "relevance": 3, "reliability": 0,
-         "observations_unlocked": gauge_obs, "blocker": "no retrievable official station list; official sites refuse connections or serve unreadable files"},
+        {"name": "official_gauge_site_coordinates_or_districts", "units_unlocked": 10, "units_unlocked_note": "lower bound: the 9 stations whose official breaching-section coordinates were unstable across districts, plus Tarbela",
+         "history_continuity": 0.9, "authority": 3, "normalizable": True, "precision": 3, "relevance": 3, "reliability": 1,
+         "observations_unlocked": 10 * 93, "blocker": "official coordinates exist only for breaching sections; gauge-site coordinates or district statements still need an official list (FFD / IRSA / FFC unreachable)"},
+        {"name": "canonical_model_extension_for_authoritative_districts", "units_unlocked": 1, "units_unlocked_note": "Swabi (WAPDA states Tarbela is in District Swabi); needs approval to extend geo.admin_unit",
+         "history_continuity": 0.9, "authority": 3, "normalizable": True, "precision": 2, "relevance": 2, "reliability": 1,
+         "observations_unlocked": 93, "blocker": "outside Task 38 scope: changes the canonical geography"},
         {"name": "dated_weather_history_accumulation", "units_unlocked": 10, "units_unlocked_note": "27 resolved geographies; >= 31 daily dates needed",
          "history_continuity": 0.0, "authority": 2, "normalizable": True, "precision": 2, "relevance": 2, "reliability": 2,
          "observations_unlocked": 0, "blocker": "needs repeated dated collection; DAGs are paused and PMD overwrites latest.json"},
@@ -121,16 +130,22 @@ def build_report() -> dict:
         "audit_version": "1.0.0", "registry_version": registry["registry_version"], "scoring_enabled": after["scoring_enabled"],
         "score_v2_outcome": after["outcome"], "cells_scored": after["cells_scored"],
         "question": "Which operational signals can be associated with which Pakistan administrative units from authoritative or explicitly qualified evidence?",
-        "answer_summary": ("No gauge station has authoritative geography. Rainfall (PDMA), weather (PMD) and air quality (EPA Punjab) are associated with "
+        "answer_summary": (f"{n_auth} of {len(inventory)} gauge stations have authoritative geography (Chashma, Trimmu). Rainfall (PDMA), weather (PMD) and air quality (EPA Punjab) are associated with "
                            "administrative units through the project's deterministic name resolver against the canonical model, which is explicitly qualified (not government-certified). "
                            "Hazard alerts and disaster events are contextual."),
         "gauge_stations": {"inventory_count": len(inventory), "observations": gauge_obs,
-                           "resolved_mappings": view["resolved"], "authoritative_mappings_added": 0, "eligible_mappings": view["eligible"],
+                           "resolved_mappings": view["resolved"], "authoritative_mappings": n_auth, "baseline_authoritative_mappings_task37": 0, "eligible_mappings": view["eligible"],
+                           "observations_with_eligible_mapping": sum(inventory[m["station_key"]]["observation_count"] for m in view["eligible"]),
+                           "gauge_observations_newly_eligible_for_scoring": domains["gauge"]["newly_eligible_observations"],
                            "unresolved_count": len(view["unresolved"]), "unresolved": view["unresolved"],
                            "conflicting_mappings": view["conflicting"], "secondary_only_mappings": view["secondary_only"], "caveated": view["caveated"],
                            "never_eligible_invariant_holds": CE.secondary_never_eligible(view),
-                           "authoritative_evidence_references": [e for e in registry["gauge_investigation_task37"]],
-                           "task25_investigation_log": yaml.safe_load((PROJECT_ROOT / "config" / "gauge_station_evidence.yaml").read_text(encoding="utf-8"))["investigation_log"]},
+                           "authoritative_evidence_references": [{k: e.get(k) for k in ("station_name", "station_name_in_source", "source_title", "source_organization", "source_page",
+                                                                                 "source_url", "source_statement", "latitude", "longitude", "position_uncertainty_m", "district",
+                                                                                 "evidence_status", "retrieved")}
+                                                                 for e in gauge_cfg["evidence"] if e.get("evidence_status") == "authoritative"],
+                           "deferred_official_coordinates": gauge_cfg.get("deferred_official_coordinates", []),
+                           "investigation_log": gauge_cfg["investigation_log"], "investigation_log_task37": registry["gauge_investigation_task37"]},
         "crosswalk": {"boundary_dataset": xw["boundary_source"].get("dataset"), "status_counts": xw["match_status_counts"],
                       "canonical_districts": 69, "boundary_districts": 160,
                       "changes_in_task37": [{"boundary_source_id": "PK719", "boundary_name": "Shaheed Benazir Abad", "canonical_admin_unit_id": 59,
@@ -142,12 +157,18 @@ def build_report() -> dict:
         "domains": domains,
         "admin_unit_coverage": {d: {"admin_units_with_eligible_observation": len(elig_units.get(d, {}))} for d in domains},
         "newly_unlocked_eligible_observations": {d: domains[d]["newly_eligible_observations"] for d in domains},
+        "cells": {"assessed_before": before["cells_assessed"], "assessed_after": after["cells_assessed"],
+                  "with_an_eligible_signal_group_before": before["cells_with_at_least_one_eligible_signal_group"],
+                  "with_an_eligible_signal_group_after": after["cells_with_at_least_one_eligible_signal_group"],
+                  "with_two_independent_groups_before": before["cells_with_required_independent_groups"],
+                  "with_two_independent_groups_after": after["cells_with_required_independent_groups"]},
         "gap_ranking": gaps,
-        "remaining_blockers": ["no authoritative gauge station evidence", "weather has a single dated observation", "only Lahore has a continuous air-quality series",
-                               "no evidence-based weights or outcome labels (Task 36)", "104 -> 103 boundary districts still lack a canonical unit"],
+        "remaining_blockers": [f"{len(inventory) - n_auth} of {len(inventory)} gauge stations lack an eligible mapping", "weather has a single dated observation", "only Lahore has a continuous air-quality series",
+                               "no evidence-based weights or outcome labels (Task 36)", "103 boundary districts still lack a canonical unit (Swabi, needed for Tarbela, is one)"],
         "recommended_next_evidence_gap": gaps[0]["name"],
-        "recommendation_note": ("Obtain an official station list (FFD / WAPDA / IRSA / Punjab Irrigation per-headworks documents) by manual retrieval and add it as "
-                                "authoritative records to config/gauge_station_evidence.yaml; the pipeline accepts it without code changes."),
+        "recommendation_note": ("Obtain official gauge-SITE coordinates or district statements (FFD telemetry / IRSA / FFC per-headworks plans, which were unreachable) and add them as "
+                                "authoritative records to config/gauge_station_evidence.yaml; the pipeline accepts them without code changes. Separately, a decision is needed on "
+                                "extending geo.admin_unit with districts that an owner states (Swabi for Tarbela)."),
     }
 
 
