@@ -22,3 +22,11 @@ def load_config(path: Path | None = None) -> dict[str, Any]:
 
 def enabled_geographic_domains(cfg: dict[str, Any]) -> list[str]:
     return [d for d, on in cfg["enabled_domains"].items() if on and d != "documents"]
+
+
+SCORE_CONFIG_PATH = Path(__file__).resolve().parents[2] / "config" / "risk_score_v2.yaml"
+
+
+def load_score_config(path: Path | None = None) -> dict[str, Any]:
+    """Task 36: the operational score v2 evidence contract (config/risk_score_v2.yaml)."""
+    return yaml.safe_load((path or SCORE_CONFIG_PATH).read_text(encoding="utf-8"))

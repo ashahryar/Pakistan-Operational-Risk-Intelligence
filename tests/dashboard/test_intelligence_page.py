@@ -256,3 +256,21 @@ def test_no_evidence_is_stated_and_withheld_passages_are_not_shown(monkeypatch):
     at = ask(AppTest.from_file(PAGE, default_timeout=30).run(), "What did NDMA report about volcanic eruptions in Sindh?")
     assert not at.exception and any("NO_EVIDENCE" in i.value and "NOT shown as evidence" in i.value for i in at.info) and not at.expander
     assert {x.label: x.value for x in at.metric}["Status"] == "MODERATE"                                           # the risk-engine context is shown as before
+
+
+# ------------------------------------------------------------------ Task 36: status and numeric score are shown as different things
+def test_score_caption_states_the_reason_and_never_a_fake_zero():
+    from dashboard.utils.intelligence_helpers import score_caption
+    rec = {**RECORD, "score_v2": {"score_status": "ABSTAINED", "abstention_reason": "NO_EVIDENCE_BASED_WEIGHTS", "abstention_text": "no evidence-based weights exist"}}
+    c = score_caption(rec)
+    assert "not computed" in c and "NO_EVIDENCE_BASED_WEIGHTS" in c and "separate, provisional classification" in c and "0" not in c.split("-")[0]
+    assert "not a probability" in score_caption({**RECORD, "risk_score": 41.5}) and "41.5" in score_caption({**RECORD, "risk_score": 41.5})
+    assert "no score is stored" in score_caption(RECORD)
+
+
+def test_page_shows_the_score_reason_next_to_the_status(monkeypatch):
+    b = body("LLM_UNAVAILABLE")
+    b["risk_context"]["record"] = {**RECORD, "score_v2": {"score_status": "ABSTAINED", "abstention_reason": "NO_EVIDENCE_BASED_WEIGHTS", "abstention_text": "no evidence-based weights exist"}}
+    patch_api(monkeypatch, ApiResult(False, data=b, error_kind="unavailable", message="x", status_code=503))
+    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    assert not at.exception and any("Operational score: not computed" in c.value and "NO_EVIDENCE_BASED_WEIGHTS" in c.value for c in at.caption)

@@ -1,0 +1,38 @@
+# Task 36 -- operational risk SCORE v2 foundation: the evidence contract. Separate from config/risk_engine.yaml on purpose: nothing here changes the
+# engine's status / basis / confidence (calculation_version risk-engine-1.0.0 is untouched).
+#
+# `enabled: false` and an empty `weights` block are the HONEST state: the Task 36 evidence audit (scripts/risk/audit_score_v2.py) found no evidence-based weights,
+# no validated thresholds and no independence analysis, so no numeric score may be produced. A numeric score can only be switched on by (a) listing a weight per
+# independence group WITH an `evidence_reference` that says where the weight comes from, and (b) setting enabled: true. A weight without an evidence reference is
+# rejected. Nothing below is a calibrated or validated quantity.
+score_version: "operational-score-v2-foundation-1.0.0"
+enabled: false
+scale: {min: 0, max: 100, direction: "higher = higher operational signal intensity relative to the unit's own prior history; NOT a probability and NOT a loss estimate"}
+
+# A signal contributes only if its normalization is a percentile rank of the observation against the SAME unit's strictly prior history (the engine's method) AND
+# that history has at least this many prior observations (the same bar the engine already requires before a numeric signal may drive a status).
+min_history_for_score: 30
+# Distinct independence groups that must each contribute before any aggregate is meaningful.
+required_independent_groups: 2
+
+# Signal domains and their independence group. Domains in one group may describe the same underlying event, so a group contributes at most ONE signal (the largest
+# eligible contribution represents the group; contributions are never summed within a group).
+independence_groups:
+  rainfall: hydromet_event
+  gauge: hydromet_event
+  hazard_alert: hydromet_event
+  disaster_event: hydromet_event
+  weather: temperature
+  air_quality: air_quality
+
+# Domains with a defensible numeric normalization (percentile vs own prior history). Others are CONTEXTUAL: shown, never scored.
+numeric_domains: [rainfall, weather, gauge, air_quality]
+contextual_domains:
+  hazard_alert: "source severity labels are mapped to statuses by PROVISIONAL engine cut points; there is no normalization reference, so the alert stays contextual"
+  disaster_event: "routine NDMA sitrep record counts with no baseline (engine: normalize=false); overlaps the hydromet event group"
+
+# Domains whose physical value cannot be negative: a negative observation is INVALID, never clipped.
+non_negative_domains: [rainfall, gauge, air_quality]
+
+# group -> {weight: number > 0, evidence_reference: "where it comes from"}. Empty on purpose.
+weights: {}

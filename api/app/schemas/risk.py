@@ -52,3 +52,4 @@ class OperationalRisk(BaseModel):
     source_record_count: Optional[int]
     calculation_version: str
     threshold_status: Optional[str]
+    score_v2: Optional[dict] = None   # Task 36: score_status / score_version / abstention_reason ... (additive; risk_score stays null while no evidence-based weights exist)

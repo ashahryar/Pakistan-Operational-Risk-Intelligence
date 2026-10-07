@@ -18,7 +18,7 @@ import streamlit as st
 from dashboard.api_client import RiskApiClient
 from dashboard.styles.theme import load_css
 from dashboard.utils.agent_helpers import BASELINE_LABEL, candidate_rows, ml_rows, provenance_rows, routing_text, status_banner, tool_trace_table
-from dashboard.utils.intelligence_helpers import area_options, risk_metrics, signal_summary
+from dashboard.utils.intelligence_helpers import area_options, risk_metrics, score_caption, signal_summary
 from dashboard.utils.rag_helpers import MODES, evidence_caption, relevance_notice
 
 st.set_page_config(page_title="Operational Intelligence Agent", page_icon="🤖", layout="wide")
@@ -120,6 +120,7 @@ if submitted:
             col.metric(label, value)
         st.caption(f"{rec['admin_unit_name']} | risk date {rec['risk_date']} ({(rcx.get('lookup') or {}).get('basis')}) | basis {rec.get('risk_basis')} | "
                    f"engine {rec['calculation_version']} | thresholds {rec.get('threshold_status')}")
+        st.caption(score_caption(rec))
         sig = signal_summary(rec.get("signals"))
         sig["value"] = sig["value"].astype(str)
         st.dataframe(sig, hide_index=True, use_container_width=True)

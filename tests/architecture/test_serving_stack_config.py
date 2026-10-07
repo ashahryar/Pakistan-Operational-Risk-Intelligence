@@ -61,7 +61,7 @@ def test_api_image_contains_only_what_the_api_needs():
     assert pipeline_files == {"pipeline/__init__.py", "pipeline/rag/__init__.py", "pipeline/rag/contracts.py",
                               "pipeline/rag/retrieval.py", "pipeline/rag/evidence.py", "pipeline/rag/embeddings.py",
                               "pipeline/rag/semantic.py", "pipeline/rag/hybrid.py", "pipeline/rag/llm.py",
-                              "pipeline/rag/grounding.py", "pipeline/rag/relevance.py", "pipeline/intelligence/__init__.py", "pipeline/intelligence/context.py",
+                              "pipeline/rag/grounding.py", "pipeline/rag/relevance.py", "pipeline/risk/__init__.py", "pipeline/risk/scoring_v2.py", "pipeline/intelligence/__init__.py", "pipeline/intelligence/context.py",
                               "pipeline/intelligence/risk_context.py", "pipeline/intelligence/assembly.py",
                               "pipeline/intelligence/grounding.py", "pipeline/ml/__init__.py", "pipeline/ml/contracts.py",
                               "pipeline/agents/__init__.py", "pipeline/agents/contracts.py", "pipeline/agents/policy.py", "pipeline/agents/tools.py",

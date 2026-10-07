@@ -7,6 +7,7 @@ from datetime import date
 from typing import Optional
 
 from api.app.db import fetch_all
+from pipeline.risk.scoring_v2 import SERVING_CONFIG, abstain_from_stored_row
 
 _COLS = """admin_unit_id, admin_unit_name, admin_level, province, risk_date, risk_status, risk_basis, risk_score,
            risk_confidence, rainfall_signal, weather_signal, gauge_signal, air_quality_signal, hazard_alert_signal,
@@ -25,7 +26,7 @@ def _num(v):
 
 
 def _shape(r: dict) -> dict:
-    return {
+    row = {
         "admin_unit_id": r["admin_unit_id"], "admin_unit_name": r["admin_unit_name"], "admin_level": r["admin_level"],
         "province": r["province"], "risk_date": r["risk_date"].isoformat(), "risk_status": r["risk_status"],
         "risk_basis": r["risk_basis"], "risk_score": _num(r["risk_score"]), "risk_confidence": r["risk_confidence"],
@@ -38,6 +39,8 @@ def _shape(r: dict) -> dict:
         "source_count": r["source_count"], "source_record_count": r["source_record_count"],
         "calculation_version": r["calculation_version"], "threshold_status": r["threshold_status"],
     }
+    row["score_v2"] = abstain_from_stored_row({"risk_score": row["risk_score"], "signals": row["signals"]}, SERVING_CONFIG)
+    return row
 
 
 def list_risk(risk_date: Optional[date], province: Optional[str], admin_unit_id: Optional[int], risk_status: Optional[str],

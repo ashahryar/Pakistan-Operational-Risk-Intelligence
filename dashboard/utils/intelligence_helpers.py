@@ -55,3 +55,13 @@ def ml_caption(block: dict) -> str:
     validated = block.get("validated_against_baseline")
     return ("Validated ML model: beat the simple baselines on held-out validation and test periods." if validated else
             "NOT a validated ML model: the machine-learning candidates did not beat a simple baseline on held-out data, so these values are that baseline's forecast.")
+
+
+def score_caption(record: dict) -> str:
+    """Task 36: the numeric operational score is distinct from the status. Shows the real reason when it is unavailable (never a fake zero)."""
+    if record.get("risk_score") is not None:
+        return ("Operational score (provisional signal-intensity index, 0-100; not a probability and not calibrated): "
+                f"{record['risk_score']:g}")
+    s = record.get("score_v2") or {}
+    return ("Operational score: not computed - " + (s.get("abstention_text") or "no score is stored for this record")
+            + (f" [{s['abstention_reason']}]" if s.get("abstention_reason") else "") + ". The status above is a separate, provisional classification.")

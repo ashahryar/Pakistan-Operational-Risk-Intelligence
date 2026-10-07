@@ -96,6 +96,7 @@ def test_current_risk_without_a_provider_returns_the_structured_result_with_503(
     b = r.json()
     assert r.status_code == 503 and b["status"] == "LLM_UNAVAILABLE" and b["answer"] is None and b["intent"] == "CURRENT_RISK"
     assert b["risk_context"]["record"]["risk_status"] == "LOW" and b["risk_context"]["record"]["risk_score"] is None and b["risk_context"]["provenance"] == "RISK_ENGINE"
+    assert b["risk_context"]["record"]["score_v2"]["score_status"] == "ABSTAINED" and b["risk_context"]["record"]["score_v2"]["abstention_reason"] == "NO_EVIDENCE_BASED_WEIGHTS"   # Task 36
     assert [t["tool_name"] for t in b["tool_trace"]] == ["geography.resolve_place", "risk.latest"] and all("provenance" in t for t in b["tool_trace"])
     assert b["documentary_evidence"] == [] and b["ml_prediction"] is None and b["model"]["configured"] is False
     assert set(b) >= {"question", "status", "intent", "answer", "risk_context", "documentary_evidence", "ml_prediction", "tool_trace", "provenance", "citations", "trace", "disclaimer"}

@@ -24,6 +24,7 @@ COPY pipeline/rag/__init__.py pipeline/rag/contracts.py pipeline/rag/retrieval.p
 COPY pipeline/ml/__init__.py pipeline/ml/contracts.py pipeline/ml/
 COPY pipeline/intelligence/__init__.py pipeline/intelligence/context.py pipeline/intelligence/risk_context.py pipeline/intelligence/assembly.py pipeline/intelligence/grounding.py pipeline/intelligence/
 COPY pipeline/agents/__init__.py pipeline/agents/contracts.py pipeline/agents/policy.py pipeline/agents/tools.py pipeline/agents/executor.py pipeline/agents/router.py pipeline/agents/geography.py pipeline/agents/llm_router.py pipeline/agents/trace.py pipeline/agents/assembly.py pipeline/agents/orchestrator.py pipeline/agents/
+COPY pipeline/risk/__init__.py pipeline/risk/scoring_v2.py pipeline/risk/
 COPY scripts/__init__.py scripts/
 COPY scripts/geo/__init__.py scripts/geo/canonical_data.py scripts/geo/resolver.py scripts/geo/
 ENV PORI_EMBEDDING_CACHE=/app/models

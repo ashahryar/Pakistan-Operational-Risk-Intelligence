@@ -1,0 +1,238 @@
+{
+  "abstention_reason_counts": {
+    "NO_ELIGIBLE_SIGNAL": 1228,
+    "NO_EVIDENCE_BASED_WEIGHTS": 358,
+    "SCORE_V2_DISABLED": 1586,
+    "TOO_FEW_INDEPENDENT_SIGNAL_GROUPS": 350
+  },
+  "audit_version": "1.0.0",
+  "cells_abstained": 1586,
+  "cells_assessed": 1586,
+  "cells_scored": 0,
+  "cells_with_at_least_one_eligible_signal_group": 358,
+  "cells_with_required_independent_groups": 8,
+  "conclusion": "A numeric score is NOT defensible yet: no evidence-based weights exist, and only 8 of 1586 cells even have 2 independent eligible signal groups.",
+  "contributing_group_histogram": {
+    "0": 1228,
+    "1": 350,
+    "2": 8
+  },
+  "domains": {
+    "air_quality": {
+      "date_max": "2026-09-16",
+      "date_min": "2025-10-01",
+      "decision": "ELIGIBLE_OBSERVATIONS_EXIST",
+      "decision_reason": "individual observations satisfy the contract; aggregation is still blocked (see outcome)",
+      "distinct_dates": 351,
+      "distinct_geographies_resolved": 1,
+      "eligibility_counts": {
+        "ELIGIBLE": 320,
+        "INSUFFICIENT_DATA": 30
+      },
+      "historical_reference_available": true,
+      "history_needed_for_score": 30,
+      "independence_group": "air_quality",
+      "longest_gap_days": 1,
+      "longest_unit_history_observations": 350,
+      "normalization": "percentile_rank_strict_prior",
+      "observation_span_days": 350,
+      "resolved_pct": 100.0,
+      "resolved_rows": 352,
+      "rows": 352,
+      "top_reasons": [
+        {
+          "count": 320,
+          "eligibility": "ELIGIBLE",
+          "reason": "satisfies the evidence contract"
+        },
+        {
+          "count": 30,
+          "eligibility": "INSUFFICIENT_DATA",
+          "reason": "fewer than 30 prior observations of this unit and domain: no defensible normalization"
+        }
+      ],
+      "units_with_series": 1
+    },
+    "disaster_event": {
+      "date_max": "2026-09-16",
+      "date_min": "2026-06-27",
+      "decision": "CONTEXTUAL",
+      "decision_reason": "routine NDMA sitrep record counts with no baseline (engine: normalize=false); overlaps the hydromet event group",
+      "distinct_dates": 80,
+      "distinct_geographies_resolved": 7,
+      "eligibility_counts": {
+        "OUT_OF_SCOPE": 1543
+      },
+      "historical_reference_available": false,
+      "history_needed_for_score": 30,
+      "independence_group": "hydromet_event",
+      "longest_gap_days": 0,
+      "longest_unit_history_observations": 0,
+      "normalization": null,
+      "observation_span_days": 0,
+      "resolved_pct": 100.0,
+      "resolved_rows": 1543,
+      "rows": 1543,
+      "top_reasons": [
+        {
+          "count": 1543,
+          "eligibility": "OUT_OF_SCOPE",
+          "reason": "contextual domain: routine NDMA sitrep record counts with no baseline (engine: normalize=false); overlaps the hydromet event group"
+        }
+      ],
+      "units_with_series": 0
+    },
+    "gauge": {
+      "date_max": "2026-09-15",
+      "date_min": "2026-06-15",
+      "decision": "NO_ELIGIBLE_OBSERVATION",
+      "decision_reason": "geography is unresolved, ambiguous or caveated; it is never mapped or guessed",
+      "distinct_dates": 93,
+      "distinct_geographies_resolved": 0,
+      "eligibility_counts": {
+        "UNRESOLVED_GEOGRAPHY": 3499
+      },
+      "historical_reference_available": false,
+      "history_needed_for_score": 30,
+      "independence_group": "hydromet_event",
+      "longest_gap_days": 0,
+      "longest_unit_history_observations": 0,
+      "normalization": "percentile_rank_strict_prior",
+      "observation_span_days": 0,
+      "resolved_pct": 0.0,
+      "resolved_rows": 0,
+      "rows": 3686,
+      "top_reasons": [
+        {
+          "count": 3499,
+          "eligibility": "UNRESOLVED_GEOGRAPHY",
+          "reason": "geography is unresolved, ambiguous or caveated; it is never mapped or guessed"
+        }
+      ],
+      "units_with_series": 0
+    },
+    "hazard_alert": {
+      "date_max": "2026-09-02",
+      "date_min": "2026-06-27",
+      "decision": "CONTEXTUAL",
+      "decision_reason": "source severity labels are mapped to statuses by PROVISIONAL engine cut points; there is no normalization reference, so the alert stays contextual",
+      "distinct_dates": 5,
+      "distinct_geographies_resolved": 7,
+      "eligibility_counts": {
+        "OUT_OF_SCOPE": 38
+      },
+      "historical_reference_available": false,
+      "history_needed_for_score": 30,
+      "independence_group": "hydromet_event",
+      "longest_gap_days": 0,
+      "longest_unit_history_observations": 0,
+      "normalization": null,
+      "observation_span_days": 0,
+      "resolved_pct": 94.74,
+      "resolved_rows": 36,
+      "rows": 38,
+      "top_reasons": [
+        {
+          "count": 38,
+          "eligibility": "OUT_OF_SCOPE",
+          "reason": "contextual domain: source severity labels are mapped to statuses by PROVISIONAL engine cut points; there is no normalization reference, so the alert stays contextual"
+        }
+      ],
+      "units_with_series": 0
+    },
+    "rainfall": {
+      "date_max": "2026-07-14",
+      "date_min": "2025-03-03",
+      "decision": "ELIGIBLE_OBSERVATIONS_EXIST",
+      "decision_reason": "individual observations satisfy the contract; aggregation is still blocked (see outcome)",
+      "distinct_dates": 78,
+      "distinct_geographies_resolved": 42,
+      "eligibility_counts": {
+        "ELIGIBLE": 46,
+        "INSUFFICIENT_DATA": 570,
+        "UNRESOLVED_GEOGRAPHY": 253
+      },
+      "historical_reference_available": true,
+      "history_needed_for_score": 30,
+      "independence_group": "hydromet_event",
+      "longest_gap_days": 129,
+      "longest_unit_history_observations": 47,
+      "normalization": "percentile_rank_strict_prior",
+      "observation_span_days": 499,
+      "resolved_pct": 75.95,
+      "resolved_rows": 660,
+      "rows": 869,
+      "top_reasons": [
+        {
+          "count": 570,
+          "eligibility": "INSUFFICIENT_DATA",
+          "reason": "fewer than 30 prior observations of this unit and domain: no defensible normalization"
+        },
+        {
+          "count": 253,
+          "eligibility": "UNRESOLVED_GEOGRAPHY",
+          "reason": "geography is unresolved, ambiguous or caveated; it is never mapped or guessed"
+        },
+        {
+          "count": 46,
+          "eligibility": "ELIGIBLE",
+          "reason": "satisfies the evidence contract"
+        }
+      ],
+      "units_with_series": 42
+    },
+    "weather": {
+      "date_max": "2026-08-12",
+      "date_min": "2026-08-12",
+      "decision": "NO_ELIGIBLE_OBSERVATION",
+      "decision_reason": "fewer than 30 prior observations of this unit and domain: no defensible normalization",
+      "distinct_dates": 1,
+      "distinct_geographies_resolved": 27,
+      "eligibility_counts": {
+        "INSUFFICIENT_DATA": 27,
+        "UNRESOLVED_GEOGRAPHY": 12
+      },
+      "historical_reference_available": false,
+      "history_needed_for_score": 30,
+      "independence_group": "temperature",
+      "longest_gap_days": 0,
+      "longest_unit_history_observations": 1,
+      "normalization": "percentile_rank_strict_prior",
+      "observation_span_days": 1,
+      "resolved_pct": 69.23,
+      "resolved_rows": 27,
+      "rows": 39,
+      "top_reasons": [
+        {
+          "count": 27,
+          "eligibility": "INSUFFICIENT_DATA",
+          "reason": "fewer than 30 prior observations of this unit and domain: no defensible normalization"
+        },
+        {
+          "count": 12,
+          "eligibility": "UNRESOLVED_GEOGRAPHY",
+          "reason": "geography is unresolved, ambiguous or caveated; it is never mapped or guessed"
+        }
+      ],
+      "units_with_series": 27
+    }
+  },
+  "evidence_based_weights_defined": [],
+  "excluded_inputs": {
+    "documents_rag": "documentary evidence is never a numeric input",
+    "gauge_secondary_candidates": "no authoritative eligible station mapping (Task 24): gauge is UNRESOLVED_GEOGRAPHY",
+    "ml_predictions": "Task 33 baseline forecasts are BASELINE_ONLY, not validated ML; contextual only",
+    "provisional_thresholds": "status cut points are PROVISIONAL and are not treated as ground truth",
+    "reservoir": "not attributable to an admin unit"
+  },
+  "numeric_score_enabled": false,
+  "outcome": "B",
+  "provenance_coverage": {
+    "assessed_signals": 2616,
+    "pct": 100.0,
+    "with_source_record_ids": 2616
+  },
+  "required_independent_groups": 2,
+  "score_version": "operational-score-v2-foundation-1.0.0",
+  "scoring_enabled": false
+}
