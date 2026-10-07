@@ -82,9 +82,9 @@
   "boundary_crosswalk_status_by_level": {
     "level1:alias": 3,
     "level1:exact": 4,
-    "level2:alias": 2,
+    "level2:alias": 3,
     "level2:exact": 54,
-    "level2:unmatched": 104
+    "level2:unmatched": 103
   },
   "coordinate_derived_mappings": 0,
   "distinct_stations": 41,

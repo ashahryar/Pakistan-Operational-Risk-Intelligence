@@ -1,0 +1,130 @@
+# Task 37 -- evidence registry for administrative CROSSWALK relationships and the investigation log for gauge geography.
+#
+# Records evidence, never conclusions. A relationship is only an ALIAS/EXACT crosswalk match when an official, attributable
+# source states the equivalence. Name similarity is never proof. Everything else stays UNVERIFIED / CONFLICTING / UNMATCHED.
+#
+# match_state: EXACT | ALIAS | UNMATCHED | CONFLICTING | UNVERIFIED
+#   EXACT       identical name (decided by the deterministic crosswalk, not listed here)
+#   ALIAS       an official source states both names for the same unit (declared in admin_boundary_sources.yaml: crosswalk_aliases)
+#   CONFLICTING one canonical unit relates to several boundary units (or sources disagree); nothing selected
+#   UNVERIFIED  a plausible relationship exists but no authoritative evidence was obtained; NOT applied
+#   UNMATCHED   no relationship (the canonical model has no such unit, or the unit is not a district)
+registry_version: "crosswalk-evidence-1.0.0"
+registry_date: "2026-10-07"
+
+relationships:
+  - canonical_name: Nawabshah
+    canonical_admin_unit_id: 59
+    boundary_source_id: PK719
+    boundary_name: "Shaheed Benazir Abad"
+    match_state: ALIAS
+    match_type: official_rename_equivalence
+    evidence_type: official_legislation
+    evidence_source: "Provincial Assembly of Sindh -- Sindh Act No. XIV of 2023 (The Institute of Mother and Child Health Act, 2023)"
+    source_url: "https://www.pas.gov.pk/uploads/acts/Sindh%20Act%20No.XIV%20of%202023.pdf"
+    evidence_date: "2023-06-08"            # notification date printed on the Act
+    retrieved: "2026-10-07"
+    evidence_quote: "at District Shaheed Benazirabad (Nawabshah)"
+    qualification: >-
+      The Act (verified by reading the downloaded PDF text) names the district 'Shaheed Benazirabad (Nawabshah)', i.e. one
+      district under both names. The boundary dataset spells it 'Shaheed Benazir Abad' (a spacing variant of the Act's
+      spelling); this spelling bridge is declared, not fuzzy. This is a name-equivalence statement, not a boundary certification;
+      the canonical row 'Nawabshah' has no caveat. Status stays pending_manual_review like every crosswalk match.
+    status: applied
+  - canonical_name: "Dera Ismail Khan"
+    boundary_source_id: null
+    boundary_name: "D. I. Khan"
+    match_state: ALIAS
+    match_type: canonical_alias_list
+    evidence_type: none_recorded
+    evidence_source: "scripts/geo/canonical_data.py alias list (Task 10); also declared in admin_boundary_sources.yaml (Task 25)"
+    source_url: null
+    evidence_date: null
+    qualification: "Pre-existing alias (punctuation/abbreviation variant); the crosswalk matches it through the canonical alias list. Kept unchanged; no external evidence was recorded."
+    status: applied_pre_existing
+  - canonical_name: Layyah
+    boundary_source_id: null
+    boundary_name: Leiah
+    match_state: ALIAS
+    match_type: declared_spelling_alias
+    evidence_type: none_recorded
+    evidence_source: "Task 25 declared crosswalk alias (no external source recorded)"
+    source_url: null
+    evidence_date: null
+    qualification: "Pre-existing declared alias (historical spelling). Kept unchanged; no external evidence was recorded when it was declared."
+    status: applied_pre_existing
+  - canonical_name: Karachi
+    boundary_source_id: "PK702; PK704; PK712; PK714; PK721; PK729"
+    boundary_name: "Central / East / Korangi / Malir / South / West Karachi"
+    match_state: CONFLICTING
+    match_type: one_canonical_to_many_boundary
+    evidence_type: boundary_dataset_names
+    evidence_source: "HDX COD-AB Pakistan v01 (valid_on 2022-09-09)"
+    source_url: "https://data.humdata.org/dataset/cod-ab-pak"
+    evidence_date: "2022-09-09"
+    qualification: >-
+      The canonical model has a single 'Karachi' district; the boundary dataset has six Karachi districts. The relationship is
+      one-to-many, so no single boundary unit may be assigned and none is chosen. Not applied.
+    status: not_applied
+  - canonical_name: "Kot Addu; Murree; Wazirabad"
+    boundary_source_id: null
+    boundary_name: null
+    match_state: UNMATCHED
+    match_type: absent_from_boundary_vintage
+    evidence_type: boundary_dataset_vintage
+    evidence_source: "config/admin_boundary_sources.yaml limitations (COD-AB vintage 2022-09-09)"
+    source_url: null
+    evidence_date: "2022-09-09"
+    qualification: "Canonical units with no polygon in the 2022 boundary file (newer districts). Left unmatched; no polygon is borrowed from a parent district."
+    status: not_applied
+  - canonical_name: "Fort Munro; Joharabad; Kamra; Mangla; Khanpur; Noorpur Thal; Rawalakot; Turbat"
+    boundary_source_id: null
+    boundary_name: null
+    match_state: UNMATCHED
+    match_type: canonical_unit_is_not_a_district
+    evidence_type: canonical_seed_caveat
+    evidence_source: "scripts/geo/canonical_data.py caveats (Task 10 seed rows)"
+    source_url: null
+    evidence_date: null
+    qualification: >-
+      Towns, tehsils or reservoirs seeded as districts. A containment relationship (e.g. Turbat is in Kech, Rawalakot is in
+      Poonch) is not an identity match and no official source for it was gathered, so nothing is mapped.
+    status: not_applied
+  - canonical_name: "(boundary districts with no canonical unit)"
+    boundary_source_id: "103 boundary districts (see gauge_boundary_crosswalk.json)"
+    boundary_name: null
+    match_state: UNMATCHED
+    match_type: canonical_model_has_no_such_unit
+    evidence_type: boundary_dataset_names
+    evidence_source: "HDX COD-AB Pakistan v01"
+    source_url: "https://data.humdata.org/dataset/cod-ab-pak"
+    evidence_date: "2022-09-09"
+    qualification: >-
+      The 69-district canonical model does not contain these districts (e.g. Awaran, Bagh, Swabi, Haripur). Matching them would
+      require extending geo.admin_unit, which is a canonical-model change outside Task 37 and a DB/PostGIS task.
+    status: not_applied
+
+# Rainfall station-name candidates that were EVALUATED and deliberately NOT applied (no authoritative evidence of the
+# abbreviation; resolving them is a declared-alias decision for a reviewer). The simulated effect is recorded so the cost of
+# leaving them unresolved is visible: +5 eligible rainfall observations, +0 cells with two independent groups.
+unverified_station_name_candidates:
+  - {raw_name: "Jehlum", candidate: Jhelum, rows: 7, match_state: UNVERIFIED, reason: "spelling variant; no source states the equivalence"}
+  - {raw_name: "MB Din", candidate: "Mandi Bahauddin", rows: 4, match_state: UNVERIFIED, reason: "abbreviation; no source states the expansion"}
+  - {raw_name: "TT Singh", candidate: "Toba Tek Singh", rows: 4, match_state: UNVERIFIED, reason: "abbreviation; no source states the expansion"}
+  - {raw_name: "Layyah (Karor)", candidate: Layyah, rows: 6, match_state: UNVERIFIED, reason: "qualified name (a place within the district); containment, not identity"}
+  - {raw_name: "Sargodha (City)", candidate: Sargodha, rows: 5, match_state: UNVERIFIED, reason: "city station within the district; containment, not identity"}
+  - {raw_name: "Sargodha City", candidate: Sargodha, rows: 2, match_state: UNVERIFIED, reason: "city station within the district; containment, not identity"}
+  - {raw_name: "Sialkot (City)", candidate: Sialkot, rows: 3, match_state: UNVERIFIED, reason: "city station within the district; containment, not identity"}
+
+unverified_station_name_simulated_effect: {rows_that_would_resolve: 31, eligible_rainfall_observations: "46 -> 51", cells_with_two_independent_groups: "8 -> 8"}
+
+# What was checked for GAUGE station geography in Task 37 (in addition to the Task 25 log in gauge_station_evidence.yaml).
+gauge_investigation_task37:
+  - {source: "PDMA Punjab 'Daily Sitrep - Gauges and Rivers Situation' PDFs (data/raw/pdma/reports/gauge_reports, 410 files in 2026)",
+     checked: "2026-10-07", outcome: "tables list river, site, design capacity, flood limits, inflow/outflow; no district, no coordinates", result: no_evidence}
+  - {source: "Federal Flood Commission daily flood situation reports (data/raw/ffc/dfsr_glof_archive, 5 DFSR/Glof/press PDFs read as text)",
+     checked: "2026-10-07", outcome: "no sentence in any of the files pairs a station with the word District/Distt/Dist.; district names appear only inside weather-forecast region lists", result: no_evidence}
+  - {source: "FFC Annual Flood Report 2025 (ffc.gov.pk) and per-headworks plans", url: "https://www.ffc.gov.pk/wp-content/uploads/2026/05/Flood-Report-2025.pdf",
+     checked: "2026-10-07", outcome: "listed by web search but ffc.gov.pk refused the connection (ECONNREFUSED), as in Task 25; content not read, not used", result: unverifiable}
+  - {source: "web search restricted to official domains (ffc, irrigation.punjab, pdma, wapda, pakirsa, pmd)",
+     checked: "2026-10-07", outcome: "returned titles only (flood fighting plans for Balloki, Marala, Trimmu, Khanki); the plan documents were not retrievable, so no district statement could be verified", result: no_evidence}

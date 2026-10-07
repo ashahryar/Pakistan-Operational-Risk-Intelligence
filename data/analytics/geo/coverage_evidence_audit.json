@@ -1,0 +1,940 @@
+{
+  "admin_unit_coverage": {
+    "air_quality": {
+      "admin_units_with_eligible_observation": 1
+    },
+    "disaster_event": {
+      "admin_units_with_eligible_observation": 0
+    },
+    "gauge": {
+      "admin_units_with_eligible_observation": 0
+    },
+    "hazard_alert": {
+      "admin_units_with_eligible_observation": 0
+    },
+    "rainfall": {
+      "admin_units_with_eligible_observation": 5
+    },
+    "weather": {
+      "admin_units_with_eligible_observation": 0
+    }
+  },
+  "answer_summary": "No gauge station has authoritative geography. Rainfall (PDMA), weather (PMD) and air quality (EPA Punjab) are associated with administrative units through the project's deterministic name resolver against the canonical model, which is explicitly qualified (not government-certified). Hazard alerts and disaster events are contextual.",
+  "audit_version": "1.0.0",
+  "cells_scored": 0,
+  "crosswalk": {
+    "before_counts": {
+      "level2:alias": 2,
+      "level2:exact": 54,
+      "level2:unmatched": 104
+    },
+    "boundary_dataset": "Pakistan - Subnational Administrative Boundaries (COD-AB)",
+    "boundary_districts": 160,
+    "canonical_districts": 69,
+    "canonical_ids_preserved": true,
+    "changes_in_task37": [
+      {
+        "boundary_name": "Shaheed Benazir Abad",
+        "boundary_source_id": "PK719",
+        "canonical_admin_unit_id": 59,
+        "canonical_name": "Nawabshah",
+        "evidence": "Sindh Act XIV of 2023",
+        "from": "unmatched",
+        "to": "alias"
+      }
+    ],
+    "evidence_registry_check": {
+      "relationships": 7,
+      "state_counts": {
+        "ALIAS": 3,
+        "CONFLICTING": 1,
+        "UNMATCHED": 3
+      },
+      "violations": []
+    },
+    "relationships": [
+      {
+        "boundary_name": "Shaheed Benazir Abad",
+        "boundary_source_id": "PK719",
+        "canonical_admin_unit_id": 59,
+        "canonical_name": "Nawabshah",
+        "evidence_date": "2023-06-08",
+        "evidence_quote": "at District Shaheed Benazirabad (Nawabshah)",
+        "evidence_source": "Provincial Assembly of Sindh -- Sindh Act No. XIV of 2023 (The Institute of Mother and Child Health Act, 2023)",
+        "evidence_type": "official_legislation",
+        "match_state": "ALIAS",
+        "match_type": "official_rename_equivalence",
+        "qualification": "The Act (verified by reading the downloaded PDF text) names the district 'Shaheed Benazirabad (Nawabshah)', i.e. one district under both names. The boundary dataset spells it 'Shaheed Benazir Abad' (a spacing variant of the Act's spelling); this spelling bridge is declared, not fuzzy. This is a name-equivalence statement, not a boundary certification; the canonical row 'Nawabshah' has no caveat. Status stays pending_manual_review like every crosswalk match.",
+        "retrieved": "2026-10-07",
+        "source_url": "https://www.pas.gov.pk/uploads/acts/Sindh%20Act%20No.XIV%20of%202023.pdf",
+        "status": "applied"
+      },
+      {
+        "boundary_name": "D. I. Khan",
+        "boundary_source_id": null,
+        "canonical_name": "Dera Ismail Khan",
+        "evidence_date": null,
+        "evidence_source": "scripts/geo/canonical_data.py alias list (Task 10); also declared in admin_boundary_sources.yaml (Task 25)",
+        "evidence_type": "none_recorded",
+        "match_state": "ALIAS",
+        "match_type": "canonical_alias_list",
+        "qualification": "Pre-existing alias (punctuation/abbreviation variant); the crosswalk matches it through the canonical alias list. Kept unchanged; no external evidence was recorded.",
+        "source_url": null,
+        "status": "applied_pre_existing"
+      },
+      {
+        "boundary_name": "Leiah",
+        "boundary_source_id": null,
+        "canonical_name": "Layyah",
+        "evidence_date": null,
+        "evidence_source": "Task 25 declared crosswalk alias (no external source recorded)",
+        "evidence_type": "none_recorded",
+        "match_state": "ALIAS",
+        "match_type": "declared_spelling_alias",
+        "qualification": "Pre-existing declared alias (historical spelling). Kept unchanged; no external evidence was recorded when it was declared.",
+        "source_url": null,
+        "status": "applied_pre_existing"
+      },
+      {
+        "boundary_name": "Central / East / Korangi / Malir / South / West Karachi",
+        "boundary_source_id": "PK702; PK704; PK712; PK714; PK721; PK729",
+        "canonical_name": "Karachi",
+        "evidence_date": "2022-09-09",
+        "evidence_source": "HDX COD-AB Pakistan v01 (valid_on 2022-09-09)",
+        "evidence_type": "boundary_dataset_names",
+        "match_state": "CONFLICTING",
+        "match_type": "one_canonical_to_many_boundary",
+        "qualification": "The canonical model has a single 'Karachi' district; the boundary dataset has six Karachi districts. The relationship is one-to-many, so no single boundary unit may be assigned and none is chosen. Not applied.",
+        "source_url": "https://data.humdata.org/dataset/cod-ab-pak",
+        "status": "not_applied"
+      },
+      {
+        "boundary_name": null,
+        "boundary_source_id": null,
+        "canonical_name": "Kot Addu; Murree; Wazirabad",
+        "evidence_date": "2022-09-09",
+        "evidence_source": "config/admin_boundary_sources.yaml limitations (COD-AB vintage 2022-09-09)",
+        "evidence_type": "boundary_dataset_vintage",
+        "match_state": "UNMATCHED",
+        "match_type": "absent_from_boundary_vintage",
+        "qualification": "Canonical units with no polygon in the 2022 boundary file (newer districts). Left unmatched; no polygon is borrowed from a parent district.",
+        "source_url": null,
+        "status": "not_applied"
+      },
+      {
+        "boundary_name": null,
+        "boundary_source_id": null,
+        "canonical_name": "Fort Munro; Joharabad; Kamra; Mangla; Khanpur; Noorpur Thal; Rawalakot; Turbat",
+        "evidence_date": null,
+        "evidence_source": "scripts/geo/canonical_data.py caveats (Task 10 seed rows)",
+        "evidence_type": "canonical_seed_caveat",
+        "match_state": "UNMATCHED",
+        "match_type": "canonical_unit_is_not_a_district",
+        "qualification": "Towns, tehsils or reservoirs seeded as districts. A containment relationship (e.g. Turbat is in Kech, Rawalakot is in Poonch) is not an identity match and no official source for it was gathered, so nothing is mapped.",
+        "source_url": null,
+        "status": "not_applied"
+      },
+      {
+        "boundary_name": null,
+        "boundary_source_id": "103 boundary districts (see gauge_boundary_crosswalk.json)",
+        "canonical_name": "(boundary districts with no canonical unit)",
+        "evidence_date": "2022-09-09",
+        "evidence_source": "HDX COD-AB Pakistan v01",
+        "evidence_type": "boundary_dataset_names",
+        "match_state": "UNMATCHED",
+        "match_type": "canonical_model_has_no_such_unit",
+        "qualification": "The 69-district canonical model does not contain these districts (e.g. Awaran, Bagh, Swabi, Haripur). Matching them would require extending geo.admin_unit, which is a canonical-model change outside Task 37 and a DB/PostGIS task.",
+        "source_url": "https://data.humdata.org/dataset/cod-ab-pak",
+        "status": "not_applied"
+      }
+    ],
+    "status_counts": {
+      "level1:alias": 3,
+      "level1:exact": 4,
+      "level2:alias": 3,
+      "level2:exact": 54,
+      "level2:unmatched": 103
+    },
+    "unverified_simulated_effect": {
+      "cells_with_two_independent_groups": "8 -> 8",
+      "eligible_rainfall_observations": "46 -> 51",
+      "rows_that_would_resolve": 31
+    },
+    "unverified_station_name_candidates": [
+      {
+        "candidate": "Jhelum",
+        "match_state": "UNVERIFIED",
+        "raw_name": "Jehlum",
+        "reason": "spelling variant; no source states the equivalence",
+        "rows": 7
+      },
+      {
+        "candidate": "Mandi Bahauddin",
+        "match_state": "UNVERIFIED",
+        "raw_name": "MB Din",
+        "reason": "abbreviation; no source states the expansion",
+        "rows": 4
+      },
+      {
+        "candidate": "Toba Tek Singh",
+        "match_state": "UNVERIFIED",
+        "raw_name": "TT Singh",
+        "reason": "abbreviation; no source states the expansion",
+        "rows": 4
+      },
+      {
+        "candidate": "Layyah",
+        "match_state": "UNVERIFIED",
+        "raw_name": "Layyah (Karor)",
+        "reason": "qualified name (a place within the district); containment, not identity",
+        "rows": 6
+      },
+      {
+        "candidate": "Sargodha",
+        "match_state": "UNVERIFIED",
+        "raw_name": "Sargodha (City)",
+        "reason": "city station within the district; containment, not identity",
+        "rows": 5
+      },
+      {
+        "candidate": "Sargodha",
+        "match_state": "UNVERIFIED",
+        "raw_name": "Sargodha City",
+        "reason": "city station within the district; containment, not identity",
+        "rows": 2
+      },
+      {
+        "candidate": "Sialkot",
+        "match_state": "UNVERIFIED",
+        "raw_name": "Sialkot (City)",
+        "reason": "city station within the district; containment, not identity",
+        "rows": 3
+      }
+    ]
+  },
+  "domains": {
+    "air_quality": {
+      "admin_units_with_eligible_observation": 1,
+      "authoritative_status": "official EPA Punjab source",
+      "blockers": [
+        "only one geography (Lahore)"
+      ],
+      "dataset": "data/analytics/gold/datasets/gold_air_quality_daily.jsonl",
+      "date_max": "2026-09-16",
+      "date_min": "2025-10-01",
+      "distinct_admin_units_with_series": 1,
+      "distinct_dates": 351,
+      "distinct_geographies_resolved": 1,
+      "eligibility_counts_after": {
+        "ELIGIBLE": 320,
+        "INSUFFICIENT_DATA": 30
+      },
+      "eligibility_counts_before": {
+        "ELIGIBLE": 320,
+        "INSUFFICIENT_DATA": 30
+      },
+      "geography_resolution_method": "single named city (Lahore) resolved exactly",
+      "historical_normalization_possible": true,
+      "latest_date": "2026-09-16",
+      "longest_gap_days": 1,
+      "longest_unit_history_observations": 350,
+      "missing_dates_within_span": 0,
+      "missing_geography_rows": 0,
+      "newly_eligible_observations": 0,
+      "observation_span_days": 350,
+      "resolved_pct": 100.0,
+      "resolved_rows": 352,
+      "rows": 352,
+      "scoring_decision": "ELIGIBLE_OBSERVATIONS_EXIST",
+      "source": "EPA Punjab AQI"
+    },
+    "disaster_event": {
+      "admin_units_with_eligible_observation": 0,
+      "authoritative_status": "official; contextual only",
+      "blockers": [
+        "routine NDMA sitrep record counts with no baseline (engine: normalize=false); overlaps the hydromet event group"
+      ],
+      "dataset": "gold NDMA event counts",
+      "date_max": "2026-09-16",
+      "date_min": "2026-06-27",
+      "distinct_admin_units_with_series": 0,
+      "distinct_dates": 80,
+      "distinct_geographies_resolved": 7,
+      "eligibility_counts_after": {
+        "OUT_OF_SCOPE": 1543
+      },
+      "eligibility_counts_before": {
+        "OUT_OF_SCOPE": 1543
+      },
+      "geography_resolution_method": "province-level names",
+      "historical_normalization_possible": false,
+      "latest_date": "2026-09-16",
+      "longest_gap_days": 0,
+      "longest_unit_history_observations": 0,
+      "missing_dates_within_span": 0,
+      "missing_geography_rows": 0,
+      "newly_eligible_observations": 0,
+      "observation_span_days": 0,
+      "resolved_pct": 100.0,
+      "resolved_rows": 1543,
+      "rows": 1543,
+      "scoring_decision": "CONTEXTUAL",
+      "source": "NDMA situation reports"
+    },
+    "gauge": {
+      "admin_units_with_eligible_observation": 0,
+      "authoritative_status": "official hydrology values; geography unresolved",
+      "blockers": [
+        "no authoritative station-to-district or coordinate evidence (Task 25 + Task 37 searches)",
+        "3,499 observations UNRESOLVED_GEOGRAPHY"
+      ],
+      "dataset": "data/analytics/gold/datasets/gold_gauge_daily.jsonl",
+      "date_max": "2026-09-15",
+      "date_min": "2026-06-15",
+      "distinct_admin_units_with_series": 0,
+      "distinct_dates": 93,
+      "distinct_geographies_resolved": 0,
+      "eligibility_counts_after": {
+        "UNRESOLVED_GEOGRAPHY": 3499
+      },
+      "eligibility_counts_before": {
+        "UNRESOLVED_GEOGRAPHY": 3499
+      },
+      "geography_resolution_method": "none: no authoritative station-to-district evidence; secondary candidates are never applied",
+      "historical_normalization_possible": false,
+      "latest_date": "2026-09-15",
+      "longest_gap_days": 0,
+      "longest_unit_history_observations": 0,
+      "missing_dates_within_span": 0,
+      "missing_geography_rows": 3686,
+      "newly_eligible_observations": 0,
+      "observation_span_days": 0,
+      "resolved_pct": 0.0,
+      "resolved_rows": 0,
+      "rows": 3686,
+      "scoring_decision": "NO_ELIGIBLE_OBSERVATION",
+      "source": "PDMA Punjab gauges and rivers sitrep (PDF; data source stated as FFD and DEOCs)"
+    },
+    "hazard_alert": {
+      "admin_units_with_eligible_observation": 0,
+      "authoritative_status": "official; contextual only",
+      "blockers": [
+        "source severity labels are mapped to statuses by PROVISIONAL engine cut points; there is no normalization reference, so the alert stays contextual"
+      ],
+      "dataset": "gold alerts",
+      "date_max": "2026-09-02",
+      "date_min": "2026-06-27",
+      "distinct_admin_units_with_series": 0,
+      "distinct_dates": 5,
+      "distinct_geographies_resolved": 7,
+      "eligibility_counts_after": {
+        "OUT_OF_SCOPE": 38
+      },
+      "eligibility_counts_before": {
+        "OUT_OF_SCOPE": 38
+      },
+      "geography_resolution_method": "region names resolved by the Task 10 resolver",
+      "historical_normalization_possible": false,
+      "latest_date": "2026-09-02",
+      "longest_gap_days": 0,
+      "longest_unit_history_observations": 0,
+      "missing_dates_within_span": 0,
+      "missing_geography_rows": 2,
+      "newly_eligible_observations": 0,
+      "observation_span_days": 0,
+      "resolved_pct": 94.74,
+      "resolved_rows": 36,
+      "rows": 38,
+      "scoring_decision": "CONTEXTUAL",
+      "source": "PMD / NDMA weather and hazard alerts"
+    },
+    "rainfall": {
+      "admin_units_with_eligible_observation": 5,
+      "authoritative_status": "official PDMA source; district names resolved by a project resolver (not certified)",
+      "blockers": [
+        "only a few units have >= 30 prior observations",
+        "74 header-artefact rows ('Stations') and multi-district strings stay unresolved by design"
+      ],
+      "dataset": "data/analytics/gold/datasets/gold_rainfall_daily.jsonl",
+      "date_max": "2026-07-14",
+      "date_min": "2025-03-03",
+      "distinct_admin_units_with_series": 42,
+      "distinct_dates": 78,
+      "distinct_geographies_resolved": 42,
+      "eligibility_counts_after": {
+        "ELIGIBLE": 46,
+        "INSUFFICIENT_DATA": 570,
+        "UNRESOLVED_GEOGRAPHY": 253
+      },
+      "eligibility_counts_before": {
+        "ELIGIBLE": 46,
+        "INSUFFICIENT_DATA": 570,
+        "UNRESOLVED_GEOGRAPHY": 253
+      },
+      "geography_resolution_method": "Task 10 deterministic name resolver (exact / alias / normalized) against the 69-district canonical model; multi-district strings stay ambiguous",
+      "historical_normalization_possible": true,
+      "latest_date": "2026-07-14",
+      "longest_gap_days": 129,
+      "longest_unit_history_observations": 47,
+      "missing_dates_within_span": 421,
+      "missing_geography_rows": 209,
+      "newly_eligible_observations": 0,
+      "observation_span_days": 499,
+      "resolved_pct": 75.95,
+      "resolved_rows": 660,
+      "rows": 869,
+      "scoring_decision": "ELIGIBLE_OBSERVATIONS_EXIST",
+      "source": "PDMA Punjab daily rainfall reports (PDF)"
+    },
+    "weather": {
+      "admin_units_with_eligible_observation": 0,
+      "authoritative_status": "official PMD source; city names resolved by a project resolver",
+      "blockers": [
+        "a single observation date: no prior history to normalize against"
+      ],
+      "dataset": "data/analytics/gold/datasets/gold_weather_daily.jsonl",
+      "date_max": "2026-08-12",
+      "date_min": "2026-08-12",
+      "distinct_admin_units_with_series": 27,
+      "distinct_dates": 1,
+      "distinct_geographies_resolved": 27,
+      "eligibility_counts_after": {
+        "INSUFFICIENT_DATA": 27,
+        "UNRESOLVED_GEOGRAPHY": 12
+      },
+      "eligibility_counts_before": {
+        "INSUFFICIENT_DATA": 27,
+        "UNRESOLVED_GEOGRAPHY": 12
+      },
+      "geography_resolution_method": "Task 10 city-to-district resolver",
+      "historical_normalization_possible": false,
+      "latest_date": "2026-08-12",
+      "longest_gap_days": 0,
+      "longest_unit_history_observations": 1,
+      "missing_dates_within_span": 0,
+      "missing_geography_rows": 12,
+      "newly_eligible_observations": 0,
+      "observation_span_days": 1,
+      "resolved_pct": 69.23,
+      "resolved_rows": 27,
+      "rows": 39,
+      "scoring_decision": "NO_ELIGIBLE_OBSERVATION",
+      "source": "PMD city forecasts (HTML)"
+    }
+  },
+  "gap_ranking": [
+    {
+      "authority": 3,
+      "blocker": "no retrievable official station list; official sites refuse connections or serve unreadable files",
+      "gap_score": 17.7,
+      "history_continuity": 0.9,
+      "name": "authoritative_gauge_station_geography",
+      "normalizable": true,
+      "observations_unlocked": 3686,
+      "precision": 3,
+      "rank": 1,
+      "relevance": 3,
+      "reliability": 0,
+      "units_unlocked": 10,
+      "units_unlocked_note": "lower bound: distinct districts named by the secondary candidates; 41 stations"
+    },
+    {
+      "authority": 2,
+      "blocker": "needs repeated dated collection; DAGs are paused and PMD overwrites latest.json",
+      "gap_score": 14.0,
+      "history_continuity": 0.0,
+      "name": "dated_weather_history_accumulation",
+      "normalizable": true,
+      "observations_unlocked": 0,
+      "precision": 2,
+      "rank": 2,
+      "relevance": 2,
+      "reliability": 2,
+      "units_unlocked": 10,
+      "units_unlocked_note": "27 resolved geographies; >= 31 daily dates needed"
+    },
+    {
+      "authority": 2,
+      "blocker": "no second station source in the project; adding one is outside Task 37",
+      "gap_score": 13.3,
+      "history_continuity": 1.0,
+      "name": "second_continuous_air_quality_geography",
+      "normalizable": true,
+      "observations_unlocked": 0,
+      "precision": 2,
+      "rank": 3,
+      "relevance": 2,
+      "reliability": 1,
+      "units_unlocked": 1,
+      "units_unlocked_note": "unknown; requires a new source"
+    },
+    {
+      "authority": 1,
+      "blocker": "no authoritative evidence for the abbreviations",
+      "gap_score": 9.2,
+      "history_continuity": 0.4,
+      "name": "rainfall_station_name_aliases",
+      "normalizable": true,
+      "observations_unlocked": 5,
+      "precision": 1,
+      "rank": 4,
+      "relevance": 1,
+      "reliability": 2,
+      "units_unlocked": 0,
+      "units_unlocked_note": "measured by simulation: +5 eligible observations, 0 new two-group cells"
+    }
+  ],
+  "gauge_stations": {
+    "authoritative_evidence_references": [
+      {
+        "checked": "2026-10-07",
+        "outcome": "tables list river, site, design capacity, flood limits, inflow/outflow; no district, no coordinates",
+        "result": "no_evidence",
+        "source": "PDMA Punjab 'Daily Sitrep - Gauges and Rivers Situation' PDFs (data/raw/pdma/reports/gauge_reports, 410 files in 2026)"
+      },
+      {
+        "checked": "2026-10-07",
+        "outcome": "no sentence in any of the files pairs a station with the word District/Distt/Dist.; district names appear only inside weather-forecast region lists",
+        "result": "no_evidence",
+        "source": "Federal Flood Commission daily flood situation reports (data/raw/ffc/dfsr_glof_archive, 5 DFSR/Glof/press PDFs read as text)"
+      },
+      {
+        "checked": "2026-10-07",
+        "outcome": "listed by web search but ffc.gov.pk refused the connection (ECONNREFUSED), as in Task 25; content not read, not used",
+        "result": "unverifiable",
+        "source": "FFC Annual Flood Report 2025 (ffc.gov.pk) and per-headworks plans",
+        "url": "https://www.ffc.gov.pk/wp-content/uploads/2026/05/Flood-Report-2025.pdf"
+      },
+      {
+        "checked": "2026-10-07",
+        "outcome": "returned titles only (flood fighting plans for Balloki, Marala, Trimmu, Khanki); the plan documents were not retrievable, so no district statement could be verified",
+        "result": "no_evidence",
+        "source": "web search restricted to official domains (ffc, irrigation.punjab, pdma, wapda, pakirsa, pmd)"
+      }
+    ],
+    "authoritative_mappings_added": 0,
+    "caveated": [
+      {
+        "candidate_admin_unit": "Mangla",
+        "evidence_records": 2,
+        "ineligibility_reason": "caveated_geography",
+        "mapping_status": "caveated",
+        "station_key": "pdma:mangla",
+        "station_name": "Mangla"
+      }
+    ],
+    "conflicting_mappings": [
+      {
+        "candidate_admin_unit": null,
+        "claimed_districts": [
+          "Jhelum",
+          "Mandi Bahauddin"
+        ],
+        "conflict_status": "CONFLICTING",
+        "evidence_records": 2,
+        "ineligibility_reason": "ambiguous_mapping",
+        "mapping_status": "ambiguous",
+        "station_key": "pdma:rasul",
+        "station_name": "Rasul"
+      },
+      {
+        "candidate_admin_unit": null,
+        "claimed_districts": [
+          "Haripur",
+          "Swabi"
+        ],
+        "conflict_status": "CONFLICTING",
+        "evidence_records": 2,
+        "ineligibility_reason": "ambiguous_mapping",
+        "mapping_status": "ambiguous",
+        "station_key": "pdma:tarbela",
+        "station_name": "Tarbela"
+      }
+    ],
+    "eligible_mappings": [],
+    "inventory_count": 41,
+    "never_eligible_invariant_holds": true,
+    "observations": 3686,
+    "resolved_mappings": [],
+    "secondary_only_mappings": [
+      {
+        "candidate_admin_unit": "Kasur",
+        "evidence_records": 1,
+        "ineligibility_reason": "secondary_evidence_not_eligible_by_policy",
+        "mapping_status": "resolved_inferred",
+        "station_key": "pdma:balloki",
+        "station_name": "Balloki"
+      },
+      {
+        "candidate_admin_unit": "Gujranwala",
+        "evidence_records": 1,
+        "ineligibility_reason": "secondary_evidence_not_eligible_by_policy",
+        "mapping_status": "resolved_inferred",
+        "station_key": "pdma:khanki",
+        "station_name": "Khanki"
+      },
+      {
+        "candidate_admin_unit": "Sialkot",
+        "evidence_records": 1,
+        "ineligibility_reason": "secondary_evidence_not_eligible_by_policy",
+        "mapping_status": "resolved_inferred",
+        "station_key": "pdma:marala",
+        "station_name": "Marala"
+      },
+      {
+        "candidate_admin_unit": "Jhang",
+        "evidence_records": 1,
+        "ineligibility_reason": "secondary_evidence_not_eligible_by_policy",
+        "mapping_status": "resolved_inferred",
+        "station_key": "pdma:trimmu",
+        "station_name": "Trimmu"
+      }
+    ],
+    "task25_investigation_log": [
+      {
+        "checked": "2026-10-04",
+        "outcome": "not reachable from the build environment (connection refused); web search surfaced no telemetry site list with locations. The project's source inventory only records a 'Telemetry Sites Locations' item (no content).",
+        "result": "no_evidence",
+        "source": "IRSA (pakirsa.gov.pk)",
+        "source_type": "official",
+        "url": "https://pakirsa.gov.pk"
+      },
+      {
+        "checked": "2026-10-04",
+        "outcome": "index lists NDMA, Punjab zone-wise (.rar), PDMA KP and a Mangla reservoir manual; it does not list per-headworks plans and gives no station locations.",
+        "result": "no_evidence",
+        "source": "Federal Flood Commission (ffc.gov.pk) -- 'Flood Fighting/Contingency Plan 2026' index",
+        "source_type": "official",
+        "url": "https://ffc.gov.pk/?p=21112"
+      },
+      {
+        "checked": "2026-10-04",
+        "outcome": "URLs found by web search returned HTTP 404 via fetch; one download was saved but the operating system denied read access to it, so its content could not be verified. Not used.",
+        "result": "unverifiable",
+        "source": "FFC per-headworks flood fighting plans (docx, 2025)",
+        "source_type": "official",
+        "url": "https://ffc.gov.pk/wp-content/uploads/2025/04/Isam-Headworks-updated-flood-fighting-plan-2025.docx"
+      },
+      {
+        "checked": "2026-10-04",
+        "outcome": "2-page scanned image PDF with no text layer; no OCR available in the environment, so its content could not be read. Not used as evidence.",
+        "result": "unverifiable",
+        "source": "FFC / WAPDA 'Flood Management Manual for Mangla Reservoir 2026' (PDF)",
+        "source_type": "official",
+        "url": "https://ffc.gov.pk/wp-content/uploads/2026/06/FMC-Notification-1.pdf"
+      },
+      {
+        "checked": "2026-10-04",
+        "outcome": "page not found (HTTP 404).",
+        "result": "no_evidence",
+        "source": "WAPDA Tarbela project page",
+        "source_type": "official",
+        "url": "https://wapda.gov.pk/tarbela-dam-project/"
+      },
+      {
+        "checked": "2026-10-04",
+        "outcome": "official site content not retrieved; web search returned only secondary references (Wikipedia, news) and a Punjab P&D annual PDF whose station locations were not verified.",
+        "result": "secondary_only",
+        "source": "Punjab Irrigation Department",
+        "source_type": "official",
+        "url": "https://irrigation.punjab.gov.pk"
+      }
+    ],
+    "unresolved": [
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:aik",
+        "station_name": "Aik"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:basanter",
+        "station_name": "Basanter"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:bein",
+        "station_name": "Bein"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:bhimber",
+        "station_name": "Bhimber"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:chachar",
+        "station_name": "Chachar"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:chashma",
+        "station_name": "Chashma"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:deg",
+        "station_name": "Deg"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:gswala",
+        "station_name": "G.S. Wala"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:islam",
+        "station_name": "Islam"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:jassar",
+        "station_name": "Jassar"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:kaha",
+        "station_name": "Kaha"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:kalabaggakhosra",
+        "station_name": "Kala-Bagga Khosra"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:kalabagh",
+        "station_name": "Kalabagh"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:kaura",
+        "station_name": "Kaura"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:lai",
+        "station_name": "Lai"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:laifdanddeo",
+        "station_name": "Lai FD and DEO"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:mithawan",
+        "station_name": "Mithawan"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:palkhu",
+        "station_name": "Palkhu"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 1,
+        "ineligibility_reason": "admin_unit_not_in_canonical_geography",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:panjnad",
+        "station_name": "Panjnad"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:pitok",
+        "station_name": "Pitok"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:qadirabad",
+        "station_name": "Qadirabad"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:sakhiserwar",
+        "station_name": "Sakhi Serwar"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:sanghar",
+        "station_name": "Sanghar"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:shahdara",
+        "station_name": "Shahdara"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:sidhnai",
+        "station_name": "Sidhnai"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:site",
+        "station_name": "SITE"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:sorijanobi",
+        "station_name": "Sori Janobi"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:sorilund",
+        "station_name": "Sori Lund"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:sorishumali",
+        "station_name": "Sori Shumali"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:suleimanki",
+        "station_name": "Suleimanki"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:taunsa",
+        "station_name": "Taunsa"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:vehova",
+        "station_name": "Vehova"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:vidore",
+        "station_name": "Vidore"
+      },
+      {
+        "candidate_admin_unit": null,
+        "evidence_records": 0,
+        "ineligibility_reason": "no_evidence",
+        "mapping_status": "unresolved",
+        "station_key": "pdma:zangi",
+        "station_name": "Zangi"
+      }
+    ],
+    "unresolved_count": 34
+  },
+  "newly_unlocked_eligible_observations": {
+    "air_quality": 0,
+    "disaster_event": 0,
+    "gauge": 0,
+    "hazard_alert": 0,
+    "rainfall": 0,
+    "weather": 0
+  },
+  "question": "Which operational signals can be associated with which Pakistan administrative units from authoritative or explicitly qualified evidence?",
+  "recommendation_note": "Obtain an official station list (FFD / WAPDA / IRSA / Punjab Irrigation per-headworks documents) by manual retrieval and add it as authoritative records to config/gauge_station_evidence.yaml; the pipeline accepts it without code changes.",
+  "recommended_next_evidence_gap": "authoritative_gauge_station_geography",
+  "registry_version": "crosswalk-evidence-1.0.0",
+  "remaining_blockers": [
+    "no authoritative gauge station evidence",
+    "weather has a single dated observation",
+    "only Lahore has a continuous air-quality series",
+    "no evidence-based weights or outcome labels (Task 36)",
+    "104 -> 103 boundary districts still lack a canonical unit"
+  ],
+  "score_v2_outcome": "B",
+  "scoring_enabled": false
+}

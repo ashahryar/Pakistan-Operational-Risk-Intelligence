@@ -34,6 +34,8 @@ sources:
 crosswalk_aliases:
   "D. I. Khan": "Dera Ismail Khan"
   "Leiah": "Layyah"
+  # Task 37: evidence recorded in config/crosswalk_evidence.yaml (Sindh Act XIV of 2023 names "District Shaheed Benazirabad (Nawabshah)").
+  "Shaheed Benazir Abad": "Nawabshah"
 
 policy:
   # Eligibility is decided here, not in code.
