@@ -143,6 +143,12 @@ def main():
     print("Success :", total)
     print("=" * 60)
 
+    # Task 40 source-failure policy: a report that could not be fetched is a failure (non-zero exit -> Airflow retries and shows the task red).
+    # Nothing is written for a failed report, so the last good latest.json stays intact.
+    if total < len(reports):
+        print(f"FAILED : {len(reports) - total} of {len(reports)} PMD reports could not be fetched")
+        sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

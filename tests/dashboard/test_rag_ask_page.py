@@ -13,7 +13,14 @@ import streamlit as st  # noqa: E402
 from dashboard.api_client import ApiResult, RiskApiClient  # noqa: E402
 from dashboard.utils.rag_helpers import citation_rows, evidence_caption, status_banner  # noqa: E402
 
-PAGE = str(Path(__file__).resolve().parents[2] / "dashboard" / "pages" / "7_RAG_Ask.py")
+PAGE = str(Path(__file__).resolve().parents[2] / "dashboard" / "pages" / "7_Operational_Intelligence.py")
+
+
+def _app(timeout=30):
+    """The unified Operational Intelligence page, opened in the 'Ask Reports' mode (Task 40)."""
+    at = AppTest.from_file(PAGE, default_timeout=timeout)
+    at.session_state["oi_mode"] = 'Ask Reports'
+    return at
 CID = "ndma:sitrep:a#c0001"
 
 
@@ -65,14 +72,14 @@ def ask(at, question="How many people died in Swat?"):
 
 
 def test_page_renders_the_form_without_calling_the_api():
-    at = AppTest.from_file(PAGE, default_timeout=30).run()
-    assert not at.exception and at.title[0].value.endswith("Ask the Reports")
+    at = _app(30).run()
+    assert not at.exception and any(s.value.endswith("Ask the Reports") for s in at.subheader)
     assert [s.label for s in at.selectbox] == ["Retrieval", "Province", "Source"]
 
 
 def test_successful_answer_shows_answer_citations_and_evidence_separately(monkeypatch):
     calls = patch_api(monkeypatch, ApiResult(True, data=body("ANSWERED", f"NDMA reported 45 deaths in Swat [chunk:{CID}].")))
-    at = AppTest.from_file(PAGE, default_timeout=30).run()
+    at = _app(30).run()
     at.selectbox[1].select("Punjab")
     at.selectbox[2].select("ndma")
     at = ask(at)
@@ -80,7 +87,7 @@ def test_successful_answer_shows_answer_citations_and_evidence_separately(monkey
     assert calls == [{"q": "How many people died in Swat?", "mode": "hybrid", "source": "ndma", "province": "Punjab", "top_k": 5}]
     assert any("ANSWERED" in s.value for s in at.success)
     assert any(f"[chunk:{CID}]" in m.value for m in at.markdown)
-    assert [s.value for s in at.subheader] == ["Answer", "Citations", "Retrieved evidence"]
+    assert [s.value for s in at.subheader][1:] == ["Answer", "Citations", "Retrieved evidence"]
     df = at.dataframe[0].value
     assert list(df["Chunk"]) == [CID] and list(df["Source"]) == ["NDMA"] and list(df["Title"]) == ["NDMA Sitrep 12"] and list(df["Date"]) == ["2026-07-05"]
     assert any("✅" in x.label and CID in x.label for x in at.expander)                         # the cited evidence is marked
@@ -89,50 +96,50 @@ def test_successful_answer_shows_answer_citations_and_evidence_separately(monkey
 
 def test_insufficient_evidence_is_shown_as_a_warning_with_no_answer_section(monkeypatch):
     patch_api(monkeypatch, ApiResult(True, data=body("INSUFFICIENT_EVIDENCE", "INSUFFICIENT_EVIDENCE", cited=False)))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert not at.exception and any("INSUFFICIENT_EVIDENCE" in w.value for w in at.warning)
     assert "No cited passages" in " ".join(c.value for c in at.caption) and at.expander                  # evidence still listed
 
 
 def test_retrieval_empty_message(monkeypatch):
     patch_api(monkeypatch, ApiResult(True, data=body("RETRIEVAL_EMPTY", cited=False)))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert not at.exception and any("RETRIEVAL_EMPTY" in w.value for w in at.warning) and any("Nothing was retrieved" in c.value for c in at.caption)
 
 
 def test_llm_unavailable_503_still_shows_the_evidence(monkeypatch):
     patch_api(monkeypatch, ApiResult(False, data=body("LLM_UNAVAILABLE", cited=False), error_kind="unavailable", message="x", status_code=503))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert not at.exception and any("LLM_UNAVAILABLE" in i.value for i in at.info) and at.expander
 
 
 def test_invalid_answer_is_withheld_and_explained(monkeypatch):
     patch_api(monkeypatch, ApiResult(True, data=body("INVALID_ANSWER", None, cited=False, problems=[{"code": "unknown_citation"}])))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
-    assert not at.exception and any("withheld" in e.value for e in at.error) and "Answer" not in [s.value for s in at.subheader]
+    at = ask(_app(30).run())
+    assert not at.exception and any("withheld" in e.value for e in at.error) and "Answer" not in [s.value for s in at.subheader][1:]
 
 
 def test_number_warning_is_surfaced(monkeypatch):
     patch_api(monkeypatch, ApiResult(True, data=body("ANSWERED", f"NDMA reported 450 deaths [chunk:{CID}].", warnings=[{"number": "450", "sentence": "NDMA reported 450 deaths"}])))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert any("450" in w.value and "does not appear" in w.value for w in at.warning)
 
 
 def test_api_unreachable_shows_a_friendly_message_not_a_traceback(monkeypatch):
     monkeypatch.setenv("PORI_API_URL", "http://127.0.0.1:9")
-    at = ask(AppTest.from_file(PAGE, default_timeout=60).run())
+    at = ask(_app(60).run())
     assert not at.exception and any("Could not get an answer" in e.value for e in at.error) and any("uvicorn" in c.value for c in at.caption)
 
 
 def test_validation_error_from_the_api_is_friendly(monkeypatch):
     patch_api(monkeypatch, ApiResult(False, error_kind="invalid_request", message="The API rejected the filter values (HTTP 422).", status_code=422))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert not at.exception and any("rejected the filter values" in e.value for e in at.error)
 
 
 def test_empty_question_is_not_sent(monkeypatch):
     calls = patch_api(monkeypatch, ApiResult(True, data=body("ANSWERED", "x")))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run(), question=" ")
+    at = ask(_app(30).run(), question=" ")
     assert not at.exception and calls == [] and any("type a question" in w.value for w in at.warning)
 
 
@@ -186,7 +193,7 @@ def test_no_evidence_notice_is_shown_and_no_withheld_chunk_is_displayed(monkeypa
     b["retrieval"] = {**b["retrieval"], "evidence_count": 0, "relevance": REL_NONE}
     b["model"] = {"provider": None, "model": None, "configured": False, "called": False}
     patch_api(monkeypatch, ApiResult(True, data=b))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run(), "What did NDMA report about volcanic eruptions in Sindh?")
+    at = ask(_app(30).run(), "What did NDMA report about volcanic eruptions in Sindh?")
     assert not at.exception and any("NO_EVIDENCE" in i.value and "5 loosely matching passage(s) were withheld" in i.value and "NOT shown as evidence" in i.value for i in at.info)
     assert not at.expander and any("Nothing was retrieved" in c.value for c in at.caption)
 

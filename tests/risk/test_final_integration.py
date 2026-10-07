@@ -67,3 +67,9 @@ def test_no_signals_at_all_is_distinguishable_from_a_low_status():
 def test_a_stored_score_would_pass_through_without_an_abstention():
     ok = S.abstain_from_stored_row({"risk_score": 41.5, "signals": {}}, S.SERVING_CONFIG)
     assert ok["score_status"] == S.SCORED and ok["abstention_reason"] is None
+
+
+def test_score_state_separates_abstained_with_evidence_from_insufficient_evidence():
+    some = S.abstain_from_stored_row({"risk_score": None, "signals": {"gauge": 0.4}}, S.SERVING_CONFIG)
+    none = S.abstain_from_stored_row({"risk_score": None, "signals": {"gauge": None}}, S.SERVING_CONFIG)
+    assert some["score_state"] == S.ABSTAINED and none["score_state"] == S.SCORE_STATE_INSUFFICIENT == "INSUFFICIENT_EVIDENCE"

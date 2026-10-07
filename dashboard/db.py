@@ -5,6 +5,8 @@ import os
 from typing import Optional
 
 import pandas as pd
+
+from dashboard.utils.ndma_cumulative import cumulative_to_increments
 import streamlit as st
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
@@ -224,7 +226,9 @@ def get_ndma_casualties() -> pd.DataFrame:
     ORDER BY report_date
     """
 
-    return _read_sql(query, parse_dates=["report_date"])
+    # NDMA figures are cumulative per report: expose the increments so sums and trends are additive (see utils/ndma_cumulative.py)
+    df = _read_sql(query, parse_dates=["report_date"])
+    return cumulative_to_increments(df, ["deaths", "injured"]) if not df.empty else df
 
 
 # ==========================================================
@@ -251,7 +255,8 @@ def get_ndma_damage() -> pd.DataFrame:
     ORDER BY report_date
     """
 
-    return _read_sql(query, parse_dates=["report_date"])
+    df = _read_sql(query, parse_dates=["report_date"])
+    return cumulative_to_increments(df, ["roads_km", "bridges", "houses_total", "livestock"]) if not df.empty else df
 
 
 # ==========================================================
@@ -268,19 +273,20 @@ def get_ndma_summary() -> pd.DataFrame:
         total_persons_rescued, provinces_affected
     """
 
-    query = f"""
-    SELECT
-        (SELECT COALESCE(SUM(deaths), 0)  FROM ndma_casualties WHERE {_clean_province_filter()}) AS total_deaths,
-        (SELECT COALESCE(SUM(injured), 0) FROM ndma_casualties WHERE {_clean_province_filter()}) AS total_injured,
-        (SELECT COALESCE(SUM(houses_total), 0) FROM ndma_damage WHERE {_clean_province_filter()}) AS total_houses_damaged,
-        (SELECT COALESCE(SUM(roads_km), 0)     FROM ndma_damage WHERE {_clean_province_filter()}) AS total_roads_km,
-        (SELECT COALESCE(SUM(bridges), 0)      FROM ndma_damage WHERE {_clean_province_filter()}) AS total_bridges,
-        (SELECT COALESCE(SUM(livestock), 0)    FROM ndma_damage WHERE {_clean_province_filter()}) AS total_livestock,
-        (SELECT COALESCE(SUM(persons_rescued), 0) FROM ndma_rescue WHERE {_clean_province_filter()}) AS total_persons_rescued,
-        (SELECT COUNT(DISTINCT province) FROM ndma_casualties WHERE {_clean_province_filter()}) AS provinces_affected
-    """
+    cas, dmg = get_ndma_casualties(), get_ndma_damage()       # increments of the cumulative sitrep figures: their sums are the peak totals
+    resc = _read_sql(f"SELECT report_date, province, persons_rescued FROM ndma_rescue WHERE {_clean_province_filter()} ORDER BY report_date",
+                     parse_dates=["report_date"])
+    resc = cumulative_to_increments(resc, ["persons_rescued"]) if not resc.empty else resc      # rescue totals are cumulative per sitrep too
 
-    return _read_sql(query)
+    def _tot(df, col):
+        return float(df[col].sum()) if col in df and df[col].notna().any() else None
+
+    return pd.DataFrame([{
+        "total_deaths": _tot(cas, "deaths"), "total_injured": _tot(cas, "injured"),
+        "total_houses_damaged": _tot(dmg, "houses_total"), "total_roads_km": _tot(dmg, "roads_km"),
+        "total_bridges": _tot(dmg, "bridges"), "total_livestock": _tot(dmg, "livestock"),
+        "total_persons_rescued": _tot(resc, "persons_rescued"),
+        "provinces_affected": int(cas["province"].nunique()) if not cas.empty else None}])
 
 
 @st.cache_data(ttl=60)
@@ -692,20 +698,17 @@ def get_dashboard_summary() -> dict:
 
     ndma = get_ndma_summary()
 
+    def _n(col):                                   # None stays None (never shown as zero)
+        v = ndma[col].iloc[0] if not ndma.empty else None
+        return int(v) if pd.notna(v) else None
+
+    rs, rv = get_rainfall_summary(), get_river_summary()
     kpis = {
-        "total_deaths": int(ndma["total_deaths"].iloc[0]) if not ndma.empty else 0,
-        "total_injured": int(ndma["total_injured"].iloc[0]) if not ndma.empty else 0,
-        "houses_damaged": int(ndma["total_houses_damaged"].iloc[0]) if not ndma.empty else 0,
-        "persons_rescued": int(ndma["total_persons_rescued"].iloc[0]) if not ndma.empty else 0,
-        "rainfall_stations": int(get_rainfall_summary()["station_count"].iloc[0])
-        if not get_rainfall_summary().empty
-        else 0,
-        # NOTE: components/executive_cards.py:20 reads kpi["rivers_monitored"],
-        # not kpi["rivers"] -- this key name must match exactly or the
-        # Executive KPI Command Center raises a KeyError on every load.
-        "rivers_monitored": int(get_river_summary()["station_count"].iloc[0])
-        if not get_river_summary().empty
-        else 0,
+        "total_deaths": _n("total_deaths"), "total_injured": _n("total_injured"),
+        "houses_damaged": _n("total_houses_damaged"), "persons_rescued": _n("total_persons_rescued"),
+        "rainfall_stations": int(rs["station_count"].iloc[0]) if not rs.empty else None,
+        # NOTE: components/executive_cards.py reads kpi["rivers_monitored"], not kpi["rivers"]
+        "rivers_monitored": int(rv["station_count"].iloc[0]) if not rv.empty else None,
     }
 
     # ---- last_update: most recent successful pipeline run ----

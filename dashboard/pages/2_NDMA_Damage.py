@@ -21,6 +21,8 @@ st.set_page_config(
     layout="wide",
 )
 
+st.info('Source: NDMA situation reports (province level). Houses, roads, bridges and livestock are cumulative per report, so totals use the peak reported value per province and the charts show increments between reports. A blank value means not reported, not zero. Snapshot of published reports, not a live feed.')
+
 # ==========================================================
 # INFRASTRUCTURE MISSION CONTROL DESIGN SYSTEM (CSS)
 # Tokens sourced 1:1 from DESIGN.md / code.html mockup.
@@ -746,7 +748,7 @@ def render_topnav(brand: str, date_range_label: str) -> None:
 <div class="im-topnav">
   <div class="im-topnav-left">
     <span class="im-brand">{brand}</span>
-    <span class="im-live-pill"><span class="dot"></span> Live System</span>
+    <span class="im-live-pill"><span class="dot"></span> Data snapshot (cumulative sitreps)</span>
     <span class="im-daterange">Data Range: {date_range_label}</span>
   </div>
   <div class="im-topnav-tabs">
@@ -1191,15 +1193,15 @@ top_house_share = (
 
 if top_house_share >= 30:
     render_alert_banner(
-        "Critical Infrastructure Risk",
+        "High concentration of reported damage",
         f"{top_province} accounts for {top_house_share:.0f}% of houses damaged in the selected "
         f"window ({int(province_summary.sort_values('houses_total', ascending=False).iloc[0]['houses_total']):,} of {total_houses:,}). "
-        f"Immediate resource allocation recommended.",
+        f"This is a share of reported houses damaged, not a risk score or a recommendation.",
         variant="danger",
     )
 else:
     render_alert_banner(
-        "No Critical Concentration Detected",
+        "No high concentration of reported damage",
         f"Damage is distributed across {province_count} province(s) in the selected window; "
         f"{top_province} holds the largest share at {top_house_share:.0f}%.",
         variant="clear",
@@ -1280,7 +1282,7 @@ with i2:
     st.markdown(render_insight_card("Network Impact", f"{critical_asset_share:.0f}%", "primary"), unsafe_allow_html=True)
 
 with i3:
-    st.markdown(render_insight_card("Recovery Readiness", readiness_label, readiness_accent), unsafe_allow_html=True)
+    st.markdown(render_insight_card("Data window", "CURRENT" if is_current_window else "HISTORICAL", readiness_accent), unsafe_allow_html=True)
 
 with i4:
     st.markdown(render_insight_card("Latest Data Sync", latest_date.strftime("%d %b").upper(), "neutral"), unsafe_allow_html=True)

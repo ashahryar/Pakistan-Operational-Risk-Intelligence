@@ -10,7 +10,15 @@ __pycache__/
 .env
 
 logs/
-data/
+# data is never baked into images, except the three small committed gauge-evidence files the API's read-only /evidence endpoint serves
+data/*
+!data/analytics
+data/analytics/*
+!data/analytics/geo
+data/analytics/geo/*
+!data/analytics/geo/gauge_station_inventory.json
+!data/analytics/geo/gauge_station_mapping.json
+!data/analytics/geo/gauge_geography_coverage.json
 
 .vscode/
 

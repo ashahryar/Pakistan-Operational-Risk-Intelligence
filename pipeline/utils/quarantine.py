@@ -51,8 +51,8 @@ def write_quarantine(
                         data/rejected/<source>/) pass None — source_document
                         is the on-disk reference.
 
-    Returns True on success, False if the write itself failed (logged,
-    never raised).
+    Returns True when the rejection is recorded (including: an identical OPEN rejection already exists, so nothing new is inserted),
+    False if the write itself failed (logged, never raised).
     """
 
     try:
@@ -76,7 +76,8 @@ def write_quarantine(
                         reason_code,
                         message,
                         parser_version
-                    ) VALUES (
+                    )
+                    SELECT
                         :source,
                         :domain,
                         :source_document,
@@ -84,6 +85,17 @@ def write_quarantine(
                         :reason_code,
                         :message,
                         :parser_version
+                    -- Task 40: idempotent. A scheduled parser re-reads every file on every run, so the SAME rejection must not be
+                    -- recorded again while it is still open (it stays countable, queryable and re-processable exactly once).
+                    WHERE NOT EXISTS (
+                        SELECT 1 FROM dq.quarantine q
+                        WHERE q.source = :source
+                          AND q.domain IS NOT DISTINCT FROM :domain
+                          AND q.source_document = :source_document
+                          AND q.reason_code = :reason_code
+                          AND q.parser_version = :parser_version
+                          AND q.status = 'open'
+                          AND q.raw_payload IS NOT DISTINCT FROM CAST(:raw_payload AS JSONB)
                     )
                     """
                 ),

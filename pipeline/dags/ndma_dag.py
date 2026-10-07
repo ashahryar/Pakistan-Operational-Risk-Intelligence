@@ -42,11 +42,7 @@ from airflow.utils.dates import days_ago
 
 from pipeline.helpers.script_runner import run_script
 
-from pipeline.helpers.aws_helper import (
-
-    upload_folder,
-
-)
+from pipeline.helpers.s3_optional import upload_folder_or_skip as upload_folder
 
 from pipeline.utils.task_callbacks import (
 

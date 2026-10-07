@@ -51,6 +51,8 @@ st.set_page_config(
     layout="wide",
 )
 
+st.info("Source: PDMA Punjab rainfall reports. 'Stations' are the free-text names printed in the reports: some are district lists, abbreviations or table headers and stay unresolved rather than being guessed. Only resolved names are attributed to a district (see the Geographic Observation section on Home).")
+
 # ==========================================================
 # AUTO REFRESH
 # ==========================================================
@@ -490,7 +492,7 @@ def render_header(title: str, subtitle: str) -> None:
       <div class="ob-subtitle">{subtitle}</div>
     </div>
   </div>
-  <div class="ob-live-badge"><span class="dot"></span> Live</div>
+  <div class="ob-live-badge"><span class="dot"></span> Snapshot</div>
 </div>
 """,
         unsafe_allow_html=True,
@@ -571,7 +573,7 @@ def style_fig(fig, **layout_overrides):
 
 render_header(
     "Punjab Rainfall Intelligence",
-    "Provincial Disaster Management Authority (PDMA) • Live Rainfall Monitoring &amp; Early Warning Intelligence",
+    "Provincial Disaster Management Authority (PDMA) • Published rainfall reports (not a live feed)",
 )
 
 st.divider()
@@ -655,7 +657,7 @@ with left:
     st.markdown(
         render_status_card(
             "🛰",
-            "Live Rainfall Feed",
+            "Latest rainfall report",
             f"{latest_update.strftime('%d %b %Y')} &nbsp;·&nbsp; {latest_update.strftime('%I:%M:%S %p')}",
             "Dashboard refreshes automatically every 60 seconds.",
             dot_color="var(--ob-success)",
@@ -902,7 +904,7 @@ with left:
     st.markdown(
         render_status_card(
             "🌧",
-            "Live Rainfall Intelligence",
+            "Latest rainfall report",
             latest_date.strftime("%d %b %Y"),
             f"Stations Reporting : {station_count} &nbsp;·&nbsp; "
             f"Current Status : {status}<br>"

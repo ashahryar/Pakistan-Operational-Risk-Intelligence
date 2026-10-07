@@ -132,6 +132,11 @@ if date_p is not None:
         fc = {"type": "FeatureCollection", "features": [f for f in fc["features"] if f["properties"]["risk_status"] == status_p]}
 
 summary = summarize(fc, risk_rows)
+_REQUIRED = ("total_areas", "areas_with_risk", "areas_without_geometry", "high", "critical", "insufficient_data", "areas_scored", "areas_score_abstained")
+if not all(k in summary for k in _REQUIRED):      # self-contained on purpose: a stale process has an older helper module (and no newer helper functions)
+    st.error("The dashboard process is running older code than this page (its summary is missing fields). Restart the dashboard "
+             "(stop `streamlit run` and start it again, or `docker compose up -d --build dashboard`).")
+    st.stop()
 
 # ---------------------------------------------------------------- summary cards
 c = st.columns(6)

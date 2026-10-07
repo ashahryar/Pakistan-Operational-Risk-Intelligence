@@ -187,7 +187,8 @@ def test_indexes_exist_for_the_query_patterns(conn):
 @live
 def test_quarantine_history_is_intact_and_airflow_is_paused(conn):
     assert q(conn, "SELECT count(*) FILTER (WHERE quarantine_id <= 112) a, count(*) FILTER (WHERE quarantine_id BETWEEN 104 AND 112) b FROM dq.quarantine")[0] == {"a": 112, "b": 9}
-    assert all(r["is_paused"] for r in q(conn, "SELECT is_paused FROM dag"))
+    # Task 40: exactly the two verified production DAGs run on a schedule; every other DAG (PMD: source unavailable; weekly / master / manual / backfill) stays paused
+    assert {r["dag_id"] for r in q(conn, "SELECT dag_id FROM dag WHERE NOT is_paused")} <= {"ndma_pipeline", "pdma_pipeline"}
 
 
 # ------------------------------------------------------------------ scratch database: rollback + idempotency

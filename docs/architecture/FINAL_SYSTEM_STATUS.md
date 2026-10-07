@@ -1,4 +1,4 @@
-# Pakistan Operational Risk Intelligence — final system status (Task 39)
+# Pakistan Operational Risk Intelligence — final system status (Tasks 39 and 40)
 
 A reviewer should be able to understand the platform from this page without reading the source. Every number below comes from a committed audit file, the database, or a test; limitations are stated on purpose.
 
@@ -26,7 +26,7 @@ sources → extraction → raw files (data/raw) → parsing (golden-file tested)
                           ↘ RAG / intelligence / agent (read-only, evidence-grounded)
 ```
 
-Orchestration is seven Airflow DAGs, all **paused** by design (the project runs the stages by hand; DAG integrity is tested). AWS is limited to S3 upload code; Glue, Redshift and Lambda are inactive and nothing paid is deployed. PostGIS and pgvector are not installed: boundaries are processed in pure Python and embeddings sit in an ordinary table.
+Orchestration is seven Airflow DAGs (details in [AIRFLOW_OPERATIONS.md](AIRFLOW_OPERATIONS.md)): `ndma_pipeline` (daily) and `pdma_pipeline` (every 6 hours) are scheduled production DAGs and were verified end to end on 2026-10-07; `pmd_pipeline` is disabled because its source pages are unavailable; the other four are manual or backfill only. A source failure fails the task; S3 archiving is an explicit step that shows as skipped when disabled (off by default; the AWS keys in the developer `.env` were rejected by AWS). The risk engine and Gold build are still run by hand, so risk rows lag the newest ingested data until they are re-run. Deployment is a single-host Docker Compose stack ([DEPLOYMENT.md](DEPLOYMENT.md)); AWS is limited to optional S3 upload; Glue, Redshift and Lambda are inactive and nothing paid is deployed. PostGIS and pgvector are not installed: boundaries are processed in pure Python and embeddings sit in an ordinary table.
 
 ## Geography
 
@@ -75,7 +75,9 @@ Task 33 provides **baseline** forecasts (228 stored predictions) for gauge disch
 ## Serving
 
 * **API** (FastAPI, read-only; write verbs answer 405): health, risk (list, latest, map, by unit), geography, weather, disasters, ML predictions, RAG, intelligence, agent.
-* **Dashboard** (Streamlit): the original pages (NDMA casualties and damage, PMD weather, PDMA rainfall and rivers) plus the risk map, RAG, intelligence and agent pages.
+* **Dashboard** (Streamlit): an executive Home (real KPIs, `n/a` for missing values, evidence coverage, risk availability), NDMA casualties and damage, PMD weather, PDMA rainfall, **PDMA rivers rebuilt around gauge geography evidence**, the risk map, and one **Operational Intelligence** page with three modes (Agent, Analyze Risk, Ask Reports) over the separate RAG, intelligence and agent backends.
+* **Metric corrections made in Task 40.** NDMA sitreps state *cumulative* figures; the dashboard had summed them across reports (7,110 deaths shown against a peak of 199). Totals now use the per-province peak and charts use increments (`dashboard/utils/ndma_cumulative.py`, tested). The PDMA gauge table's *level* columns are not water levels for most rows (flood-limit and design values sit there), so level, danger and flood-risk indicators were removed instead of shown. An invented "platform health" and "flood risk 100/100" were removed, and casualty counts are no longer labelled a risk score.
+* **Evidence endpoint:** `GET /api/v1/evidence/gauge-stations` (read-only) returns each station's evidence state (ELIGIBLE, CONFLICTING_GEOGRAPHY, SECONDARY_ONLY, CAVEATED, UNRESOLVED) and an administrative unit only for eligible stations. Risk rows carry `score_v2.score_state` (ABSTAINED, or INSUFFICIENT_EVIDENCE when no signal was observed).
 
 ## Limitations (stated on purpose)
 
@@ -86,8 +88,12 @@ Task 33 provides **baseline** forecasts (228 stored predictions) for gauge disch
 * FFC and IRSA were unreachable during development (HTTP 500 and refused connection), so absence of evidence there is not proof it does not exist.
 * Risk statuses use provisional thresholds; rows with HIGH or CRITICAL for Mianwali and Jhang come from the two gauge mappings and share that caveat.
 * The two gauge mappings assume the PDMA station is the owner's same-named site on the same river; both are marked `pending_manual_review`.
-* The data is a snapshot (June–September 2026 for gauges); the Airflow DAGs are paused and have not been run unattended.
+* The gauge data cover June–September 2026. Only `ndma_pipeline` and `pdma_pipeline` are scheduled; they were each verified with one controlled run, not yet observed over days unattended.
+* PMD (weather) is disabled: its source pages return HTTP 500 and 404, and its raw layer only keeps the latest snapshot.
+* The PDMA rivers page deliberately shows no water level or flood-risk indicator because the legacy columns are unreliable.
+* NDMA figures are cumulative with occasional parser dips; the dashboard uses the running maximum, which is a conservative lower bound.
+* The risk engine and Gold build are run by hand, not by Airflow.
 
 ## How to run
 
-See the README section "Run it locally" for the exact commands.
+See the README section "Run it locally" and [DEPLOYMENT.md](DEPLOYMENT.md) for the exact commands.

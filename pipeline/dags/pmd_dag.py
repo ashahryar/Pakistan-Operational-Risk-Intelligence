@@ -1,6 +1,10 @@
 """
 pipeline/dags/pmd_dag.py
 
+STATUS (Task 40): DISABLED (kept paused) because the source is unavailable. On 2026-10-07 every PMD page this DAG scrapes failed with the project's own fetcher:
+nwfc.pmd.gov.pk daily-forecast and weekly-outlook answer HTTP 500 and www.pmd.gov.pk latest-weather-alerts answers 404 (moved). `extract_pmd.py` now exits non-zero
+in that case, so the task is red (never a silent success) and the last good latest.json is untouched. Unpause only after the source URLs are repaired.
+
 Pakistan Meteorological Department Pipeline
 
 Flow
@@ -39,11 +43,7 @@ from airflow.utils.dates import days_ago
 
 from pipeline.helpers.script_runner import run_script
 
-from pipeline.helpers.aws_helper import (
-
-    upload_folder,
-
-)
+from pipeline.helpers.s3_optional import upload_folder_or_skip as upload_folder
 
 from pipeline.utils.task_callbacks import (
 

@@ -1,4 +1,5 @@
 import argparse
+import sys
 from datetime import datetime
 from typing import Dict
 
@@ -74,11 +75,13 @@ def scrape_report(report_key: str, config: Dict[str, str]) -> int:
 
         page_url = config["url"].format(page)
 
-        logger.info("%s | Page %s", report_key, "all", page)
+        logger.info("%s | Page %s", report_key, page)
 
         response = client.get(page_url)
 
         if response is None:
+            if page == 0:
+                FAILURES.append(f"{report_key}: listing page unreachable ({page_url})")
             break
 
         soup = BeautifulSoup(response.text, "html.parser")
@@ -146,6 +149,7 @@ def scrape_report(report_key: str, config: Dict[str, str]) -> int:
             else:
 
                 logger.error(f"Failed {filename}")
+                FAILURES.append(f"{report_key}: download failed ({filename})")
 
         save_metadata(folder, metadata)
 
@@ -157,6 +161,11 @@ def scrape_report(report_key: str, config: Dict[str, str]) -> int:
 # ==========================================================
 # MAIN
 # ==========================================================
+
+# Task 40 source-failure policy: an unreachable listing page (page 0) or a failed download is a FAILURE (the task exits non-zero after the other reports
+# are processed, so Airflow retries and shows it red); "no new reports" is not. Existing data is never touched on failure and nothing is fabricated.
+FAILURES: list = []
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="NDMA Pakistan reports scraper")
@@ -190,6 +199,10 @@ def main() -> None:
     print("=" * 70)
     print("Reports        :", len(report_list))
     print("PDFs Downloaded:", total_downloaded)
+    if FAILURES:
+        print("FAILED : " + "; ".join(FAILURES))
+        print("=" * 70)
+        sys.exit(1)
     print("Completed Successfully")
     print("=" * 70)
 

@@ -34,6 +34,8 @@ st.set_page_config(
     layout="wide",
 )
 
+st.info('Source: PMD city forecasts. Only one dated collection exists, so there is no weather history: trend and comparison charts have a single date. Cities whose province could not be resolved appear as Unknown and are not assigned. Not an official forecast.')
+
 # ==========================================================
 # AUTO REFRESH
 # ==========================================================
@@ -933,7 +935,7 @@ def add_rank_medals(df_in: pd.DataFrame) -> pd.DataFrame:
 
 render_header(
     "PAKISTAN WEATHER INTELLIGENCE",
-    "Pakistan Meteorological Department (PMD) • Live Weather Monitoring &amp; Forecast Intelligence",
+    "Pakistan Meteorological Department (PMD) • Forecast snapshot (one dated PMD collection)",
 )
 
 st.divider()
@@ -1046,7 +1048,7 @@ st.sidebar.markdown(
   <div class="im-side-avatar">🌦</div>
   <div>
     <div class="im-side-brand-title">PMD WEATHER</div>
-    <div class="im-side-brand-sub">LIVE WEATHER INTELLIGENCE</div>
+    <div class="im-side-brand-sub">WEATHER FORECAST SNAPSHOT</div>
   </div>
 </div>
 """,

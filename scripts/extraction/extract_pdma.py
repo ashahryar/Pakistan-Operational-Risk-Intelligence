@@ -1,4 +1,5 @@
 import argparse
+import sys
 from datetime import datetime
 from typing import Dict,List
 
@@ -83,6 +84,8 @@ def scrape_report_year(report_key: str, config: Dict[str, str], year: int) -> in
         response = client.get(page_url)
 
         if response is None:
+            if page == 0:
+                FAILURES.append(f"{report_key} {year}: listing page unreachable ({page_url})")
             break
 
         print("=" * 100)
@@ -156,6 +159,7 @@ def scrape_report_year(report_key: str, config: Dict[str, str], year: int) -> in
             else:
 
                 logger.error(f"Failed {filename}")
+                FAILURES.append(f"{report_key} {year}: download failed ({filename})")
 
         save_metadata(folder, metadata)
 
@@ -167,6 +171,11 @@ def scrape_report_year(report_key: str, config: Dict[str, str], year: int) -> in
 # ==========================================================
 # MAIN
 # ==========================================================
+
+# Task 40 source-failure policy: an unreachable listing page (page 0) or a failed download is a FAILURE (the task exits non-zero after the other reports
+# are processed, so Airflow retries and shows it red); "no new reports" is not. Existing data is never touched on failure and nothing is fabricated.
+FAILURES: list = []
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="PDMA Punjab reports scraper")
@@ -200,6 +209,10 @@ def main() -> None:
     print("Reports        :", len(report_list))
     print("Years          :", YEARS)
     print("PDFs Downloaded:", total_downloaded)
+    if FAILURES:
+        print("FAILED : " + "; ".join(FAILURES))
+        print("=" * 70)
+        sys.exit(1)
     print("Completed Successfully")
     print("=" * 70)
 

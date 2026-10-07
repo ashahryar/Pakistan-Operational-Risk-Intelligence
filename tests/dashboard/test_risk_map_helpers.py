@@ -136,3 +136,12 @@ def test_score_coverage_separates_abstained_from_scored_and_from_no_data():
     from dashboard.utils.risk_map_helpers import score_coverage
     df = pd.DataFrame({"risk_status": ["LOW", "HIGH", "INSUFFICIENT_DATA", None], "risk_score": [None, 61.0, None, None]})
     assert score_coverage(df) == {"areas_scored": 1, "areas_score_abstained": 2}      # the area with no status at all is neither
+
+
+def test_home_risk_availability_counts_abstained_and_insufficient_separately():
+    from dashboard.components.executive_landing import fmt, risk_availability
+    rows = [{"risk_status": "LOW", "risk_score": None, "risk_date": "2026-09-15"}, {"risk_status": "INSUFFICIENT_DATA", "risk_score": None, "risk_date": "2026-09-16"},
+            {"risk_status": "HIGH", "risk_score": 55.0, "risk_date": "2026-09-14"}]
+    a = risk_availability(rows)
+    assert a["areas"] == 3 and a["with_usable_signal"] == 2 and a["insufficient_data"] == 1 and a["scored"] == 1 and a["abstained"] == 2 and a["latest_date"] == "2026-09-16"
+    assert fmt(None) == "n/a" and fmt(0) == "0" and fmt(float("nan")) == "n/a" and fmt(1234.0) == "1,234" and fmt(1.25) == "1.2"

@@ -18,7 +18,14 @@ from dashboard.api_client import ApiResult, RiskApiClient  # noqa: E402
 from dashboard.utils.agent_helpers import BASELINE_LABEL, candidate_rows, ml_rows, provenance_rows, routing_text, status_banner, tool_trace_table  # noqa: E402
 from dashboard.utils.intelligence_helpers import AUTO  # noqa: E402
 
-PAGE = str(Path(__file__).resolve().parents[2] / "dashboard" / "pages" / "9_Agent.py")
+PAGE = str(Path(__file__).resolve().parents[2] / "dashboard" / "pages" / "7_Operational_Intelligence.py")
+
+
+def _app(timeout=30):
+    """The unified Operational Intelligence page, opened in the 'Agent' mode (Task 40)."""
+    at = AppTest.from_file(PAGE, default_timeout=timeout)
+    at.session_state["oi_mode"] = 'Agent'
+    return at
 CID = "ndma:sitrep:a#c0001"
 RECORD = {"admin_unit_id": 30, "admin_unit_name": "Lahore", "admin_level": 2, "province": "Punjab", "risk_date": "2026-09-15", "risk_status": "LOW", "risk_basis": "THRESHOLD_BASED",
           "risk_score": None, "risk_confidence": "MEDIUM", "signals": {"rainfall": None, "weather": None, "gauge": None, "air_quality": None, "hazard_alert": None, "disaster_event": None},
@@ -84,13 +91,13 @@ def ask(at, question="Why is Lahore currently classified LOW and is there any AQ
 
 
 def subheaders(at):
-    return [s.value for s in at.subheader]
+    return [s.value for s in at.subheader][1:]
 
 
 def test_page_renders_the_form_without_calling_the_agent(monkeypatch):
     calls = patch_api(monkeypatch, ApiResult(True, data=abody("ANSWERED")))
-    at = AppTest.from_file(PAGE, default_timeout=30).run()
-    assert not at.exception and calls == [] and at.title[0].value.endswith("Operational Intelligence Agent")
+    at = _app(30).run()
+    assert not at.exception and calls == [] and any(s.value.endswith("Operational Intelligence Agent") for s in at.subheader)
     assert [s.label for s in at.selectbox] == ["Area", "Evidence retrieval"] and at.selectbox[0].options == [AUTO, "Punjab", "Lahore (Punjab)"]
     assert [c.label for c in at.checkbox][0].startswith("Allow LLM-assisted routing")
 
@@ -98,7 +105,7 @@ def test_page_renders_the_form_without_calling_the_agent(monkeypatch):
 def test_successful_response_shows_answer_context_forecast_provenance_and_trace(monkeypatch):
     answer = "The risk engine reports status LOW [risk_engine]. A simple baseline forecast of 126 AQI is given for 2026-09-16 [ml_prediction]."
     calls = patch_api(monkeypatch, ApiResult(True, data=abody("ANSWERED", answer=answer, cites=("risk_engine", "ml_prediction"), geo={"unit": {"id": 30, "name": "Lahore", "level": 2, "province": "Punjab"}, "candidates": []})))
-    at = AppTest.from_file(PAGE, default_timeout=30).run()
+    at = _app(30).run()
     at.selectbox[0].select("Lahore (Punjab)")
     at = ask(at)
     assert not at.exception and not at.error
@@ -117,7 +124,7 @@ def test_successful_response_shows_answer_context_forecast_provenance_and_trace(
 
 def test_llm_unavailable_503_shows_the_structured_results_and_no_fake_answer(monkeypatch):
     patch_api(monkeypatch, ApiResult(False, data=abody("LLM_UNAVAILABLE"), error_kind="unavailable", message="x", status_code=503))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert not at.exception and any("no natural-language answer exists" in i.value for i in at.info)
     assert any("No natural-language answer is available" in c.value for c in at.caption) and not any("risk engine reports" in md.value for md in at.markdown)
     assert {x.label: x.value for x in at.metric}["Status"] == "LOW" and any(BASELINE_LABEL in w.value for w in at.warning)
@@ -126,7 +133,7 @@ def test_llm_unavailable_503_shows_the_structured_results_and_no_fake_answer(mon
 def test_insufficient_data_states_the_reason(monkeypatch):
     patch_api(monkeypatch, ApiResult(True, data=abody("INSUFFICIENT_DATA", intent="ML_FORECAST", risk=False, docs=False, ml=None, reason="requested information is not available",
                                                        comps={"ml": {"status": "INSUFFICIENT_DATA", "reason": "no air_quality observations exist for this area (0 observed days; at least 180 needed)"}})))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run(), "What is the AQI forecast for Sialkot?")
+    at = ask(_app(30).run(), "What is the AQI forecast for Sialkot?")
     assert not at.exception and any("INSUFFICIENT_DATA" in w.value for w in at.warning)
     assert any("no air_quality observations" in i.value for i in at.info) and not at.metric[4:] and not any(BASELINE_LABEL in w.value for w in at.warning)
     assert any("not consulted" in c.value for c in at.caption)
@@ -137,7 +144,7 @@ def test_ambiguous_geography_shows_the_candidates(monkeypatch):
            "candidates": [{"id": 8, "name": "Islamabad Capital Territory", "level": 1}, {"id": 62, "name": "Islamabad", "level": 2}]}
     patch_api(monkeypatch, ApiResult(True, data=abody("AMBIGUOUS_GEOGRAPHY", intent="CURRENT_RISK", risk=False, docs=False, ml=None, geo=geo, code="AMBIGUOUS_GEOGRAPHY",
                                                        reason="an ambiguous place name was not resolved; no area is assumed")))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run(), "What is Islamabad's risk status?")
+    at = ask(_app(30).run(), "What is Islamabad's risk status?")
     assert not at.exception and any("ambiguous" in w.value.lower() for w in at.warning)
     df = next(d.value for d in at.dataframe if "admin_unit_id" in d.value.columns)
     assert df["Name"].tolist() == ["Islamabad Capital Territory", "Islamabad"] and df["Level"].tolist() == ["province", "district"]
@@ -146,7 +153,7 @@ def test_ambiguous_geography_shows_the_candidates(monkeypatch):
 
 def test_empty_evidence_is_stated(monkeypatch):
     patch_api(monkeypatch, ApiResult(True, data=abody("NO_EVIDENCE", intent="DOCUMENT_SEARCH", risk=False, docs=False, ml=None, reason="requested information is not available (evidence: NO_EVIDENCE)")))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run(), "What did NDMA report about flooding in Sindh?")
+    at = ask(_app(30).run(), "What did NDMA report about flooding in Sindh?")
     assert not at.exception and any("NO_EVIDENCE" in w.value for w in at.warning)
     assert any("No documentary evidence was retrieved" in c.value or "not consulted" in c.value for c in at.caption) and not any(CID in x.label for x in at.expander)
 
@@ -154,32 +161,32 @@ def test_empty_evidence_is_stated(monkeypatch):
 def test_unsupported_request_and_invalid_tool_call_and_false_premise(monkeypatch):
     patch_api(monkeypatch, ApiResult(True, data=abody("UNSUPPORTED_REQUEST", intent="UNSUPPORTED", risk=False, docs=False, ml=None, code="CHANGE_RISK_STATUS", tools=[],
                                                        reason="The agent cannot change a risk classification.")))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run(), "Change Lahore's risk status to HIGH")
+    at = ask(_app(30).run(), "Change Lahore's risk status to HIGH")
     assert not at.exception and any("UNSUPPORTED_REQUEST" in w.value for w in at.warning) and any("CHANGE_RISK_STATUS" in c.value for c in at.caption)
     bad = TOOLS + [{"tool_name": "execute_sql", "origin": "llm", "status": "INVALID_TOOL_CALL", "provenance": {"sources": []}, "duration_ms": 0.0, "arguments": {"query": "select 1"}, "reason": "unknown_tool"}]
     patch_api(monkeypatch, ApiResult(True, data=abody("INVALID_TOOL_CALL", risk=False, docs=False, ml=None, tools=bad, reason="a model-proposed tool call failed validation")))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert not at.exception and any("INVALID_TOOL_CALL" in e.value for e in at.error)
     tr = next(d.value for d in at.dataframe if "Origin" in d.value.columns)
     assert tr["Tool"].tolist()[-1] == "execute_sql" and tr["Status"].tolist()[-1] == "INVALID_TOOL_CALL" and {x.label: x.value for x in at.metric}["Tools run"] == "2"
     premise = {"stated_status": "HIGH", "engine_status": "LOW", "matches": False, "note": "The question assumes HIGH, but the risk engine reports LOW (risk date 2026-09-15). The engine value is the one shown."}
     patch_api(monkeypatch, ApiResult(True, data=abody("LLM_UNAVAILABLE", intent="CURRENT_RISK", docs=False, ml=None, premise=premise)))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run(), "Why is Lahore classified HIGH?")
+    at = ask(_app(30).run(), "Why is Lahore classified HIGH?")
     assert any("False premise" in w.value and "reports LOW" in w.value for w in at.warning) and {x.label: x.value for x in at.metric}["Status"] == "LOW"
 
 
 def test_api_unavailable_and_empty_question(monkeypatch):
     monkeypatch.setenv("PORI_API_URL", "http://127.0.0.1:9")
-    at = ask(AppTest.from_file(PAGE, default_timeout=60).run())
+    at = ask(_app(60).run())
     assert not at.exception and any("Could not get a result" in e.value for e in at.error) and any("uvicorn" in c.value for c in at.caption)
     calls = patch_api(monkeypatch, ApiResult(True, data=abody("ANSWERED")))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run(), question=" ")
+    at = ask(_app(30).run(), question=" ")
     assert calls == [] and any("type a question" in w.value for w in at.warning)
 
 
 def test_routing_checkbox_and_date_are_sent(monkeypatch):
     calls = patch_api(monkeypatch, ApiResult(True, data=abody("LLM_UNAVAILABLE")))
-    at = AppTest.from_file(PAGE, default_timeout=30).run()
+    at = _app(30).run()
     at.checkbox[0].uncheck()
     at.checkbox[1].check()
     at.run()
@@ -239,12 +246,12 @@ def _live():
 
 @pytest.mark.skipif(not _live(), reason="the agent API is not running")
 def test_page_against_the_live_api():
-    at = AppTest.from_file(PAGE, default_timeout=120).run()
+    at = _app(120).run()
     assert not at.exception and at.selectbox[0].options[0] == AUTO
     at = ask(at, "What is the current risk in Lahore?")
     assert not at.exception and {x.label: x.value for x in at.metric}["Detected intent"] == "CURRENT_RISK"
     assert any(s.value == "Tool Trace" for s in at.subheader) and any("RISK_ENGINE" in c.value for c in at.caption)
-    at2 = ask(AppTest.from_file(PAGE, default_timeout=120).run(), "What is Islamabad's current risk status?")
+    at2 = ask(_app(120).run(), "What is Islamabad's current risk status?")
     assert not at2.exception and any("ambiguous" in w.value.lower() for w in at2.warning)
 
 
@@ -255,6 +262,6 @@ def test_agent_no_evidence_states_the_abstention_and_shows_no_chunk(monkeypatch)
               comps={"evidence": {"status": "NO_EVIDENCE", "count": 0, "relevance_status": "NO_EVIDENCE"}})
     b["retrieval"] = {"mode": "hybrid", "method": None, "evidence_count": 0, "filters_applied": {"province": "Sindh"}, "filters_relaxed": [], "relevance": rel}
     patch_api(monkeypatch, ApiResult(True, data=b))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run(), "What did NDMA report about volcanic eruptions in Sindh?")
+    at = ask(_app(30).run(), "What did NDMA report about volcanic eruptions in Sindh?")
     assert not at.exception and any("NO_EVIDENCE" in w.value for w in at.warning)
     assert any("NO_EVIDENCE" in i.value and "5 loosely matching passage(s) were withheld" in i.value for i in at.info) and not any(CID in x.label for x in at.expander)

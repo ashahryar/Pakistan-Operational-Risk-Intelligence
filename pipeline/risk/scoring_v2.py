@@ -26,6 +26,7 @@ ELIGIBILITIES = (ELIGIBLE, INSUFFICIENT_DATA, UNRESOLVED_GEOGRAPHY, INVALID, OUT
 SCORED = "SCORED"
 ABSTAINED = "ABSTAINED"
 NORMALIZATION_METHOD = "percentile_rank_strict_prior"
+SCORE_STATE_INSUFFICIENT = "INSUFFICIENT_EVIDENCE"      # abstained AND no usable signal was observed at all (distinct from ABSTAINED with some evidence)
 
 R_NO_ELIGIBLE = "NO_ELIGIBLE_SIGNAL"
 R_TOO_FEW_GROUPS = "TOO_FEW_INDEPENDENT_SIGNAL_GROUPS"
@@ -162,6 +163,7 @@ def abstain_from_stored_row(row: dict, cfg: dict) -> dict:
     return {"score_status": ABSTAINED, "score_version": cfg["score_version"], "abstention_reason": reason,
             "abstention_text": ABSTENTION_TEXT.get(reason, "the score was not computed for this row"), "required_signal_count": cfg["required_independent_groups"],
             "contributing_signals": [], "excluded_signals": excluded, "observed_domains": observed,
+            "score_state": SCORE_STATE_INSUFFICIENT if not observed else ABSTAINED,
             "evidence_available": observed, "evidence_missing": sorted(d for d in numeric if d not in observed),
             "evidence_required": evidence_required(cfg),
             "interpretation": INTERPRETATION}

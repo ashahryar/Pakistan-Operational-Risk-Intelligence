@@ -33,7 +33,7 @@ from airflow.operators.python import PythonOperator
 from airflow.utils.dates import days_ago
 
 from pipeline.helpers.script_runner import run_script
-from pipeline.helpers import aws_helper
+from pipeline.helpers import s3_optional
 
 logger = logging.getLogger(__name__)
 
@@ -158,7 +158,7 @@ def upload_all_s3():
 
         logger.info(f"Uploading {local_folder}")
 
-        aws_helper.upload_folder(
+        s3_optional.upload_folder_or_skip(
             local_folder,
             s3_prefix,
         )
@@ -202,7 +202,9 @@ with DAG(
 
     start_date=days_ago(1),
 
-    schedule="0 4 * * 0",
+    # Task 40: manual only. It repeats every extraction the three scheduled source DAGs already perform (ndma_pipeline daily, pdma_pipeline every 6 h) and
+    # includes PMD, whose source pages are currently unavailable, so a weekly schedule would add a guaranteed failure. Trigger it by hand for a full refresh.
+    schedule=None,
 
     catchup=False,
 

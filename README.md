@@ -155,25 +155,27 @@ All three sources are scraped directly, since none of them publish an official A
 
 ## ⏱️ Airflow Orchestration
 
-| DAG ID | Purpose | Schedule | Main Stages |
+Full operational detail (sources, outputs, failure policy, how each DAG was verified): [`docs/architecture/AIRFLOW_OPERATIONS.md`](docs/architecture/AIRFLOW_OPERATIONS.md).
+
+| DAG ID | Purpose | Schedule | Operating status |
 |---|---|---|---|
-| `disaster_pipeline` | Master DAG — triggers the NDMA, PDMA, and PMD pipelines in sequence | Every 6 hours (`0 */6 * * *`) | Trigger `ndma_pipeline` → `pdma_pipeline` → `pmd_pipeline` |
-| `ndma_pipeline` | NDMA disaster-report pipeline | Daily at 05:00 | Extract → Parse → Build dataset → Load PostgreSQL → Upload raw to S3 |
-| `pdma_pipeline` | PDMA rainfall/gauge/report pipeline | Every 6 hours | Extract → Parse → Load PostgreSQL → Upload raw + parsed to S3 |
-| `pmd_pipeline` | PMD weather pipeline | Every 6 hours | Extract → Validate → Load PostgreSQL → Upload raw to S3 |
-| `weekly_full_pipeline` | Full weekly re-run across all sources | Weekly | Extract all → Parse all → Load PostgreSQL → Upload all to S3 |
-| `backfill_pipeline` | Re-parses already-downloaded raw files | Manual trigger only | Re-parse → Reload PostgreSQL → Re-upload to S3 |
-| `manual_dag` | Ad-hoc, on-demand pipeline run | Manual trigger only | Extract → Parse → Load → Upload |
+| `ndma_pipeline` | NDMA situation reports: extract → parse → build dataset → load PostgreSQL → archive to S3 (optional) | daily 05:00 | **production, scheduled** (verified end to end) |
+| `pdma_pipeline` | PDMA Punjab rainfall / gauge / daily reports: extract → parse → load → archive (optional) | every 6 h | **production, scheduled** |
+| `pmd_pipeline` | PMD city forecasts, weekly outlook, alerts | every 6 h (when enabled) | **disabled: source unavailable** (HTTP 500 / 404 on 2026-10-07); kept paused, task fails loudly |
+| `weekly_full_pipeline` | full re-run of all sources | none | **manual only** (redundant with the two scheduled DAGs; includes PMD) |
+| `disaster_pipeline` | master DAG that triggers the three source DAGs in turn | none | **manual only** |
+| `manual_pipeline` | ad-hoc run for one source (`--conf '{"source":"ndma"}'`) | none | **manual only** |
+| `backfill_pipeline` | re-parse already-downloaded raw files and reload | none | **backfill only** |
 
-All DAGs share `retries=2–3` with a 5-minute retry delay, `catchup=False`, `max_active_runs=1`, and `on_success_callback` / `on_failure_callback` hooks (`pipeline/utils/task_callbacks.py`).
+Failure policy: an unreachable source page or a failed download makes the task fail (so Airflow retries and shows it red); "no new reports" is a normal success; nothing is written on failure, so previous valid data stays intact. S3 archiving is an explicit step: it shows as **skipped** when disabled or unconfigured (`PORI_S3_UPLOAD`, off by default) and fails fast when enabled with rejected credentials. All DAGs use `catchup=False`, `max_active_runs=1`, retries, and `pipeline/utils/task_callbacks.py` hooks.
 
-Airflow runs via **Docker Compose**: a `postgres:15` container (also used as the Airflow metadata database), an `airflow-init` job, `airflow-webserver` (port `8088`), and `airflow-scheduler`, all built from the project's own `Dockerfile` (`apache/airflow:2.9.3-python3.11`).
+Airflow runs via **Docker Compose**: `postgres:15` (also the Airflow metadata database), an `airflow-init` job, `airflow-webserver` (port `8088`) and `airflow-scheduler`, built from the project's own `Dockerfile` (`apache/airflow:2.9.3-python3.11`). Deployment: [`docs/architecture/DEPLOYMENT.md`](docs/architecture/DEPLOYMENT.md).
 
 ---
 
 ## 🗄️ Database Schema
 
-**Active application tables** (created by `scripts/database/create_tables.py`, `create_pmd_tables.py`, `create_pdma_tables.py`, `create_geo_tables.py`, `create_risk_tables.py`, and loaded by the live pipeline):
+**Active application tables** (created by `scripts/database/create_tables.py`, `create_pmd_tables.py`, `create_geo_tables.py`, `create_risk_tables.py`, and loaded by the live pipeline):
 
 | Table | Domain | Purpose / Key Fields |
 |---|---|---|
@@ -214,25 +216,19 @@ Every write-heavy table has a `UNIQUE` constraint on its natural key (report num
 
 ## 📊 Streamlit Dashboard
 
-`dashboard/Home.py` is the multipage app entrypoint, with `dashboard/pages/` supplying five detail pages:
+`dashboard/Home.py` is the multipage app entrypoint (`dashboard/pages/` holds the detail pages).
 
 | Page | Description |
 |---|---|
-| **Home** | National KPI strip, executive situation summary, national alert center, compact per-domain snapshots, and global filters |
-| **NDMA Casualties** | Deaths and injured, by province and over time |
-| **NDMA Damage** | Roads, bridges, houses, and livestock damage by province |
-| **PMD Weather** | City forecasts, temperature/humidity trends, and active weather alerts |
-| **PDMA Rainfall** | Rainfall readings by station, aggregated by time period |
-| **PDMA Rivers** | River gauge levels with danger/watch/normal risk classification |
+| **Home** | Executive landing page: purpose, NDMA impact KPIs (peak cumulative figures, not sums of reports), data and evidence coverage per domain, risk availability (statuses vs abstained scores), national alert, NDMA snapshot, geographic observation coverage. Missing values show `n/a`, never 0 |
+| **NDMA Casualties / Damage** | Deaths, injured, houses, roads, bridges, livestock by province and over time; NDMA reports are cumulative, so totals use the peak per province and trends use increments |
+| **PMD Weather** | City forecast snapshot (one dated collection: no history is implied) and the latest alert |
+| **PDMA Rainfall** | Rainfall report names with an explicit note that unresolved names are not attributed |
+| **PDMA Rivers** | Gauge station network and geography evidence: mapped / conflicting / secondary-only / caveated / unresolved, with candidates never shown as geography. No level or flood-risk indicator (the legacy level columns are not water levels) |
+| **Risk Map** | Provisional status per area, scored vs abstained counts, missing geometry, signal detail; a null score is never shown as low risk |
+| **Operational Intelligence** | One page, three modes over separate backends: **Agent** (multi-step, read-only), **Analyze Risk** (risk context + evidence + ML forecast, kept separate), **Ask Reports** (retrieved NDMA / PDMA / PMD passages with citations) |
 
-Supporting structure:
-
-- `dashboard/db.py` — the single PostgreSQL data-access layer (SQLAlchemy engine, one function per query, `st.cache_data`/`st.cache_resource` caching).
-- `dashboard/components/` — header, sidebar, global filters, KPI cards, alerts, footer.
-- `dashboard/sections/` + `dashboard/charts/` — reusable disaster/weather/hydrology sections and their Plotly chart builders.
-- `dashboard/styles/` — the `style.css` design system and `theme.py` loader.
-
-> The dashboard can run on the host with `streamlit run` (see [Getting Started](#-getting-started)) or, since Task 28, as the optional `dashboard` Compose service together with the `api` service — see [`docs/architecture/SERVING_STACK.md`](docs/architecture/SERVING_STACK.md).
+Supporting structure: `dashboard/db.py` (database access, NDMA cumulative-to-increment conversion), `dashboard/api_client.py` (API client that never raises into the UI), `dashboard/components/`, `dashboard/sections/` (including the three Operational Intelligence sections), `dashboard/charts/`, `dashboard/utils/`, `dashboard/styles/`. Run it with Compose (`docker compose up -d --build dashboard`) or on the host (`streamlit run dashboard/Home.py`). After changing code, **restart a host `streamlit run`**: a long-running process keeps old imported modules and can mix them with newer page scripts (this caused a `KeyError` on the Risk Map; the page now reports it as a controlled message). See [`docs/architecture/SERVING_STACK.md`](docs/architecture/SERVING_STACK.md).
 
 ---
 
@@ -310,7 +306,7 @@ cd <this-repository>
 
 ### 2. Configure environment variables
 ```bash
-cp .env.example .env   # create your own .env — see Configuration below; no example file ships in the repo
+cp .env.example .env   # then edit it: generate real values for the secrets (see the file and docs/architecture/DEPLOYMENT.md)
 ```
 
 ### 3. Start Airflow and PostgreSQL
@@ -324,13 +320,16 @@ docker compose up -d --build
 ```bash
 python scripts/database/create_tables.py
 python scripts/database/create_pmd_tables.py
-python scripts/database/create_pdma_tables.py
 python scripts/database/create_geo_tables.py
 python scripts/database/create_risk_tables.py
 ```
 
-### 5. Trigger a pipeline
-In the Airflow UI, un-pause and trigger `disaster_pipeline` (runs NDMA → PDMA → PMD end to end), or trigger `ndma_pipeline` / `pdma_pipeline` / `pmd_pipeline` individually.
+### 5. Enable the scheduled pipelines
+```bash
+docker exec airflow_webserver airflow dags unpause ndma_pipeline   # daily
+docker exec airflow_webserver airflow dags unpause pdma_pipeline   # every 6 hours
+```
+`pmd_pipeline` stays paused while its source pages are unavailable; the other DAGs are manual/backfill only. See [`docs/architecture/AIRFLOW_OPERATIONS.md`](docs/architecture/AIRFLOW_OPERATIONS.md).
 
 ### 6. Run the dashboard
 ```bash
@@ -433,7 +432,9 @@ python aws/s3/upload.py raw
 - **Gauge geography is mostly unresolved:** 39 of 41 stations have no authoritative district mapping ([`GEOGRAPHY_COVERAGE_STATUS.md`](docs/architecture/GEOGRAPHY_COVERAGE_STATUS.md)). Canonical geography has 69 districts and was deliberately not extended (for example Swabi, needed for Tarbela).
 - **Weather has a single dated observation; continuous air-quality data exists for Lahore only.**
 - **Official sources FFC and IRSA were unreachable during development**; some evidence may exist there.
-- **The Airflow DAGs are paused** and have not been run unattended; the stages are run by hand (commands above).
+- **Airflow:** `ndma_pipeline` (daily) and `pdma_pipeline` (6-hourly) are enabled and were each verified end to end once; they have not yet been observed over many days. **`pmd_pipeline` is disabled** because the PMD pages return HTTP 500 / 404. The Gold build and the risk engine are run by hand after new ingestion (commands above).
+- **S3 archiving is off by default** (`PORI_S3_UPLOAD=off`); the AWS keys in the developer `.env` are rejected by AWS. The archive steps show as *skipped* in Airflow.
+- **No level or flood-risk indicator for river gauges:** the legacy gauge table's level columns are not water levels. The Rivers page shows the station network and geography evidence instead.
 - **AWS:** only S3 upload code is active; Glue and Redshift were retired (ADR-0001), Databricks/Delta is scaffolded and not connected; nothing paid is deployed.
 - **ML forecasts are experimental baselines** and never feed a status or score.
 - **No real language model** was available for RAG/agent evaluation; validators and abstention paths are tested with a scripted provider.

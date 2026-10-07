@@ -14,7 +14,14 @@ import streamlit as st  # noqa: E402
 from dashboard.api_client import ApiResult, RiskApiClient  # noqa: E402
 from dashboard.utils.intelligence_helpers import AUTO, area_options, risk_metrics, status_banner  # noqa: E402
 
-PAGE = str(Path(__file__).resolve().parents[2] / "dashboard" / "pages" / "8_Intelligence.py")
+PAGE = str(Path(__file__).resolve().parents[2] / "dashboard" / "pages" / "7_Operational_Intelligence.py")
+
+
+def _app(timeout=30):
+    """The unified Operational Intelligence page, opened in the 'Analyze Risk' mode (Task 40)."""
+    at = AppTest.from_file(PAGE, default_timeout=timeout)
+    at.session_state["oi_mode"] = 'Analyze Risk'
+    return at
 CID = "ndma:sitrep:a#c0001"
 RECORD = {"admin_unit_id": 46, "admin_unit_name": "Sialkot", "admin_level": 2, "province": "Punjab", "risk_date": "2026-07-11", "risk_status": "MODERATE",
           "risk_basis": "THRESHOLD_BASED", "risk_score": None, "risk_confidence": "MEDIUM",
@@ -76,13 +83,13 @@ def ask(at, question="Why is Sialkot classified as MODERATE?"):
 
 
 def subheaders(at):
-    return [s.value for s in at.subheader]
+    return [s.value for s in at.subheader][1:]
 
 
 def test_page_renders_the_form_and_area_selector_without_calling_ask(monkeypatch):
     calls = patch_api(monkeypatch, ApiResult(True, data=body("ANSWERED")))
-    at = AppTest.from_file(PAGE, default_timeout=30).run()
-    assert not at.exception and calls == [] and at.title[0].value.endswith("Operational Intelligence")
+    at = _app(30).run()
+    assert not at.exception and calls == [] and any(s.value.endswith("Operational Intelligence") for s in at.subheader)
     assert [s.label for s in at.selectbox] == ["Area", "Evidence retrieval"]
     assert at.selectbox[0].options == [AUTO, "Punjab", "Sialkot (Punjab)"]
 
@@ -90,7 +97,7 @@ def test_page_renders_the_form_and_area_selector_without_calling_ask(monkeypatch
 def test_successful_response_shows_risk_context_evidence_and_the_explanation_separately(monkeypatch):
     calls = patch_api(monkeypatch, ApiResult(True, data=body("ANSWERED", answer=f"Sialkot is MODERATE [risk_engine]. NDMA reported 45 deaths [chunk:{CID}].",
                                                               cites=("documentary", "risk_engine"))))
-    at = AppTest.from_file(PAGE, default_timeout=30).run()
+    at = _app(30).run()
     at.selectbox[0].select("Sialkot (Punjab)")
     at = ask(at)
     assert not at.exception and not at.error
@@ -108,54 +115,54 @@ def test_successful_response_shows_risk_context_evidence_and_the_explanation_sep
 
 def test_no_risk_context_is_stated_and_no_explanation_is_shown(monkeypatch):
     patch_api(monkeypatch, ApiResult(True, data=body("NO_RISK_CONTEXT", risk=False)))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert not at.exception and any("NO_RISK_CONTEXT" in w.value for w in at.warning) and any("no risk record exists" in i.value for i in at.info)
     assert "AI Explanation" not in subheaders(at) and not at.metric and at.expander                                    # documents still shown
 
 
 def test_llm_unavailable_503_shows_context_and_evidence_but_no_fake_answer(monkeypatch):
     patch_api(monkeypatch, ApiResult(False, data=body("LLM_UNAVAILABLE"), error_kind="unavailable", message="x", status_code=503))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert not at.exception and any("AI generation is unavailable" in i.value for i in at.info)
     assert "AI Explanation" not in subheaders(at) and {x.label: x.value for x in at.metric}["Status"] == "MODERATE" and at.expander
 
 
 def test_invalid_answer_is_withheld(monkeypatch):
     patch_api(monkeypatch, ApiResult(True, data=body("INVALID_ANSWER", problems=[{"code": "unknown_citation"}])))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert not at.exception and any("withheld" in e.value for e in at.error) and "AI Explanation" not in subheaders(at)
 
 
 def test_insufficient_evidence_is_a_warning_not_an_explanation(monkeypatch):
     patch_api(monkeypatch, ApiResult(True, data=body("INSUFFICIENT_EVIDENCE", answer="INSUFFICIENT_EVIDENCE")))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert any("INSUFFICIENT_EVIDENCE" in w.value for w in at.warning) and "AI Explanation" not in subheaders(at)
 
 
 def test_retrieval_empty_and_no_documents(monkeypatch):
     patch_api(monkeypatch, ApiResult(True, data=body("RETRIEVAL_EMPTY", risk=False, docs=False)))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert not at.exception and any("No documentary evidence was retrieved" in c.value for c in at.caption) and not at.expander
 
 
 def test_api_unavailable_is_a_friendly_message(monkeypatch):
     monkeypatch.setenv("PORI_API_URL", "http://127.0.0.1:9")
-    at = ask(AppTest.from_file(PAGE, default_timeout=60).run())
+    at = ask(_app(60).run())
     assert not at.exception and any("Could not get an answer" in e.value for e in at.error) and any("uvicorn" in c.value for c in at.caption)
 
 
 def test_api_validation_error_is_friendly_and_empty_question_is_not_sent(monkeypatch):
     patch_api(monkeypatch, ApiResult(False, error_kind="invalid_request", message="The API rejected the filter values (HTTP 422).", status_code=422))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert not at.exception and any("rejected the filter values" in e.value for e in at.error)
     calls = patch_api(monkeypatch, ApiResult(True, data=body("ANSWERED")))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run(), question=" ")
+    at = ask(_app(30).run(), question=" ")
     assert calls == [] and any("type a question" in w.value for w in at.warning)
 
 
 def test_specific_risk_date_is_sent(monkeypatch):
     calls = patch_api(monkeypatch, ApiResult(True, data=body("ANSWERED", answer=f"x y z w [chunk:{CID}].")))
-    at = AppTest.from_file(PAGE, default_timeout=30).run()
+    at = _app(30).run()
     at.checkbox[0].check()
     at.run()
     at.date_input[0].set_value(__import__("datetime").date(2026, 7, 11))
@@ -207,7 +214,7 @@ def ml_block(validated=False):
 
 def test_ml_forecast_is_shown_separately_with_model_version_cutoff_and_no_fake_probability(monkeypatch):
     patch_api(monkeypatch, ApiResult(False, data=body("LLM_UNAVAILABLE", ml=ml_block()), error_kind="unavailable", message="x", status_code=503))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert not at.exception and "ML Forecast (not a current risk status)" in subheaders(at)
     ml_df = next(d.value for d in at.dataframe if "Forecast for" in d.value.columns)
     row = ml_df.iloc[0]
@@ -221,21 +228,21 @@ def test_ml_forecast_is_shown_separately_with_model_version_cutoff_and_no_fake_p
 
 def test_validated_ml_model_is_described_as_validated(monkeypatch):
     patch_api(monkeypatch, ApiResult(True, data=body("ANSWERED", answer=f"x y z w [chunk:{CID}].", ml=ml_block(validated=True))))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert any("Validated ML model" in c.value for c in at.caption) and not any("NOT a validated" in c.value for c in at.caption)
 
 
 def test_insufficient_data_state_when_no_valid_forecast_exists(monkeypatch):
     ml_res = ApiResult(True, data={"count": 3, "predictions": [{"status": "INSUFFICIENT_DATA", "reason": "no air_quality observations exist for this area (0 observed days; at least 180 needed)"}]})
     patch_api(monkeypatch, ApiResult(True, data=body("ANSWERED", answer=f"x y z w [chunk:{CID}].")), ml_res)
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert not at.exception and any("INSUFFICIENT_DATA" in i.value and "at least 180 needed" in i.value for i in at.info)
     assert not any("Forecast for" in d.value.columns for d in at.dataframe)                                   # no table, no invented number
 
 
 def test_ml_section_degrades_quietly_when_the_ml_endpoint_fails(monkeypatch):
     patch_api(monkeypatch, ApiResult(True, data=body("ANSWERED", answer=f"x y z w [chunk:{CID}].")))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert not at.exception and any(i.value.startswith("INSUFFICIENT_DATA - no valid ML forecast") for i in at.info)
 
 
@@ -253,7 +260,7 @@ def test_no_evidence_is_stated_and_withheld_passages_are_not_shown(monkeypatch):
     b = body("RETRIEVAL_EMPTY", risk=True, docs=False)
     b["retrieval"] = {**b["retrieval"], "relevance": {"relevance_status": "NO_EVIDENCE", "abstained": True, "low_relevance_count": 5, "abstention_reason": "none passed the relevance check"}}
     patch_api(monkeypatch, ApiResult(True, data=b))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run(), "What did NDMA report about volcanic eruptions in Sindh?")
+    at = ask(_app(30).run(), "What did NDMA report about volcanic eruptions in Sindh?")
     assert not at.exception and any("NO_EVIDENCE" in i.value and "NOT shown as evidence" in i.value for i in at.info) and not at.expander
     assert {x.label: x.value for x in at.metric}["Status"] == "MODERATE"                                           # the risk-engine context is shown as before
 
@@ -272,5 +279,5 @@ def test_page_shows_the_score_reason_next_to_the_status(monkeypatch):
     b = body("LLM_UNAVAILABLE")
     b["risk_context"]["record"] = {**RECORD, "score_v2": {"score_status": "ABSTAINED", "abstention_reason": "NO_EVIDENCE_BASED_WEIGHTS", "abstention_text": "no evidence-based weights exist"}}
     patch_api(monkeypatch, ApiResult(False, data=b, error_kind="unavailable", message="x", status_code=503))
-    at = ask(AppTest.from_file(PAGE, default_timeout=30).run())
+    at = ask(_app(30).run())
     assert not at.exception and any("Operational score: not computed" in c.value and "NO_EVIDENCE_BASED_WEIGHTS" in c.value for c in at.caption)

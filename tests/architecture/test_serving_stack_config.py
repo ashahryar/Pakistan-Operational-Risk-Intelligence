@@ -82,7 +82,9 @@ def test_api_requirements_are_pinned_and_minimal():
 
 def test_dockerignore_keeps_data_env_and_api_tests_out_of_images():
     ign = (REPO / ".dockerignore").read_text(encoding="utf-8").split()
-    assert {".env", "data/", "api/tests/"} <= set(ign)
+    assert {".env", "data/*", "api/tests/"} <= set(ign)
+    assert [x for x in ign if x.startswith("!data/")] == ["!data/analytics", "!data/analytics/geo", "!data/analytics/geo/gauge_station_inventory.json",
+                                                         "!data/analytics/geo/gauge_station_mapping.json", "!data/analytics/geo/gauge_geography_coverage.json"]
 
 
 def test_ci_has_a_single_workflow_with_a_serving_stack_job():
