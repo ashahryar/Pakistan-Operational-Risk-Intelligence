@@ -16,7 +16,7 @@ import streamlit as st
 from dashboard.api_client import RiskApiClient
 from dashboard.ui import components as C
 from dashboard.ui import shell, tokens
-from dashboard.ui.charts import style_fig
+from dashboard.ui.charts import coverage_timeline, ranked_bar, style_fig
 from dashboard.utils.api_cache import cached_api
 
 st.set_page_config(page_title="River & Gauge Network · PORI", page_icon="🌊", layout="wide")
@@ -104,6 +104,29 @@ else:
                                   "date_max": "Latest observation", "ineligibility_reason": "Why not attributed"})
     st.dataframe(table, hide_index=True, width="stretch")
     st.download_button("Download stations (CSV)", table.to_csv(index=False).encode("utf-8"), "pdma_gauge_stations_evidence.csv", "text/csv")
+
+C.section("Observation coverage", "What each station actually reported, and over which dates. Metadata is separate from observations: a station can exist in the network with few reports.")
+if view.empty:
+    C.empty_state("No stations in the current filter", "Widen the filters above to see observation coverage.")
+else:
+    c1, c2 = st.columns([3, 2])
+    with c1:
+        fig_cov = coverage_timeline(view, name="station_name", start="date_min", end="date_max", group="river", title="Reporting period per station",
+                                    source="PDMA Punjab gauge bulletins")
+        if fig_cov is not None:
+            st.plotly_chart(fig_cov, width="stretch", key="gauge_cov")
+    with c2:
+        fig_days = ranked_bar(view, "station_name", "observations", title="Observation days per station", unit="report dates", source="PDMA Punjab gauge bulletins",
+                              n=12, as_of=C._fmt_date(summary.get("latest_observation")))
+        if fig_days is not None:
+            st.plotly_chart(fig_days, width="stretch", key="gauge_days")
+    pick = st.selectbox("Inspect a station", sorted(view["station_name"]), key="gauge_pick")
+    row = view[view["station_name"] == pick].iloc[0]
+    st.markdown(f"**{row['station_name']}** · {row['river']}")
+    st.markdown(f"Geography: {state_label(row['evidence_state'])} · District: {row['admin_unit_name'] if pd.notna(row['admin_unit_name']) else 'not attributed'}")
+    st.caption(f"Observation days {row['observations']:,} · first {C._fmt_date(row['date_min'])} · latest {C._fmt_date(row['date_max'])} · "
+               + (f"candidate districts (not applied): {', '.join(row['candidate_districts'])}" if len(row["candidate_districts"]) else "no candidate districts")
+               + (f" · why not attributed: {row['ineligibility_reason']}" if pd.notna(row["ineligibility_reason"]) else ""))
 
 mapped = stations[stations["evidence_state"] == "ELIGIBLE"]
 if not mapped.empty:

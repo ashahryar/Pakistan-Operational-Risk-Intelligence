@@ -39,6 +39,11 @@ from dashboard.ui import shell  # noqa: E402
 shell.begin('PMD Weather', 'City forecast snapshots and weather advisories published by the Pakistan Meteorological Department. Only dated snapshots exist; this is not a live forecast.', domain='pmd_weather')
 shell.note('Source: PMD city forecasts. Only one dated collection exists, so there is no weather history: trend and comparison charts have a single date. Cities whose province could not be resolved appear as Unknown and are not assigned. Not an official forecast.')
 
+from dashboard.db import get_latest_weather  # noqa: E402
+from dashboard.sections import weather_views  # noqa: E402
+
+weather_views.render(get_latest_weather())
+
 # ==========================================================
 # AUTO REFRESH
 # ==========================================================

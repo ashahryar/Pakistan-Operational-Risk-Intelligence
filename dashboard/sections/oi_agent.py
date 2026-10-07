@@ -4,13 +4,14 @@
 
 from datetime import date
 
+import pandas as pd
 import streamlit as st
 
 from dashboard.api_client import RiskApiClient
 from dashboard.utils.api_cache import cached_api
 from dashboard.utils.agent_helpers import BASELINE_LABEL, candidate_rows, ml_rows, provenance_rows, routing_text, status_banner, tool_trace_table
 from dashboard.utils.intelligence_helpers import area_options, risk_metrics, score_caption, signal_summary
-from dashboard.utils.rag_helpers import MODES, evidence_caption, relevance_notice
+from dashboard.utils.rag_helpers import MODES, evidence_caption, evidence_rows, relevance_notice
 
 
 
@@ -144,6 +145,9 @@ def render() -> None:
             getattr(st, notice[0])(notice[1])
         if not body.get("documentary_evidence"):
             st.caption("No documentary evidence was retrieved" + ("." if r else " (the documents were not consulted for this question)."))
+        if body.get("documentary_evidence"):
+            st.dataframe(pd.DataFrame(evidence_rows(body.get("documentary_evidence"), cited)), hide_index=True, width="stretch")
+            st.caption("Evidence that passed the relevance check. Passages that matched only loosely are withheld by the API and are never shown as evidence.")
         for e in body.get("documentary_evidence") or []:
             with st.expander(f"{'Cited · ' if e['chunk_id'] in cited else ''}{e.get('title') or '(untitled)'} - {e['chunk_id']}"):
                 st.caption(evidence_caption(e))

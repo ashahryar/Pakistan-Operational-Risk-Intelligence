@@ -13,6 +13,8 @@ html, body, .stApp, [data-testid="stAppViewContainer"]{background:var(--bg)!impo
 .stApp p, .stApp li, .stApp label, .stApp span, .stApp div[data-testid="stMarkdownContainer"]{font-family:var(--font-text);}
 [data-testid="stHeader"]{background:transparent!important;}
 .block-container{max-width:1480px; padding:var(--s4) var(--s6) var(--s6)!important;}
+/* the text-font rule above must not replace Streamlit's icon font (expander arrows, sidebar chevrons) */
+.stApp [data-testid="stIconMaterial"], .stApp span[class*="material"], .stApp [data-testid="stExpanderToggleIcon"] span{font-family:"Material Symbols Rounded","Material Icons"!important;}
 h1,h2,h3,h4{font-family:var(--font-text)!important; color:var(--text)!important; letter-spacing:0!important;}
 h1{font-size:28px!important; font-weight:600!important;} h2{font-size:22px!important; font-weight:600!important;} h3{font-size:16px!important; font-weight:600!important;}
 a{color:var(--primary);}
@@ -79,6 +81,9 @@ hr{border-color:var(--border)!important; margin:var(--s5) 0!important;}
 [data-testid="stAlert"]{border-radius:var(--radius)!important;}
 
 @media (max-width:1100px){ .block-container{padding:var(--s3) var(--s4) var(--s5)!important;} .pori-page-title{font-size:22px;} }
+/* motion: ONE purposeful 200 ms rise for content that appears or changes (notices, chips, badges, KPIs, charts, tables, the selected-area panel); nothing loops */
+@keyframes pori-rise{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+.pori-notice,.pori-chip,.pori-badge,[data-testid="stMetric"],[data-testid="stPlotlyChart"],[data-testid="stDataFrame"],[data-testid="stExpander"],[data-testid="stAlert"]{animation:pori-rise .2s ease-out both;}
 @media (prefers-reduced-motion:reduce){ *{animation:none!important; transition:none!important;} }
 
 /* Legacy page variables (NDMA, PMD, rainfall pages define their own --cs-/--im-/--ob- tokens): remapped to the shared tokens, loaded last so they win. */

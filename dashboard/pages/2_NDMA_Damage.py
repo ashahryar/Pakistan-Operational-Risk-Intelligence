@@ -26,6 +26,11 @@ from dashboard.ui import shell  # noqa: E402
 shell.begin('NDMA Damage', 'Houses, roads, bridges and livestock reported damaged in NDMA situation reports, by province. Figures are cumulative per report; a blank value means not reported, not zero.', domain='ndma')
 shell.note('Source: NDMA situation reports (province level). Houses, roads, bridges and livestock are cumulative per report, so totals use the peak reported value per province and the charts show increments between reports. A blank value means not reported, not zero. Snapshot of published reports, not a live feed.')
 
+from dashboard.db import get_ndma_damage  # noqa: E402
+from dashboard.sections import impact_views  # noqa: E402
+
+impact_views.render(get_ndma_damage(), {"Houses": ("houses_total", "houses"), "Roads": ("roads_km", "km"), "Bridges": ("bridges", "bridges"), "Livestock": ("livestock", "animals")}, noun="Damage", key="dmg")
+
 # ==========================================================
 # INFRASTRUCTURE MISSION CONTROL DESIGN SYSTEM (CSS)
 # Tokens sourced 1:1 from DESIGN.md / code.html mockup.

@@ -56,6 +56,11 @@ from dashboard.ui import shell  # noqa: E402
 shell.begin('PDMA Rainfall', 'Rainfall reported by PDMA Punjab, by station name as printed in each report. Station names that cannot be resolved to a district stay unresolved.', domain='pdma_rainfall')
 shell.note("Source: PDMA Punjab rainfall reports. 'Stations' are the free-text names printed in the reports: some are district lists, abbreviations or table headers and stay unresolved rather than being guessed. Only resolved names are attributed to a district (see Geographic resolution coverage on the Executive Overview).")
 
+from dashboard.db import get_pdma_rainfall  # noqa: E402
+from dashboard.sections import rainfall_views  # noqa: E402
+
+rainfall_views.render(get_pdma_rainfall())
+
 # ==========================================================
 # AUTO REFRESH
 # ==========================================================

@@ -7,7 +7,7 @@ import streamlit as st
 
 from dashboard.api_client import RiskApiClient
 from dashboard.utils.api_cache import cached_api
-from dashboard.utils.rag_helpers import FALLBACK_PROVINCES, MODES, SOURCES, citation_rows, evidence_caption, relevance_notice, status_banner
+from dashboard.utils.rag_helpers import FALLBACK_PROVINCES, MODES, SOURCES, citation_rows, evidence_caption, evidence_rows, relevance_notice, status_banner
 
 
 
@@ -91,6 +91,9 @@ def render() -> None:
         cited = {c["chunk_id"] for c in body.get("citations") or []}
         if not body.get("evidence"):
             st.caption("Nothing was retrieved.")
+        if body.get("evidence"):
+            st.dataframe(pd.DataFrame(evidence_rows(body.get("evidence"), cited)), hide_index=True, width="stretch")
+            st.caption("Evidence that passed the relevance check. Passages that matched only loosely are withheld by the API and are never shown as evidence.")
         for e in body.get("evidence") or []:
             label = f"{'Cited · ' if e['chunk_id'] in cited else ''}{e.get('title') or '(untitled)'} — {e['chunk_id']}"
             with st.expander(label):

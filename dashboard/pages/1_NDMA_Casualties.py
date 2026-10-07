@@ -36,6 +36,11 @@ from dashboard.ui import shell  # noqa: E402
 shell.begin('NDMA Casualties', 'Deaths and injuries from NDMA situation reports, by province. Reports are cumulative: headline totals use the latest peak per province and trend charts show the increments between reports.', domain='ndma')
 shell.note('Source: NDMA situation reports (province level; no district geography exists in this table). NDMA figures are cumulative per report, so totals use the peak reported value per province and the charts show the increments between reports. Data are a snapshot of published reports, not a live feed.')
 
+from dashboard.db import get_ndma_casualties  # noqa: E402
+from dashboard.sections import impact_views  # noqa: E402
+
+impact_views.render(get_ndma_casualties(), {"Deaths": ("deaths", "people"), "Injured": ("injured", "people")}, noun="Casualties", key="cas")
+
 # ==========================================================
 # COMMAND SURFACE DESIGN SYSTEM (CSS) -- unchanged theme,
 # extended with responsive rules at the bottom of this block.

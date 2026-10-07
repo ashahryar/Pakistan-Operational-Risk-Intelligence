@@ -18,6 +18,7 @@ import streamlit as st
 from dashboard.api_client import RiskApiClient
 from dashboard.ui import components as C
 from dashboard.ui import shell, tokens
+from dashboard.ui.charts import status_distribution, status_timeline
 from dashboard.ui.maps import ATTRIBUTION, risk_choropleth
 from dashboard.utils.api_cache import cached_api
 from dashboard.utils.risk_map_helpers import (
@@ -73,6 +74,11 @@ def _area_detail(base_url: str, admin_unit_id: int, date):
     return c.risk_latest(admin_unit_id=admin_unit_id) if date is None else c.risk(date=date, admin_unit_id=admin_unit_id, limit=1)
 
 
+@cached_api(ttl=300)
+def _area_history(base_url: str, admin_unit_id: int):
+    return _client().risk(admin_unit_id=admin_unit_id, limit=500)
+
+
 def _fail(result, fn=None):
     """Show a friendly message (never a traceback) and stop the page."""
     if fn is not None:
@@ -113,7 +119,8 @@ status_p = None if status == ALL else status
 date_p = None if date_choice == LATEST else date_choice
 
 # ---------------------------------------------------------------- data (API filters applied before geometry is downloaded)
-map_res = _risk_map(base, level, province_p, status_p if date_p is None else None)
+with st.spinner("Loading boundaries and risk statuses…"):
+    map_res = _risk_map(base, level, province_p, status_p if date_p is None else None)
 if not map_res.ok:
     _fail(map_res, _risk_map)
 fc = map_res.data
@@ -213,6 +220,29 @@ with map_col:
             st.rerun()
         C.legend(LEGEND)
         st.caption(f"{tokens.status_label(NO_DATA)} = a boundary exists but no risk row in this scope. {ATTRIBUTION}")
+
+# ---------------------------------------------------------------- supporting views for the current scope and the selected area
+v1, v2 = st.columns(2)
+with v1:
+    counts = dict(frame["status"].value_counts()) if not frame.empty else {}
+    fig_dist = status_distribution({k: int(v) for k, v in counts.items()}, title="Areas by operational status (mapped areas in scope)")
+    if fig_dist is None:
+        C.empty_state("No status to summarise", "No mapped area in this scope has a status.")
+    else:
+        st.plotly_chart(fig_dist, width="stretch", key="risk_dist")
+with v2:
+    if selected_id is None:
+        C.empty_state("Select an area", "Pick an area on the map or in the list to see its status history.")
+    else:
+        hist = _area_history(base, selected_id)
+        area_name = label.split(" (")[0] if label else "Area"
+        fig_hist = status_timeline(hist.data if hist.ok else [], area_name)
+        if not hist.ok:
+            C.notice("warn", "History unavailable", hist.message or "")
+        elif fig_hist is None:
+            C.empty_state(f"No status history for {area_name}", "The risk engine produced no dated record for this area.")
+        else:
+            st.plotly_chart(fig_hist, width="stretch", key="risk_hist")
 
 # ---------------------------------------------------------------- missing geography
 st.subheader("Risk records without mapped boundary")

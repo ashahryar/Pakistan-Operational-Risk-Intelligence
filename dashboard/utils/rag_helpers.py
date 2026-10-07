@@ -51,3 +51,19 @@ def relevance_notice(retrieval: Optional[dict]) -> Optional[tuple[str, str]]:
     return ("info", f"NO_EVIDENCE - no document passage passed the relevance check for this question"
                     f"{f' ({withheld} loosely matching passage(s) were withheld and are NOT shown as evidence)' if withheld else ''}. "
                     f"{rel.get('abstention_reason') or ''}".strip())
+
+
+def evidence_rows(evidence: list[dict], cited_ids: set) -> list[dict]:
+    """One row per retrieved passage that PASSED the relevance check (low-relevance passages are withheld by the API and never appear here).
+    Columns: Status (Cited / Retrieved), Source, Document, Date, Geography, Relevance, Provenance. Missing values read 'not stated', never blank or zero."""
+    rows = []
+    for e in evidence or []:
+        r = e.get("relevance") or {}
+        geo = e.get("geography") or {}
+        place = geo.get("district") or geo.get("province") or geo.get("name") or "not stated"
+        ref = e.get("source_reference") or {}
+        rows.append({"Status": "Cited" if e.get("chunk_id") in cited_ids else "Retrieved", "Source": (e.get("source") or "").upper() or "not stated",
+                     "Document": e.get("title") or "(untitled)", "Date": e.get("document_date") or "undated", "Geography": place,
+                     "Relevance": f"{r.get('relevance_type') or r.get('method') or 'not stated'} (score {r.get('score')})" if r else "not stated",
+                     "Provenance": ref.get("url") or ref.get("file_path") or "no source reference"})
+    return rows
