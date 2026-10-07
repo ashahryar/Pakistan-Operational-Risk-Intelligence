@@ -34,13 +34,10 @@ st.set_page_config(
     layout="wide",
 )
 
-st.info('Source: PMD city forecasts. Only one dated collection exists, so there is no weather history: trend and comparison charts have a single date. Cities whose province could not be resolved appear as Unknown and are not assigned. Not an official forecast.')
+from dashboard.ui import shell  # noqa: E402
 
-from dashboard.utils.api_cache import render_refresh_control  # noqa: E402
-from dashboard.utils.freshness import render_freshness  # noqa: E402
-
-render_refresh_control()
-render_freshness("pmd_weather")
+shell.begin('PMD Weather', 'City forecast snapshots and weather advisories published by the Pakistan Meteorological Department. Only dated snapshots exist; this is not a live forecast.', domain='pmd_weather')
+shell.note('Source: PMD city forecasts. Only one dated collection exists, so there is no weather history: trend and comparison charts have a single date. Cities whose province could not be resolved appear as Unknown and are not assigned. Not an official forecast.')
 
 # ==========================================================
 # AUTO REFRESH
@@ -859,7 +856,7 @@ def render_multiselect_dropdown(
 _PLOTLY_FONT = dict(family="Inter, sans-serif", size=12, color="#c4c6cd")
 
 _PLOTLY_LAYOUT_BASE = dict(
-    template="plotly_dark",
+    template="pori",
     paper_bgcolor="rgba(0,0,0,0)",
     plot_bgcolor="rgba(0,0,0,0)",
     font=_PLOTLY_FONT,
@@ -2068,3 +2065,5 @@ Data are re-read from the database about once a minute; use Refresh data in the 
 """,
     unsafe_allow_html=True,
 )
+
+shell.finish()

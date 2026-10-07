@@ -21,13 +21,10 @@ st.set_page_config(
     layout="wide",
 )
 
-st.info('Source: NDMA situation reports (province level). Houses, roads, bridges and livestock are cumulative per report, so totals use the peak reported value per province and the charts show increments between reports. A blank value means not reported, not zero. Snapshot of published reports, not a live feed.')
+from dashboard.ui import shell  # noqa: E402
 
-from dashboard.utils.api_cache import render_refresh_control  # noqa: E402
-from dashboard.utils.freshness import render_freshness  # noqa: E402
-
-render_refresh_control()
-render_freshness("ndma")
+shell.begin('NDMA Damage', 'Houses, roads, bridges and livestock reported damaged in NDMA situation reports, by province. Figures are cumulative per report; a blank value means not reported, not zero.', domain='ndma')
+shell.note('Source: NDMA situation reports (province level). Houses, roads, bridges and livestock are cumulative per report, so totals use the peak reported value per province and the charts show increments between reports. A blank value means not reported, not zero. Snapshot of published reports, not a live feed.')
 
 # ==========================================================
 # INFRASTRUCTURE MISSION CONTROL DESIGN SYSTEM (CSS)
@@ -843,7 +840,7 @@ def render_table_header(icon: str, title: str) -> None:
 _PLOTLY_FONT = dict(family="Inter, sans-serif", size=12, color="#c1c7d0")
 
 _PLOTLY_LAYOUT_BASE = dict(
-    template="plotly_dark",
+    template="pori",
     paper_bgcolor="rgba(0,0,0,0)",
     plot_bgcolor="rgba(0,0,0,0)",
     font=_PLOTLY_FONT,
@@ -1743,3 +1740,5 @@ st.markdown(
 """,
     unsafe_allow_html=True,
 )
+
+shell.finish()

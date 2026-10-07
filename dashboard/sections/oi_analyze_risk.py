@@ -35,7 +35,7 @@ def _units(base_url: str):
 
 
 def render() -> None:
-    st.subheader("🧭 Operational Intelligence")
+    st.subheader("Operational Intelligence")
     st.caption("Computed risk-engine context and documentary evidence from official reports, kept separate. "
                "Decision support only - not an official warning.")
 
@@ -118,7 +118,7 @@ def render() -> None:
         if not body.get("documentary_evidence"):
             st.caption("No documentary evidence was retrieved.")
         for e in body.get("documentary_evidence") or []:
-            with st.expander(f"{'✅ ' if e['chunk_id'] in cited else ''}{e.get('title') or '(untitled)'} - {e['chunk_id']}"):
+            with st.expander(f"{'Cited · ' if e['chunk_id'] in cited else ''}{e.get('title') or '(untitled)'} - {e['chunk_id']}"):
                 st.caption(evidence_caption(e))
                 st.text(e.get("snippet") or "")
 

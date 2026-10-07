@@ -1,8 +1,8 @@
-"""PDMA river gauge network and geography evidence (Task 40).
+"""PDMA river gauge network and geography evidence (Task 40, redesigned in Task 42 as a hydrology monitoring network view).
 
 The legacy `pdma_gauge_readings` columns named *current level* and *danger level* are not water levels for most rows (the PDF parser stored flood-limit / design
 columns there, and the real inflow can sit in another column), so this page does not draw level, danger or flood-risk indicators from them. It shows what is
-reliable: the station inventory, observation coverage, and which stations are tied to a district by official evidence."""
+reliable: the station inventory (metadata), observation coverage (what was actually reported, and when), and which stations are tied to a district by official evidence."""
 
 import sys
 from pathlib import Path
@@ -14,18 +14,19 @@ import plotly.express as px
 import streamlit as st
 
 from dashboard.api_client import RiskApiClient
+from dashboard.ui import components as C
+from dashboard.ui import shell, tokens
+from dashboard.ui.charts import style_fig
 from dashboard.utils.api_cache import cached_api
-from dashboard.styles.theme import load_css
-from dashboard.utils.api_cache import render_refresh_control
-from dashboard.utils.freshness import render_freshness
 
-st.set_page_config(page_title="PDMA River Gauges", page_icon="🌊", layout="wide")
-load_css()
-render_refresh_control()
+st.set_page_config(page_title="River & Gauge Network · PORI", page_icon="🌊", layout="wide")
 
-STATE_LABEL = {"ELIGIBLE": "Mapped (official evidence)", "CONFLICTING_GEOGRAPHY": "Conflicting evidence", "SECONDARY_ONLY": "Secondary reference only",
-               "CAVEATED": "Caveated", "UNRESOLVED": "Unresolved"}
-STATE_ORDER = list(STATE_LABEL)
+STATE_ORDER = list(tokens.EVIDENCE)
+
+
+def state_label(s: str) -> str:
+    label, glyph = tokens.EVIDENCE[s]
+    return f"{glyph} {label}"
 
 
 @st.cache_resource
@@ -44,67 +45,70 @@ def _unit_history(base_url: str, admin_unit_id: int):
 
 
 base = _client().base_url
-st.title("🌊 PDMA River Gauge Network")
-st.caption("PDMA Punjab gauge sitreps (data source stated as FFD and DEOCs). A snapshot of published bulletins, not a live feed. Decision support only.")
-render_freshness("pdma_gauge")
+shell.begin("River & Gauge Network", "PDMA Punjab gauge bulletins (data source stated as FFD and DEOCs): the station network, what each station actually reported, "
+            "and which stations are tied to a district by official evidence. A snapshot of published bulletins, not a live feed.", domain="pdma_gauge")
 
 res = _evidence(base)
 if not res.ok:
-    st.error(f"Could not load gauge evidence: {res.message}")
-    st.caption("This page reads from the PORI API. Start it with: docker compose up -d --build api (or set PORI_API_URL).")
+    C.api_error(res.message, "This page reads from the PORI API. Start it with: docker compose up -d --build api (or set PORI_API_URL).")
     st.stop()
 
 data = res.data
 summary, stations = data["summary"], pd.DataFrame(data["stations"])
 stations["river"] = stations["river"].str.replace(r"\s+DATA SOURCE.*$", "", regex=True)      # a PDF footer fragment that leaked into one river name
 counts = summary["state_counts"]
+unresolved = counts.get("UNRESOLVED", 0)
 
-st.warning("**Reading note.** The legacy gauge table's *level* and *danger level* columns are not water levels for most rows, so no level, danger or flood-risk "
-           "indicator is shown here. A station is attributed to a district only when official evidence supports it; every other station is shown as unattributed.")
+C.notice("info", "Reading note", "Station metadata (name, river, geography evidence) is shown separately from observations (how many report dates a station has, and when). "
+         "The legacy table's level and danger-level columns are not water levels for most rows, so no level, danger or flood-risk indicator is shown here. "
+         "A station is attributed to a district only when official evidence supports it.")
 
-c = st.columns(5)
-c[0].metric("Gauge stations", summary["stations"])
-c[1].metric("Rivers / nullah groups", int(stations["river"].nunique()))
-c[2].metric("Gauge observations", f"{summary['observations']:,}")
-c[3].metric("Mapped to a district", counts.get("ELIGIBLE", 0))
-c[4].metric("Observations attributable", f"{summary['observations_with_eligible_mapping']:,}")
-dmin, dmax = stations["date_min"].min(), stations["date_max"].max()
-st.caption(f"Observation dates {dmin} to {dmax} (read from the database; one observation is one report date per station). Unattributed stations still have observations: they are kept, not dropped, and not assigned to any district. "
-           f"Mapping version {summary['mapping_version']}.")
+C.kpis([("Gauge stations", summary["stations"]), ("Mapped to a district", counts.get("ELIGIBLE", 0), "official evidence"),
+        ("Unresolved", unresolved, "no usable evidence"), ("Observation days", summary["observations"], "one per station and report date"),
+        ("Latest observation", C._fmt_date(summary.get("latest_observation")))])
+if summary.get("observations_source") != "database":
+    C.notice("warn", "Observation counts are from a frozen snapshot", "The database could not be read, so counts and dates come from the committed evidence snapshot, not current data.")
+st.caption(f"Observation dates {stations['date_min'].min()} to {stations['date_max'].max()} (read from the database). Unattributed stations still have observations: they are kept, "
+           f"not dropped, and not assigned to any district. Mapping version {summary['mapping_version']}.")
 
-st.subheader("Geography evidence coverage")
+C.section("Geography evidence coverage", "How many stations can be placed in a district, and why the rest cannot.")
 left, right = st.columns([2, 3])
-by_state = pd.DataFrame({"state": [STATE_LABEL[s] for s in STATE_ORDER], "stations": [counts.get(s, 0) for s in STATE_ORDER]})
-fig = px.bar(by_state, x="stations", y="state", orientation="h", title="Stations by geography evidence state", text="stations")
-fig.update_layout(yaxis={"autorange": "reversed"}, height=300, margin={"l": 0, "r": 10, "t": 40, "b": 0})
-left.plotly_chart(fig, use_container_width=True)
+by_state = pd.DataFrame({"state": [state_label(s) for s in STATE_ORDER], "stations": [counts.get(s, 0) for s in STATE_ORDER]})
+fig = px.bar(by_state, x="stations", y="state", orientation="h", text="stations")
+fig.update_traces(marker_color=tokens.PALETTE["primary"], textposition="outside", hovertemplate="%{y}: %{x} stations<extra></extra>")
+fig.update_layout(yaxis={"autorange": "reversed"}, margin={"l": 0, "r": 24, "t": 36, "b": 0})
+left.plotly_chart(style_fig(fig, "Stations by geography evidence state", 300, xtitle="Stations", ytitle=""), width="stretch")
 right.markdown(
     "- **Mapped** - an official owner states the district (WAPDA) or official coordinates stay inside one boundary district over their stated offset.\n"
     "- **Conflicting** - sources disagree (for example Tarbela: WAPDA states Swabi, which is not in the canonical geography; other references name Haripur). Nothing is selected.\n"
     "- **Secondary reference only** - non-official sources exist; never used for risk.\n"
     "- **Caveated** - the only candidate unit is not a real district (Mangla).\n"
     "- **Unresolved** - no usable evidence; most hill-torrent and nullah sites.")
+C.empty_state("Station map not available", "The sources publish no coordinates for most stations, and a station is never placed on a district without evidence, so a point map would "
+              "invent precision. Mapped stations are shown by district on the Risk Map.")
 
-st.subheader("Stations")
+C.section("Stations", "Station metadata and observation coverage.")
 f1, f2 = st.columns(2)
-state_pick = f1.multiselect("Evidence state", STATE_ORDER, default=STATE_ORDER, format_func=STATE_LABEL.get)
+state_pick = f1.multiselect("Evidence state", STATE_ORDER, default=STATE_ORDER, format_func=state_label)
 rivers = sorted(stations["river"].dropna().unique())
 river_pick = f2.multiselect("River", rivers, default=rivers)
 view = stations[stations["evidence_state"].isin(state_pick) & stations["river"].isin(river_pick)].copy()
-view["Geography"] = view["evidence_state"].map(STATE_LABEL)
-view["District (evidence-backed)"] = view["admin_unit_name"].fillna("not attributed")
-view["Candidates (NOT applied)"] = view["candidate_districts"].apply(lambda x: ", ".join(x) if x else "")
-view["Dates"] = view["date_min"].astype(str) + " to " + view["date_max"].astype(str)
-table = view[["station_name", "river", "observations", "Dates", "Geography", "District (evidence-backed)", "Candidates (NOT applied)", "ineligibility_reason"]]
-table = table.rename(columns={"station_name": "Station", "river": "River", "observations": "Observations", "ineligibility_reason": "Why not attributed"})
-st.dataframe(table, hide_index=True, width="stretch")
-st.download_button("Download stations (CSV)", table.to_csv(index=False).encode("utf-8"), "pdma_gauge_stations_evidence.csv", "text/csv")
+if view.empty:
+    C.empty_state("No stations match these filters", "Widen the evidence-state or river selection.")
+else:
+    view["Geography"] = view["evidence_state"].map(state_label)
+    view["District (evidence-backed)"] = view["admin_unit_name"].fillna("not attributed")
+    view["Candidates (NOT applied)"] = view["candidate_districts"].apply(lambda x: ", ".join(x) if x else "")
+    table = view[["station_name", "river", "Geography", "District (evidence-backed)", "Candidates (NOT applied)", "observations", "date_min", "date_max", "ineligibility_reason"]]
+    table = table.rename(columns={"station_name": "Station", "river": "River", "observations": "Observation days", "date_min": "First observation",
+                                  "date_max": "Latest observation", "ineligibility_reason": "Why not attributed"})
+    st.dataframe(table, hide_index=True, width="stretch")
+    st.download_button("Download stations (CSV)", table.to_csv(index=False).encode("utf-8"), "pdma_gauge_stations_evidence.csv", "text/csv")
 
 mapped = stations[stations["evidence_state"] == "ELIGIBLE"]
 if not mapped.empty:
-    st.subheader("Risk-engine gauge signal for mapped stations")
-    st.caption("The engine's normalised gauge signal (discharge relative to its own history) and provisional status for the districts that have an evidence-backed station. "
-               "This is a status, not a score: no numeric score is produced.")
+    C.section("Risk-engine gauge signal for mapped stations", "The engine's normalised gauge signal (discharge relative to its own history) and provisional status for the districts that "
+              "have an evidence-backed station. This is a status, not a score: no numeric score is produced.")
     for _, m in mapped.iterrows():
         if pd.isna(m.get("admin_unit_id")):
             st.info(f"{m['station_name']}: the API did not return an administrative unit id (API older than this page?). Rebuild it: docker compose up -d --build api")
@@ -117,9 +121,12 @@ if not mapped.empty:
         df = df[df["gauge signal"].notna()]
         st.markdown(f"**{m['station_name']}** → **{m['admin_unit_name']}** ({m['geography_derivation'].replace('_', ' ')})")
         if df.empty:
-            st.caption("No gauge signal rows for this district yet.")
+            C.empty_state("No gauge signal rows for this district yet", "")
             continue
-        fig2 = px.line(df, x="date", y="gauge signal", markers=True, title=f"{m['admin_unit_name']}: normalised gauge signal (not a risk score)")
-        fig2.update_layout(height=280, margin={"l": 0, "r": 10, "t": 40, "b": 0}, yaxis_range=[0, 1])
-        st.plotly_chart(fig2, use_container_width=True)
-        st.caption("Status counts: " + ", ".join(f"{k} {v}" for k, v in df["status"].value_counts().items()))
+        fig2 = px.line(df, x="date", y="gauge signal", markers=True)
+        fig2.update_traces(hovertemplate="%{x}<br>gauge signal %{y:.2f}<extra></extra>")
+        fig2.update_layout(yaxis_range=[0, 1])
+        st.plotly_chart(style_fig(fig2, f"{m['admin_unit_name']}: normalised gauge signal (not a risk score)", 280, xtitle="Risk date", ytitle="Signal (0-1)"), width="stretch")
+        st.caption("Status counts: " + ", ".join(f"{tokens.status_label(k)} {v}" for k, v in df["status"].value_counts().items()))
+
+C.provenance(source="PDMA Punjab gauge bulletins", geography=f"gauge-geo {summary['mapping_version']}", observations=summary.get("observations_source"))

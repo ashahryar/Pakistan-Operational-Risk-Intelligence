@@ -119,7 +119,7 @@ def test_successful_response_shows_answer_context_forecast_provenance_and_trace(
     assert "Horizon" in frames and frames["Horizon"]["Provenance"].tolist() == ["BASELINE_MODEL"] and frames["Horizon"]["Label"].tolist() == [BASELINE_LABEL]
     assert frames["Block"]["Source"].tolist() == ["GEOGRAPHY", "RISK_ENGINE", "RAG_DOCUMENT", "BASELINE_MODEL"]
     assert frames["Tool"]["Tool"].tolist() == ["geography.resolve_place", "risk.latest"] and frames["Tool"]["Provenance"].tolist() == ["GEOGRAPHY", "RISK_ENGINE"]
-    assert any("✅" not in x.label and CID in x.label for x in at.expander) and any("Full audit trace" in x.label for x in at.expander)
+    assert any("✅" not in x.label and CID in x.label for x in at.expander) and any("Technical details" in x.label for x in at.expander)
 
 
 def test_llm_unavailable_503_shows_the_structured_results_and_no_fake_answer(monkeypatch):

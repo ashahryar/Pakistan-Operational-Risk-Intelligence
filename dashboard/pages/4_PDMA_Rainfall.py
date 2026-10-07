@@ -51,13 +51,10 @@ st.set_page_config(
     layout="wide",
 )
 
-st.info("Source: PDMA Punjab rainfall reports. 'Stations' are the free-text names printed in the reports: some are district lists, abbreviations or table headers and stay unresolved rather than being guessed. Only resolved names are attributed to a district (see the Geographic Observation section on Home).")
+from dashboard.ui import shell  # noqa: E402
 
-from dashboard.utils.api_cache import render_refresh_control  # noqa: E402
-from dashboard.utils.freshness import render_freshness  # noqa: E402
-
-render_refresh_control()
-render_freshness("pdma_rainfall")
+shell.begin('PDMA Rainfall', 'Rainfall reported by PDMA Punjab, by station name as printed in each report. Station names that cannot be resolved to a district stay unresolved.', domain='pdma_rainfall')
+shell.note("Source: PDMA Punjab rainfall reports. 'Stations' are the free-text names printed in the reports: some are district lists, abbreviations or table headers and stay unresolved rather than being guessed. Only resolved names are attributed to a district (see Geographic resolution coverage on the Executive Overview).")
 
 # ==========================================================
 # AUTO REFRESH
@@ -552,7 +549,7 @@ _STATUS_DOT_MAP = {
 _PLOTLY_FONT = dict(family="IBM Plex Sans, sans-serif", size=12, color="#e5e2e1")
 
 _PLOTLY_LAYOUT_BASE = dict(
-    template="plotly_dark",
+    template="pori",
     paper_bgcolor="rgba(0,0,0,0)",
     plot_bgcolor="rgba(0,0,0,0)",
     font=_PLOTLY_FONT,
@@ -1504,3 +1501,5 @@ Designed for Operational Risk Monitoring, Disaster Analytics and Executive Decis
 """,
     unsafe_allow_html=True,
 )
+
+shell.finish()

@@ -13,12 +13,11 @@ import pandas as pd
 
 # Status values come from the Task 23 engine (unchanged). NO_DATA is a display category for areas that have a boundary
 # but no risk row in the selected scope -- it is not a risk status.
+from dashboard.ui import tokens  # noqa: E402
+
 STATUS_ORDER = ["CRITICAL", "HIGH", "MODERATE", "LOW", "INSUFFICIENT_DATA", "NO_SIGNAL"]
 NO_DATA = "NO_RISK_DATA"
-STATUS_COLORS = {
-    "CRITICAL": "#7f1d1d", "HIGH": "#dc2626", "MODERATE": "#f59e0b", "LOW": "#16a34a",
-    "INSUFFICIENT_DATA": "#94a3b8", "NO_SIGNAL": "#cbd5e1", NO_DATA: "#e5e7eb",
-}
+STATUS_COLORS = {k: tokens.status_fill(k) for k in STATUS_ORDER + [NO_DATA]}      # one status palette for the whole dashboard (dashboard/ui/tokens.py)
 SCORE_UNAVAILABLE = "Unavailable (null — the engine computes no numeric score in v1.0.0)"
 _PROP_KEYS = ["admin_unit_id", "admin_unit_name", "admin_level", "province", "risk_status", "risk_score", "risk_confidence",
               "risk_basis", "risk_date", "top_risk_domain", "data_coverage_pct", "calculation_version"]

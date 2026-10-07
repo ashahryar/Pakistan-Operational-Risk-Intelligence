@@ -169,7 +169,7 @@ Full operational detail (sources, outputs, failure policy, how each DAG was veri
 
 Failure policy: an unreachable source page or a failed download makes the task fail (so Airflow retries and shows it red); "no new reports" is a normal success; nothing is written on failure, so previous valid data stays intact. S3 archiving is an explicit step: it shows as **skipped** when disabled or unconfigured (`PORI_S3_UPLOAD`, off by default) and fails fast when enabled with rejected credentials. All DAGs use `catchup=False`, `max_active_runs=1`, retries, and `pipeline/utils/task_callbacks.py` hooks.
 
-Airflow runs via **Docker Compose**: `postgres:15` (also the Airflow metadata database), an `airflow-init` job, `airflow-webserver` (port `8088`) and `airflow-scheduler`, built from the project's own `Dockerfile` (`apache/airflow:2.9.3-python3.11`). Deployment: [`docs/architecture/DEPLOYMENT.md`](docs/architecture/DEPLOYMENT.md).
+Airflow runs via **Docker Compose**: `postgres:15` (also the Airflow metadata database), an `airflow-init` job, `airflow-webserver` (port `8088`) and `airflow-scheduler`, built from the project's own `Dockerfile` (`apache/airflow:2.9.3-python3.11`). Deployment: [`docs/architecture/DEPLOYMENT.md`](docs/architecture/DEPLOYMENT.md). Data freshness and caching: [`docs/architecture/FRESHNESS.md`](docs/architecture/FRESHNESS.md). Dashboard design system: [`docs/architecture/UI_DESIGN_SYSTEM.md`](docs/architecture/UI_DESIGN_SYSTEM.md).
 
 ---
 

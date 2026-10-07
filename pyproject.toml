@@ -1,6 +1,8 @@
 [tool.ruff]
 line-length = 120
 target-version = "py311"
+# third-party agent skills installed under .claude/ are not project code
+extend-exclude = [".claude"]
 
 # Task 16A (Phase 1 / ADR-0001): deliberately lenient starter config.
 # This project has ~180 pre-existing Python files never linted before

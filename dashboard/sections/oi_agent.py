@@ -36,7 +36,7 @@ def _units(base_url: str):
 
 
 def render() -> None:
-    st.subheader("🤖 Operational Intelligence Agent")
+    st.subheader("Operational Intelligence Agent")
     st.caption("A read-only, provenance-aware agent that orchestrates existing PORI capabilities (risk engine, documentary evidence, ML forecasts, geography). "
                "It cannot write, run SQL or invent facts. Decision support only - not an official warning.")
 
@@ -69,15 +69,10 @@ def render() -> None:
 
         status = body["status"]
         level, message = status_banner(status)
-        getattr(st, level)(f"**{status}** - {message}")
+        headline = "AI answer generation unavailable" if status == "LLM_UNAVAILABLE" else status
+        getattr(st, level)(f"**{headline}** · {status} - {message}" if headline != status else f"**{status}** - {message}")
         if body.get("status_reason"):
             st.caption(f"Reason: {body['status_reason']}" + (f" ({body['reason_code']})" if body.get("reason_code") else ""))
-        m1, m2, m3, m4 = st.columns(4)
-        m1.metric("Detected intent", body.get("intent") or "-")
-        m2.metric("Agent status", status)
-        m3.metric("Routing", routing_text(body.get("trace")))
-        m4.metric("Tools run", str(len([t for t in body.get("tool_trace") or [] if t.get("status") != "INVALID_TOOL_CALL"])))
-
         # ---------------------------------------------------------------- final answer (only when a real model produced and the validator accepted it)
         st.subheader("Answer")
         if status == "ANSWERED" and body.get("answer"):
@@ -150,7 +145,7 @@ def render() -> None:
         if not body.get("documentary_evidence"):
             st.caption("No documentary evidence was retrieved" + ("." if r else " (the documents were not consulted for this question)."))
         for e in body.get("documentary_evidence") or []:
-            with st.expander(f"{'✅ ' if e['chunk_id'] in cited else ''}{e.get('title') or '(untitled)'} - {e['chunk_id']}"):
+            with st.expander(f"{'Cited · ' if e['chunk_id'] in cited else ''}{e.get('title') or '(untitled)'} - {e['chunk_id']}"):
                 st.caption(evidence_caption(e))
                 st.text(e.get("snippet") or "")
 
@@ -163,9 +158,16 @@ def render() -> None:
         if status == "INVALID_ANSWER":
             with st.expander("Why the answer was withheld"):
                 st.json(g.get("problems") or [])
-        st.subheader("Tool Trace")
-        st.caption("Every tool the agent called (or a model proposed), with its validated arguments, status and provenance. Rejected calls were never executed.")
-        st.dataframe(tool_trace_table(body.get("tool_trace")), hide_index=True, use_container_width=True)
-        with st.expander("Full audit trace (JSON)"):
-            st.json(body.get("trace") or {})
+        with st.expander("Technical details"):
+            st.caption("Intent, routing, the tools that ran and the full audit trace. Provenance above is not hidden: this is the machine-level detail behind it.")
+            m1, m2, m3, m4 = st.columns(4)
+            m1.metric("Detected intent", body.get("intent") or "-")
+            m2.metric("Agent status", status)
+            m3.metric("Routing", routing_text(body.get("trace")))
+            m4.metric("Tools run", str(len([t for t in body.get("tool_trace") or [] if t.get("status") != "INVALID_TOOL_CALL"])))
+            st.subheader("Tool Trace")
+            st.caption("Every tool the agent called (or a model proposed), with its validated arguments, status and provenance. Rejected calls were never executed.")
+            st.dataframe(tool_trace_table(body.get("tool_trace")), hide_index=True, use_container_width=True)
+            st.markdown("**Full audit trace (JSON)**")
+            st.json(body.get("trace") or {}, expanded=False)
         st.caption(body.get("disclaimer") or "")

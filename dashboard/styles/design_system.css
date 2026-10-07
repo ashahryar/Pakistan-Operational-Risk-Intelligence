@@ -1,0 +1,99 @@
+/* PORI design system (Task 42). One token set, one type scale, one radius, one card, one status language.
+   Loaded by dashboard/ui/shell.py AFTER any page-level CSS so it wins on shell elements. */
+:root{
+  --bg:#0B1220; --surface:#111A2B; --elevated:#17233A; --border:#2A3A55;
+  --text:#E6EDF3; --text-2:#B7C3D3; --muted:#93A1B5;
+  --primary:#60A5FA; --accent:#F59E0B; --info:#7DD3FC;
+  --success:#4ADE80; --warning:#FBBF24; --danger:#F87171; --critical:#FCA5A5;
+  --unavailable:#A3AEC0; --insufficient:#A3AEC0;
+  --font-text:'Fira Sans','Segoe UI',system-ui,sans-serif; --font-data:'Fira Code','Cascadia Mono',Consolas,monospace;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --radius:6px;
+}
+html, body, .stApp, [data-testid="stAppViewContainer"]{background:var(--bg)!important; color:var(--text); font-family:var(--font-text);}
+.stApp p, .stApp li, .stApp label, .stApp span, .stApp div[data-testid="stMarkdownContainer"]{font-family:var(--font-text);}
+[data-testid="stHeader"]{background:transparent!important;}
+.block-container{max-width:1480px; padding:var(--s4) var(--s6) var(--s6)!important;}
+h1,h2,h3,h4{font-family:var(--font-text)!important; color:var(--text)!important; letter-spacing:0!important;}
+h1{font-size:28px!important; font-weight:600!important;} h2{font-size:22px!important; font-weight:600!important;} h3{font-size:16px!important; font-weight:600!important;}
+a{color:var(--primary);}
+code,.pori-num{font-family:var(--font-data);}
+[data-testid="stMetricValue"]{font-family:var(--font-data)!important; font-size:26px!important; font-weight:500!important; color:var(--text)!important;}
+[data-testid="stMetricLabel"]{color:var(--text-2)!important; font-size:12px!important; text-transform:none!important;}
+[data-testid="stCaptionContainer"], .stCaption{color:var(--muted)!important; font-size:12px!important;}
+hr{border-color:var(--border)!important; margin:var(--s5) 0!important;}
+
+/* focus: always visible, never obscured */
+:focus-visible, button:focus-visible, a:focus-visible, [role="tab"]:focus-visible, input:focus-visible{outline:2px solid var(--primary)!important; outline-offset:2px!important; border-radius:var(--radius);}
+.pori-skip{position:absolute; left:-9999px;} .pori-skip:focus{left:var(--s4); top:var(--s2); z-index:1000; background:var(--elevated); padding:var(--s2) var(--s3); border-radius:var(--radius);}
+
+/* sidebar: hide the file-based list, show the grouped navigation */
+[data-testid="stSidebarNav"]{display:none!important;}
+[data-testid="stSidebar"]{background:var(--surface)!important; border-right:1px solid var(--border);}
+[data-testid="stSidebar"] .block-container, [data-testid="stSidebarContent"]{padding-top:var(--s3)!important;}
+.pori-brand{display:flex; gap:var(--s3); align-items:center; padding:var(--s2) 0 var(--s3); border-bottom:1px solid var(--border); margin-bottom:var(--s3);}
+.pori-brand-mark{width:34px; height:34px; border-radius:var(--radius); background:var(--primary); color:#08111F; display:flex; align-items:center; justify-content:center; font:600 13px var(--font-data);}
+.pori-brand-name{font:600 15px var(--font-text); color:var(--text); line-height:1.2;} .pori-brand-sub{font:400 11px var(--font-text); color:var(--muted); line-height:1.3;}
+.pori-nav-group{font:600 11px var(--font-text); color:var(--muted); letter-spacing:.08em; text-transform:uppercase; margin:var(--s4) 0 var(--s1);}
+[data-testid="stSidebar"] [data-testid="stPageLink"] a, [data-testid="stSidebar"] a[data-testid="stPageLink-NavLink"]{border-radius:var(--radius); padding:6px var(--s3); min-height:32px; color:var(--text-2)!important;}
+[data-testid="stSidebar"] [data-testid="stPageLink"] a:hover, [data-testid="stSidebar"] a[data-testid="stPageLink-NavLink"]:hover{background:var(--elevated)!important; color:var(--text)!important;}
+[data-testid="stSidebar"] a[aria-current="page"]{background:var(--elevated)!important; color:var(--text)!important; border-left:3px solid var(--primary); font-weight:600;}
+.pori-side-fresh{border-top:1px solid var(--border); margin-top:var(--s4); padding-top:var(--s3); font:400 12px var(--font-text); color:var(--text-2);}
+
+/* application header */
+.pori-appbar{display:flex; justify-content:space-between; align-items:center; gap:var(--s4); flex-wrap:wrap; padding:var(--s2) 0 var(--s3); border-bottom:1px solid var(--border); margin-bottom:var(--s4);}
+.pori-appbar .t{font:600 13px var(--font-text); color:var(--text-2);} .pori-appbar .t b{color:var(--text);}
+.pori-appbar .d{font:400 12px var(--font-text); color:var(--muted);}
+.pori-page-title{font:600 26px var(--font-text); color:var(--text); margin:var(--s2) 0 var(--s1);}
+.pori-page-sub{font:400 14px/1.5 var(--font-text); color:var(--text-2); max-width:78ch; margin:0 0 var(--s3);}
+.pori-chips{display:flex; gap:var(--s2); flex-wrap:wrap; margin:var(--s2) 0 var(--s4);}
+
+/* chips & badges: glyph + label + tint, never colour alone */
+.pori-chip, .pori-badge{display:inline-flex; align-items:center; gap:6px; border:1px solid var(--border); border-radius:var(--radius); padding:2px 10px; font:500 12px/1.6 var(--font-text); color:var(--text-2); background:var(--surface); white-space:nowrap;}
+.pori-chip .g, .pori-badge .g{font-size:11px;} .pori-chip .v{font-family:var(--font-data); color:var(--text);}
+.pori-badge{font-weight:600;}
+
+/* KPI: st.metric, flat with a left rule (no giant per-metric cards) */
+[data-testid="stMetric"]{border-left:3px solid var(--border); padding:2px 0 2px var(--s3); background:transparent;}
+[data-testid="stMetric"] [data-testid="stMetricValue"]{line-height:1.25;} [data-testid="stMetricLabel"] p, [data-testid="stMetricLabel"] div{white-space:normal!important; overflow:visible!important; text-overflow:clip!important;}
+
+/* section + card + notices */
+.pori-section{margin:var(--s5) 0 var(--s2);} .pori-section h3{margin:0!important;} .pori-section p{font:400 13px/1.5 var(--font-text); color:var(--muted); margin:2px 0 0;}
+.pori-card{border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); padding:var(--s4); margin:var(--s2) 0;}
+.pori-card h4{font:600 14px var(--font-text)!important; margin:0 0 var(--s2)!important;}
+.pori-notice{display:flex; gap:var(--s3); border:1px solid var(--border); border-left-width:4px; border-radius:var(--radius); background:var(--surface); padding:var(--s3) var(--s4); margin:var(--s2) 0;}
+.pori-notice .g{font-size:16px; line-height:1.4;} .pori-notice .b{font:400 13px/1.55 var(--font-text); color:var(--text-2);} .pori-notice .b b{color:var(--text); font-weight:600;}
+.pori-notice.info{border-left-color:var(--info)} .pori-notice.warn{border-left-color:var(--warning)} .pori-notice.error{border-left-color:var(--danger)} .pori-notice.unavail{border-left-color:var(--unavailable)} .pori-notice.ok{border-left-color:var(--success)}
+.pori-prov{border-top:1px solid var(--border); margin-top:var(--s5); padding-top:var(--s3); font:400 12px/1.6 var(--font-text); color:var(--muted);} .pori-prov b{color:var(--text-2); font-weight:500;}
+.pori-legend{display:flex; flex-wrap:wrap; gap:var(--s2) var(--s4); font:400 12px var(--font-text); color:var(--text-2); margin:var(--s2) 0;}
+.pori-legend i{display:inline-block; width:12px; height:12px; border-radius:2px; margin-right:6px; vertical-align:-1px; border:1px solid rgba(255,255,255,.25);}
+
+/* inputs, buttons, tabs: one control language */
+.stButton>button, .stDownloadButton>button, [data-testid="stFormSubmitButton"]>button{border-radius:var(--radius)!important; border:1px solid var(--border)!important; background:var(--elevated)!important; color:var(--text)!important; font:500 13px var(--font-text)!important; min-height:36px; transition:background .15s;}
+.stButton>button:hover, .stDownloadButton>button:hover{background:#1F2F4C!important; border-color:var(--primary)!important;}
+.stButton>button[kind="primary"], [data-testid="stFormSubmitButton"]>button[kind="primary"]{background:var(--primary)!important; color:#08111F!important; border-color:var(--primary)!important;}
+[data-baseweb="select"]>div, .stTextInput input, .stTextArea textarea, .stNumberInput input{border-radius:var(--radius)!important; background:var(--elevated)!important; border-color:var(--border)!important; color:var(--text)!important;}
+[data-testid="stWidgetLabel"] p, .stTextInput label, .stSelectbox label, .stRadio label{color:var(--text-2)!important; font-size:12px!important;}
+[data-baseweb="tab-list"]{gap:var(--s2); border-bottom:1px solid var(--border);} [data-baseweb="tab"]{font:500 13px var(--font-text)!important; color:var(--text-2)!important;} [aria-selected="true"][data-baseweb="tab"]{color:var(--text)!important;}
+[data-testid="stExpander"]{border:1px solid var(--border)!important; border-radius:var(--radius)!important; background:var(--surface);}
+[data-testid="stDataFrame"]{border:1px solid var(--border); border-radius:var(--radius);}
+[data-testid="stAlert"]{border-radius:var(--radius)!important;}
+
+@media (max-width:1100px){ .block-container{padding:var(--s3) var(--s4) var(--s5)!important;} .pori-page-title{font-size:22px;} }
+@media (prefers-reduced-motion:reduce){ *{animation:none!important; transition:none!important;} }
+
+/* Legacy page variables (NDMA, PMD, rainfall pages define their own --cs-/--im-/--ob- tokens): remapped to the shared tokens, loaded last so they win. */
+:root{
+  --cs-bg:var(--bg); --cs-bg-lowest:var(--bg); --cs-surface:var(--surface); --cs-surface-high:var(--elevated); --cs-surface-higher:var(--elevated);
+  --cs-on-surface:var(--text); --cs-on-surface-variant:var(--text-2); --cs-on-surface-dim:var(--muted); --cs-outline:var(--border); --cs-outline-variant:var(--border);
+  --cs-primary:var(--primary); --cs-primary-container:rgba(96,165,250,.16); --cs-danger:var(--danger); --cs-danger-container:rgba(248,113,113,.16); --cs-on-danger-container:var(--critical);
+  --cs-success:var(--success); --cs-success-container:rgba(74,222,128,.14); --cs-on-success-container:var(--success); --cs-warning:var(--warning); --cs-warning-container:rgba(251,191,36,.14); --cs-on-warning-container:var(--warning);
+  --cs-font-sans:var(--font-text); --cs-font-mono:var(--font-data); --cs-radius:var(--radius); --cs-radius-lg:var(--radius); --cs-radius-pill:var(--radius);
+  --im-bg:var(--bg); --im-surface:var(--surface); --im-surface-low:var(--surface); --im-surface-lowest:var(--bg); --im-surface-high:var(--elevated); --im-surface-highest:var(--elevated); --im-surface-bright:var(--elevated);
+  --im-on-surface:var(--text); --im-on-surface-variant:var(--text-2); --im-outline:var(--border); --im-outline-variant:var(--border); --im-primary:var(--primary); --im-primary-container:rgba(96,165,250,.16);
+  --im-error:var(--danger); --im-error-container:rgba(248,113,113,.16); --im-on-error-container:var(--critical); --im-font-sans:var(--font-text); --im-font-mono:var(--font-data);
+  --im-radius:var(--radius); --im-radius-lg:var(--radius); --im-radius-sm:var(--radius); --im-radius-pill:var(--radius);
+  --ob-bg:var(--bg); --ob-bg-sidebar:var(--surface); --ob-card:var(--surface); --ob-border:var(--border); --ob-border-hover:var(--primary); --ob-text:var(--text); --ob-text-dim:var(--text-2); --ob-text-muted:var(--muted);
+  --ob-info:var(--info); --ob-success:var(--success); --ob-warning:var(--warning); --ob-danger:var(--danger); --ob-font-body:var(--font-text); --ob-font-heading:var(--font-text); --ob-font-mono:var(--font-data); --ob-radius:var(--radius);
+}
+/* the page title now lives in the shared page header: hide the duplicated legacy titles and per-page sidebar brands */
+.ndma-main-title, .wx-main-title, .ob-main-title, .im-main-title, .im-side-brand, .ob-side-brand, .wx-side-brand{display:none!important;}

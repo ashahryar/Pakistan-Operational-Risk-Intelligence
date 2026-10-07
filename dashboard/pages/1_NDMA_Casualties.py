@@ -31,13 +31,10 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-st.info('Source: NDMA situation reports (province level; no district geography exists in this table). NDMA figures are cumulative per report, so totals use the peak reported value per province and the charts show the increments between reports. Data are a snapshot of published reports, not a live feed.')
+from dashboard.ui import shell  # noqa: E402
 
-from dashboard.utils.api_cache import render_refresh_control  # noqa: E402
-from dashboard.utils.freshness import render_freshness  # noqa: E402
-
-render_refresh_control()
-render_freshness("ndma")
+shell.begin('NDMA Casualties', 'Deaths and injuries from NDMA situation reports, by province. Reports are cumulative: headline totals use the latest peak per province and trend charts show the increments between reports.', domain='ndma')
+shell.note('Source: NDMA situation reports (province level; no district geography exists in this table). NDMA figures are cumulative per report, so totals use the peak reported value per province and the charts show the increments between reports. Data are a snapshot of published reports, not a live feed.')
 
 # ==========================================================
 # COMMAND SURFACE DESIGN SYSTEM (CSS) -- unchanged theme,
@@ -956,7 +953,7 @@ def _base_layout(fig, title, height=440):
 
     fig.update_layout(
         title=title,
-        template="plotly_dark",
+        template="pori",
         height=height,
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
@@ -1152,7 +1149,7 @@ else:
 
     fig_trend.update_layout(
         barmode="group",
-        template="plotly_dark",
+        template="pori",
         height=440,
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
@@ -1285,7 +1282,7 @@ with bc_right:
         )
 
         fig_donut.update_layout(
-            template="plotly_dark",
+            template="pori",
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
             font=_CHART_FONT,
@@ -1411,7 +1408,7 @@ with fg_left:
         )
 
         fig_rank.update_layout(
-            template="plotly_dark",
+            template="pori",
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
             coloraxis_showscale=False,
@@ -1467,7 +1464,7 @@ with fg_right:
         )
 
         fig_week.update_layout(
-            template="plotly_dark",
+            template="pori",
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
             legend_title="Province",
@@ -1630,3 +1627,5 @@ Refreshes automatically after each Airflow pipeline run.
 """,
     unsafe_allow_html=True,
 )
+
+shell.finish()

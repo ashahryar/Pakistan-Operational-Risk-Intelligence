@@ -29,7 +29,7 @@ _GEO_SCALE = [
 def _apply_base_layout(fig, title, height):
 
     fig.update_layout(
-        template="plotly_dark",
+        template="pori",
         title=dict(
             text=title,
             font=dict(size=15, color=_TEXT_COLOR, **_FONT),

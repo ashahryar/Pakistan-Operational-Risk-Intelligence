@@ -90,7 +90,7 @@ def test_successful_answer_shows_answer_citations_and_evidence_separately(monkey
     assert [s.value for s in at.subheader][1:] == ["Answer", "Citations", "Retrieved evidence"]
     df = at.dataframe[0].value
     assert list(df["Chunk"]) == [CID] and list(df["Source"]) == ["NDMA"] and list(df["Title"]) == ["NDMA Sitrep 12"] and list(df["Date"]) == ["2026-07-05"]
-    assert any("✅" in x.label and CID in x.label for x in at.expander)                         # the cited evidence is marked
+    assert any("Cited ·" in x.label and CID in x.label for x in at.expander)                         # the cited evidence is marked
     assert any("keyword rank 1" in c.value and "meaning rank 2" in c.value for c in at.caption)
 
 

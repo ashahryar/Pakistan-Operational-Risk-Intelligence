@@ -108,7 +108,7 @@ def test_successful_response_shows_risk_context_evidence_and_the_explanation_sep
     df = at.dataframe[0].value
     assert dict(zip(df["signal"], df["value"]))["rainfall"] == "0.79" and dict(zip(df["signal"], df["value"]))["gauge"] == "not observed"
     assert any("RISK_ENGINE" in c.value for c in at.caption)
-    assert any("✅" in x.label and CID in x.label and "NDMA Sitrep 12" in x.label for x in at.expander)               # chunk id + title shown, cited marked
+    assert any("Cited ·" in x.label and CID in x.label and "NDMA Sitrep 12" in x.label for x in at.expander)               # chunk id + title shown, cited marked
     assert any("keyword rank 1" in c.value and "NDMA" in c.value and "2026-07-05" in c.value for c in at.caption)
     assert any("[risk_engine]" in md.value and f"[chunk:{CID}]" in md.value for md in at.markdown)
 

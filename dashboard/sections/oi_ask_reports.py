@@ -32,7 +32,7 @@ def _province_names(base_url: str):
 
 
 def render() -> None:
-    st.subheader("💬 Ask the Reports")
+    st.subheader("Ask the Reports")
     st.caption("Answers are generated only from retrieved NDMA / PDMA / PMD report passages and cite them. "
                "A summary of source reports — not an official warning and not a risk assessment.")
 
@@ -92,7 +92,7 @@ def render() -> None:
         if not body.get("evidence"):
             st.caption("Nothing was retrieved.")
         for e in body.get("evidence") or []:
-            label = f"{'✅ ' if e['chunk_id'] in cited else ''}{e.get('title') or '(untitled)'} — {e['chunk_id']}"
+            label = f"{'Cited · ' if e['chunk_id'] in cited else ''}{e.get('title') or '(untitled)'} — {e['chunk_id']}"
             with st.expander(label):
                 st.caption(evidence_caption(e))
                 st.text(e.get("snippet") or "")

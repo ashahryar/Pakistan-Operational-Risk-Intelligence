@@ -14,7 +14,7 @@ AppTest = streamlit_testing.AppTest
 live = pytest.mark.skipif(not (_open("localhost", 5433) and _api_up()), reason="PostgreSQL and the API are not both reachable")
 DASH = Path(ROOT) / "dashboard"
 
-FRESH = re.compile(r"Latest available: \d{4}-\d{2}-\d{2}|Stale: latest available \d{4}-\d{2}-\d{2}|No data available|Freshness unavailable")
+FRESH = re.compile(r"Latest available · \d{2} \w{3} \d{4}|Stale · latest successful snapshot \d{2} \w{3} \d{4}|Source unavailable — latest successful snapshot: \d{2} \w{3} \d{4}|No observations available|Freshness unavailable")
 
 
 def _text(at):
@@ -22,36 +22,35 @@ def _text(at):
 
 
 @live
-@pytest.mark.parametrize("page,domain_word", [("pages/1_NDMA_Casualties.py", "report date"), ("pages/2_NDMA_Damage.py", "report date"),
-                                              ("pages/3_PMD_Weather.py", "scrape time"), ("pages/4_PDMA_Rainfall.py", "report date"),
-                                              ("pages/5_PDMA_Rivers.py", "observation time"), ("pages/6_Risk_Map.py", "risk date")])
-def test_every_data_page_states_the_latest_available_date_of_its_own_date_kind(page, domain_word):
+@pytest.mark.parametrize("page", ["pages/1_NDMA_Casualties.py", "pages/2_NDMA_Damage.py", "pages/3_PMD_Weather.py", "pages/4_PDMA_Rainfall.py",
+                                  "pages/5_PDMA_Rivers.py", "pages/6_Risk_Map.py"])
+def test_every_data_page_states_the_latest_available_date_in_its_header(page):
     at = AppTest.from_file(str(DASH / page), default_timeout=180).run()
     assert not at.exception
-    text = _text(at)
-    assert FRESH.search(text), f"{page}: no freshness line"
-    assert domain_word in text, f"{page}: the date kind '{domain_word}' is not named"
+    assert FRESH.search(_text(at)), f"{page}: no freshness chip"
 
 
 @live
 def test_pmd_page_says_the_source_is_unavailable_instead_of_calling_old_data_current():
     at = AppTest.from_file(str(DASH / "pages" / "3_PMD_Weather.py"), default_timeout=180).run()
     text = _text(at)
-    assert "Source currently unavailable" in text and "no newer successful ingestion" in text
+    assert re.search(r"Source unavailable — latest successful snapshot: \d{2} \w{3} \d{4}", text) and "PMD sources answered HTTP 500" in text
     assert "LIVE" not in text
 
 
 @live
-def test_home_coverage_has_a_status_column_and_no_missing_value_is_zero():
+def test_home_freshness_table_states_each_source_and_no_missing_value_is_zero():
     at = AppTest.from_file(str(DASH / "Home.py"), default_timeout=180).run()
     assert not at.exception
-    cov = next(d.value for d in at.dataframe if "Latest available" in d.value.columns)
-    assert list(cov.columns)[:4] == ["Domain", "Records", "Latest available", "Status"]
-    assert not (cov["Latest available"].astype(str) == "0").any()
-    pmd = cov[cov["Domain"].str.startswith("PMD")].iloc[0]
-    assert "unavailable" in pmd["Status"] and pmd["Latest available"] != "n/a"
-    risk = cov[cov["Domain"].str.startswith("Operational risk")].iloc[0]
-    assert "may lag" in risk["Status"]
+    table = next(d.value for d in at.dataframe if "Last successful ingestion" in d.value.columns)
+    assert list(table.columns) == ["Source", "Date kind", "Latest available", "Last successful ingestion", "State"]
+    assert not (table["Latest available"].astype(str) == "0").any()
+    pmd = table[table["Source"].str.startswith("PMD")].iloc[0]
+    assert "Source unavailable" in pmd["State"] and pmd["Latest available"] != "n/a"
+    risk = table[table["Source"].str.startswith("Operational risk")].iloc[0]
+    assert risk["Date kind"] == "risk date"
+    labels = {m.label: m.value for m in at.metric}
+    assert labels["Numeric scores"] == "0" and "Score abstained" in labels
 
 
 @live
