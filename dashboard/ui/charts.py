@@ -64,9 +64,8 @@ def style_fig(fig: go.Figure, title: str | None = None, height: int = 340, *, xt
 
 
 def map_layout(fig: go.Figure, height: int = 600) -> go.Figure:
-    """The one map language: light-grey basemap for contrast with status fills, thin boundaries, no colour bar (a labelled legend is rendered as HTML)."""
+    """The one map language: satellite basemap (see dashboard/ui/maps.py), light boundaries, no colour bar (a labelled legend is rendered as HTML)."""
     fig.update_layout(template="pori", height=height, margin=dict(l=0, r=0, t=0, b=0), showlegend=False, uirevision="pori-map")      # uirevision keeps zoom/pan across filter changes
-    fig.update_traces(marker_line_color="#0B1220", marker_line_width=0.6, selector=dict(type="choroplethmap"))
     return fig
 
 

@@ -187,3 +187,15 @@ def test_transition_setting_is_in_the_shared_template_and_in_every_styled_figure
 def test_text_font_rule_does_not_break_the_icon_font():
     assert 'stIconMaterial"]' in CSS and "Material Symbols Rounded" in CSS
     assert CSS.index("Material Symbols Rounded") > CSS.index(".stApp span, .stApp div[data-testid")      # the icon override comes after the text-font rule so it wins
+
+
+def test_risk_maps_use_a_satellite_basemap_with_visible_status_outlines():
+    from dashboard.ui import maps
+    fc = {"type": "FeatureCollection", "features": [{"type": "Feature", "id": 1, "geometry": {"type": "Polygon", "coordinates": [[[70, 30], [71, 30], [71, 31], [70, 31], [70, 30]]]},
+                                                        "properties": {"admin_unit_id": 1, "admin_unit_name": "Lahore", "province": "Punjab", "risk_status": "LOW", "risk_date": "2026-09-16"}}]}
+    fig = maps.risk_choropleth(fc, selected_id=1)
+    layers = fig.layout.map.layers
+    assert fig.layout.map.style == "white-bg" and "World_Imagery" in layers[0].source[0] and all(layer.below == "traces" for layer in layers)
+    assert fig.data[0].marker.line.color == maps.BOUNDARY_LINE and fig.data[-1].marker.line.color == maps.SELECTED_LINE      # outlines survive map_layout
+    assert "Esri" in maps.ATTRIBUTION and "COD-AB" in maps.ATTRIBUTION
+    assert "Lahore" in fig.data[0].hovertext[0] and "Low" in fig.data[0].hovertext[0] and fig.layout.uirevision == "pori-map"

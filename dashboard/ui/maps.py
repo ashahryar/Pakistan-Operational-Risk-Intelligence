@@ -15,7 +15,17 @@ from dashboard.ui import tokens
 from dashboard.ui.charts import map_layout
 from dashboard.utils.risk_map_helpers import NO_DATA, STATUS_ORDER, map_frame, mapped_geojson
 
-ATTRIBUTION = "Boundaries: COD-AB v01 (2022-09-09, CC BY-IGO), a third-party dataset that is not government-certified. Basemap © OpenStreetMap contributors © CARTO."
+ATTRIBUTION = ("Boundaries: COD-AB v01 (2022-09-09, CC BY-IGO), a third-party dataset that is not government-certified. "
+               "Satellite imagery: Esri, Maxar, Earthstar Geographics, and the GIS User Community; place names: Esri.")
+
+# Satellite basemap as raster tiles (no API token). Place labels are a second raster layer so districts can be located on the imagery.
+SATELLITE_LAYERS = [
+    dict(below="traces", sourcetype="raster", source=["https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"],
+         sourceattribution="Esri, Maxar, Earthstar Geographics"),
+    dict(below="traces", sourcetype="raster", opacity=0.9, source=["https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}"]),
+]
+BOUNDARY_LINE = "#F8FAFC"        # light outlines separate the status fills from the imagery
+SELECTED_LINE = "#22D3EE"        # cyan: distinct from every status colour
 
 
 def risk_choropleth(fc: dict, *, selected_id: Optional[int] = None, height: int = 600, zoom: float = 4.3) -> Optional[go.Figure]:
@@ -31,12 +41,12 @@ def risk_choropleth(fc: dict, *, selected_id: Optional[int] = None, height: int 
                 f"{('risk date ' + str(r.risk_date)) if r.risk_date else 'no risk record'}<br>Numeric score: not computed" for r in part.itertuples()]
         fig.add_trace(go.Choroplethmap(
             geojson=gj, locations=part["admin_unit_id"], featureidkey="properties.admin_unit_id", z=[1] * len(part), showscale=False,
-            colorscale=[[0, tokens.status_fill(status)], [1, tokens.status_fill(status)]], marker=dict(opacity=0.78, line=dict(color="#0B1220", width=0.6)),
+            colorscale=[[0, tokens.status_fill(status)], [1, tokens.status_fill(status)]], marker=dict(opacity=0.62, line=dict(color=BOUNDARY_LINE, width=0.8)),
             name=f"{tokens.status_glyph(status)} {tokens.status_label(status)}", showlegend=False, hovertext=text, hoverinfo="text"))
     if selected_id is not None and selected_id in set(frame["admin_unit_id"]):
         fig.add_trace(go.Choroplethmap(
             geojson=gj, locations=[selected_id], featureidkey="properties.admin_unit_id", z=[1], showscale=False,
-            colorscale=[[0, "rgba(255,255,255,0)"], [1, "rgba(255,255,255,0)"]], marker=dict(opacity=1, line=dict(color="#FFFFFF", width=3)),
+            colorscale=[[0, "rgba(255,255,255,0)"], [1, "rgba(255,255,255,0)"]], marker=dict(opacity=1, line=dict(color=SELECTED_LINE, width=3.5)),
             name="Selected area", showlegend=False, hoverinfo="skip"))
-    fig.update_layout(map=dict(style="carto-positron", zoom=zoom, center=dict(lat=30.4, lon=69.5)), height=height, clickmode="event+select")
+    fig.update_layout(map=dict(style="white-bg", layers=SATELLITE_LAYERS, zoom=zoom, center=dict(lat=30.4, lon=69.5)), height=height, clickmode="event+select")
     return map_layout(fig, height)
