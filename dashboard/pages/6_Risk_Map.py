@@ -141,6 +141,12 @@ c[2].metric("Areas without geometry", summary["areas_without_geometry"])
 c[3].metric("HIGH", summary["high"])
 c[4].metric("CRITICAL", summary["critical"])
 c[5].metric("INSUFFICIENT_DATA", summary["insufficient_data"])
+s1, s2, s3 = st.columns(3)
+s1.metric("Areas with a numeric score", summary["areas_scored"])
+s2.metric("Areas where the score is abstained", summary["areas_score_abstained"])
+s3.metric("Latest risk date", max(all_dates) if all_dates else "n/a")
+st.caption("A status with no score is an ABSTAINED score, not a low risk: a numeric score needs at least two independent eligible signal groups with "
+           "evidence-based weights, which do not exist yet. INSUFFICIENT_DATA means no usable signal was observed. Missing evidence is never shown as low risk.")
 st.caption(f"Scope: {level_label.lower()}s · {province} · status {status} · date "
            f"{date_choice if date_p else 'latest available per area'}")
 

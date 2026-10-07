@@ -76,7 +76,7 @@ def test_live_one_current_row_per_unit_and_horizon(conn):
 
 def test_existing_tables_are_unchanged_by_the_ml_layer(conn):
     assert conn.execute(text("SELECT count(*) FROM dq.quarantine")).scalar_one() == 158
-    assert conn.execute(text("SELECT count(*) FROM risk.operational_risk")).scalar_one() == 1586
+    assert conn.execute(text("SELECT count(*) FROM risk.operational_risk")).scalar_one() == 1771   # Task 39: 1,586 + 185 gauge-attributable rows (Chashma/Mianwali, Trimmu/Jhang)
     assert conn.execute(text("SELECT count(*) FROM risk.operational_risk WHERE risk_score IS NOT NULL")).scalar_one() == 0
 
 

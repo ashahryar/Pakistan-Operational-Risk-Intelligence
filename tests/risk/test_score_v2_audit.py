@@ -48,4 +48,4 @@ def test_every_assessed_signal_carries_provenance(report):
 
 def test_the_audit_never_touches_risk_rows_or_scores():
     rows = [json.loads(x) for x in (A.PROJECT_ROOT / "data" / "analytics" / "risk" / "gold_operational_risk.jsonl").read_text(encoding="utf-8").splitlines() if x.strip()]
-    assert len(rows) == 1586 and all(r["risk_score"] is None for r in rows)
+    assert len(rows) == 1771 and all(r["risk_score"] is None for r in rows)

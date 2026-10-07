@@ -98,7 +98,7 @@ def test_provenance_geography_and_dates_are_honest(conn):
 @live
 def test_existing_data_is_untouched(conn):
     assert {r["level"]: r["n"] for r in q(conn, "SELECT level, count(*) n FROM geo.admin_unit GROUP BY 1")} == {0: 1, 1: 7, 2: 69}
-    assert q(conn, "SELECT count(*) n FROM risk.operational_risk WHERE is_current")[0]["n"] == 1586
+    assert q(conn, "SELECT count(*) n FROM risk.operational_risk WHERE is_current")[0]["n"] == 1771   # Task 39: 1,586 + 185 gauge-attributable rows (Chashma/Mianwali, Trimmu/Jhang)
     assert q(conn, "SELECT count(*) FILTER (WHERE quarantine_id <= 112) a, count(*) FILTER (WHERE quarantine_id BETWEEN 104 AND 112) b FROM dq.quarantine")[0] == {"a": 112, "b": 9}
     assert all(r["is_paused"] for r in q(conn, "SELECT is_paused FROM dag"))
     assert not q(conn, "SELECT 1 FROM pg_extension WHERE extname IN ('postgis', 'vector')")

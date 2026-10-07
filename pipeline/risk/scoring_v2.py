@@ -157,6 +157,25 @@ def abstain_from_stored_row(row: dict, cfg: dict) -> dict:
     for domain in cfg["independence_groups"]:
         if domain in cfg.get("contextual_domains", {}):
             excluded.append({"domain": domain, "eligibility": OUT_OF_SCOPE, "reason": "contextual domain"})
+    observed = sorted(d for d, v in states.items() if v is not None)
+    numeric = [d for d in cfg["numeric_domains"]]
     return {"score_status": ABSTAINED, "score_version": cfg["score_version"], "abstention_reason": reason,
             "abstention_text": ABSTENTION_TEXT.get(reason, "the score was not computed for this row"), "required_signal_count": cfg["required_independent_groups"],
-            "contributing_signals": [], "excluded_signals": excluded, "observed_domains": sorted(d for d, v in states.items() if v is not None)}
+            "contributing_signals": [], "excluded_signals": excluded, "observed_domains": observed,
+            "evidence_available": observed, "evidence_missing": sorted(d for d in numeric if d not in observed),
+            "evidence_required": evidence_required(cfg),
+            "interpretation": INTERPRETATION}
+
+
+INTERPRETATION = ("risk_status summarises the observed signals against PROVISIONAL thresholds. A null risk_score means no defensible numeric aggregate exists for this row; "
+                  "it does NOT mean low risk or no risk. INSUFFICIENT_DATA means no usable signal was observed.")
+
+
+def evidence_required(cfg: dict) -> list[str]:
+    """What a numeric score would need (read from the contract, never invented)."""
+    return [f"at least {cfg['required_independent_groups']} independent eligible signal groups for the same area and date "
+            f"({', '.join(sorted(set(cfg['independence_groups'].values())))})",
+            f"at least {cfg['min_history_for_score']} prior observations of each contributing signal for the same area",
+            "a resolved, non-caveated geography backed by authoritative evidence",
+            "a positive weight with a non-empty evidence reference for each contributing group (none exist)",
+            "scoring enabled in config/risk_score_v2.yaml (currently disabled)"]

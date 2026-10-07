@@ -6,77 +6,84 @@
   "distinct_admin_units": 62,
   "gauge_geography": {
     "boundary_available": true,
-    "eligible_stations": 0,
+    "eligible_stations": 2,
     "geography_derivation_counts": {
-      "inferred": 5,
-      "none": 36
+      "coordinate_based": 1,
+      "inferred": 4,
+      "none": 35,
+      "source_reported": 1
     },
     "mapping_status_counts": {
       "ambiguous": 2,
       "caveated": 1,
-      "resolved_inferred": 4,
-      "unresolved": 34
+      "resolved_authoritative": 1,
+      "resolved_coordinate": 1,
+      "resolved_inferred": 3,
+      "unresolved": 33
     },
-    "mapping_version": "gauge-geo-2.0.0",
+    "mapping_version": "gauge-geo-3.0.0",
     "stations": 41
   },
   "ml_unavailable_reasons": {
-    "no_eligible_prediction": 1586
+    "no_eligible_prediction": 1556,
+    "prediction_not_made_on_cell_date": 213
   },
   "risk_basis_distribution": {
     "ALERT_DRIVEN": 7,
     "MULTI_SIGNAL": 8,
-    "OBSERVED_SIGNAL_ONLY": 1221,
-    "THRESHOLD_BASED": 350
+    "OBSERVED_SIGNAL_ONLY": 1280,
+    "THRESHOLD_BASED": 476
   },
   "risk_confidence_distribution": {
-    "INSUFFICIENT": 1221,
-    "MEDIUM": 365
+    "INSUFFICIENT": 1280,
+    "MEDIUM": 491
   },
-  "risk_rows": 1586,
+  "risk_rows": 1771,
   "risk_status_distribution": {
-    "CRITICAL": 6,
-    "HIGH": 20,
-    "INSUFFICIENT_DATA": 1221,
-    "LOW": 318,
-    "MODERATE": 21
+    "CRITICAL": 22,
+    "HIGH": 36,
+    "INSUFFICIENT_DATA": 1280,
+    "LOW": 385,
+    "MODERATE": 48
   },
-  "rows_with_ml_forecast": 0,
+  "rows_with_ml_forecast": 2,
   "rows_with_risk_score": 0,
   "signal_state_counts": {
     "air_quality": {
       "INSUFFICIENT_HISTORY": 14,
-      "MISSING": 1236,
+      "MISSING": 1421,
       "OBSERVED": 336
     },
     "disaster_event": {
-      "MISSING": 1026,
+      "MISSING": 1211,
       "OBSERVED_NO_BASELINE": 560
     },
     "gauge": {
-      "MISSING": 1586
+      "INSUFFICIENT_HISTORY": 28,
+      "MISSING": 1585,
+      "OBSERVED": 158
     },
     "hazard_alert": {
-      "MISSING": 1571,
+      "MISSING": 1756,
       "OBSERVED": 15
     },
     "rainfall": {
       "GEOGRAPHY_CAVEAT": 44,
       "INSUFFICIENT_HISTORY": 164,
-      "MISSING": 926,
+      "MISSING": 1111,
       "OBSERVED": 452
     },
     "weather": {
       "INSUFFICIENT_HISTORY": 27,
-      "MISSING": 1559
+      "MISSING": 1744
     }
   },
   "threshold_status": "PROVISIONAL",
   "unresolved_by_domain": {
-    "gauge": 3499,
+    "gauge": 3313,
     "hazard_alert": 2,
     "rainfall": 209,
     "weather": 12
   },
-  "unresolved_signal_records": 3722
+  "unresolved_signal_records": 3536
 }

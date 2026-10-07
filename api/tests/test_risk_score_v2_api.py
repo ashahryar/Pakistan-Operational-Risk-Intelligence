@@ -45,3 +45,11 @@ def test_endpoint_serves_the_block_and_stays_backward_compatible(monkeypatch):
 
 def test_a_stored_score_would_be_passed_through_not_recomputed():
     assert _shape(full_row(risk_score=41.5))["score_v2"]["score_status"] == "SCORED"
+
+
+def test_task39_abstention_explains_evidence_and_never_reads_as_low_risk():
+    s = _shape(full_row())["score_v2"]
+    assert s["evidence_available"] == ["air_quality", "disaster_event", "hazard_alert", "rainfall"] and s["evidence_missing"] == ["gauge", "weather"]
+    assert len(s["evidence_required"]) == 5 and "does NOT mean low risk" in s["interpretation"]
+    empty = _shape(full_row(rainfall_signal=None, air_quality_signal=None, hazard_alert_signal=None, disaster_event_signal=None, risk_status="INSUFFICIENT_DATA"))
+    assert empty["score_v2"]["evidence_available"] == [] and empty["risk_score"] is None and empty["risk_status"] == "INSUFFICIENT_DATA"

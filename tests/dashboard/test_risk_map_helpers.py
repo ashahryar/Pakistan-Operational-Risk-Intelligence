@@ -129,3 +129,10 @@ def test_dates_and_level_filter_helpers():
     rows = [{"risk_date": "2026-09-01", "admin_level": 1}, {"risk_date": "2026-09-16", "admin_level": 2}, {"risk_date": "2026-09-16", "admin_level": 2}, {"admin_level": 2}]
     assert dates_from_rows(rows) == ["2026-09-16", "2026-09-01"]
     assert len(filter_rows(rows, 2)) == 3 and len(filter_rows(rows, None)) == 4
+
+
+def test_score_coverage_separates_abstained_from_scored_and_from_no_data():
+    import pandas as pd
+    from dashboard.utils.risk_map_helpers import score_coverage
+    df = pd.DataFrame({"risk_status": ["LOW", "HIGH", "INSUFFICIENT_DATA", None], "risk_score": [None, 61.0, None, None]})
+    assert score_coverage(df) == {"areas_scored": 1, "areas_score_abstained": 2}      # the area with no status at all is neither

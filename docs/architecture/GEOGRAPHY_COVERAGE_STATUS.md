@@ -72,7 +72,7 @@ Trimmu was a secondary-only candidate (Jhang) in Task 37; the same district now 
 | cells with ≥ 1 eligible signal group | 358 | 484 |
 | cells with 2 independent groups | 8 | 8 |
 
-Neither Mianwali nor Jhang has an eligible signal from another independence group, so no cell gains a second group. The stored risk table was **not** regenerated: it still has 1,586 rows with `risk_score` NULL; the 126 newly eligible observations exist in the audit, not in the database.
+Neither Mianwali nor Jhang has an eligible signal from another independence group, so no cell gains a second group. Task 39 then regenerated the risk output so production matches the audit: `risk.operational_risk` went from 1,586 to 1,771 rows (185 new Mianwali/Jhang rows, none removed, `risk_score` still NULL on every row).
 
 ## Administrative crosswalk (unchanged in Task 38)
 

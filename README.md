@@ -46,6 +46,16 @@ The project is built as a learning-oriented, end-to-end data engineering exercis
 
 ---
 
+## ✅ Project status (final)
+
+The platform is an **evidence-first** operational risk system: every geography mapping, signal and risk row can be traced to a source, and where evidence is insufficient it **abstains** instead of guessing. Full reviewer-oriented description: [`docs/architecture/FINAL_SYSTEM_STATUS.md`](docs/architecture/FINAL_SYSTEM_STATUS.md).
+
+- **Pipeline:** sources → extraction → raw → parsing → validation / quarantine → PostgreSQL 15 → Gold → risk engine → read-only FastAPI → Streamlit. Seven Airflow DAGs exist and are intentionally paused.
+- **Geography:** 69 canonical districts; aliases and gauge-station mappings are added only from official evidence (`config/crosswalk_evidence.yaml`, `config/gauge_station_evidence.yaml`). 2 of 41 gauge stations are mapped (Chashma → Mianwali, Trimmu → Jhang); the rest stay unresolved, conflicting or secondary-only.
+- **Risk:** 1,771 risk rows with provisional-threshold statuses. **`risk_score` is NULL everywhere and `score_v2` is ABSTAINED by design:** there are no outcome labels or evidence-based weights, and only 8 of 1,771 cells have the two independent signal groups a score would need. A NULL score is not "low risk" (the API and dashboard say so).
+- **RAG / intelligence / agent:** traceable, read-only, abstaining when evidence is missing. **ML:** experimental baseline forecasts that never feed a score.
+- **Limitations** (incomplete gauge geography, one weather date, Lahore-only continuous air quality, no labels, official sources that were unreachable) are listed in the status document.
+
 ## 🏗️ System Architecture
 
 <p align="center">
@@ -331,6 +341,30 @@ By default it connects to `localhost:5433` (the Docker-Compose-published Postgre
 
 ---
 
+### 7. Run it locally (API, dashboard, tests)
+```bash
+docker compose up -d --build postgres api dashboard   # PostgreSQL 15 + read-only API (8000) + dashboard (8501); Airflow is not needed
+curl http://localhost:8000/health                      # {"status":"ok","database":true}
+curl "http://localhost:8000/api/v1/risk/latest?admin_unit_id=30"   # risk_score null + score_v2 ABSTAINED + evidence_* explanation
+```
+Regenerate the evidence and risk outputs (deterministic; no database write except the last command, a non-destructive upsert):
+```bash
+python scripts/gold/run_gold.py
+python scripts/geo/run_gauge_geography.py        # gauge mapping from config/gauge_station_evidence.yaml
+python scripts/risk/run_risk_engine.py
+python scripts/risk/validate_risk_output.py
+python scripts/risk/audit_score_v2.py            # why the score abstains
+python scripts/geo/audit_coverage_task37.py      # geography evidence and coverage audit
+python scripts/risk/load_risk_serving.py         # upsert into risk.operational_risk
+```
+Tests (host, then the container that has Airflow for the DAG-integrity test):
+```bash
+python -m pytest --ignore=tests/test_dag_integrity.py
+docker exec -w /opt/project -e PYTHONPATH=/opt/project airflow_webserver python -m pytest tests/test_dag_integrity.py tests/geo tests/risk
+```
+
+---
+
 ## ⚙️ Configuration
 
 Configuration is read across `config/config/*.py`, `pipeline/helpers/*.py`, and `docker-compose.yml`. No `.env.example` ships in this repository — create your own `.env` with the following structure (placeholders only — never commit real credentials):
@@ -395,14 +429,15 @@ python aws/s3/upload.py raw
 
 ## ⚠️ Known Limitations / Implementation Status
 
-- **AWS Glue and Amazon Redshift were removed from the architecture (Task 16A, Phase 1 / ADR-0001).** The replacement analytical/lakehouse layer, Databricks + Spark + Delta Lake, is scaffolded under `databricks/` but not yet connected to a live workspace or wired into the pipeline. PostgreSQL + S3 remain the actual, currently-running system of record.
-- **The star-schema warehouse (`scripts/warehouse/`) is unused.** Its dimension/fact loaders exist but are not called by any DAG, script, or the dashboard.
-- **The risk engine (`scripts/risk_engine/risk_engine.py`) is not scheduled.** It computes and can write to `operational_risk`, but must currently be run manually.
-- **Sensors (`pipeline/sensors/`) are standalone scripts, not Airflow Sensor operators.** No DAG imports them; "new PDF" detection is not currently automatic.
-- **`scripts/database/models.py`** defines a `PDMAReport` SQLAlchemy model / `pdma_reports` table with no corresponding table in `create_tables.py` — leftover, unused code.
-- **The dashboard is not containerized** in `docker-compose.yml`; it must be run separately with `streamlit run`.
-- **No automated test suite** is currently present in the repository.
-- This project is a **development-stage** platform intended for learning and portfolio purposes, and has not been hardened for production use.
+- **No numeric risk score.** `risk_score` is NULL by design (no outcome labels, no evidence-based weights); statuses use provisional thresholds. See [`RISK_SCORE_V2_STATUS.md`](docs/architecture/RISK_SCORE_V2_STATUS.md).
+- **Gauge geography is mostly unresolved:** 39 of 41 stations have no authoritative district mapping ([`GEOGRAPHY_COVERAGE_STATUS.md`](docs/architecture/GEOGRAPHY_COVERAGE_STATUS.md)). Canonical geography has 69 districts and was deliberately not extended (for example Swabi, needed for Tarbela).
+- **Weather has a single dated observation; continuous air-quality data exists for Lahore only.**
+- **Official sources FFC and IRSA were unreachable during development**; some evidence may exist there.
+- **The Airflow DAGs are paused** and have not been run unattended; the stages are run by hand (commands above).
+- **AWS:** only S3 upload code is active; Glue and Redshift were retired (ADR-0001), Databricks/Delta is scaffolded and not connected; nothing paid is deployed.
+- **ML forecasts are experimental baselines** and never feed a status or score.
+- **No real language model** was available for RAG/agent evaluation; validators and abstention paths are tested with a scripted provider.
+- The star-schema warehouse (`scripts/warehouse/`) and `pipeline/sensors/` are unused scaffolding.
 
 ---
 

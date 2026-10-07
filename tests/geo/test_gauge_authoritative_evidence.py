@@ -179,4 +179,4 @@ def test_newly_eligible_gauge_signals_still_abstain_and_never_score():
     assert S.R_DISABLED in cell["abstention_reasons"] and S.SERVING_CONFIG["enabled"] is False and S.SERVING_CONFIG["weights"] == {}
     assert AUDIT["scoring_enabled"] is False and AUDIT["cells_scored"] == 0 and AUDIT["score_v2_outcome"] == "B"
     rows = [json.loads(x) for x in (ROOT / "data" / "analytics" / "risk" / "gold_operational_risk.jsonl").read_text(encoding="utf-8").splitlines() if x.strip()]
-    assert len(rows) == 1586 and all(r["risk_score"] is None for r in rows)
+    assert len(rows) == 1771 and all(r["risk_score"] is None for r in rows)

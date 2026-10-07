@@ -99,7 +99,16 @@ def summarize(fc: dict, risk_rows: Optional[Iterable[dict]] = None) -> dict:
         "high": int(counts.get("HIGH", 0)), "critical": int(counts.get("CRITICAL", 0)),
         "insufficient_data": int(counts.get("INSUFFICIENT_DATA", 0)),
         "by_status": {s: int(counts.get(s, 0)) for s in STATUS_ORDER if counts.get(s, 0)},
+        **score_coverage(df),
     }
+
+
+def score_coverage(df: pd.DataFrame) -> dict:
+    """Task 39: scored vs abstained areas. An area with a status but a null score is ABSTAINED (no defensible numeric aggregate),
+    which is a different state from a low risk and from 'no data'."""
+    has_status = df["risk_status"].notna()
+    scored = int((has_status & df["risk_score"].notna()).sum()) if "risk_score" in df else 0
+    return {"areas_scored": scored, "areas_score_abstained": int(has_status.sum()) - scored}
 
 
 def risk_score_text(score: Optional[float]) -> str:

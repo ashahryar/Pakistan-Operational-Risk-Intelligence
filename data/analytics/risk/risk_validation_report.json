@@ -1,7 +1,7 @@
 {
-  "rows_checked": 1586,
-  "explanations_checked": 1586,
-  "unresolved_records": 3722,
+  "rows_checked": 1771,
+  "explanations_checked": 1771,
+  "unresolved_records": 3536,
   "failures": [],
   "passed": true
 }

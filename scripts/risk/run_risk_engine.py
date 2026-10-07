@@ -116,7 +116,7 @@ def main() -> dict:
         "risk_confidence_distribution": dict(sorted(Counter(r["risk_confidence"] for r in rows).items())),
         "rows_with_risk_score": sum(1 for r in rows if r["risk_score"] is not None),
         "rows_with_ml_forecast": sum(1 for r in rows if r["ml_forecast_available"]),
-        "ml_unavailable_reasons": dict(Counter(r["ml_unavailable_reason"] for r in rows)),
+        "ml_unavailable_reasons": dict(sorted(Counter(r["ml_unavailable_reason"] for r in rows if r["ml_unavailable_reason"]).items())),
         "signal_state_counts": {d: dict(Counter(r["signal_states"][d] for r in rows)) for d in
                                 sorted({d for r in rows for d in r["signal_states"]})},
         "unresolved_signal_records": len(result["unresolved"]),

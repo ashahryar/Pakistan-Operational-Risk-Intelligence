@@ -2,6 +2,9 @@
 
 **Outcome B: a defensible numeric score is NOT yet possible. `risk_score` stays NULL for all 1,586 rows.** What shipped is the auditable framework (evidence contract, eligibility matrix, contribution and provenance contracts, an aggregation path that refuses to run without evidence-based weights) and the audit that proves the conclusion. The existing engine (`risk-engine-1.0.0`: status, basis, confidence) is untouched.
 
+**Update (Task 39, current numbers).** After the Task 38 gauge mappings the audit assesses 1,771 cells (equal to the rows of `risk.operational_risk`): 1,287 with no eligible signal group, 476 with one, **8 with two**; 0 scored. Eligible observations: air quality 320, rainfall 46, gauge 126 (Mianwali and Jhang), weather 0. Abstention reasons: `SCORE_V2_DISABLED` 1,771 · `NO_ELIGIBLE_SIGNAL` 1,287 · `TOO_FEW_INDEPENDENT_SIGNAL_GROUPS` 476 · `NO_EVIDENCE_BASED_WEIGHTS` 484. The rest of this page is the Task 36 record (1,586 cells, gauge 0 % resolved) and is kept as history. Served abstention blocks now also carry `evidence_available`, `evidence_missing`, `evidence_required` and an `interpretation`. See [FINAL_SYSTEM_STATUS.md](FINAL_SYSTEM_STATUS.md).
+
+
 Machine-readable audit: `data/analytics/risk/score_v2_audit.json` (`python scripts/risk/audit_score_v2.py`, deterministic and idempotent, no database writes).
 
 ## Why no score (measured, not assumed)
