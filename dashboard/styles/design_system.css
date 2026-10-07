@@ -102,3 +102,5 @@ hr{border-color:var(--border)!important; margin:var(--s5) 0!important;}
 }
 /* the page title now lives in the shared page header: hide the duplicated legacy titles and per-page sidebar brands */
 .ndma-main-title, .wx-main-title, .ob-main-title, .im-main-title, .im-side-brand, .ob-side-brand, .wx-side-brand{display:none!important;}
+/* icon slots whose pictograph was removed must not leave empty boxes */
+.ob-title-icon:empty, .ob-status-title .icon:empty, .ob-card-title .icon:empty, [class$="-icon"]:empty, [class*="-icon "]:empty{display:none!important;}

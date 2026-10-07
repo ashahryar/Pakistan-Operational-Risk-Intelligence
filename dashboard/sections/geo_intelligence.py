@@ -22,7 +22,7 @@ from dashboard.utils.geo_helpers import summarize_geo_observations
 
 def render_geo_intelligence_section(geo_summary: pd.DataFrame) -> None:
 
-    st.markdown("## 🗺 Geographic Observation Intelligence")
+    st.markdown("##  Geographic Observation Intelligence")
 
     if geo_summary.empty:
 
@@ -39,25 +39,25 @@ def render_geo_intelligence_section(geo_summary: pd.DataFrame) -> None:
 
     with k1:
         st.metric(
-            "📊 Resolved Observations",
+            "Resolved Observations",
             f"{stats['total_observations']:,}",
         )
 
     with k2:
         st.metric(
-            "🗺 Admin Units Covered",
+            "Admin Units Covered",
             f"{stats['admin_unit_count']:,}",
         )
 
     with k3:
         st.metric(
-            "🏷 Data Sources",
+            "Data Sources",
             f"{geo_summary['source'].nunique():,}",
         )
 
     with k4:
         st.metric(
-            "🧭 Domains Resolved",
+            "Domains Resolved",
             f"{geo_summary['domain'].nunique():,}",
         )
 
@@ -79,7 +79,7 @@ def render_geo_intelligence_section(geo_summary: pd.DataFrame) -> None:
 
         with st.container(border=True):
 
-            st.markdown("##### 🧾 Source / Domain Breakdown")
+            st.markdown("#####  Source / Domain Breakdown")
 
             st.dataframe(
                 stats["by_source_domain"],

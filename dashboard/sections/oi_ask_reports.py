@@ -7,6 +7,7 @@ import streamlit as st
 
 from dashboard.api_client import RiskApiClient
 from dashboard.utils.api_cache import cached_api
+from dashboard.utils.summary_helpers import ENABLE_HINT, example_line, extractive_passages, passage_markdown
 from dashboard.utils.rag_helpers import FALLBACK_PROVINCES, MODES, SOURCES, citation_rows, evidence_caption, evidence_rows, relevance_notice, status_banner
 
 
@@ -45,6 +46,7 @@ def render() -> None:
         source = c3.selectbox("Source", [ALL] + SOURCES)
         top_k = c4.slider("Evidence passages", 1, 10, 5)
         submitted = st.form_submit_button("Ask")
+    st.caption(example_line(["How many people died in the floods reported by NDMA?", "What did NDMA report about damaged houses in Sindh?"]))
 
     if submitted:
         if len((question or "").strip()) < 2:
@@ -67,6 +69,12 @@ def render() -> None:
         if body.get("answer"):
             st.subheader("Answer")
             st.markdown(body["answer"])
+        elif body.get("evidence"):
+            st.markdown("**Most relevant passages** — verbatim excerpts in the system's relevance order; this is not an AI summary and not an answer.")
+            for p in extractive_passages(body["evidence"]):
+                st.markdown(passage_markdown(p))
+            if status == "LLM_UNAVAILABLE":
+                st.caption(ENABLE_HINT)
         model = body.get("model") or {}
         r = body.get("retrieval") or {}
         st.caption(f"Retrieval: {r.get('mode')} ({r.get('method')}) · {r.get('evidence_count')} passages · "

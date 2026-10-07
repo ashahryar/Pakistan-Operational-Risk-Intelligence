@@ -187,7 +187,7 @@ def province_risk_ranking_bar(
 
     return _apply_base_layout(
         fig,
-        "🏆 Provinces by reported casualties",
+        "Provinces by reported casualties",
         360,
     )
 
@@ -302,7 +302,7 @@ def deaths_vs_injured_grouped_bar(
 
         fig,
 
-        "⚖ Deaths vs Injured by Province",
+        "Deaths vs Injured by Province",
 
         360,
 
@@ -447,7 +447,7 @@ def casualty_trend_line(
 
         fig,
 
-        "📈 National Casualty Trend",
+        "National Casualty Trend",
 
         390,
 
@@ -677,7 +677,7 @@ def disaster_heatmap(
 
         fig,
 
-        "🔥 Disaster Intensity Heatmap",
+        "Disaster Intensity Heatmap",
 
         300,
 

@@ -101,5 +101,5 @@ def geo_observation_bar(by_admin_unit: pd.DataFrame, top_n: int = 15):
     fig.update_yaxes(showgrid=False, automargin=True)
 
     return _apply_base_layout(
-        fig, "🗺 Resolved Observations by Admin Unit", 400
+        fig, "Resolved Observations by Admin Unit", 400
     )

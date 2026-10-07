@@ -45,7 +45,7 @@ pio.templates.default = "pori"
 
 
 def style_fig(fig: go.Figure, title: str | None = None, height: int = 340, *, xtitle: str | None = None, ytitle: str | None = None, source: str | None = None,
-              slider: bool = False) -> go.Figure:
+              slider: bool = False, bottom: Optional[int] = None) -> go.Figure:
     """Apply the standard layout. `source` is written under the chart as a source note."""
     fig.update_layout(template="pori", height=height, transition=TRANSITION, **({"title": dict(text=title)} if title else {}))
     if xtitle is not None:
@@ -53,7 +53,7 @@ def style_fig(fig: go.Figure, title: str | None = None, height: int = 340, *, xt
     if ytitle is not None:
         fig.update_yaxes(title_text=ytitle)
     if source:
-        bottom = 150 if slider else 78                                   # room for the x-axis title, the optional range slider and the source note
+        bottom = bottom or (150 if slider else 78)                       # room for the x-axis title, the optional range slider and the source note
         m = fig.layout.margin
         top = m.t if m.t is not None else 44
         fig.update_layout(margin=dict(l=m.l if m.l is not None else 8, r=m.r if m.r is not None else 8, t=top, b=max(m.b or 0, bottom)))
@@ -155,14 +155,50 @@ def animated_bars(df: pd.DataFrame, category: str, value: str, frame: str, *, ti
     fig = go.Figure(data=[bar(frames[-1])], frames=[go.Frame(data=[bar(f)], name=f"{pd.Timestamp(f):{frame_label}}") for f in frames])
     steps = [dict(method="animate", label=f"{pd.Timestamp(f):%d %b}", args=[[f"{pd.Timestamp(f):{frame_label}}"], dict(mode="immediate", frame=dict(duration=0, redraw=True),
                                                                                                                       transition=dict(duration=250))]) for f in frames]
+    plot_h = max(height + 60 - 70 - 170, 1)
+    ctrl_y = -78 / plot_h                                                # controls sit below the axis title, above the source note
     fig.update_layout(
         xaxis=dict(range=[0, vmax], title=unit), yaxis=dict(title=""), showlegend=False,
-        updatemenus=[dict(type="buttons", direction="left", x=0, y=-0.12, xanchor="left", bgcolor=P["elevated"], bordercolor=P["border"], font=dict(color=P["text"]),
+        updatemenus=[dict(type="buttons", direction="left", x=0, y=ctrl_y, xanchor="left", yanchor="top", active=-1, bgcolor=P["elevated"], bordercolor=P["border"],
+                          font=dict(color=P["text"], size=12), pad=dict(l=2, r=2, t=2, b=2),
                           buttons=[dict(label="Play", method="animate", args=[None, dict(frame=dict(duration=450, redraw=True), transition=dict(duration=250), fromcurrent=True)]),
                                    dict(label="Pause", method="animate", args=[[None], dict(mode="immediate", frame=dict(duration=0, redraw=False), transition=dict(duration=0))])])],
-        sliders=[dict(active=len(frames) - 1, steps=steps, x=0.16, len=0.84, y=-0.1, currentvalue=dict(prefix="Report date: ", font=dict(color=P["text_2"], size=12)),
-                      bgcolor=P["surface"], bordercolor=P["border"], font=dict(color=P["muted"], size=11))])
-    return style_fig(fig, title, height, source=f"Source: {source} · press Play to step through {len(frames)} report dates (axis fixed at 0–{vmax:,.0f} {unit})")
+        sliders=[dict(active=len(frames) - 1, steps=steps, x=0.18, len=0.8, y=ctrl_y, yanchor="top", currentvalue=dict(prefix="Report date: ", font=dict(color=P["text_2"], size=12), xanchor="left"),
+                      bgcolor=P["surface"], bordercolor=P["border"], activebgcolor=P["primary"], tickcolor=P["muted"], font=dict(color=P["muted"], size=10), ticklen=3)])
+    sub = f"Source: {source} · {len(frames)} report dates · axis fixed at 0–{vmax:,.0f} {unit} · press Play to step through"
+    fig = style_fig(fig, f"{title}<br><sup style='color:{P['muted']}'>{sub}</sup>", height + 60, slider=True, bottom=170)     # the source sits in the subtitle: nothing collides with the slider
+    fig.update_layout(margin=dict(l=8, r=8, t=70, b=170))
+    return fig
+
+
+def heatmap(z: pd.DataFrame, *, title: str, unit: str, source: str, height: Optional[int] = None, xlabel: str = "", ylabel: str = "", zmin: Optional[float] = None,
+            fmt: str = ",.0f") -> Optional[go.Figure]:
+    """Matrix of intensity (rows x columns). Missing cells stay empty (grey), never 0. One sequential blue scale: intensity, not risk."""
+    if z is None or z.empty:
+        return None
+    zz = z.astype(float)
+    xs = [str(c)[:10] if not isinstance(c, str) else c for c in zz.columns]
+    fig = go.Figure(go.Heatmap(z=zz.values, x=xs, y=[str(i) for i in zz.index], colorscale=[[0, "#13213A"], [0.35, "#1D4ED8"], [0.7, "#60A5FA"], [1, "#E0F2FE"]], zmin=zmin,
+                               xgap=1, ygap=1, hoverongaps=False, colorbar=dict(title=dict(text=unit, font=dict(size=11)), thickness=10, tickfont=dict(size=11)),
+                               hovertemplate="<b>%{y}</b><br>%{x}<br>%{z:" + fmt + "} " + unit + "<br><i>" + source + "</i><extra></extra>"))
+    fig.update_xaxes(title_text=xlabel, side="bottom", showgrid=False)
+    fig.update_yaxes(title_text=ylabel, autorange="reversed", showgrid=False)
+    return style_fig(fig, title, height or max(260, 26 * len(zz.index) + 140), source=f"Source: {source} · empty cells = no value reported (not zero)")
+
+
+def status_by_group(df: pd.DataFrame, group: str, status: str, *, title: str, source: str = "PORI risk engine (provisional thresholds)", height: Optional[int] = None) -> Optional[go.Figure]:
+    """Stacked horizontal bars: for each group (e.g. province) how many areas fall in each operational status. Colours and glyph labels come from the shared status palette."""
+    if df is None or df.empty or group not in df or status not in df:
+        return None
+    t = df.groupby([group, status]).size().unstack(fill_value=0)
+    order = [s for s in ("CRITICAL", "HIGH", "MODERATE", "LOW", "INSUFFICIENT_DATA", "NO_SIGNAL", "NO_RISK_DATA") if s in t.columns]
+    if not order:
+        return None
+    t = t[order].loc[t[order].sum(axis=1).sort_values().index]
+    fig = go.Figure([go.Bar(y=t.index, x=t[s], name=tokens.status_text(s), orientation="h", marker_color=tokens.status_fill(s),
+                            hovertemplate="<b>%{y}</b><br>" + tokens.status_text(s) + ": %{x} areas<br><i>" + source + "</i><extra></extra>") for s in order])
+    fig.update_layout(barmode="stack", legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0), margin=dict(l=8, r=16, t=84, b=8))
+    return style_fig(fig, title, height or max(240, 30 * len(t) + 150), xtitle="Areas", ytitle="", source=f"Source: {source}")
 
 
 def status_distribution(counts: dict[str, int], *, title: str = "Areas by operational status", source: str = "PORI risk engine (provisional thresholds)",

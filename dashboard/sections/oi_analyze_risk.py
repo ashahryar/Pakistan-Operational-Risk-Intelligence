@@ -10,6 +10,7 @@ import streamlit as st
 from dashboard.api_client import RiskApiClient
 from dashboard.utils.api_cache import cached_api
 from dashboard.utils.intelligence_helpers import area_options, ml_caption, ml_table, risk_metrics, score_caption, signal_summary, status_banner
+from dashboard.utils.summary_helpers import ENABLE_HINT, example_line, operational_summary
 from dashboard.utils.rag_helpers import MODES, evidence_caption, evidence_rows, relevance_notice
 
 
@@ -51,6 +52,7 @@ def render() -> None:
         use_date = st.checkbox("Look up the risk on a specific date (otherwise the latest available)")
         risk_date = st.date_input("Risk date", value=date.today()) if use_date else None
         submitted = st.form_submit_button("Ask")
+    st.caption(example_line())
 
     if submitted:
         if len((question or "").strip()) < 2:
@@ -73,6 +75,12 @@ def render() -> None:
         qc = body.get("question_context") or {}
         unit = qc.get("admin_unit")
         st.caption("Area: " + (f"{unit['name']} ({qc.get('target_basis')})" if unit else f"not determined ({qc.get('geography_status')})"))
+        summary = operational_summary(body)
+        if summary and not (status == "ANSWERED" and body.get("answer")):
+            st.markdown("**Evidence summary** — assembled from the retrieved data; no AI model wrote this.")
+            st.markdown("\n".join(f"- {line}" for line in summary))
+            if status == "LLM_UNAVAILABLE":
+                st.caption(ENABLE_HINT)
 
         # ---------------------------------------------------------------- computed context
         st.subheader("Operational Risk Context")

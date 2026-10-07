@@ -765,10 +765,10 @@ def render_topnav(brand: str, date_range_label: str) -> None:
     <span class="im-tab">Alerts</span>
   </div>
   <div class="im-topnav-right">
-    <div class="im-icon-btn">🔄</div>
-    <div class="im-icon-btn">🛟</div>
+    <div class="im-icon-btn"></div>
+    <div class="im-icon-btn"></div>
     <div class="im-global-alert-btn">Global Alert</div>
-    <div class="im-icon-btn">👤</div>
+    <div class="im-icon-btn"></div>
   </div>
 </div>
 """,
@@ -778,7 +778,7 @@ def render_topnav(brand: str, date_range_label: str) -> None:
 
 def render_alert_banner(title: str, subtitle: str, variant: str = "danger") -> None:
     css_class = "im-alert-banner" if variant == "danger" else "im-alert-banner clear"
-    icon = "⚠" if variant == "danger" else "✓"
+    icon = ""if variant == "danger"else "✓"
     ack = '<div class="im-ack-btn">Acknowledge</div>' if variant == "danger" else ""
     st.markdown(
         f"""
@@ -962,7 +962,7 @@ render_topnav(
 st.sidebar.markdown(
     """
 <div class="im-side-brand">
-  <div class="im-side-avatar">🛡</div>
+  <div class="im-side-avatar"></div>
   <div>
     <div class="im-side-brand-title">NDMA OPS</div>
     <div class="im-side-brand-sub">INFRASTRUCTURE INTELLIGENCE</div>
@@ -988,7 +988,7 @@ max_date = df["report_date"].max().date()
 with st.sidebar.container(key="sb_temporal_range"):
 
     st.markdown(
-        '<div class="im-side-section"><span class="im-side-section-label">🕒 Temporal Range</span></div>',
+        '<div class="im-side-section"><span class="im-side-section-label"> Temporal Range</span></div>',
         unsafe_allow_html=True,
     )
 
@@ -1022,7 +1022,7 @@ with st.sidebar.container(key="sb_regional_sectors"):
         """
         <div class="im-side-section">
             <span class="im-side-section-label">
-                🗺 Regional Sectors
+                 Regional Sectors
             </span>
         </div>
         """,
@@ -1084,7 +1084,7 @@ if filtered_df.empty:
 
 with st.sidebar.container():
 
-    st.markdown("### 📊 Statistics")
+    st.markdown("###  Statistics")
 
     col1, col2 = st.columns(2)
 
@@ -1108,12 +1108,12 @@ with st.sidebar.container():
 # SIDEBAR -- EXPORT
 # ==========================================================
 
-st.sidebar.markdown('<div class="im-side-export-label">📥 Export</div>', unsafe_allow_html=True)
+st.sidebar.markdown('<div class="im-side-export-label"> Export</div>', unsafe_allow_html=True)
 
 _csv_bytes = filtered_df.to_csv(index=False).encode("utf-8")
 
 st.sidebar.download_button(
-    "⬇ CSV",
+    "CSV",
     data=_csv_bytes,
     file_name="ndma_damage_filtered.csv",
     mime="text/csv",
@@ -1127,7 +1127,7 @@ with pd.ExcelWriter(_excel_buffer, engine="openpyxl") as _writer:
     filtered_df.to_excel(_writer, index=False, sheet_name="NDMA Damage")
 
 st.sidebar.download_button(
-    "⬇ Excel",
+    "Excel",
     data=_excel_buffer.getvalue(),
     file_name="ndma_damage_filtered.xlsx",
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -1225,22 +1225,22 @@ else:
 k1, k2, k3, k4, k5, k6 = st.columns(6)
 
 with k1:
-    st.markdown(render_kpi_tile("🏠", "Houses Damaged", f"{total_houses:,}"), unsafe_allow_html=True)
+    st.markdown(render_kpi_tile("", "Houses Damaged", f"{total_houses:,}"), unsafe_allow_html=True)
 
 with k2:
-    st.markdown(render_kpi_tile("🛣", "Roads (KM)", f"{total_roads:,.1f}"), unsafe_allow_html=True)
+    st.markdown(render_kpi_tile("", "Roads (KM)", f"{total_roads:,.1f}"), unsafe_allow_html=True)
 
 with k3:
-    st.markdown(render_kpi_tile("🌉", "Bridges", f"{total_bridges:,}"), unsafe_allow_html=True)
+    st.markdown(render_kpi_tile("", "Bridges", f"{total_bridges:,}"), unsafe_allow_html=True)
 
 with k4:
-    st.markdown(render_kpi_tile("🐄", "Livestock Lost", f"{total_livestock:,}"), unsafe_allow_html=True)
+    st.markdown(render_kpi_tile("", "Livestock Lost", f"{total_livestock:,}"), unsafe_allow_html=True)
 
 with k5:
-    st.markdown(render_kpi_tile("🗺", "Active Sectors", f"{province_count}"), unsafe_allow_html=True)
+    st.markdown(render_kpi_tile("", "Active Sectors", f"{province_count}"), unsafe_allow_html=True)
 
 with k6:
-    st.markdown(render_kpi_tile("📄", "Total Reports", f"{total_records:,}"), unsafe_allow_html=True)
+    st.markdown(render_kpi_tile("", "Total Reports", f"{total_records:,}"), unsafe_allow_html=True)
 
 st.divider()
 
@@ -1321,7 +1321,7 @@ trend_df = (
 # MAIN CHART AREA -- Lollipop (4 cols) + Trend (8 cols)
 # ==========================================================
 
-render_section_label("📡", "Main Analytics")
+render_section_label("", "Main Analytics")
 
 p1, p2 = st.columns([4, 8])
 
@@ -1332,7 +1332,7 @@ p1, p2 = st.columns([4, 8])
 
 with p1:
 
-    render_chart_header("📊", "Damaged Houses by Province")
+    render_chart_header("", "Damaged Houses by Province")
 
     ranking = province_summary.sort_values("houses_total", ascending=False).reset_index(drop=True)
 
@@ -1375,7 +1375,7 @@ with p1:
 with p2:
 
     render_chart_header(
-        "📈",
+        "",
         f"Infrastructure Damage Trend ({aggregation})",
         legend_items=[("Houses", "#96ccff"), ("Roads", "#abcdcd")],
     )
@@ -1444,13 +1444,13 @@ st.divider()
 # horizontal bar) + Infrastructure Distribution (polar chart)
 # ==========================================================
 
-render_section_label("🌐", "Secondary Analytics")
+render_section_label("", "Secondary Analytics")
 
 s1, s2 = st.columns(2)
 
 with s1:
 
-    render_chart_header("🔀", "Roads vs Bridges by Province")
+    render_chart_header("", "Roads vs Bridges by Province")
 
     stacked = province_summary.sort_values("houses_total", ascending=False)
 
@@ -1538,7 +1538,7 @@ st.divider()
 # on this page: houses*1 + roads*10 + bridges*100 + livestock*2)
 # ==========================================================
 
-render_table_header("🏆", "Province Ranking — Top Damage")
+render_table_header("", "Province Ranking — Top Damage")
 
 summary = province_summary.copy()
 
@@ -1610,7 +1610,7 @@ st.divider()
 # LATEST DAMAGE RECORDS TABLE
 # ==========================================================
 
-render_table_header("📋", "Latest Damage Records")
+render_table_header("", "Latest Damage Records")
 
 records = (
 
@@ -1673,7 +1673,7 @@ with st.container(border=True):
     ex1, ex2 = st.columns([2, 1])
 
     with ex1:
-        st.markdown('<div class="export-panel-title">📥 Export Filtered Dataset</div>', unsafe_allow_html=True)
+        st.markdown('<div class="export-panel-title"> Export Filtered Dataset</div>', unsafe_allow_html=True)
         st.markdown(
             f'<div class="export-panel-sub">Latest report: {latest_date.strftime("%d %b %Y")}. '
             f'Aggregation: {aggregation}. Exported files contain the filtered infrastructure damage dataset.</div>',
@@ -1700,7 +1700,7 @@ with st.container(border=True):
 
         st.download_button(
 
-            "⬇ Download CSV",
+            "Download CSV",
 
             data=_csv_bytes,
 
@@ -1718,7 +1718,7 @@ with st.container(border=True):
 
         st.download_button(
 
-            "⬇ Download Excel",
+            "Download Excel",
 
             data=_excel_buffer.getvalue(),
 

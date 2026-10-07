@@ -494,7 +494,7 @@ def render_header(title: str, subtitle: str) -> None:
         f"""
 <div class="ob-header">
   <div class="ob-title-block">
-    <div class="ob-title-icon">🌧</div>
+    <div class="ob-title-icon"></div>
     <div>
       <div class="ob-main-title">{title}</div>
       <div class="ob-subtitle">{subtitle}</div>
@@ -545,10 +545,10 @@ def render_status_card(
 
 
 _STATUS_DOT_MAP = {
-    "🔴 Extreme Rainfall": "var(--ob-danger)",
-    "🟠 Heavy Rainfall": "#f97316",
-    "🟡 Moderate Rainfall": "var(--ob-warning)",
-    "🟢 Normal Rainfall": "var(--ob-success)",
+    "Extreme Rainfall": "var(--ob-danger)",
+    "Heavy Rainfall": "#f97316",
+    "Moderate Rainfall": "var(--ob-warning)",
+    "Normal Rainfall": "var(--ob-success)",
 }
 
 _PLOTLY_FONT = dict(family="IBM Plex Sans, sans-serif", size=12, color="#e5e2e1")
@@ -664,7 +664,7 @@ with left:
 
     st.markdown(
         render_status_card(
-            "🛰",
+            "",
             "Latest rainfall report",
             f"{latest_update.strftime('%d %b %Y')}",
             "Report date of the newest parsed rainfall report. Data are re-read from the database about once a minute.",
@@ -676,7 +676,7 @@ with left:
 with right:
 
     st.metric(
-        "🌧 Reporting Stations",
+        "Reporting Stations",
         f"{df['station'].nunique():,}",
     )
 
@@ -686,14 +686,14 @@ st.divider()
 # SIDEBAR FILTERS
 # ==========================================================
 
-st.sidebar.header("🌧 Dashboard Filters")
+st.sidebar.header("Dashboard Filters")
 
 # ----------------------------------------------------------
 # Top N Stations
 # ----------------------------------------------------------
 
 top_n = st.sidebar.slider(
-    "🏆 Top Rainfall Stations",
+    "Top Rainfall Stations",
     min_value=5,
     max_value=30,
     value=10,
@@ -707,7 +707,7 @@ min_date = df["report_date"].min().date()
 max_date = df["report_date"].max().date()
 
 date_range = st.sidebar.date_input(
-    "📅 Report Date",
+    "Report Date",
     (min_date, max_date),
 )
 
@@ -720,7 +720,7 @@ station_list = sorted(
 )
 
 selected_station = st.sidebar.multiselect(
-    "📍 Station",
+    "Station",
     station_list,
     default=station_list,
 )
@@ -730,7 +730,7 @@ selected_station = st.sidebar.multiselect(
 # ----------------------------------------------------------
 
 search_station = st.sidebar.text_input(
-    "🔍 Search Station",
+    "Search Station",
     placeholder="e.g. Lahore Airport",
 )
 
@@ -742,7 +742,7 @@ min_rain = float(df["rainfall_mm"].min())
 max_rain = float(df["rainfall_mm"].max())
 
 rainfall_range = st.sidebar.slider(
-    "🌧 Rainfall (mm)",
+    "Rainfall (mm)",
     min_value=min_rain,
     max_value=max_rain,
     value=(min_rain, max_rain),
@@ -890,16 +890,16 @@ highest_station = filtered.loc[
 # ----------------------------------------------------------
 
 if max_rainfall >= 150:
-    status = "🔴 Extreme Rainfall"
+    status = "Extreme Rainfall"
 
 elif max_rainfall >= 100:
-    status = "🟠 Heavy Rainfall"
+    status = "Heavy Rainfall"
 
 elif max_rainfall >= 50:
-    status = "🟡 Moderate Rainfall"
+    status = "Moderate Rainfall"
 
 else:
-    status = "🟢 Normal Rainfall"
+    status = "Normal Rainfall"
 
 # ==========================================================
 # LIVE EXECUTIVE PANEL
@@ -911,7 +911,7 @@ with left:
 
     st.markdown(
         render_status_card(
-            "🌧",
+            "",
             "Latest rainfall report",
             latest_date.strftime("%d %b %Y"),
             f"Stations Reporting : {station_count} &nbsp;·&nbsp; "
@@ -925,7 +925,7 @@ with left:
 with right:
 
     st.metric(
-        "🕒 Last Report",
+        "Last Report",
         latest_date.strftime("%d %b"),
         latest_date.strftime("%I:%M %p"),
     )
@@ -940,31 +940,31 @@ k1, k2, k3, k4, k5 = st.columns(5)
 
 with k1:
     st.markdown(
-        render_metric_tile("📍 Stations", f"{station_count:,}"),
+        render_metric_tile("Stations", f"{station_count:,}"),
         unsafe_allow_html=True,
     )
 
 with k2:
     st.markdown(
-        render_metric_tile("📄 Readings", f"{reading_count:,}"),
+        render_metric_tile("Readings", f"{reading_count:,}"),
         unsafe_allow_html=True,
     )
 
 with k3:
     st.markdown(
-        render_metric_tile("☔ Avg Rainfall", f"{avg_rainfall:.1f}", unit="mm"),
+        render_metric_tile("Avg Rainfall", f"{avg_rainfall:.1f}", unit="mm"),
         unsafe_allow_html=True,
     )
 
 with k4:
     st.markdown(
-        render_metric_tile("🌊 Maximum", f"{max_rainfall:.1f}", unit="mm"),
+        render_metric_tile("Maximum", f"{max_rainfall:.1f}", unit="mm"),
         unsafe_allow_html=True,
     )
 
 with k5:
     st.markdown(
-        render_metric_tile("🌧 Total", f"{total_rainfall:,.1f}", unit="mm"),
+        render_metric_tile("Total", f"{total_rainfall:,.1f}", unit="mm"),
         unsafe_allow_html=True,
     )
 
@@ -974,7 +974,7 @@ st.divider()
 # EXECUTIVE HIGHLIGHTS
 # ==========================================================
 
-st.markdown("### 📌 Executive Rainfall Highlights")
+st.markdown("###  Executive Rainfall Highlights")
 
 c1, c2, c3 = st.columns(3)
 
@@ -982,7 +982,7 @@ with c1:
 
     st.markdown(
         render_status_card(
-            "🏆",
+            "",
             "Highest Rainfall",
             highest_station["station"],
             f"{highest_station['rainfall_mm']:.1f} mm &nbsp;·&nbsp; "
@@ -996,7 +996,7 @@ with c2:
 
     st.markdown(
         render_status_card(
-            "📅",
+            "",
             "Latest Report",
             latest_date.strftime("%d %B %Y"),
             f"Stations Reporting : {station_count}",
@@ -1009,7 +1009,7 @@ with c3:
 
     st.markdown(
         render_status_card(
-            "🌦",
+            "",
             "Rainfall Status",
             status,
             f"Average Rainfall : {avg_rainfall:.1f} mm",
@@ -1024,7 +1024,7 @@ st.divider()
 # RAINFALL ANALYTICS
 # ==========================================================
 
-st.markdown("### 📊 Rainfall Analytics")
+st.markdown("###  Rainfall Analytics")
 
 left, right = st.columns(2)
 
@@ -1063,7 +1063,7 @@ with left:
 
     fig = style_fig(
         fig,
-        title="🌧 Top Rainfall Stations",
+        title="Top Rainfall Stations",
         height=520,
         margin=dict(l=15, r=15, t=55, b=15),
         coloraxis_showscale=False,
@@ -1110,7 +1110,7 @@ with right:
 
     fig = style_fig(
         fig,
-        title="📈 Daily Rainfall Trend",
+        title="Daily Rainfall Trend",
         height=520,
         margin=dict(l=15, r=15, t=55, b=15),
         xaxis_title="Date",
@@ -1128,7 +1128,7 @@ st.divider()
 # RAINFALL DISTRIBUTION ANALYTICS
 # ==========================================================
 
-st.markdown("### 🌧 Rainfall Distribution & Intensity")
+st.markdown("###  Rainfall Distribution & Intensity")
 
 left, right = st.columns(2)
 
@@ -1304,7 +1304,7 @@ with left:
 
     fig = style_fig(
         fig,
-        title="📅 Monthly Rainfall Trend",
+        title="Monthly Rainfall Trend",
         height=500,
         margin=dict(l=20, r=20, t=55, b=20),
         xaxis_title="Month",
@@ -1346,7 +1346,7 @@ with right:
         inplace=True,
     )
 
-    render_card_header("🏆", "Top 10 Rainfall Stations")
+    render_card_header("", "Top 10 Rainfall Stations")
 
     st.dataframe(
         ranking,
@@ -1370,14 +1370,14 @@ st.divider()
 # EXECUTIVE SUMMARY
 # ==========================================================
 
-st.markdown("### 📌 Rainfall Executive Summary")
+st.markdown("###  Rainfall Executive Summary")
 
 a, b, c = st.columns(3)
 
 with a:
     st.markdown(
         render_metric_tile(
-            "🌧 Total Rainfall",
+            "Total Rainfall",
             f"{filtered['rainfall_mm'].sum():,.1f}",
             unit="mm",
         ),
@@ -1387,7 +1387,7 @@ with a:
 with b:
     st.markdown(
         render_metric_tile(
-            "📊 Average Rainfall",
+            "Average Rainfall",
             f"{filtered['rainfall_mm'].mean():.1f}",
             unit="mm",
         ),
@@ -1397,7 +1397,7 @@ with b:
 with c:
     st.markdown(
         render_metric_tile(
-            "📍 Active Stations",
+            "Active Stations",
             f"{filtered['station'].nunique()}",
         ),
         unsafe_allow_html=True,
@@ -1409,7 +1409,7 @@ st.divider()
 # RAW DATASET
 # ==========================================================
 
-render_card_header("📋", "Latest Rainfall Records")
+render_card_header("", "Latest Rainfall Records")
 
 table = (
     filtered
@@ -1438,16 +1438,16 @@ st.dataframe(
     height=520,
     column_config={
         "report_date": st.column_config.DateColumn(
-            "📅 Report Date",
+            "Report Date",
             format="DD MMM YYYY",
             width="small",
         ),
         "station": st.column_config.TextColumn(
-            "📍 Station",
+            "Station",
             width="medium",
         ),
         "rainfall_mm": st.column_config.NumberColumn(
-            "🌧 Rainfall (mm)",
+            "Rainfall (mm)",
             format="%.1f",
             width="small",
         ),
@@ -1466,7 +1466,7 @@ with left:
 
     st.markdown(
         render_status_card(
-            "📥",
+            "",
             "Dataset Information",
             f"{len(table):,} Records",
             f"Reporting Stations : {table['station'].nunique()} &nbsp;·&nbsp; "
@@ -1483,7 +1483,7 @@ with right:
     st.write("")
 
     st.download_button(
-        label="⬇ Download CSV",
+        label="Download CSV",
         data=table.to_csv(index=False).encode("utf-8"),
         file_name="pdma_rainfall.csv",
         mime="text/csv",

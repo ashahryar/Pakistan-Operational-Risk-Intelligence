@@ -44,6 +44,13 @@ Pages:
 
 Motion: one 200 ms rise (opacity and 6 px) for notices, chips, badges, KPIs, charts, tables and expanders; nothing loops; `prefers-reduced-motion` turns it off. Plotly figures carry a 250 ms transition setting. Streamlit re-runs the page on a filter change and may replace a chart rather than morph it, so smooth value morphing is not guaranteed; the animations that do run (Play / Pause) are native Plotly frames and only run on request.
 
+## Third pass: satellite maps, advanced charts, and answers without an AI model
+
+* **Satellite basemap** (`ui/maps.py`): Esri World Imagery as raster tiles (no token) plus an Esri place-name layer; light district outlines, a cyan selected-area outline, fills at 62% opacity. The initial view is computed from the drawn boundaries and the container size (`fit_view`, Web Mercator): Plotly's `bounds` only limits panning, so it is not used.
+* **New charts**: `heatmap` (province x week of what NDMA reports added; station x month of the highest rainfall reading; empty cell = nothing reported, never 0), `status_by_group` (operational status by province, stacked, glyph labels). Play / Pause controls are dark-styled and the source line moved into the subtitle so nothing overlaps the slider.
+* **Emoji removed** from the legacy NDMA, PMD and rainfall pages and their chart modules (the browser-tab icon is kept). Status meaning now comes from text and the design-system glyphs.
+* **Intelligence Workspace without a language model**: the agent and risk-analysis modes show an "Evidence summary" built from the retrieved facts by fixed templates (`utils/summary_helpers.py`): status, date, signals observed and not observed, "numeric score not computed", forecast state, which documents passed the relevance check. Ask Reports shows the top passages as verbatim excerpts (an extractive view, not an AI summary). Both are labelled as assembled from the retrieved data, and the page states the settings that enable written answers: `PORI_LLM_PROVIDER`, `PORI_LLM_MODEL`, `PORI_LLM_API_KEY` in `.env`. No answer text is generated.
+
 ## Legacy pages
 
 NDMA Casualties, NDMA Damage, PMD Weather and PDMA Rainfall keep their existing analytics code (about 7,000 lines). They now sit inside the shared shell: their own `--cs-/--im-/--ob-` tokens are remapped to the shared tokens, their duplicate page titles and sidebar brands are hidden, and their charts use the `pori` template. Their inner card headings still carry some emoji and mono-caps styling; a full rewrite of those pages was not part of this task.

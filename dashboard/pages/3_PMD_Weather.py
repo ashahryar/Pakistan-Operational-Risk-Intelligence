@@ -682,7 +682,7 @@ def render_header(title: str, subtitle: str) -> None:
         f"""
 <div class="wx-header">
   <div class="wx-title-block">
-    <div class="wx-title-icon">🌦</div>
+    <div class="wx-title-icon"></div>
     <div>
       <div class="wx-main-title">{title}</div>
       <div class="wx-subtitle">{subtitle}</div>
@@ -756,7 +756,7 @@ def render_alert_card(title: str, variant: str, meta: dict) -> str:
     return f"""
 <div class="wx-alert-card {variant}">
   <div class="wx-alert-top">
-    <div class="wx-alert-title">⚠ {title}</div>
+    <div class="wx-alert-title"> {title}</div>
     <div class="wx-badge {variant}">{badge_label}</div>
   </div>
   <div class="wx-alert-grid">{meta_html}</div>
@@ -931,7 +931,7 @@ def style_metric_column(styler, column: str, kind: str):
 
 def add_rank_medals(df_in: pd.DataFrame) -> pd.DataFrame:
     """Prefixes rank 1-3 with medal emoji — display-only, no data change."""
-    medals = {1: "🥇", 2: "🥈", 3: "🥉"}
+    medals = {1: "", 2: "", 3: ""}
     out = df_in.copy()
     out.insert(0, "Rank", [medals.get(i, f"#{i}") for i in out.index])
     return out
@@ -1053,7 +1053,7 @@ df = df.dropna(subset=["scraped_at"])
 st.sidebar.markdown(
     """
 <div class="im-side-brand">
-  <div class="im-side-avatar">🌦</div>
+  <div class="im-side-avatar"></div>
   <div>
     <div class="im-side-brand-title">PMD WEATHER</div>
     <div class="im-side-brand-sub">WEATHER FORECAST SNAPSHOT</div>
@@ -1075,7 +1075,7 @@ with st.sidebar.container():
     st.markdown(
         """
 <div class="im-side-section">
-<span class="im-side-section-label">📅 DATE RANGE</span>
+<span class="im-side-section-label"> DATE RANGE</span>
 </div>
 """,
         unsafe_allow_html=True,
@@ -1109,7 +1109,7 @@ with st.sidebar.container():
     st.markdown(
         """
 <div class="im-side-section">
-<span class="im-side-section-label">📍 GEOGRAPHY</span>
+<span class="im-side-section-label"> GEOGRAPHY</span>
 </div>
 """,
         unsafe_allow_html=True,
@@ -1140,7 +1140,7 @@ with st.sidebar.container():
     st.markdown(
         """
 <div class="im-side-section">
-<span class="im-side-section-label">🌤 CONDITIONS</span>
+<span class="im-side-section-label"> CONDITIONS</span>
 </div>
 """,
         unsafe_allow_html=True,
@@ -1179,7 +1179,7 @@ freq = _FREQ_MAP[aggregation]
 st.sidebar.markdown(
     """
     <div class="im-side-section">
-        <span class="im-side-section-label">📊 DATASET OVERVIEW</span>
+        <span class="im-side-section-label"> DATASET OVERVIEW</span>
     </div>
     """,
     unsafe_allow_html=True,
@@ -1285,12 +1285,12 @@ if filtered_df.empty:
 # SIDEBAR -- EXPORT
 # ==========================================================
 
-render_sidebar_card_open("📥", "Export")
+render_sidebar_card_open("", "Export")
 
 _csv_bytes = filtered_df.to_csv(index=False).encode("utf-8")
 
 st.sidebar.download_button(
-    "⬇ CSV",
+    "CSV",
     data=_csv_bytes,
     file_name="pmd_weather_filtered.csv",
     mime="text/csv",
@@ -1304,7 +1304,7 @@ with pd.ExcelWriter(_excel_buffer, engine="openpyxl") as _writer:
     filtered_df.to_excel(_writer, index=False, sheet_name="PMD Weather")
 
 st.sidebar.download_button(
-    "⬇ Excel",
+    "Excel",
     data=_excel_buffer.getvalue(),
     file_name="pmd_weather_filtered.xlsx",
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -1382,7 +1382,7 @@ humidity_trend_pct = _half_split_trend(humidity_trend["humidity"])
 # Rankings -> Records -> Export.
 # ==========================================================
 
-render_section_title("🛰", "Weather Alert Status")
+render_section_title("", "Weather Alert Status")
 
 if not df_alert.empty:
 
@@ -1412,7 +1412,7 @@ if not df_alert.empty:
         unsafe_allow_html=True,
     )
 
-    with st.expander("📄 View Full Forecast Details"):
+    with st.expander("View Full Forecast Details"):
 
         forecast = str(latest_alert["forecast"]).strip()
 
@@ -1470,14 +1470,14 @@ if not df_alert.empty:
     _sev = str(df_alert.iloc[0].get("severity", "")).lower()
     alert_variant = "danger" if _sev in ("high", "severe", "critical", "extreme") else "watch"
 
-render_section_title("📊", "Executive Summary", f"Aggregation · {aggregation}")
+render_section_title("", "Executive Summary", f"Aggregation · {aggregation}")
 
 k1, k2, k3, k4, k5, k6 = st.columns(6)
 
 with k1:
     st.markdown(
         render_kpi_tile(
-            "Highest Temp", f"{max_temp:.1f}°C", icon="🔥",
+            "Highest Temp", f"{max_temp:.1f}°C", icon="",
             accent="var(--temp-high)",
             trend=temp_trend_pct, trend_label="vs period start",
         ),
@@ -1487,7 +1487,7 @@ with k1:
 with k2:
     st.markdown(
         render_kpi_tile(
-            "Highest Humidity", f"{max_humidity:.0f}%", icon="💧",
+            "Highest Humidity", f"{max_humidity:.0f}%", icon="",
             accent="var(--hum-high)",
             trend=humidity_trend_pct, trend_label="vs period start",
         ),
@@ -1496,42 +1496,42 @@ with k2:
 
 with k3:
     st.markdown(
-        render_kpi_tile("Total Cities", f"{city_count:,}", icon="🏙", accent="var(--cs-primary)", caption="in selection"),
+        render_kpi_tile("Total Cities", f"{city_count:,}", icon="", accent="var(--cs-primary)", caption="in selection"),
         unsafe_allow_html=True,
     )
 
 with k4:
     st.markdown(
-        render_kpi_tile("Total Provinces", f"{province_count:,}", icon="🗺", accent="var(--cs-primary)", caption="in selection"),
+        render_kpi_tile("Total Provinces", f"{province_count:,}", icon="", accent="var(--cs-primary)", caption="in selection"),
         unsafe_allow_html=True,
     )
 
 with k5:
     st.markdown(
-        render_kpi_tile("Latest Update", latest_report.strftime("%d %b, %H:%M"), icon="🕒", accent="var(--cs-success)", caption=aggregation + " bucket"),
+        render_kpi_tile("Latest Update", latest_report.strftime("%d %b, %H:%M"), icon="", accent="var(--cs-success)", caption=aggregation + "bucket"),
         unsafe_allow_html=True,
     )
 
 with k6:
     accent = {"danger": "var(--cs-danger)", "watch": "var(--cs-warning)", "clear": "var(--cs-success)"}[alert_variant]
     st.markdown(
-        render_kpi_tile("Active Alert", active_alert_label, icon="⚠", accent=accent, caption=alert_variant.upper()),
+        render_kpi_tile("Active Alert", active_alert_label, icon="", accent=accent, caption=alert_variant.upper()),
         unsafe_allow_html=True,
     )
 
 k7, k8, k9, k10 = st.columns(4)
 
 with k7:
-    st.markdown(render_kpi_tile("Avg Temperature", f"{avg_temp:.1f} °C", icon="🌡", accent="var(--temp-mid)"), unsafe_allow_html=True)
+    st.markdown(render_kpi_tile("Avg Temperature", f"{avg_temp:.1f} °C", icon="", accent="var(--temp-mid)"), unsafe_allow_html=True)
 
 with k8:
-    st.markdown(render_kpi_tile("Avg Humidity", f"{avg_humidity:.0f}%", icon="💧", accent="var(--hum-low)"), unsafe_allow_html=True)
+    st.markdown(render_kpi_tile("Avg Humidity", f"{avg_humidity:.0f}%", icon="", accent="var(--hum-low)"), unsafe_allow_html=True)
 
 with k9:
     st.markdown(render_kpi_tile("Min Temperature", f"{min_temp:.1f} °C", icon="❄", accent="var(--cs-primary)"), unsafe_allow_html=True)
 
 with k10:
-    st.markdown(render_kpi_tile("Hottest City", hottest_row["city"], icon="📍", accent="var(--temp-high)", caption=hottest_row["province"]), unsafe_allow_html=True)
+    st.markdown(render_kpi_tile("Hottest City", hottest_row["city"], icon="", accent="var(--temp-high)", caption=hottest_row["province"]), unsafe_allow_html=True)
 
 st.divider()
 
@@ -1544,7 +1544,7 @@ st.divider()
 # and styled through style_fig.
 # ==========================================================
 
-# render_section_title("📈", "Weather Trend", aggregation)
+# render_section_title("", "Weather Trend", aggregation)
 
 # combined_trend = (
 #     temp_trend
@@ -1611,7 +1611,7 @@ st.divider()
 # separate computation.
 # ==========================================================
 
-render_section_title("🗺", "Province Comparison")
+render_section_title("", "Province Comparison")
 
 province_summary = (
 
@@ -1717,13 +1717,13 @@ st.divider()
 # in Province Comparison above), just visualized differently.
 # ==========================================================
 
-render_section_title("🌐", "Weather Distribution")
+render_section_title("", "Weather Distribution")
 
 left, right = st.columns(2)
 
 with left:
 
-    render_section_title("🫧", "Province Bubble Comparison", "temp vs humidity")
+    render_section_title("", "Province Bubble Comparison", "temp vs humidity")
 
     fig = px.scatter(
 
@@ -1770,7 +1770,7 @@ with left:
 
 with right:
 
-    render_section_title("🌳", "Temperature Footprint by Province", "treemap")
+    render_section_title("", "Temperature Footprint by Province", "treemap")
 
     # ----------------------------------------------------------
     # v3 FIX (Issue 3): the previous version referenced %{color}
@@ -1841,7 +1841,7 @@ st.divider()
 # RANKINGS -- Top Hottest / Highest Humidity Cities
 # ==========================================================
 
-render_section_title("🏆", "Weather Rankings")
+render_section_title("", "Weather Rankings")
 
 city_summary = (
 
@@ -1877,7 +1877,7 @@ with left:
         columns={"city": "City", "province": "Province", "temperature": "Temperature"}
     )
 
-    render_table_header("🔥", "Top 10 Hottest Cities", f"{len(hottest_cities_display)} shown")
+    render_table_header("", "Top 10 Hottest Cities", f"{len(hottest_cities_display)} shown")
 
     styler = hottest_cities_display.style.format({"Temperature": "{:.1f} °C"})
     styler = style_metric_column(styler, "Temperature", "temp")
@@ -1911,7 +1911,7 @@ with right:
         columns={"city": "City", "province": "Province", "humidity": "Humidity"}
     )
 
-    render_table_header("💧", "Top 10 Highest Humidity Cities", f"{len(humid_cities_display)} shown")
+    render_table_header("", "Top 10 Highest Humidity Cities", f"{len(humid_cities_display)} shown")
 
     styler = humid_cities_display.style.format({"Humidity": "{:.0f}%"})
     styler = style_metric_column(styler, "Humidity", "humidity")
@@ -1929,7 +1929,7 @@ st.divider()
 # LATEST WEATHER RECORDS TABLE
 # ==========================================================
 
-render_section_title("📋", "Latest Weather Records")
+render_section_title("", "Latest Weather Records")
 
 records = (
 
@@ -1944,7 +1944,7 @@ records = (
 search_col, _spacer = st.columns([1, 3])
 with search_col:
     city_search = st.text_input(
-        "🔍 Search city",
+        "Search city",
         placeholder="Type a city name…",
         label_visibility="collapsed",
     )
@@ -1953,7 +1953,7 @@ records_display = records
 if city_search:
     records_display = records[records["city"].str.contains(city_search, case=False, na=False)]
 
-render_table_header("📋", "Weather Records", f"{len(records_display):,} of {len(records):,} rows")
+render_table_header("", "Weather Records", f"{len(records_display):,} of {len(records):,} rows")
 
 st.dataframe(
 
@@ -1967,13 +1967,13 @@ st.dataframe(
 
     column_config={
 
-        "city": st.column_config.TextColumn("🏙 City", width="small"),
+        "city": st.column_config.TextColumn("City", width="small"),
 
         "province": st.column_config.TextColumn("Province", width="small"),
 
         "temperature": st.column_config.ProgressColumn(
 
-            "🌡 Temp",
+            "Temp",
 
             format="%.1f °C",
 
@@ -1985,7 +1985,7 @@ st.dataframe(
 
         "humidity": st.column_config.ProgressColumn(
 
-            "💧 Humidity",
+            "Humidity",
 
             format="%.0f%%",
 
@@ -2015,11 +2015,11 @@ st.divider()
 # EXPORT CARD (mirrors sidebar export, same filtered_df)
 # ==========================================================
 
-render_section_title("📥", "Export")
+render_section_title("", "Export")
 
 with st.container(border=True):
 
-    st.markdown('<div class="export-card-header">📥 Export Weather Dataset</div>', unsafe_allow_html=True)
+    st.markdown('<div class="export-card-header"> Export Weather Dataset</div>', unsafe_allow_html=True)
 
     d1, d2 = st.columns(2)
 
@@ -2027,7 +2027,7 @@ with st.container(border=True):
 
         st.download_button(
 
-            "⬇ Download CSV",
+            "Download CSV",
 
             data=_csv_bytes,
 
@@ -2045,7 +2045,7 @@ with st.container(border=True):
 
         st.download_button(
 
-            "⬇ Download Excel",
+            "Download Excel",
 
             data=_excel_buffer.getvalue(),
 

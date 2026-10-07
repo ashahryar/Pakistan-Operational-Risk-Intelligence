@@ -7,6 +7,7 @@ a thicker outline on the selected area, no colour bar. A geography with no bound
 
 from __future__ import annotations
 
+import math
 from typing import Optional
 
 import plotly.graph_objects as go
@@ -28,7 +29,37 @@ BOUNDARY_LINE = "#F8FAFC"        # light outlines separate the status fills from
 SELECTED_LINE = "#22D3EE"        # cyan: distinct from every status colour
 
 
-def risk_choropleth(fc: dict, *, selected_id: Optional[int] = None, height: int = 600, zoom: float = 4.3) -> Optional[go.Figure]:
+def _walk(coords):
+    if coords and isinstance(coords[0], (int, float)):
+        yield coords
+    else:
+        for c in coords or []:
+            yield from _walk(c)
+
+
+def view_bounds(gj: dict, pad: float = 0.6) -> Optional[dict]:
+    """West/east/south/north of every drawn boundary (padded), so the initial view fits the data in any container size instead of using a fixed zoom."""
+    xs, ys = [], []
+    for f in gj.get("features", []):
+        for lon, lat, *_ in _walk((f.get("geometry") or {}).get("coordinates")):
+            xs.append(lon)
+            ys.append(lat)
+    if not xs:
+        return None
+    return dict(west=min(xs) - pad, east=max(xs) + pad, south=min(ys) - pad, north=max(ys) + pad)
+
+
+def fit_view(b: dict, width_px: int, height_px: int, margin: float = 0.2) -> dict:
+    """Centre and zoom (Web Mercator, 512 px tiles) at which `b` fills a width x height container, with a small safety margin. Plotly's own `bounds` only limits panning."""
+    merc = lambda lat: math.log(math.tan(math.pi / 4 + math.radians(lat) / 2))  # noqa: E731
+    dx = max(b["east"] - b["west"], 1e-6)
+    dy = max(merc(b["north"]) - merc(b["south"]), 1e-6)
+    zoom = min(math.log2(width_px * 360 / (512 * dx)), math.log2(height_px * 2 * math.pi / (512 * dy))) - margin
+    mid_y = (merc(b["north"]) + merc(b["south"])) / 2
+    return dict(center=dict(lat=math.degrees(2 * math.atan(math.exp(mid_y)) - math.pi / 2), lon=(b["east"] + b["west"]) / 2), zoom=round(zoom, 2))
+
+
+def risk_choropleth(fc: dict, *, selected_id: Optional[int] = None, height: int = 600, width: int = 1000, zoom: float = 4.3) -> Optional[go.Figure]:
     """Figure for a risk FeatureCollection, or None when no area has a boundary (the caller shows an empty state)."""
     frame = map_frame(fc)
     if frame.empty:
@@ -48,5 +79,7 @@ def risk_choropleth(fc: dict, *, selected_id: Optional[int] = None, height: int 
             geojson=gj, locations=[selected_id], featureidkey="properties.admin_unit_id", z=[1], showscale=False,
             colorscale=[[0, "rgba(255,255,255,0)"], [1, "rgba(255,255,255,0)"]], marker=dict(opacity=1, line=dict(color=SELECTED_LINE, width=3.5)),
             name="Selected area", showlegend=False, hoverinfo="skip"))
-    fig.update_layout(map=dict(style="white-bg", layers=SATELLITE_LAYERS, zoom=zoom, center=dict(lat=30.4, lon=69.5)), height=height, clickmode="event+select")
+    bounds = view_bounds(gj)
+    view = fit_view(bounds, width, height) if bounds else dict(zoom=zoom, center=dict(lat=30.4, lon=69.5))
+    fig.update_layout(map=dict(style="white-bg", layers=SATELLITE_LAYERS, **view), height=height, clickmode="event+select")
     return map_layout(fig, height)

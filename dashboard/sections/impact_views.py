@@ -14,7 +14,7 @@ import streamlit as st
 
 from dashboard.ui import components as C
 from dashboard.ui import tokens
-from dashboard.ui.charts import SERIES, animated_bars, range_buttons, ranked_bar, style_fig, time_series
+from dashboard.ui.charts import SERIES, animated_bars, heatmap, range_buttons, ranked_bar, style_fig, time_series
 
 SOURCE = "NDMA situation reports"
 
@@ -33,6 +33,15 @@ def cumulative_long(df: pd.DataFrame, col: str) -> pd.DataFrame:
 
 def national_cumulative(long: pd.DataFrame) -> pd.DataFrame:
     return long.groupby("report_date", as_index=False)["cumulative"].sum()
+
+
+def weekly_increment_matrix(df: pd.DataFrame, col: str) -> pd.DataFrame:
+    """Province x week matrix of what the reports of that week added (sum of increments). A cell with no report in that week is empty, never 0."""
+    d = df[["report_date", "province", col]].copy()
+    d["week"] = pd.to_datetime(d["report_date"]).dt.to_period("W").dt.start_time.dt.strftime("%d %b")
+    order = list(dict.fromkeys(pd.to_datetime(d["report_date"]).dt.to_period("W").dt.start_time.sort_values().dt.strftime("%d %b")))
+    m = d.pivot_table(index="province", columns="week", values=col, aggfunc=lambda s: s.sum(min_count=1)).reindex(columns=order)
+    return m.loc[m.fillna(0).sum(axis=1).sort_values(ascending=False).index]
 
 
 def weekly_checkpoints(long: pd.DataFrame) -> pd.DataFrame:
@@ -81,6 +90,11 @@ def render(df: pd.DataFrame, measures: dict[str, tuple[str, str]], *, noun: str,
                                                                               font=dict(color=tokens.PALETTE["text"], size=12)))
     st.plotly_chart(style_fig(bars, f"{label}: added by each report (increment, not a total)", 300, ytitle=unit,
                               source=f"Source: {SOURCE} · increments between a province's consecutive cumulative reports"), width="stretch", key=f"{key}_inc")
+
+    hm = weekly_increment_matrix(df, col)
+    fig_hm = heatmap(hm, title=f"{label} added per week, by province", unit=unit, source=SOURCE, xlabel="Week starting", ylabel="")
+    if fig_hm is not None:
+        st.plotly_chart(fig_hm, width="stretch", key=f"{key}_heat")
 
     weekly = weekly_checkpoints(long.dropna(subset=["cumulative"]))
     anim = animated_bars(weekly, "province", "cumulative", "report_date", title=f"How cumulative {label.lower()} built up (weekly checkpoints)", unit=unit, source=SOURCE, top=7)

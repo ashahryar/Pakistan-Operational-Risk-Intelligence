@@ -600,7 +600,7 @@ st.markdown(
 <div class="ndma-header">
 
   <div class="ndma-title-block">
-    <div class="ndma-title-icon">🚨</div>
+    <div class="ndma-title-icon"></div>
     <div>
       <div class="ndma-main-title">NDMA CASUALTIES INTELLIGENCE</div>
       <div class="ndma-subtitle">Pakistan Operational Risk Intelligence Platform</div>
@@ -626,7 +626,7 @@ try:
 
 except Exception as e:
 
-    st.error(f"❌ Database Connection Error\n\n{e}")
+    st.error(f"Database Connection Error\n\n{e}")
 
     st.stop()
 
@@ -689,21 +689,21 @@ AGGREGATION_PERIODS = {
 
 st.sidebar.markdown(
     """
-# 🎛 Dashboard Filters
+#  Dashboard Filters
 
 Filter and aggregate NDMA casualty data.
 """
 )
 
 start_date = st.sidebar.date_input(
-    "📅 Start Date",
+    "Start Date",
     value=MIN_DATE,
     min_value=MIN_DATE,
     max_value=MAX_DATE,
 )
 
 end_date = st.sidebar.date_input(
-    "📅 End Date",
+    "End Date",
     value=MAX_DATE,
     min_value=MIN_DATE,
     max_value=MAX_DATE,
@@ -714,7 +714,7 @@ if start_date > end_date:
     st.stop()
 
 selected_provinces = st.sidebar.selectbox(
-    "📍 Province",
+    "Province",
     options=["All"] + ALL_PROVINCES,
 )
 
@@ -732,7 +732,7 @@ st.sidebar.caption(
 
 st.sidebar.divider()
 
-st.sidebar.markdown("## 📥 Export")
+st.sidebar.markdown("##  Export")
 
 export_col1, export_col2 = st.sidebar.columns(2)
 
@@ -773,7 +773,7 @@ filtered_df["period"] = (
 with export_col1:
 
     st.download_button(
-        "⬇ CSV",
+        "CSV",
         filtered_df.drop(columns=["period"]).to_csv(index=False).encode("utf-8"),
         file_name="ndma_casualties_filtered.csv",
         mime="text/csv",
@@ -792,7 +792,7 @@ with export_col2:
     )
 
     st.download_button(
-        "⬇ Excel",
+        "Excel",
         excel_buffer.getvalue(),
         file_name="ndma_casualties_filtered.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -806,9 +806,9 @@ with export_col2:
 st.markdown(
     f"""
 <div class="filter-strip">
-  <span>🎯 <b>{filtered_df['province'].nunique()}</b> Province(s)</span>
-  <span>📄 <b>{len(filtered_df):,}</b> Records</span>
-  <span>📅 <b>{start_date.strftime('%d %b %Y')}</b> → <b>{end_date.strftime('%d %b %Y')}</b></span>
+  <span> <b>{filtered_df['province'].nunique()}</b> Province(s)</span>
+  <span> <b>{len(filtered_df):,}</b> Records</span>
+  <span> <b>{start_date.strftime('%d %b %Y')}</b> → <b>{end_date.strftime('%d %b %Y')}</b></span>
   <span>⏱ Aggregation : <b>{aggregation_label}</b></span>
 </div>
 """,
@@ -841,7 +841,7 @@ k1, k2, k3, k4, k5, k6 = st.columns(6)
 with k1:
     st.markdown(f"""
 <div class="tile">
-  <div class="tile-label">💀 Total Deaths</div>
+  <div class="tile-label"> Total Deaths</div>
   <div class="tile-value danger">{total_deaths:,}</div>
 </div>
 """, unsafe_allow_html=True)
@@ -849,7 +849,7 @@ with k1:
 with k2:
     st.markdown(f"""
 <div class="tile">
-  <div class="tile-label">🤕 Total Injured</div>
+  <div class="tile-label"> Total Injured</div>
   <div class="tile-value warning">{total_injured:,}</div>
 </div>
 """, unsafe_allow_html=True)
@@ -857,7 +857,7 @@ with k2:
 with k3:
     st.markdown(f"""
 <div class="tile">
-  <div class="tile-label">🗺 Affected Provinces</div>
+  <div class="tile-label"> Affected Provinces</div>
   <div class="tile-value">{affected_provinces}</div>
 </div>
 """, unsafe_allow_html=True)
@@ -865,7 +865,7 @@ with k3:
 with k4:
     st.markdown(f"""
 <div class="tile">
-  <div class="tile-label">📄 Reports Count</div>
+  <div class="tile-label"> Reports Count</div>
   <div class="tile-value">{reports_count:,}</div>
 </div>
 """, unsafe_allow_html=True)
@@ -873,7 +873,7 @@ with k4:
 with k5:
     st.markdown(f"""
 <div class="tile">
-  <div class="tile-label">⚠ Fatality Rate</div>
+  <div class="tile-label"> Fatality Rate</div>
   <div class="tile-value">{fatality_rate}%</div>
 </div>
 """, unsafe_allow_html=True)
@@ -881,7 +881,7 @@ with k5:
 with k6:
     st.markdown(f"""
 <div class="tile">
-  <div class="tile-label">🕒 Latest Report</div>
+  <div class="tile-label"> Latest Report</div>
   <div class="tile-value success">{latest_report.strftime('%d %b %Y')}</div>
 </div>
 """, unsafe_allow_html=True)
@@ -976,7 +976,7 @@ def _base_layout(fig, title, height=440):
 # total_injured, reports_count) -- no recomputation, no new query.
 # ==========================================================
 
-st.markdown('<div class="chart-tile-header primary">🏛 Province Performance Dashboard</div>', unsafe_allow_html=True)
+st.markdown('<div class="chart-tile-header primary"> Province Performance Dashboard</div>', unsafe_allow_html=True)
 st.markdown(
     f'<div class="chart-tile-header secondary">'
     f'Reporting window: {start_date.strftime("%d %b %Y")} → {end_date.strftime("%d %b %Y")}'
@@ -991,7 +991,7 @@ ms1, ms2, ms3, ms4 = st.columns(4)
 with ms1:
     st.markdown(f"""
 <div class="tile">
-  <div class="tile-label">💀 Total Deaths</div>
+  <div class="tile-label"> Total Deaths</div>
   <div class="tile-value danger">{total_deaths:,}</div>
 </div>
 """, unsafe_allow_html=True)
@@ -999,7 +999,7 @@ with ms1:
 with ms2:
     st.markdown(f"""
 <div class="tile">
-  <div class="tile-label">🤕 Total Injured</div>
+  <div class="tile-label"> Total Injured</div>
   <div class="tile-value warning">{total_injured:,}</div>
 </div>
 """, unsafe_allow_html=True)
@@ -1007,7 +1007,7 @@ with ms2:
 with ms3:
     st.markdown(f"""
 <div class="tile">
-  <div class="tile-label">📄 Reports</div>
+  <div class="tile-label"> Reports</div>
   <div class="tile-value">{reports_count:,}</div>
 </div>
 """, unsafe_allow_html=True)
@@ -1015,7 +1015,7 @@ with ms3:
 with ms4:
     st.markdown(f"""
 <div class="tile">
-  <div class="tile-label">📊 Avg Deaths / Report</div>
+  <div class="tile-label"> Avg Deaths / Report</div>
   <div class="tile-value">{_avg_deaths_per_report}</div>
 </div>
 """, unsafe_allow_html=True)
@@ -1092,7 +1092,7 @@ _trend_grouped["fatality_rate"] = (
     * 100
 ).round(1)
 
-st.markdown(f'<div class="chart-tile-header primary">📈 {_trend_title}</div>', unsafe_allow_html=True)
+st.markdown(f'<div class="chart-tile-header primary"> {_trend_title}</div>', unsafe_allow_html=True)
 
 if _trend_grouped.empty:
 
@@ -1194,7 +1194,7 @@ bc_left, bc_right = st.columns(2)
 
 with bc_left:
 
-    st.markdown('<div class="chart-tile-header primary">⚖ Deaths vs Injured by Province</div>', unsafe_allow_html=True)
+    st.markdown('<div class="chart-tile-header primary"> Deaths vs Injured by Province</div>', unsafe_allow_html=True)
 
     if not _has_provinces:
         st.info("No province data for the current filters.")
@@ -1218,7 +1218,7 @@ with bc_left:
 
 with bc_right:
 
-    st.markdown('<div class="chart-tile-header primary">📐 Province Contribution to Total Casualties</div>', unsafe_allow_html=True)
+    st.markdown('<div class="chart-tile-header primary"> Province Contribution to Total Casualties</div>', unsafe_allow_html=True)
 
     if not _has_provinces or _total_casualties_all <= 0:
 
@@ -1326,7 +1326,7 @@ de_left, de_right = st.columns(2)
 
 with de_left:
 
-    st.markdown('<div class="chart-tile-header primary">🫧 Deaths vs Injured (Bubble = Total Casualties)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="chart-tile-header primary"> Deaths vs Injured (Bubble = Total Casualties)</div>', unsafe_allow_html=True)
 
     if not _has_provinces:
         st.info("No province data for the current filters.")
@@ -1346,7 +1346,7 @@ with de_left:
 
 with de_right:
 
-    st.markdown('<div class="chart-tile-header primary">🔎 Deaths vs Injured (Labeled)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="chart-tile-header primary"> Deaths vs Injured (Labeled)</div>', unsafe_allow_html=True)
 
     if not _has_provinces:
         st.info("No province data for the current filters.")
@@ -1382,7 +1382,7 @@ fg_left, fg_right = st.columns(2)
 with fg_left:
 
     st.markdown(
-        '<div class="chart-tile-header primary">📊 Deaths by Province</div>',
+        '<div class="chart-tile-header primary"> Deaths by Province</div>',
         unsafe_allow_html=True,
     )
 
@@ -1434,7 +1434,7 @@ with fg_left:
 with fg_right:
 
     st.markdown(
-        '<div class="chart-tile-header primary">📈 Weekly Death Trend by Province</div>',
+        '<div class="chart-tile-header primary"> Weekly Death Trend by Province</div>',
         unsafe_allow_html=True,
     )
 
@@ -1496,7 +1496,7 @@ st.divider()
 # H. TOP 10 MOST SEVERE INCIDENTS (sorted by deaths descending)
 # ==========================================================
 
-st.markdown('<div class="table-tile-header">🚨 Top 10 Most Severe Incidents</div>', unsafe_allow_html=True)
+st.markdown('<div class="table-tile-header"> Top 10 Most Severe Incidents</div>', unsafe_allow_html=True)
 
 severe_incidents = (
     filtered_df
@@ -1538,7 +1538,7 @@ st.divider()
 # J. PROVINCE RANKING TABLE -- with Rank + conditional formatting
 # ==========================================================
 
-st.markdown('<div class="table-tile-header">🏅 Province Ranking</div>', unsafe_allow_html=True)
+st.markdown('<div class="table-tile-header"> Province Ranking</div>', unsafe_allow_html=True)
 
 if not _has_provinces:
 
@@ -1584,7 +1584,7 @@ st.divider()
 # LATEST RECORDS -- unchanged from the existing implementation
 # ==========================================================
 
-st.markdown('<div class="table-tile-header">📋 Latest Records</div>', unsafe_allow_html=True)
+st.markdown('<div class="table-tile-header"> Latest Records</div>', unsafe_allow_html=True)
 
 latest_records = (
     filtered_df
@@ -1625,7 +1625,7 @@ st.divider()
 st.markdown(
     f"""
 <div class="ndma-footer">
-🇵🇰 <b>Pakistan Operational Risk Intelligence Platform</b> ·
+ <b>Pakistan Operational Risk Intelligence Platform</b> ·
 Source: NDMA · Records: <b>{reports_count:,}</b> ·
 Refreshes automatically after each Airflow pipeline run.
 </div>

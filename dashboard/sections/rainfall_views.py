@@ -12,7 +12,7 @@ import streamlit as st
 
 from dashboard.ui import components as C
 from dashboard.ui import tokens
-from dashboard.ui.charts import animated_bars, ranked_bar, style_fig, time_series
+from dashboard.ui.charts import animated_bars, heatmap, ranked_bar, style_fig, time_series
 
 SOURCE = "PDMA Punjab rainfall reports"
 BINS = [(0, 0.0, "0 mm (reported dry)"), (0.01, 1, "Trace to 1 mm"), (1, 5, "1–5 mm"), (5, 10, "5–10 mm"), (10, 25, "10–25 mm"), (25, 50, "25–50 mm"), (50, float("inf"), "50 mm and over")]
@@ -33,6 +33,18 @@ def name_kind(name: str) -> str:
     if n in JUNK_NAMES or not n:
         return "header"
     return "list" if ("," in n or "/" in n or " and " in n) else "station"
+
+
+def station_month_matrix(usable: pd.DataFrame, top: int = 12) -> pd.DataFrame:
+    """Top stations (by highest reading) x calendar month: the highest reading reported in that month. Months with no report for a station are empty, never 0."""
+    if usable.empty:
+        return pd.DataFrame()
+    d = usable.assign(month=usable["report_date"].dt.to_period("M"))
+    stations = d.groupby("station")["rainfall_mm"].max().sort_values(ascending=False).head(top).index
+    months = pd.period_range(d["month"].min(), d["month"].max(), freq="M")
+    m = d[d["station"].isin(stations)].pivot_table(index="station", columns="month", values="rainfall_mm", aggfunc="max").reindex(index=stations, columns=months)
+    m.columns = [c.strftime("%b %Y") for c in m.columns]
+    return m
 
 
 def intensity_counts(values: pd.Series) -> pd.DataFrame:
@@ -94,6 +106,10 @@ def render(df: pd.DataFrame) -> None:
     fig.update_xaxes(type="date", tickformat="%d %b")
     st.plotly_chart(style_fig(fig, "Station coverage: how many stations each report contained", 260, ytitle="Stations",
                               source=f"Source: {SOURCE} · single-station names only; district lists and table headers excluded"), width="stretch", key="rain_cov")
+
+    fig_hm = heatmap(station_month_matrix(usable), title="Highest reading per station and month", unit="mm", source=SOURCE, xlabel="Month", ylabel="", fmt=",.1f")
+    if fig_hm is not None:
+        st.plotly_chart(fig_hm, width="stretch", key="rain_heat")
 
     dates = sorted(usable["report_date"].unique())[-60:]
     top = usable[usable["report_date"].isin(dates)]

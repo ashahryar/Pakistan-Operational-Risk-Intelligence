@@ -13,7 +13,7 @@ def render_disaster_section(
     # ==========================================================
 
     st.markdown(
-        "## 🚨 Executive Disaster Intelligence Center"
+        "##  Executive Disaster Intelligence Center"
     )
 
     if casualties.empty:
@@ -104,35 +104,35 @@ def render_disaster_section(
     with k1:
 
         st.metric(
-            "🚨 Most Affected",
+            "Most Affected",
             most_affected["province"],
         )
 
     with k2:
 
         st.metric(
-            "💀 Total Deaths",
+            "Total Deaths",
             f"{total_deaths:,}",
         )
 
     with k3:
 
         st.metric(
-            "🤕 Total Injured",
+            "Total Injured",
             f"{total_injured:,}",
         )
 
     with k4:
 
         st.metric(
-            "🗺 Provinces Reporting",
+            "Provinces Reporting",
             f"{districts_affected:,}",
         )
 
     with k5:
 
         st.metric(
-            "📅 Latest Report",
+            "Latest Report",
             str(latest_report),
         )
 
@@ -175,7 +175,7 @@ def render_disaster_section(
         ):
 
             st.markdown(
-                "##### 🏅 Top Affected Provinces"
+                "#####  Top Affected Provinces"
             )
 
             top5 = (
@@ -185,11 +185,11 @@ def render_disaster_section(
             )
 
             medals = [
-                "🥇",
-                "🥈",
-                "🥉",
-                "4️⃣",
-                "5️⃣",
+                "",
+                "",
+                "",
+                "4⃣",
+                "5⃣",
             ]
 
             for i, row in top5.iterrows():
@@ -236,9 +236,9 @@ def render_disaster_section(
                         <div style="
                             font-size:11px;
                         ">
-                        🔴 {row['deaths']:,.0f}
+                         {row['deaths']:,.0f}
                         &nbsp;&nbsp;
-                        🔵 {row['injured']:,.0f}
+                         {row['injured']:,.0f}
                         </div>
                         """,
                         unsafe_allow_html=True,
@@ -330,7 +330,7 @@ def render_disaster_section(
     # ==========================================================
 
     st.markdown(
-        "##### 📋 Latest Disaster Dataset"
+        "#####  Latest Disaster Dataset"
     )
 
     show_cols = [
@@ -380,7 +380,7 @@ def render_disaster_section(
 
             "report_date":
                 st.column_config.DatetimeColumn(
-                    "📅 Date",
+                    "Date",
                     format="DD MMM HH:mm",
                 ),
 
@@ -398,25 +398,25 @@ def render_disaster_section(
 
             "deaths":
                 st.column_config.NumberColumn(
-                    "💀 Deaths",
+                    "Deaths",
                     format="%d",
                 ),
 
             "injured":
                 st.column_config.NumberColumn(
-                    "🤕 Injured",
+                    "Injured",
                     format="%d",
                 ),
 
             "houses_damaged":
                 st.column_config.NumberColumn(
-                    "🏠 Houses",
+                    "Houses",
                     format="%d",
                 ),
 
             "persons_rescued":
                 st.column_config.NumberColumn(
-                    "🚑 Rescued",
+                    "Rescued",
                     format="%d",
                 ),
 
@@ -435,7 +435,7 @@ def render_disaster_section(
     ):
 
         st.markdown(
-            "##### 📥 Export Disaster Dataset"
+            "#####  Export Disaster Dataset"
         )
 
         e1, e2, e3, e4 = st.columns(
@@ -469,7 +469,7 @@ def render_disaster_section(
 
             st.download_button(
 
-                label="⬇ Download CSV",
+                label="Download CSV",
 
                 data=(
                     casualties

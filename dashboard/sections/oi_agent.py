@@ -11,6 +11,7 @@ from dashboard.api_client import RiskApiClient
 from dashboard.utils.api_cache import cached_api
 from dashboard.utils.agent_helpers import BASELINE_LABEL, candidate_rows, ml_rows, provenance_rows, routing_text, status_banner, tool_trace_table
 from dashboard.utils.intelligence_helpers import area_options, risk_metrics, score_caption, signal_summary
+from dashboard.utils.summary_helpers import ENABLE_HINT, example_line, operational_summary
 from dashboard.utils.rag_helpers import MODES, evidence_caption, evidence_rows, relevance_notice
 
 
@@ -52,6 +53,7 @@ def render() -> None:
         use_date = st.checkbox("Look up the risk on a specific date (otherwise the latest available)")
         risk_date = st.date_input("Risk date", value=date.today()) if use_date else None
         submitted = st.form_submit_button("Ask the agent")
+    st.caption(example_line())
 
     if submitted:
         if len((question or "").strip()) < 2:
@@ -83,6 +85,13 @@ def render() -> None:
                        "[chunk:...] = a retrieved document passage.")
         else:
             st.caption("No natural-language answer is available for this request. The structured results below are the agent's output.")
+
+        summary = operational_summary(body)
+        if summary and status != "ANSWERED":
+            st.markdown("**Evidence summary** — assembled from the retrieved data; no AI model wrote this.")
+            st.markdown("\n".join(f"- {line}" for line in summary))
+            if status == "LLM_UNAVAILABLE":
+                st.caption(ENABLE_HINT)
 
         pc = body.get("premise_check")
         if pc and not pc.get("matches"):

@@ -103,7 +103,7 @@ map_res = _risk_map(base)
 if not map_res.ok:
     C.api_error(map_res.message, "The overview map reads from the PORI API.")
 else:
-    fig = risk_choropleth(map_res.data, height=460)
+    fig = risk_choropleth(map_res.data, height=580, width=1300)
     if fig is None:
         C.empty_state("No boundaries available", "The API returned no area with a mapped boundary.")
     else:

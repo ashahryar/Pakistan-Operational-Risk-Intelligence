@@ -3,7 +3,7 @@ import streamlit as st
 
 def render_national_alert_center(summary) -> None:
     """Render the National Alert Center: the primary, detailed advisory card."""
-    st.markdown("## 🚨 National Alert Center")
+    st.markdown("##  National Alert Center")
 
     alert = summary.get("latest_alert")
 
@@ -43,21 +43,21 @@ No PMD advisory is stored. This is not confirmation that no advisory is active.
 
             card_class="alert-card-high"
             chip_class="status-chip-high"
-            icon="🔴"
+            icon=""
             text="HIGH"
 
         elif severity=="medium":
 
             card_class="alert-card-medium"
             chip_class="status-chip-medium"
-            icon="🟡"
+            icon=""
             text="MEDIUM"
 
         else:
 
             card_class="alert-card-low"
             chip_class="status-chip-low"
-            icon="🟢"
+            icon=""
             text="LOW"
 
         # Short summary shown on the card itself -- capped at 280 characters,

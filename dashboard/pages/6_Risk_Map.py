@@ -18,7 +18,7 @@ import streamlit as st
 from dashboard.api_client import RiskApiClient
 from dashboard.ui import components as C
 from dashboard.ui import shell, tokens
-from dashboard.ui.charts import status_distribution, status_timeline
+from dashboard.ui.charts import status_by_group, status_distribution, status_timeline
 from dashboard.ui.maps import ATTRIBUTION, risk_choropleth
 from dashboard.utils.api_cache import cached_api
 from dashboard.utils.risk_map_helpers import (
@@ -209,7 +209,7 @@ with side_col:
                 C.notice("info", "Insufficient evidence", "No usable signal was observed for this area. That is not the same as low risk.")
 
 with map_col:
-    fig = risk_choropleth(fc, selected_id=selected_id, height=620)
+    fig = risk_choropleth(fc, selected_id=selected_id, height=620, width=860)
     if fig is None:
         C.empty_state("No areas with mapped boundaries match these filters", "Change a filter, or see the list of risk records without a boundary below.")
     else:
@@ -243,6 +243,10 @@ with v2:
             C.empty_state(f"No status history for {area_name}", "The risk engine produced no dated record for this area.")
         else:
             st.plotly_chart(fig_hist, width="stretch", key="risk_hist")
+
+fig_prov = status_by_group(frame, "province", "status", title="Operational status by province (mapped areas in scope)") if not frame.empty else None
+if fig_prov is not None:
+    st.plotly_chart(fig_prov, width="stretch", key="risk_by_province")
 
 # ---------------------------------------------------------------- missing geography
 st.subheader("Risk records without mapped boundary")
