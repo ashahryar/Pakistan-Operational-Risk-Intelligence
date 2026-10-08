@@ -1,0 +1,240 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1700 1190" width="1700" height="1190" font-family="Segoe UI, Arial, Helvetica, sans-serif">
+<defs><marker id="ah" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#334155"/></marker></defs>
+<rect width="1700" height="1190" fill="#FFFFFF"/>
+<text x="850.0" y="40" text-anchor="middle" font-size="30" font-weight="800" fill="#0F172A">Pakistan Operational Risk Intelligence Platform: Architecture</text>
+<text x="850.0" y="66" text-anchor="middle" font-size="15" fill="#334155">Sources → Extraction → Parsing and Validation → PostgreSQL 15 → Evidence engines → Read-only API → Responsive dashboard. Evidence-first: it abstains instead of guessing.</text>
+<rect x="20" y="90" width="230" height="560" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+<text x="135.0" y="114" text-anchor="middle" font-size="15" font-weight="700" fill="#065F46">1. DATA SOURCES</text>
+<text x="135.0" y="132" text-anchor="middle" font-size="11.5" fill="#065F46">Government websites, no official APIs</text>
+<rect x="30" y="144" width="210" height="92" rx="8" fill="#FFFFFF" stroke="#10B981" stroke-width="1.6"/>
+<text x="40" y="163" font-size="13" font-weight="700" fill="#065F46">NDMA</text>
+<text x="40" y="181" font-size="11.5" fill="#334155">Situation reports (PDF)</text>
+<text x="40" y="196" font-size="11.5" fill="#334155">Advisories (PDF)</text>
+<text x="40" y="211" font-size="11.5" fill="#334155">Casualties, damage, relief, rescue</text>
+<rect x="30" y="246" width="210" height="92" rx="8" fill="#FFFFFF" stroke="#10B981" stroke-width="1.6"/>
+<text x="40" y="265" font-size="13" font-weight="700" fill="#065F46">PDMA Punjab</text>
+<text x="40" y="283" font-size="11.5" fill="#334155">Daily reports (PDF)</text>
+<text x="40" y="298" font-size="11.5" fill="#334155">Rainfall reports (PDF)</text>
+<text x="40" y="313" font-size="11.5" fill="#334155">River gauge reports (PDF)</text>
+<rect x="30" y="348" width="210" height="92" rx="8" fill="#FFFFFF" stroke="#EF4444" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="40" y="367" font-size="13" font-weight="700" fill="#991B1B">PMD</text>
+<text x="40" y="385" font-size="11.5" fill="#334155">Forecasts, outlook, alerts (HTML)</text>
+<text x="40" y="400" font-size="11.5" fill="#334155">HTTP 500/404 on 2026-10-07</text>
+<text x="40" y="415" font-size="11.5" fill="#334155">DAG paused, fails loudly if run</text>
+<rect x="30" y="450" width="210" height="106" rx="8" fill="#FFFFFF" stroke="#10B981" stroke-width="1.6"/>
+<text x="40" y="469" font-size="13" font-weight="700" fill="#065F46">Tier-1 national sources</text>
+<text x="40" y="487" font-size="11.5" fill="#334155">Punjab air quality, NDMC bulletins</text>
+<text x="40" y="502" font-size="11.5" fill="#334155">SUPARCO DisasterWatch, FFC</text>
+<text x="40" y="517" font-size="11.5" fill="#334155">(FFC / IRSA unreachable so far)</text>
+<rect x="30" y="566" width="210" height="70" rx="8" fill="#FFFFFF" stroke="#64748B" stroke-width="1.6"/>
+<text x="40" y="585" font-size="13" font-weight="700" fill="#1E293B">Access method</text>
+<text x="40" y="603" font-size="11.5" fill="#334155">Web scraping (requests + BS4)</text>
+<text x="40" y="618" font-size="11.5" fill="#334155">Scheduled, polite, retried</text>
+<rect x="270" y="90" width="230" height="560" rx="12" fill="#FFF7ED" stroke="#F97316" stroke-width="2"/>
+<text x="385.0" y="114" text-anchor="middle" font-size="15" font-weight="700" fill="#9A3412">2. INGESTION</text>
+<text x="385.0" y="132" text-anchor="middle" font-size="11.5" fill="#9A3412">Extraction layer</text>
+<rect x="280" y="144" width="210" height="104" rx="8" fill="#FFFFFF" stroke="#F97316" stroke-width="1.6"/>
+<text x="290" y="163" font-size="13" font-weight="700" fill="#9A3412">Scrapers</text>
+<text x="290" y="181" font-size="11.5" fill="#334155">extract_ndma / extract_pdma /</text>
+<text x="290" y="196" font-size="11.5" fill="#334155">extract_pmd, Tier-1 acquisition</text>
+<text x="290" y="211" font-size="11.5" fill="#334155">Retry + backoff; unreachable</text>
+<text x="290" y="226" font-size="11.5" fill="#334155">source = task fails, no partial write</text>
+<rect x="280" y="260" width="210" height="110" rx="8" fill="#FFFFFF" stroke="#F97316" stroke-width="1.6"/>
+<text x="290" y="279" font-size="13" font-weight="700" fill="#9A3412">Raw archive  data/raw/</text>
+<text x="290" y="297" font-size="11.5" fill="#334155">Immutable PDFs / HTML + metadata</text>
+<text x="290" y="312" font-size="11.5" fill="#334155">Not re-downloadable: never deleted</text>
+<text x="290" y="327" font-size="11.5" fill="#334155">(git-ignored)</text>
+<rect x="280" y="382" width="210" height="80" rx="8" fill="#FFFFFF" stroke="#F97316" stroke-width="1.6"/>
+<text x="290" y="401" font-size="13" font-weight="700" fill="#9A3412">Metadata and de-duplication</text>
+<text x="290" y="419" font-size="11.5" fill="#334155">Skip already-downloaded files</text>
+<rect x="280" y="474" width="210" height="92" rx="8" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="290" y="493" font-size="13" font-weight="700" fill="#334155">Optional S3 archive</text>
+<text x="290" y="511" font-size="11.5" fill="#334155">Raw + parsed files (boto3)</text>
+<text x="290" y="526" font-size="11.5" fill="#334155">Off by default (PORI_S3_UPLOAD)</text>
+<text x="290" y="541" font-size="11.5" fill="#334155">Shows as skipped in Airflow</text>
+<rect x="520" y="90" width="270" height="560" rx="12" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+<text x="655.0" y="114" text-anchor="middle" font-size="15" font-weight="700" fill="#1E3A8A">3. PROCESSING &amp; VALIDATION</text>
+<text x="655.0" y="132" text-anchor="middle" font-size="11.5" fill="#1E3A8A">Nothing is silently dropped</text>
+<rect x="530" y="144" width="250" height="92" rx="8" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.6"/>
+<text x="540" y="163" font-size="13" font-weight="700" fill="#1E3A8A">Parsing</text>
+<text x="540" y="181" font-size="11.5" fill="#334155">pdfplumber · camelot-py · PyMuPDF</text>
+<text x="540" y="196" font-size="11.5" fill="#334155">NDMA · PDMA daily/rainfall/gauge</text>
+<text x="540" y="211" font-size="11.5" fill="#334155">PMD · Tier-1 parsers → JSON</text>
+<rect x="530" y="246" width="250" height="92" rx="8" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.6"/>
+<text x="540" y="265" font-size="13" font-weight="700" fill="#1E3A8A">Validation</text>
+<text x="540" y="283" font-size="11.5" fill="#334155">Schema · completeness · quality score</text>
+<text x="540" y="298" font-size="11.5" fill="#334155">Range checks (validation/)</text>
+<text x="540" y="313" font-size="11.5" fill="#334155">Runs inside the parsers</text>
+<rect x="530" y="348" width="250" height="92" rx="8" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.6"/>
+<text x="540" y="367" font-size="13" font-weight="700" fill="#1E3A8A">Canonical normalization</text>
+<text x="540" y="385" font-size="11.5" fill="#334155">Names → canonical geography</text>
+<text x="540" y="400" font-size="11.5" fill="#334155">Resolver: exact · alias · normalized</text>
+<text x="540" y="415" font-size="11.5" fill="#334155">· conservative fuzzy; else unresolved</text>
+<rect x="530" y="450" width="250" height="92" rx="8" fill="#FFFFFF" stroke="#EF4444" stroke-width="1.6"/>
+<text x="540" y="469" font-size="13" font-weight="700" fill="#991B1B">Rejection gate</text>
+<text x="540" y="487" font-size="11.5" fill="#334155">(processed, succeeded, rejected)</text>
+<text x="540" y="502" font-size="11.5" fill="#334155">Task FAILS above 15 % rejected</text>
+<text x="540" y="517" font-size="11.5" fill="#334155">Never silently skipped</text>
+<rect x="530" y="552" width="250" height="84" rx="8" fill="#FFFFFF" stroke="#EF4444" stroke-width="1.6"/>
+<text x="540" y="571" font-size="13" font-weight="700" fill="#991B1B">dq.quarantine</text>
+<text x="540" y="589" font-size="11.5" fill="#334155">Reason code, payload, parser version</text>
+<text x="540" y="604" font-size="11.5" fill="#334155">Queryable and re-processable</text>
+<rect x="810" y="90" width="270" height="560" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2"/>
+<text x="945.0" y="114" text-anchor="middle" font-size="15" font-weight="700" fill="#4C1D95">4. STORAGE LAYER</text>
+<text x="945.0" y="132" text-anchor="middle" font-size="11.5" fill="#4C1D95">PostgreSQL 15 · no PostGIS (plpgsql only)</text>
+<rect x="820" y="144" width="250" height="104" rx="8" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="1.6"/>
+<text x="830" y="163" font-size="13" font-weight="700" fill="#4C1D95">Application tables</text>
+<text x="830" y="181" font-size="11.5" fill="#334155">ndma_casualties / damage / relief / rescue</text>
+<text x="830" y="196" font-size="11.5" fill="#334155">pdma_daily / rainfall / gauge readings</text>
+<text x="830" y="211" font-size="11.5" fill="#334155">pmd_daily_forecast / weekly / alerts</text>
+<text x="830" y="226" font-size="11.5" fill="#334155">geo_locations (legacy)</text>
+<rect x="820" y="258" width="250" height="78" rx="8" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="1.6"/>
+<text x="830" y="277" font-size="13" font-weight="700" fill="#4C1D95">geo.*</text>
+<text x="830" y="295" font-size="11.5" fill="#334155">69 canonical districts · aliases</text>
+<text x="830" y="310" font-size="11.5" fill="#334155">Boundaries as GeoJSON jsonb (COD-AB)</text>
+<rect x="820" y="346" width="250" height="70" rx="8" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="1.6"/>
+<text x="830" y="365" font-size="13" font-weight="700" fill="#4C1D95">risk.operational_risk</text>
+<text x="830" y="383" font-size="11.5" fill="#334155">1,771 rows · 0 scored (2026-10-08)</text>
+<rect x="820" y="426" width="250" height="70" rx="8" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="1.6"/>
+<text x="830" y="445" font-size="13" font-weight="700" fill="#4C1D95">rag.*</text>
+<text x="830" y="463" font-size="11.5" fill="#334155">Documents, chunks, 1,909 embeddings</text>
+<rect x="820" y="506" width="250" height="60" rx="8" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="1.6"/>
+<text x="830" y="525" font-size="13" font-weight="700" fill="#4C1D95">ml.*</text>
+<text x="830" y="543" font-size="11.5" fill="#334155">Experimental predictions + registry</text>
+<rect x="820" y="576" width="250" height="60" rx="8" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="1.6"/>
+<text x="830" y="595" font-size="13" font-weight="700" fill="#4C1D95">Constraints and loaders</text>
+<text x="830" y="613" font-size="11.5" fill="#334155">Natural-key UNIQUE · per-record txns</text>
+<rect x="1100" y="90" width="270" height="560" rx="12" fill="#ECFEFF" stroke="#06B6D4" stroke-width="2"/>
+<text x="1235.0" y="114" text-anchor="middle" font-size="15" font-weight="700" fill="#155E75">5. EVIDENCE ENGINES</text>
+<text x="1235.0" y="132" text-anchor="middle" font-size="11.5" fill="#155E75">Deterministic, traceable, abstaining</text>
+<rect x="1110" y="144" width="250" height="66" rx="8" fill="#FFFFFF" stroke="#06B6D4" stroke-width="1.6"/>
+<text x="1120" y="163" font-size="13" font-weight="700" fill="#155E75">Gold analytics</text>
+<text x="1120" y="181" font-size="11.5" fill="#334155">scripts/gold/run_gold.py</text>
+<rect x="1110" y="220" width="250" height="78" rx="8" fill="#FFFFFF" stroke="#06B6D4" stroke-width="1.6"/>
+<text x="1120" y="239" font-size="13" font-weight="700" fill="#155E75">Gauge geography evidence</text>
+<text x="1120" y="257" font-size="11.5" fill="#334155">Official evidence only (YAML)</text>
+<text x="1120" y="272" font-size="11.5" fill="#334155">2 of 41 mapped (Chashma, Trimmu)</text>
+<rect x="1110" y="308" width="250" height="92" rx="8" fill="#FFFFFF" stroke="#06B6D4" stroke-width="1.6"/>
+<text x="1120" y="327" font-size="13" font-weight="700" fill="#155E75">Risk engine</text>
+<text x="1120" y="345" font-size="11.5" fill="#334155">Provisional-threshold statuses</text>
+<text x="1120" y="360" font-size="11.5" fill="#334155">risk_score NULL · score_v2 ABSTAINED</text>
+<text x="1120" y="375" font-size="11.5" fill="#334155">(no labels, no evidence weights)</text>
+<rect x="1110" y="410" width="250" height="92" rx="8" fill="#FFFFFF" stroke="#06B6D4" stroke-width="1.6"/>
+<text x="1120" y="429" font-size="13" font-weight="700" fill="#155E75">RAG + Intelligence</text>
+<text x="1120" y="447" font-size="11.5" fill="#334155">BM25 / semantic / hybrid + relevance</text>
+<text x="1120" y="462" font-size="11.5" fill="#334155">policy; evidence only, abstains</text>
+<text x="1120" y="477" font-size="11.5" fill="#334155">Optional LLM via PORI_LLM_*</text>
+<rect x="1110" y="512" width="250" height="62" rx="8" fill="#FFFFFF" stroke="#06B6D4" stroke-width="1.6"/>
+<text x="1120" y="531" font-size="13" font-weight="700" fill="#155E75">Read-only agent</text>
+<text x="1120" y="549" font-size="11.5" fill="#334155">Fixed tools; no SQL / file / shell</text>
+<rect x="1110" y="584" width="250" height="52" rx="8" fill="#FFFFFF" stroke="#06B6D4" stroke-width="1.6"/>
+<text x="1120" y="603" font-size="12" font-weight="700" fill="#155E75">ML baselines (experimental)</text>
+<text x="1120" y="621" font-size="11.5" fill="#334155">Never feed a status or score</text>
+<rect x="1390" y="90" width="290" height="560" rx="12" fill="#FEFCE8" stroke="#EAB308" stroke-width="2"/>
+<text x="1535.0" y="114" text-anchor="middle" font-size="15" font-weight="700" fill="#854D0E">6. SERVING &amp; CONSUMPTION</text>
+<text x="1535.0" y="132" text-anchor="middle" font-size="11.5" fill="#854D0E">Read-only API → responsive dashboard</text>
+<rect x="1400" y="144" width="270" height="150" rx="8" fill="#FFFFFF" stroke="#EAB308" stroke-width="1.6"/>
+<text x="1410" y="163" font-size="13" font-weight="700" fill="#854D0E">FastAPI  :8000   (GET only)</text>
+<text x="1410" y="181" font-size="11.5" fill="#334155">/health · /api/v1/geography · risk · weather</text>
+<text x="1410" y="196" font-size="11.5" fill="#334155">disasters · evidence · freshness</text>
+<text x="1410" y="211" font-size="11.5" fill="#334155">rag · intelligence · ml · agent</text>
+<text x="1410" y="226" font-size="11.5" fill="#334155">POST/PUT/PATCH/DELETE → 405</text>
+<text x="1410" y="241" font-size="11.5" fill="#334155">Strict validation (422), 503 if backend down</text>
+<rect x="1400" y="304" width="270" height="226" rx="8" fill="#FFFFFF" stroke="#EAB308" stroke-width="1.6"/>
+<text x="1410" y="323" font-size="13" font-weight="700" fill="#854D0E">Streamlit dashboard  :8501</text>
+<text x="1410" y="341" font-size="11.5" fill="#334155">Overview · NDMA Casualties · NDMA Damage</text>
+<text x="1410" y="356" font-size="11.5" fill="#334155">PMD Weather · PDMA Rainfall · PDMA Rivers</text>
+<text x="1410" y="371" font-size="11.5" fill="#334155">Risk Map (satellite) · Operational Intelligence</text>
+<text x="1410" y="386" font-size="11.5" fill="#334155">Design system: tokens, one Plotly template</text>
+<text x="1410" y="401" font-size="11.5" fill="#334155">Glyph + label status, freshness chips</text>
+<text x="1410" y="416" font-size="11.5" fill="#334155">Responsive 320 → 1440 px</text>
+<text x="1410" y="431" font-size="11.5" fill="#334155">Missing = n/a, never 0</text>
+<rect x="1400" y="540" width="270" height="96" rx="8" fill="#FFFFFF" stroke="#EAB308" stroke-width="1.6"/>
+<text x="1410" y="559" font-size="13" font-weight="700" fill="#854D0E">Users</text>
+<text x="1410" y="577" font-size="11.5" fill="#334155">Analysts, operations teams,</text>
+<text x="1410" y="592" font-size="11.5" fill="#334155">decision support</text>
+<text x="1410" y="607" font-size="11.5" fill="#334155">(not a certified warning system)</text>
+<line x1="251" y1="390" x2="269" y2="390" stroke="#334155" stroke-width="2.2" marker-end="url(#ah)"/>
+<line x1="501" y1="390" x2="519" y2="390" stroke="#334155" stroke-width="2.2" marker-end="url(#ah)"/>
+<line x1="791" y1="390" x2="809" y2="390" stroke="#334155" stroke-width="2.2" marker-end="url(#ah)"/>
+<line x1="1081" y1="390" x2="1099" y2="390" stroke="#334155" stroke-width="2.2" marker-end="url(#ah)"/>
+<line x1="1371" y1="390" x2="1389" y2="390" stroke="#334155" stroke-width="2.2" marker-end="url(#ah)"/>
+<rect x="20" y="670" width="1060" height="150" rx="12" fill="#FEF2F2" stroke="#EF4444" stroke-width="2"/>
+<text x="550.0" y="694" text-anchor="middle" font-size="15" font-weight="700" fill="#991B1B">7. ORCHESTRATION  (Apache Airflow 2.9.3 · LocalExecutor)</text>
+<rect x="32" y="710" width="197" height="60" rx="8" fill="#FFFFFF" stroke="#10B981" stroke-width="1.6"/>
+<text x="42" y="729" font-size="12" font-weight="700" fill="#065F46">ndma_pipeline</text>
+<text x="42" y="747" font-size="11.5" fill="#334155">daily 05:00 · scheduled</text>
+<rect x="239" y="710" width="197" height="60" rx="8" fill="#FFFFFF" stroke="#10B981" stroke-width="1.6"/>
+<text x="249" y="729" font-size="12" font-weight="700" fill="#065F46">pdma_pipeline</text>
+<text x="249" y="747" font-size="11.5" fill="#334155">every 6 h · scheduled</text>
+<rect x="446" y="710" width="197" height="60" rx="8" fill="#FFFFFF" stroke="#EF4444" stroke-width="1.6"/>
+<text x="456" y="729" font-size="12" font-weight="700" fill="#991B1B">pmd_pipeline</text>
+<text x="456" y="747" font-size="11.5" fill="#334155">paused: source down (10-07)</text>
+<rect x="653" y="710" width="197" height="60" rx="8" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.6"/>
+<text x="663" y="729" font-size="12" font-weight="700" fill="#334155">weekly_full / disaster</text>
+<text x="663" y="747" font-size="11.5" fill="#334155">manual only</text>
+<rect x="860" y="710" width="197" height="60" rx="8" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.6"/>
+<text x="870" y="729" font-size="12" font-weight="700" fill="#334155">manual / backfill</text>
+<text x="870" y="747" font-size="11.5" fill="#334155">manual / backfill only</text>
+<text x="550" y="795" text-anchor="middle" font-size="12" fill="#334155">Extract → Parse → Validate → Load → (optional S3) · retries · callbacks · catchup=False · max_active_runs=1 · Gold, risk engine and evaluations run on demand</text>
+<rect x="1100" y="670" width="580" height="150" rx="12" fill="#F1F5F9" stroke="#64748B" stroke-width="2"/>
+<text x="1390.0" y="694" text-anchor="middle" font-size="15" font-weight="700" fill="#1E293B">DEPLOYMENT  (Docker Compose)</text>
+<rect x="1112" y="710" width="170" height="100" rx="8" fill="#FFFFFF" stroke="#64748B" stroke-width="1.6"/>
+<text x="1122" y="729" font-size="12" font-weight="700" fill="#1E293B">Containers</text>
+<text x="1122" y="747" font-size="11.5" fill="#334155">airflow_postgres :5433</text>
+<text x="1122" y="762" font-size="11.5" fill="#334155">airflow_webserver :8088</text>
+<text x="1122" y="777" font-size="11.5" fill="#334155">airflow_scheduler</text>
+<rect x="1292" y="710" width="176" height="100" rx="8" fill="#FFFFFF" stroke="#64748B" stroke-width="1.6"/>
+<text x="1302" y="729" font-size="12" font-weight="700" fill="#1E293B">Services</text>
+<text x="1302" y="747" font-size="11.5" fill="#334155">pori_api :8000</text>
+<text x="1302" y="762" font-size="11.5" fill="#334155">pori_dashboard :8501</text>
+<text x="1302" y="777" font-size="11.5" fill="#334155">airflow_init (one-shot)</text>
+<rect x="1478" y="710" width="192" height="100" rx="8" fill="#FFFFFF" stroke="#64748B" stroke-width="1.6"/>
+<text x="1488" y="729" font-size="12" font-weight="700" fill="#1E293B">Notes</text>
+<text x="1488" y="747" font-size="11.5" fill="#334155">Postgres on loopback only</text>
+<text x="1488" y="762" font-size="11.5" fill="#334155">Secrets in .env (git-ignored)</text>
+<text x="1488" y="777" font-size="11.5" fill="#334155">Terraform: scaffold only</text>
+<rect x="20" y="840" width="540" height="150" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+<text x="290.0" y="864" text-anchor="middle" font-size="15" font-weight="700" fill="#065F46">QUALITY &amp; CI</text>
+<rect x="32" y="880" width="250" height="100" rx="8" fill="#FFFFFF" stroke="#10B981" stroke-width="1.6"/>
+<text x="42" y="899" font-size="12" font-weight="700" fill="#065F46">Tests</text>
+<text x="42" y="917" font-size="11.5" fill="#334155">last run: 1612 host · 399 Docker</text>
+<text x="42" y="932" font-size="11.5" fill="#334155">DAG integrity, parser golden files</text>
+<text x="42" y="947" font-size="11.5" fill="#334155">API contracts, risk abstention</text>
+<text x="42" y="962" font-size="11.5" fill="#334155">responsive CSS + phone behaviour</text>
+<rect x="292" y="880" width="256" height="100" rx="8" fill="#FFFFFF" stroke="#10B981" stroke-width="1.6"/>
+<text x="302" y="899" font-size="12" font-weight="700" fill="#065F46">GitHub Actions CI</text>
+<text x="302" y="917" font-size="11.5" fill="#334155">Ruff lint + unit/parser tests</text>
+<text x="302" y="932" font-size="11.5" fill="#334155">DAG integrity in real Airflow</text>
+<text x="302" y="947" font-size="11.5" fill="#334155">Serving-stack smoke test</text>
+<text x="302" y="962" font-size="11.5" fill="#334155">Pinned Streamlit/Plotly/pandas/FastAPI</text>
+<rect x="580" y="840" width="540" height="150" rx="12" fill="#F8FAFC" stroke="#94A3B8" stroke-width="2"/>
+<text x="850.0" y="864" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">INACTIVE / SCAFFOLDED (not wired in)</text>
+<rect x="592" y="880" width="250" height="100" rx="8" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="602" y="899" font-size="12" font-weight="700" fill="#334155">Databricks lakehouse scaffold</text>
+<text x="602" y="917" font-size="11.5" fill="#334155">Bronze / silver / gold (Delta)</text>
+<text x="602" y="932" font-size="11.5" fill="#334155">Schemas, jobs, local validation</text>
+<text x="602" y="947" font-size="11.5" fill="#334155">No live workspace connected</text>
+<rect x="852" y="880" width="256" height="100" rx="8" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="862" y="899" font-size="12" font-weight="700" fill="#334155">Removed / unused</text>
+<text x="862" y="917" font-size="11.5" fill="#334155">AWS Glue, Redshift, Lambda removed</text>
+<text x="862" y="932" font-size="11.5" fill="#334155">scripts/warehouse, pipeline/sensors</text>
+<text x="862" y="947" font-size="11.5" fill="#334155">unused scaffolding</text>
+<rect x="1140" y="840" width="540" height="150" rx="12" fill="#ECFEFF" stroke="#06B6D4" stroke-width="2"/>
+<text x="1410.0" y="864" text-anchor="middle" font-size="15" font-weight="700" fill="#155E75">EVIDENCE-FIRST INVARIANTS</text>
+<text x="1156" y="892" font-size="12.5" fill="#155E75">• Never fabricate: missing = NULL / n/a, never 0</text>
+<text x="1156" y="911" font-size="12.5" fill="#155E75">• Every record loaded, quarantined or loudly rejected</text>
+<text x="1156" y="930" font-size="12.5" fill="#155E75">• risk_score NULL is not low risk; score_v2 abstains</text>
+<text x="1156" y="949" font-size="12.5" fill="#155E75">• Read-only API and agent; no autonomous writes</text>
+<text x="1156" y="968" font-size="12.5" fill="#155E75">• No PostGIS; geometry stored as GeoJSON jsonb</text>
+<rect x="20" y="1010" width="540" height="100" rx="12" fill="#F1F5F9" stroke="#64748B" stroke-width="2"/>
+<text x="290.0" y="1034" text-anchor="middle" font-size="15" font-weight="700" fill="#1E293B">LEGEND</text>
+<line x1="40" y1="1058" x2="90" y2="1058" stroke="#334155" stroke-width="2.2" marker-end="url(#ah)"/><text x="100" y="1062" font-size="12" fill="#334155">Data flow</text>
+<rect x="200" y="1048" width="40" height="18" rx="4" fill="#fff" stroke="#64748B" stroke-width="1.6" stroke-dasharray="6 4"/><text x="250" y="1062" font-size="12" fill="#334155">Inactive / scaffolded / disabled</text>
+<rect x="40" y="1076" width="40" height="18" rx="4" fill="#fff" stroke="#EF4444" stroke-width="1.6"/><text x="90" y="1090" font-size="12" fill="#334155">Quality gate / orchestration</text>
+<rect x="580" y="1010" width="1100" height="100" rx="12" fill="#F1F5F9" stroke="#64748B" stroke-width="2"/>
+<text x="1130.0" y="1034" text-anchor="middle" font-size="15" font-weight="700" fill="#1E293B">TECHNOLOGY STACK</text>
+<text x="1130" y="1068" text-anchor="middle" font-size="13" fill="#1E293B">Python 3.11 · Apache Airflow 2.9.3 · PostgreSQL 15 · FastAPI · Streamlit 1.59 · Plotly 6.9 · pandas 3.0 · pdfplumber / camelot / PyMuPDF · scikit-learn</text>
+<text x="1130" y="1090" text-anchor="middle" font-size="13" fill="#1E293B">Docker Compose · GitHub Actions · boto3 / S3 (optional) · Databricks / Delta (scaffold) · Terraform (scaffold) · pytest · Ruff</text>
+<text x="850.0" y="1138" text-anchor="middle" font-size="12" fill="#475569">Snapshot as of 2026-10-08. Sources: docs/architecture/FINAL_SYSTEM_STATUS.md, GEOGRAPHY_COVERAGE_STATUS.md, RISK_SCORE_V2_STATUS.md, AIRFLOW_OPERATIONS.md. Counts are point-in-time and change as pipelines run.</text>
+</svg>
