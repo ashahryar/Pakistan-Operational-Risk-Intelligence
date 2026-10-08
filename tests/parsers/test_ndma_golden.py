@@ -56,7 +56,8 @@ FIXTURES = [
 
 def _run_parse_pdf(pdf_name, tmp_path, monkeypatch):
     pdf_path = NDMA_RAW_DIR / pdf_name
-    assert pdf_path.exists(), f"fixture PDF missing from data/raw: {pdf_path}"
+    if not pdf_path.exists():
+        pytest.skip(f"fixture PDF not present (data/raw/ is gitignored, so it is absent from a clean clone): {pdf_path.name}")
 
     output_dir = tmp_path / "parsed"
     rejected_dir = tmp_path / "rejected"

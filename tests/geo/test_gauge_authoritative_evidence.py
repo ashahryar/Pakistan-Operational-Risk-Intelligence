@@ -4,6 +4,7 @@ mapping/coverage outputs, and the guarantee that newly eligible signals never pr
 import json
 from pathlib import Path
 
+import pytest
 import yaml
 
 from pipeline.geo.boundaries import BoundaryIndex, build_crosswalk, crosswalk_lookup, locate_within_radius
@@ -178,5 +179,8 @@ def test_newly_eligible_gauge_signals_still_abstain_and_never_score():
     assert cell["eligible_signal_count"] == 1 and cell["risk_score"] is None and cell["score_status"] == S.ABSTAINED
     assert S.R_DISABLED in cell["abstention_reasons"] and S.SERVING_CONFIG["enabled"] is False and S.SERVING_CONFIG["weights"] == {}
     assert AUDIT["scoring_enabled"] is False and AUDIT["cells_scored"] == 0 and AUDIT["score_v2_outcome"] == "B"
-    rows = [json.loads(x) for x in (ROOT / "data" / "analytics" / "risk" / "gold_operational_risk.jsonl").read_text(encoding="utf-8").splitlines() if x.strip()]
+    gold = ROOT / "data" / "analytics" / "risk" / "gold_operational_risk.jsonl"
+    if not gold.exists():
+        pytest.skip("gold_operational_risk.jsonl not present (generated artifact, gitignored, absent from a clean clone)")
+    rows = [json.loads(x) for x in gold.read_text(encoding="utf-8").splitlines() if x.strip()]
     assert len(rows) == 1771 and all(r["risk_score"] is None for r in rows)

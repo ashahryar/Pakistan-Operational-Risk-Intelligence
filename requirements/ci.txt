@@ -13,5 +13,11 @@
 -r ../airflow_requirements.txt
 
 # Task 28: the dashboard map page (tests/dashboard/test_risk_map_page.py) imports these; they are not in the Airflow image.
-plotly
-streamlit-autorefresh
+# Pinned to the project's own baseline (requirements/dashboard.txt and requirements/api.txt): CI used to install the newest
+# releases (Streamlit 1.65, Plotly 7.1, pandas 3.0.6, FastAPI 0.142) and failed tests that pass on the pinned versions.
+# Starlette is not pinned directly: it is pulled in by fastapi and streamlit, so these pins control it.
+plotly==6.9.0
+streamlit==1.59.2
+streamlit-autorefresh==1.0.1
+pandas==3.0.3
+fastapi==0.141.1

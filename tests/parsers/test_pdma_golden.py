@@ -102,7 +102,8 @@ def _assert_matches_golden(domain, stem, actual):
 @pytest.mark.parametrize("year,filename", DAILY_FIXTURES)
 def test_pdma_daily_golden(year, filename):
     pdf_path = PDMA_RAW_ROOT / "daily_reports" / year / "pdfs" / filename
-    assert pdf_path.exists(), f"fixture PDF missing from data/raw: {pdf_path}"
+    if not pdf_path.exists():
+        pytest.skip(f"fixture PDF not present (data/raw/ is gitignored, so it is absent from a clean clone): {pdf_path.name}")
 
     result = parse_daily(pdf_path)
 
@@ -120,7 +121,8 @@ def test_pdma_daily_golden(year, filename):
 @pytest.mark.parametrize("year,filename", RAINFALL_FIXTURES)
 def test_pdma_rainfall_golden(year, filename):
     pdf_path = PDMA_RAW_ROOT / "rainfall_reports" / year / "pdfs" / filename
-    assert pdf_path.exists(), f"fixture PDF missing from data/raw: {pdf_path}"
+    if not pdf_path.exists():
+        pytest.skip(f"fixture PDF not present (data/raw/ is gitignored, so it is absent from a clean clone): {pdf_path.name}")
 
     result = parse_rainfall(pdf_path)
 
@@ -139,7 +141,8 @@ def test_pdma_rainfall_golden(year, filename):
 @pytest.mark.parametrize("year,filename", GAUGE_FIXTURES)
 def test_pdma_gauge_golden(year, filename):
     pdf_path = PDMA_RAW_ROOT / "gauge_reports" / year / "pdfs" / filename
-    assert pdf_path.exists(), f"fixture PDF missing from data/raw: {pdf_path}"
+    if not pdf_path.exists():
+        pytest.skip(f"fixture PDF not present (data/raw/ is gitignored, so it is absent from a clean clone): {pdf_path.name}")
 
     result = parse_gauge(pdf_path)
 
