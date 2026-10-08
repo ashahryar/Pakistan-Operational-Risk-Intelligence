@@ -15,13 +15,14 @@ Motion: filters re-render through Plotly with a 250 ms transition setting and a 
 
 from __future__ import annotations
 
+import textwrap
 from typing import Optional, Sequence
 
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.io as pio
 
-from dashboard.ui import tokens
+from dashboard.ui import tokens, viewport
 
 P = tokens.PALETTE
 SERIES = ["#60A5FA", "#F59E0B", "#34D399", "#C084FC", "#F472B6", "#94A3B8"]      # categorical, colour-blind-safe; never used to mean risk
@@ -44,22 +45,45 @@ pio.templates["pori"] = go.layout.Template(layout=_layout)
 pio.templates.default = "pori"
 
 
+def _wrap(text: str, width: int = 62) -> tuple[str, int]:
+    """Source notes wrap onto several lines (a long single line is cut off on a narrow chart). -> (text with <br>, line count)"""
+    lines = textwrap.wrap(text, width) or [""]
+    return "<br>".join(lines), len(lines)
+
+
 def style_fig(fig: go.Figure, title: str | None = None, height: int = 340, *, xtitle: str | None = None, ytitle: str | None = None, source: str | None = None,
               slider: bool = False, bottom: Optional[int] = None) -> go.Figure:
-    """Apply the standard layout. `source` is written under the chart as a source note."""
+    """Apply the standard layout. `source` is written under the chart as a wrapped source note. On a phone an ordinary chart is capped in height."""
+    if not slider:
+        height = viewport.chart_height(height)
     fig.update_layout(template="pori", height=height, transition=TRANSITION, **({"title": dict(text=title)} if title else {}))
     if xtitle is not None:
         fig.update_xaxes(title_text=xtitle)
     if ytitle is not None:
         fig.update_yaxes(title_text=ytitle)
     if source:
-        bottom = bottom or (150 if slider else 78)                       # room for the x-axis title, the optional range slider and the source note
+        note, lines = _wrap(source)
+        bottom = (bottom or (120 if slider else 78)) + 14 * (lines - 1)   # room for the x-axis title, the optional range slider and the (wrapped) source note
         m = fig.layout.margin
         top = m.t if m.t is not None else 44
-        fig.update_layout(margin=dict(l=m.l if m.l is not None else 8, r=m.r if m.r is not None else 8, t=top, b=max(m.b or 0, bottom)))
-        plot_h = max(height - top - max(m.b or 0, bottom), 1)
-        fig.add_annotation(text=source, xref="paper", yref="paper", x=0, y=-(max(m.b or 0, bottom) - 30) / plot_h, showarrow=False,
+        b = max(m.b or 0, bottom)
+        fig.update_layout(margin=dict(l=m.l if m.l is not None else 8, r=m.r if m.r is not None else 8, t=top, b=b))
+        plot_h = max(height - top - b, 1)
+        fig.add_annotation(text=note, xref="paper", yref="paper", x=0, y=-(b - 30) / plot_h, showarrow=False, align="left",
                            font=dict(size=11, color=P["muted"]), xanchor="left", yanchor="top")
+    return fig
+
+
+def stack_top(fig: go.Figure, *, selector: bool = True, legend: bool = True) -> go.Figure:
+    """Lay the range selector and the legend out as two rows above the plot (selector nearest the plot, legend above it) in paper coordinates computed from the final
+    margins, so on a narrow chart a wrapping legend can never sit on the buttons or the title."""
+    H, t, b = fig.layout.height or 340, fig.layout.margin.t or 44, fig.layout.margin.b or 8
+    plot_h = max(H - t - b, 1)
+    sel_h = 34 if selector else 0
+    if selector:
+        fig.update_xaxes(rangeselector=dict(x=0, xanchor="left", y=6 / plot_h, yanchor="bottom"))
+    if legend:
+        fig.update_layout(legend=dict(orientation="h", x=0, xanchor="left", y=(6 + sel_h + 6) / plot_h, yanchor="bottom"))
     return fig
 
 
@@ -85,6 +109,7 @@ def time_series(df: pd.DataFrame, x: str, series: dict[str, str], *, title: str,
     """Interactive time series, or None when there is nothing to draw. `series` maps a label to a column. Missing values stay missing: no gap is bridged."""
     if df is None or df.empty or x not in df:
         return None
+    slider = slider and not viewport.is_phone()
     d = df.dropna(subset=[x]).sort_values(x)
     if d.empty:
         return None
@@ -108,12 +133,12 @@ def time_series(df: pd.DataFrame, x: str, series: dict[str, str], *, title: str,
         fig.add_trace(go.Scatter(x=[lx], y=[ly], mode="markers", name="Latest observation", marker=dict(size=11, symbol="diamond", color=P["accent"], line=dict(color=P["bg"], width=1)),
                                  hovertemplate=f"<b>Latest observation</b><br>{lx:%d %b %Y}<br>{ly:,.1f} {unit}<br><i>{source}</i><extra></extra>"))
     span = _span_days(d[x])
-    fig.update_xaxes(type="date", tickformat="%d %b", nticks=8, rangeselector=dict(buttons=range_buttons(span), bgcolor=P["elevated"], activecolor=P["primary"], x=0, xanchor="left",
-                                                                                     y=1.0, yanchor="bottom", font=dict(color=P["text"], size=12)),
+    fig.update_xaxes(type="date", tickformat="%d %b", nticks=6, rangeselector=dict(buttons=range_buttons(span), bgcolor=P["elevated"], activecolor=P["primary"], font=dict(color=P["text"], size=12)),
                      rangeslider=dict(visible=slider, thickness=0.06, bgcolor=P["surface"]))
-    fig.update_layout(hovermode="x unified", yaxis_title=unit, margin=dict(l=8, r=30, t=96, b=8), legend=dict(orientation="h", yanchor="bottom", y=1.02, x=1, xanchor="right"))
-    return style_fig(fig, title, height + (110 if slider else 0), source=f"Source: {source} · {d[x].nunique()} report dates between {d[x].min():%d %b %Y} and {d[x].max():%d %b %Y}{latest_text}"
+    fig.update_layout(hovermode="x unified", yaxis_title=unit, margin=dict(l=8, r=16, t=128, b=8))
+    out = style_fig(fig, title, height + (110 if slider else 0), source=f"Source: {source} · {d[x].nunique()} report dates between {d[x].min():%d %b %Y} and {d[x].max():%d %b %Y}{latest_text}"
                      + (" · gaps are dates with no report" if span > d[x].nunique() * 1.5 else ""), slider=slider)
+    return stack_top(out)
 
 
 def ranked_bar(df: pd.DataFrame, label: str, value: str, *, title: str, unit: str, source: str, n: int = 15, height: Optional[int] = None,
@@ -197,7 +222,7 @@ def status_by_group(df: pd.DataFrame, group: str, status: str, *, title: str, so
     t = t[order].loc[t[order].sum(axis=1).sort_values().index]
     fig = go.Figure([go.Bar(y=t.index, x=t[s], name=tokens.status_text(s), orientation="h", marker_color=tokens.status_fill(s),
                             hovertemplate="<b>%{y}</b><br>" + tokens.status_text(s) + ": %{x} areas<br><i>" + source + "</i><extra></extra>") for s in order])
-    fig.update_layout(barmode="stack", legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0), margin=dict(l=8, r=16, t=84, b=8))
+    fig.update_layout(barmode="stack", legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0), margin=dict(l=8, r=16, t=112, b=8))
     return style_fig(fig, title, height or max(240, 30 * len(t) + 150), xtitle="Areas", ytitle="", source=f"Source: {source}")
 
 
@@ -251,6 +276,6 @@ def coverage_timeline(stations: pd.DataFrame, *, name: str, start: str, end: str
                              marker_color=SERIES[i % len(SERIES)], customdata=list(zip(part[start].dt.strftime("%d %b %Y"), part[end].dt.strftime("%d %b %Y"))),
                              hovertemplate="<b>%{y}</b><br>" + g + "<br>first %{customdata[0]} → latest %{customdata[1]}<br><i>" + source + "</i><extra></extra>"))
     fig.update_xaxes(type="date", tickformat="%d %b")
-    fig.update_layout(barmode="overlay", yaxis=dict(autorange="reversed"), margin=dict(l=8, r=16, t=120, b=8),
+    fig.update_layout(barmode="overlay", yaxis=dict(autorange="reversed"), margin=dict(l=8, r=16, t=128, b=8),
                       legend=dict(orientation="h", yanchor="bottom", y=1.01, x=0, xanchor="left"))
     return style_fig(fig, title, height or max(300, 18 * len(d) + 110), source=f"Source: {source} · each bar spans first to latest observation; it does not mean a report on every day")

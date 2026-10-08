@@ -51,6 +51,24 @@ Motion: one 200 ms rise (opacity and 6 px) for notices, chips, badges, KPIs, cha
 * **Emoji removed** from the legacy NDMA, PMD and rainfall pages and their chart modules (the browser-tab icon is kept). Status meaning now comes from text and the design-system glyphs.
 * **Intelligence Workspace without a language model**: the agent and risk-analysis modes show an "Evidence summary" built from the retrieved facts by fixed templates (`utils/summary_helpers.py`): status, date, signals observed and not observed, "numeric score not computed", forecast state, which documents passed the relevance check. Ask Reports shows the top passages as verbatim excerpts (an extractive view, not an AI summary). Both are labelled as assembled from the retrieved data, and the page states the settings that enable written answers: `PORI_LLM_PROVIDER`, `PORI_LLM_MODEL`, `PORI_LLM_API_KEY` in `.env`. No answer text is generated.
 
+## Responsive behaviour (Task 43)
+
+Measured in the running app, not assumed: every page was loaded fresh at 320, 375, 390, 430, 480, 600, 768, 1024, 1280 and 1440 px and probed for horizontal overflow of the main container, elements wider than it, clipped text, text under 11 px, touch-target size, chart and table widths and exceptions (`dashboard/styles/design_system.css`, "Responsive layer").
+
+| Breakpoint | What changes |
+|---|---|
+| any width | Plotly logo hidden; the sidebar is at most 86 vw; multiselect tags and long text wrap instead of clipping |
+| <= 1100 px | smaller page title; legacy KPI values wrap; legacy card labels get an 11 px floor |
+| <= 820 px | chart, filter and panel rows stack to full width; KPI rows (`st.metric` and the legacy KPI tiles) go two across (the legacy page CSS sets `flex-direction: column` here, overridden for KPI rows only) |
+| <= 768 px | tighter padding and headings (22 px page title), 44 px touch targets for buttons, selects, sidebar links, tabs and expanders, 12 px floor for legacy labels, the Plotly toolbar is hidden on ordinary charts (it covered chart titles on touch), map zoom/reset buttons are enlarged to 40 px |
+| <= 480 px | 20 px page title, long app-bar description hidden (the product name stays) |
+| <= 359 px | KPI rows one per line |
+| `pointer: coarse` (any width) | 44 px targets and large map controls on touch tablets, whatever their width |
+
+Python decides the few pixel sizes CSS cannot (`dashboard/ui/viewport.py`, from the request's User-Agent): on a phone ordinary charts are capped at 360 px, the range slider (hard to use with a thumb and 110 px tall) is dropped while the 7d / 30d / 90d / All buttons stay, and the maps are 420 px high with their initial view fitted to the phone width. Tablets and narrow desktop windows keep desktop sizes and rely on CSS. Source notes wrap, and the legend and range selector are laid out as two separate rows above the plot so a wrapping legend cannot sit on the buttons or the title. Home no longer forces the sidebar open (`initial_sidebar_state="auto"`): on a phone it starts collapsed instead of covering about three quarters of the screen.
+
+Tables (`st.dataframe`) scroll inside their own container; no page-level `overflow-x: hidden` is used in the shared CSS.
+
 ## Legacy pages
 
 NDMA Casualties, NDMA Damage, PMD Weather and PDMA Rainfall keep their existing analytics code (about 7,000 lines). They now sit inside the shared shell: their own `--cs-/--im-/--ob-` tokens are remapped to the shared tokens, their duplicate page titles and sidebar brands are hidden, and their charts use the `pori` template. Their inner card headings still carry some emoji and mono-caps styling; a full rewrite of those pages was not part of this task.

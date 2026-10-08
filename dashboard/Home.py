@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title="Executive Overview · PORI", page_icon="🇵🇰", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Executive Overview · PORI", page_icon="🇵🇰", layout="wide", initial_sidebar_state="auto")
 
 from dashboard.api_client import RiskApiClient  # noqa: E402
 from dashboard.components.executive_landing import latest, risk_availability  # noqa: E402

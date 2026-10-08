@@ -76,7 +76,7 @@ def test_heatmap_leaves_missing_cells_empty_and_labels_intensity_not_risk():
     z = pd.DataFrame({"w1": [1.0, np.nan], "w2": [5.0, 2.0]}, index=["KP", "Sindh"])
     fig = ch.heatmap(z, title="t", unit="people", source="NDMA")
     assert np.isnan(fig.data[0].z[1][0]) and fig.data[0].z[0][1] == 5.0 and fig.data[0].hoverongaps is False
-    assert "people" in fig.data[0].hovertemplate and "NDMA" in fig.data[0].hovertemplate and "not zero" in fig.layout.annotations[0].text
+    assert "people" in fig.data[0].hovertemplate and "NDMA" in fig.data[0].hovertemplate and "not zero" in " ".join(fig.layout.annotations[0].text.replace("<br>"," ").split())
     assert ch.heatmap(pd.DataFrame(), title="t", unit="u", source="s") is None
 
 

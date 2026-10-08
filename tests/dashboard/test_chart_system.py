@@ -17,6 +17,11 @@ from dashboard.utils.rag_helpers import evidence_rows  # noqa: E402
 CSS = (Path(__file__).resolve().parents[2] / "dashboard" / "styles" / "design_system.css").read_text(encoding="utf-8")
 
 
+def flat(text):
+    """Source notes wrap with <br>: compare them as one line."""
+    return " ".join((text or "").replace("<br>", " ").split())
+
+
 def hovers(fig):
     out = []
     for t in fig.data:
@@ -39,9 +44,9 @@ def test_time_series_keeps_gaps_and_missing_values_and_marks_the_latest_observat
     t = fig.data[0]
     assert t.connectgaps is False and np.isnan(list(t.y)[1]) and list(t.y)[2] == 3.0         # nothing interpolated, nothing bridged
     marker = [tr for tr in fig.data if tr.name == "Latest observation"][0]
-    assert marker.x[0] == pd.Timestamp("2026-06-20") and marker.y[0] == 3.0 and "latest observation 20 Jun 2026" in fig.layout.annotations[-1].text
+    assert marker.x[0] == pd.Timestamp("2026-06-20") and marker.y[0] == 3.0 and "latest observation 20 Jun 2026" in flat(fig.layout.annotations[-1].text)
     assert fig.layout.hovermode == "x unified" and fig.layout.xaxis.rangeslider.visible is True
-    assert any("gaps are dates with no report" in (a.text or "") for a in fig.layout.annotations)       # sparse history is made visible
+    assert any("gaps are dates with no report" in flat(a.text) for a in fig.layout.annotations)       # sparse history is made visible
     assert "mm" in t.hovertemplate and "PDMA" in t.hovertemplate and "%d %b %Y" in t.hovertemplate
 
 
@@ -101,14 +106,14 @@ def test_status_timeline_is_categorical_and_makes_no_trend_claim():
     rows = [{"risk_date": "2026-09-01", "risk_status": "LOW"}, {"risk_date": "2026-09-16", "risk_status": "INSUFFICIENT_DATA"}, {"risk_date": None, "risk_status": "HIGH"}]
     fig = ch.status_timeline(rows, "Lahore")
     assert fig.data[0].mode == "markers" and len(fig.data[0].x) == 2                                 # only dated, statused rows; markers, no connecting line
-    assert "Lahore" in fig.data[0].hovertemplate and "a status, not a score" in fig.layout.annotations[0].text
+    assert "Lahore" in fig.data[0].hovertemplate and "a status, not a score" in flat(fig.layout.annotations[0].text)
     assert ch.status_timeline([], "x") is None
 
 
 def test_coverage_timeline_spans_first_to_latest_and_says_it_is_a_range():
     st_df = pd.DataFrame({"s": ["A", "B"], "a": ["2026-06-15", "2026-07-01"], "b": ["2026-10-07", "2026-09-01"], "r": ["RAVI", "INDUS"]})
     fig = ch.coverage_timeline(st_df, name="s", start="a", end="b", group="r", title="t", source="PDMA")
-    assert {t.name for t in fig.data} == {"RAVI", "INDUS"} and "does not mean a report on every day" in fig.layout.annotations[0].text
+    assert {t.name for t in fig.data} == {"RAVI", "INDUS"} and "does not mean a report on every day" in flat(fig.layout.annotations[0].text)
     assert ch.coverage_timeline(pd.DataFrame(columns=["s", "a", "b", "r"]), name="s", start="a", end="b", group="r", title="t", source="x") is None
 
 

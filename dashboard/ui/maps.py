@@ -12,7 +12,7 @@ from typing import Optional
 
 import plotly.graph_objects as go
 
-from dashboard.ui import tokens
+from dashboard.ui import tokens, viewport
 from dashboard.ui.charts import map_layout
 from dashboard.utils.risk_map_helpers import NO_DATA, STATUS_ORDER, map_frame, mapped_geojson
 
@@ -61,6 +61,7 @@ def fit_view(b: dict, width_px: int, height_px: int, margin: float = 0.2) -> dic
 
 def risk_choropleth(fc: dict, *, selected_id: Optional[int] = None, height: int = 600, width: int = 1000, zoom: float = 4.3) -> Optional[go.Figure]:
     """Figure for a risk FeatureCollection, or None when no area has a boundary (the caller shows an empty state)."""
+    height, width = viewport.map_size(height, width)             # a phone gets a shorter map fitted to the phone's width
     frame = map_frame(fc)
     if frame.empty:
         return None
